@@ -10,9 +10,9 @@ Week-by-week plan for the whole project. Update this as you go along.
 ## Winter semester
 
 * **Week 1**
-* Choose technology stack for development.
-* Review relevant literature, especially surrounding value and prioritisation.
-* Create epic dashboard where a user can create an epic and add a story to a chosen epic.
+    * Choose technology stack for development.
+    * Review relevant literature, especially surrounding value and prioritisation.
+    * Create epic dashboard where a user can create an epic and add a story to a chosen epic.
 
 * **Week 2**
 * **Week 3**
