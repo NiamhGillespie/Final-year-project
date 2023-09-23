@@ -32,3 +32,4 @@
 ### 23 Sept 2023
 * *1 hour* Created a project repo on GitHub, added the cookiecutter files and started issue board
 * *1.5 hours* Looked into a variety of web frameworks, decided to use Django as backend
+* *0.5 hours* Added task for daily uploading of timelogs and linked to previous commit with rebase
