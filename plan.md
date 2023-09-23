@@ -1,15 +1,19 @@
 # Plan
 
-* PROJECT TITLE
-* YOUR NAME
-* STUDENT ID
-* SUPERVISOR NAME
+* Requirements and value identification tool for prioritisation 
+* Niamh Gillespie
+* 2549880G
+* Peggy Gregory
 
 Week-by-week plan for the whole project. Update this as you go along.
 
 ## Winter semester
 
 * **Week 1**
+* Choose technology stack for development.
+* Review relevant literature, especially surrounding value and prioritisation.
+* Create epic dashboard where a user can create an epic and add a story to a chosen epic.
+
 * **Week 2**
 * **Week 3**
 * **Week 4**
