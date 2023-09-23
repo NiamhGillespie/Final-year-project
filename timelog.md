@@ -1,9 +1,9 @@
 # Timelog
 
-* PROJECT NAME
-* YOUR NAME
-* STUDENT_ID
-* SUPERVISOR NAME
+* Requirements and value identification tool for prioritisation 
+* Niamh Gillespie
+* 2549880G
+* Peggy Gregory
 
 ## Guidance
 
@@ -12,15 +12,23 @@
 * This timelog should be filled out honestly, regularly (daily) and accurately. It is for *your* benefit.
 * Follow the structure provided, grouping time by weeks.  Quantise time to the half hour.
 
+## Week 0
+
+### 20 Sept 2023
+
+* *1 hour* Read over the project description
+* *1.5 hours* Researched similar pieces of software and problems with them/areas not covered
+* *1.0 hours* Looked into different agile styles of working (differences between kanban and scrum)
+
+## 22 Sept 2023
+
+* *0.5 hours* Initial meeting with supervisor
+* *1.5 hour* Consolidating meeting notes and updating minutes on moodle
+* *0.5 hours* Researched differences between epics, stories and tasks
+* *0.5 hours* Began drafting up Figma design for adding epics and stories
+
 ## Week 1
 
-### 19 Oct 2019
-
-* *4 hours* Read the project guidance notes
-* *0.5 hour* Created GitLab repository and cloned the cookiecutter for the projects
-* *1 hour* Modified dissertation template, compiled  
-
-## 20 Oct 2019
-
-* *1 hour* meeting with supervisor
-* *2 hours* writing initial version of test harness
+### 23 Sept 2023
+* *1 hour* Created a project repo on GitHub, added the cookiecutter files and started issue board
+* *1.5 hours* Looked into a variety of web frameworks, decided to use Django as backend
