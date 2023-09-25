@@ -37,3 +37,7 @@
 ### 24 Sept 2023
 * *0.5 hour* Created an initial structure diagram/brainstorm to try and understand the roles that will be needed in the application
 * *0.5 hour* Created two more Figma designs for epic and story viewing
+
+### 25 Sept 2023
+* *1 hour* Set up initial Django project and added .gitignore file
+
