@@ -40,4 +40,6 @@
 
 ### 25 Sept 2023
 * *1 hour* Set up initial Django project and added .gitignore file
+* *0.5 hours* Created 4th Figma design and added 'add story/task' button
+
 
