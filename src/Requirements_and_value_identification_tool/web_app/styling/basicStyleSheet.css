@@ -1,0 +1,16 @@
+/* document-wide custom properties */
+:root {
+    --black: #111111;
+    --light-green: #6ed62d;
+}
+
+
+.addButton {
+    color: var(--black);
+    border-color: var(--light-green) !important;
+    background-color: var(--light-green) !important;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 1% 2%;
+    float: left;
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head lang="en">
+        <meta charset="UTF-8" />
+        App name - 
+        {% block title_block %}
+            <p> This is the default base template's title</p>>
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block body_block %}
+            <p> This is the default base template's body </p>
+        {% endblock %}
+    </body>
+    
+</html>

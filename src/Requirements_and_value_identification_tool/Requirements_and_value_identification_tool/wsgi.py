@@ -1,5 +1,5 @@
 """
-WSGI config for webapp_project project.
+WSGI config for Requirements_and_value_identification_tool project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webapp_project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Requirements_and_value_identification_tool.settings')
 
 application = get_wsgi_application()
