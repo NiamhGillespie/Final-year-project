@@ -48,3 +48,4 @@
 
 ### 27 Sept 2023
 * *0.5 hours* Set up basic stylesheet in static files and called it in the base template
+* *0.5 hours* Set up basic models for epics and user stories, these will need to be refined at a later date
