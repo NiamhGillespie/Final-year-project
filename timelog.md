@@ -45,3 +45,6 @@
 ### 26 Sept 2023
 * *4 hours* Explored literature related to stakeholder perceptions and user stories
 * *2 hours* Started on epic dashboard and base templates and set up starting views and urls
+
+### 27 Sept 2023
+* *0.5 hours* Set up basic stylesheet in static files and called it in the base template
