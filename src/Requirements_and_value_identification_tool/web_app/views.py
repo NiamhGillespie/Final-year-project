@@ -10,4 +10,4 @@ def getEpicDashboard(request):
     return render(request, 'web_app/epicDashboard.html')
 
 def addEpic(request):
-    return HttpResponse("boop")
+    return HttpResponse("should add an epic to the epic list")
