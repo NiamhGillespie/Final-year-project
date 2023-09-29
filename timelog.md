@@ -52,3 +52,7 @@
 
 ### 28 Sept 2023
 * *1 hours* Chose best design for epic and story viewing and created more refined version
+
+### 29 Sept 2023
+* *0.5 hours* Supervisor meeting with Peggy
+* *0.5 hours* Consolidated meeting notes and updating minutes on moodle
