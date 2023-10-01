@@ -5,6 +5,11 @@
     <head lang="en">
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="{% static "styling/basicStyleSheet.css" %}" />
+        <link rel="stylesheet" href="{% static "styling/navbar.css" %}" />
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        
         App name - 
         {% block title_block %}
             <p> This is the default base template's title</p>>
@@ -12,9 +17,42 @@
     </head>
 
     <body>
+
+        <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;">
+            <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+              <li class="nav-item">
+                <a href="#" class="nav-link py-3 border-bottom rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+                  Logo here?
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+                    Home
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
+                  Another Section
+                </a>
+              </li>
+            <div class="dropdown border-top">
+              <a href="#" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://cdn.vectorstock.com/i/preview-1x/66/14/default-avatar-photo-placeholder-profile-picture-vector-21806614.jpg" alt="USERNAME" width="24" height="24" class="rounded-circle">
+              </a>
+              <ul class="dropdown-menu text-small shadow">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+              </ul>
+            </div>
+          </div>
+            
         {% block body_block %}
             <p> This is the default base template's body </p>
         {% endblock %}
     </body>
+
+    <script src="https://getbootstrap.com/docs/5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     
 </html>
