@@ -56,3 +56,8 @@
 ### 29 Sept 2023
 * *0.5 hours* Supervisor meeting with Peggy
 * *0.5 hours* Consolidated meeting notes and updating minutes on moodle
+
+## Week 2
+
+### 1 Oct 2023
+* *1 hours* Researched how to intigrate react with Django
