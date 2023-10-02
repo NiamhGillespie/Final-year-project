@@ -62,3 +62,7 @@
 ### 1 Oct 2023
 * *1 hours* Researched how to intigrate react with Django
 * *1 hours* Added bootstrap and start of navigation bar
+
+### 2 Oct 2023
+* *1 hours* More research to intigrate React with Django (initial research didn't work)
+* *1 hours* Added reach to Django project
