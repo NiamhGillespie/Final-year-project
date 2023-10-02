@@ -15,13 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.urls import include
 from web_app import views
 
 urlpatterns = [
+    #will be done by react?
     #path('', views.home, name='home'),
-    path('home/', include('web_app.urls')),
-    path('home/teamName/epicsDashboard', views.getEpicDashboard, name='epicDashboard'),
+    #path('home/', include('web_app.urls')),
+    #path('home/teamName/epicsDashboard', views.getEpicDashboard, name='epicDashboard'),
     path('admin/', admin.site.urls),
+    path('api/teamName/epicsDashboard', views.EpicDashboardInfo, name='epicDashboard'),
+
+    #signup
+    #profile
+    #teams - will return list of teams 
+    #teamName - will return details of team and links to issue and epic board
+    #teamName/epicsDashboard
+    #teamName/kanbanBoard
+   
 ]

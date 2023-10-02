@@ -7,7 +7,7 @@ class Epic(models.Model):
     title = models.CharField(max_length=128)
 
     last_edited_by = models.CharField(max_length=128)
-    last_edited = time_created = models.DateTimeField()
+    last_edited =  models.DateTimeField()
     created_by = models.CharField(max_length=128)
     time_created = models.DateTimeField()
 
@@ -38,7 +38,7 @@ class Story(models.Model):
     assigned_to = models.CharField(max_length=128) #this should be list of users in future
 
     last_edited_by = models.CharField(max_length=128)
-    last_edited = time_created = models.DateTimeField()
+    last_edited = models.DateTimeField()
     created_by = models.CharField(max_length=128)
     time_created = models.DateTimeField()
     
@@ -54,6 +54,11 @@ class Task(models.Model):
     #look into literature surrounding 'good' task habits
     description = models.CharField(max_length=1028)
 
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+    priority = models.CharField(max_length=6, choices = [(LOW, "low priority"), (MEDIUM, "medium priority"), (HIGH, "high priority")])
+
     #repeated from story class
     #user defined tags
     #state variable
@@ -62,9 +67,10 @@ class Task(models.Model):
     assigned_to = models.CharField(max_length=128) #this should be list of users in future
 
     last_edited_by = models.CharField(max_length=128)
-    last_edited = time_created = models.DateTimeField()
+    last_edited = models.DateTimeField()
     created_by = models.CharField(max_length=128)
     time_created = models.DateTimeField()
+
     def __str__(self):
         return self.title
 
