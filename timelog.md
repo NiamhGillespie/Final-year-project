@@ -65,4 +65,4 @@
 
 ### 2 Oct 2023
 * *1 hours* More research to intigrate React with Django (initial research didn't work)
-* *1 hours* Added reach to Django project
+* *1 hours* Added React to Django project
