@@ -67,3 +67,6 @@
 * *1 hours* More research to intigrate React with Django (initial research didn't work)
 * *1 hours* Added React to Django project
 * *1 hours* Created serializers from models with Djangos REST API framework
+
+### 3 Oct 2023
+* *1 hours* Created population script for Epics
