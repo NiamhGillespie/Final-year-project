@@ -70,3 +70,4 @@
 
 ### 3 Oct 2023
 * *1 hours* Created population script for Epics
+* *0.5 hours* Added Stories to population script
