@@ -13,15 +13,39 @@ def populate():
             'dashboard_id': '0000000',
             'title': 'Epic for testing',
             'last_edited_by': 'Niamh',
-            'last_edited': datetime.now(),
+            'last_edited': datetime(2023, 10, 3, 15),
             'created_by': 'Niamh',
-            'time_created': datetime.now(),
+            'time_created': datetime(2023, 10, 3, 15),
         }
     ]
 
     for epic in epics:
         add_epic(epic['epic_id'], epic['dashboard_id'], epic['title'], epic['last_edited_by'], 
                  epic['last_edited'], epic['created_by'], epic['time_created'])
+        
+    stories = [
+        {
+            'story_id': '00000000',
+            'epic_id': '0000000',
+            'title': 'Epic for testing',
+            'user_story': 'As a developer, I want to have a test story, so I can use it in the react app',
+            'definition_of_done': 'Test story should display on REST framework page',
+            'value_statement': 'Means I do not need to add a story to display it',
+            'priority': 'MEDIUM',
+            'pairable': False,
+            'assigned_to': 'Niamh',
+            'last_edited_by': 'Niamh',
+            'last_edited': datetime(2023, 10, 3, 15),
+            'created_by': 'Niamh',
+            'time_created': datetime(2023, 10, 3, 15),
+        }
+    ]
+
+    for story in stories:
+        add_story(story['story_id'], story['epic_id'], story['title'], story['user_story'], 
+                story['definition_of_done'], story['value_statement'], story['priority'], 
+                story['pairable'], story['assigned_to'], story['last_edited_by'],
+                story['last_edited'], story['created_by'], story['time_created'])
 
 def add_epic(epic_id, dashboard_id, title, last_edited_by, last_edited, created_by, time_created):
     epic = Epic.objects.get_or_create(epic_id=epic_id, dashboard_id=dashboard_id)[0]
@@ -32,6 +56,23 @@ def add_epic(epic_id, dashboard_id, title, last_edited_by, last_edited, created_
     epic.time_created = time_created
     epic.save()
     return epic
+
+def add_story(story_id, epic_id, title, user_story, definition_of_done, value_statement, priority,
+              pairable, assigned_to,  last_edited_by, last_edited, created_by, time_created):
+    story = Story.objects.get_or_create(story_id=story_id, epic_id=epic_id)[0]
+    story.title = title
+    story.user_story = user_story
+    story.definition_of_done = definition_of_done
+    story.value_statement = value_statement
+    story.priority = priority
+    story.pairable = pairable
+    story.assigned_to = assigned_to
+    story.last_edited_by = last_edited_by
+    story.last_edited = last_edited
+    story.created_by = created_by
+    story.time_created = time_created
+    story.save()
+    return story
 
 if __name__ == '__main__':
     print('Populating...')

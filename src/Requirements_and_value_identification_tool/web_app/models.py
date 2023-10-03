@@ -8,9 +8,9 @@ class Epic(models.Model):
     title = models.CharField(max_length=128)
 
     last_edited_by = models.CharField(max_length=128)
-    last_edited =  models.DateTimeField(default=datetime.now())
+    last_edited =  models.DateTimeField(default=datetime(2023, 10, 3, 15))
     created_by = models.CharField(max_length=128)
-    time_created = models.DateTimeField(default=datetime.now())
+    time_created = models.DateTimeField(default=datetime(2023, 10, 3, 15))
 
     def __str__(self):
         return self.title
@@ -35,13 +35,13 @@ class Story(models.Model):
     #state variable - based on issue board (e.g backlog, in progress, complete <- these may be defined by user)
     #linked/dependent stories
 
-    pairable = models.BooleanField()
+    pairable = models.BooleanField(default = False)
     assigned_to = models.CharField(max_length=128) #this should be list of users in future
 
     last_edited_by = models.CharField(max_length=128)
-    last_edited = models.DateTimeField()
+    last_edited = models.DateTimeField(default=datetime(2023, 10, 3, 15))
     created_by = models.CharField(max_length=128)
-    time_created = models.DateTimeField()
+    time_created = models.DateTimeField(default=datetime(2023, 10, 3, 15))
     
 
     def __str__(self):
@@ -68,9 +68,9 @@ class Task(models.Model):
     assigned_to = models.CharField(max_length=128) #this should be list of users in future
 
     last_edited_by = models.CharField(max_length=128)
-    last_edited = models.DateTimeField()
+    last_edited = models.DateTimeField(default=datetime(2023, 10, 3, 15))
     created_by = models.CharField(max_length=128)
-    time_created = models.DateTimeField()
+    time_created = models.DateTimeField(default=datetime(2023, 10, 3, 15))
 
     def __str__(self):
         return self.title
