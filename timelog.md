@@ -71,3 +71,4 @@
 ### 3 Oct 2023
 * *1 hours* Created population script for Epics
 * *0.5 hours* Added Stories to population script
+* *1.5 hours* Created navigation bar and homepage react componenets and styled navigation bar
