@@ -3,27 +3,16 @@ import { Container } from 'reactstrap';
 import { NavigationBar } from './navigation_bar';
 import Favicon from 'react-favicon'
 
-export class BaseTemplate extends Component {
-    static displayName = BaseTemplate.name;
+import { Outlet, Link } from "react-router-dom";
 
-    componentDidMount() {
-        document.title = "Requirements and value identification tool for prioritisation";
-    }
-    
-    render() {
-        return (
-            <div className="wrapper">
+const BaseTemplate = () => {
+  return (
+    <>
+        <NavigationBar />
 
-                <NavigationBar />
-                
-                <Container tag="main" className="main-content">
-                    {this.props.children}
-                </Container>
-                
-                {/* add in footer here */}
-            </div>
-        );
-    }
-}
+        <Outlet />
+    </>
+  )
+};
 
 export default BaseTemplate;
