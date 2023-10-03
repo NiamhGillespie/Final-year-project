@@ -1,0 +1,94 @@
+:root {
+    --blue-highlight: #58c1d6;
+}
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    padding:20px;
+  }
+  
+  html {
+    font-size: 14px;
+  }
+  @media (min-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  
+  .box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  }
+  
+  .box-shadow-small {
+    box-shadow: 0 .25rem .0rem rgba(0, 0, 0, .05);
+  }
+  
+  .sub-nav-menu{
+    margin-top: -15px;
+    width: 100%;
+    font-size: 15px !important;
+  }
+  
+  /* Nav menu buttons for both nav-items and buttons with links */
+  .nav-item {
+    text-decoration: none;
+    font-size: 17px;
+    color: #545454;
+  }
+  
+  .btn-link {
+    text-decoration: none;
+    font-size: 17px;
+    color: #545454;
+  }
+  
+  /* Text which will display what role you have e.g 'Customer'*/
+  /* TODO: centre this properly */
+  .specification-text {
+    font-size: 30px;
+    color: var(--blue-highlight);
+  }
+  
+  /* Animation for nav bar components*/
+  a.nav-item:link { text-decoration: none; }
+  a.nav-item:visited { text-decoration: none; }
+  a.nav-item:active { text-decoration: none; }
+  
+  
+  .nav-item {
+    transition: all 0.75s;
+    cursor: pointer;
+    margin:0px;
+  }
+  .nav-item span{
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.75s;
+    text-decoration: none;
+    color: #545454;
+  }
+  
+  .nav-item span:after {
+    content: '\00bb';
+    opacity: 0;
+    right: -10px;
+    transition: 0.75s;
+    color:white;
+  }
+  
+  .nav-item:hover span {
+    color:white;
+    background-color: var(--blue-highlight);
+  }
+  
+  .nav-item:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  
+  
+  
+  
