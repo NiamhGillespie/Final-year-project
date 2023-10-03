@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import Home from "./components/home";
 import BaseTemplate from './components/base_template';
+import EpicsDashboard from './components/epic_dashboard';
+import TeamDashboard from './components/team_dashboard';
 
 export default function App() {
   return (
@@ -11,7 +13,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<BaseTemplate />}>
           <Route index element={<Home />} />
-          <Route path="test" element={<Home />} />
+          <Route path="teamName"  index element={<TeamDashboard />} />
+          <Route path="teamName/epicsDashboard" element={<EpicsDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>

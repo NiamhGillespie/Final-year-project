@@ -1,0 +1,59 @@
+:root {
+    --blue-highlight: #58c1d6;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+        color: white !important;
+        border-color: var(--blue-highlight) !important;
+        background-color: var(--blue-highlight) !important;
+        box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        padding: 1% 2%;
+        float: left
+}
+
+.epic-container {
+    color: white;
+    text-align: center;
+    background: rgb(211, 215, 220);
+    border-radius: 10px;
+    margin: 1%;
+    width: 15%;
+    height: 100%;
+}
+
+.epic-box {
+    color: white;
+    text-align: center;
+    padding: 30px 30px 30px 30px;
+    background: var(--blue-highlight);
+    border-radius: 15px;
+    margin: 5%;
+    width: 90%;
+    height: 10%;
+}
+
+.story-box {
+    color: black;
+    text-align: center;
+    padding: 30px 30px 30px 30px;
+    background: white;
+    border-radius: 15px;
+    border: 2px solid var(--blue-highlight);
+    margin: 5%;
+    width: 90%;
+    height: 100%;
+}
+
+.add-story-box {
+    color: black;
+    text-align: center;
+    font-size: 30px;
+    padding: 20px 20px 20px 20px;
+    background: white;
+    border-radius: 15px;
+    border: 2px dashed var(--blue-highlight);
+    margin: 5%;
+    width: 90%;
+    height: 100%;
+}
