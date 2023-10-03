@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class Epic(models.Model):
@@ -7,9 +8,9 @@ class Epic(models.Model):
     title = models.CharField(max_length=128)
 
     last_edited_by = models.CharField(max_length=128)
-    last_edited =  models.DateTimeField()
+    last_edited =  models.DateTimeField(default=datetime.now())
     created_by = models.CharField(max_length=128)
-    time_created = models.DateTimeField()
+    time_created = models.DateTimeField(default=datetime.now())
 
     def __str__(self):
         return self.title
