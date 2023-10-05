@@ -8,9 +8,9 @@ class Epic(models.Model):
     title = models.CharField(max_length=128)
 
     last_edited_by = models.CharField(max_length=128)
-    last_edited =  models.DateTimeField(default=datetime(2023, 10, 3, 15))
+    last_edited =  models.CharField(max_length=128)
     created_by = models.CharField(max_length=128)
-    time_created = models.DateTimeField(default=datetime(2023, 10, 3, 15))
+    time_created = models.CharField(max_length=128)
 
     def __str__(self):
         return self.title

@@ -2,7 +2,7 @@
     --blue-highlight: #58c1d6;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+.btn-primary{
         color: white !important;
         border-color: var(--blue-highlight) !important;
         background-color: var(--blue-highlight) !important;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/basic.css';
+import AddEpicModal from './add_epic_modal';
 
 
 
@@ -8,11 +9,12 @@ export class EpicsDashboard extends Component {
     static displayName = EpicsDashboard.name;
 
     render() {
+        const epics = this.props.epics;
         return (
             <>
                 <div className= "border-bottom d-flex flex-row">
-                    <p className='w-5 text-center'> Stats bar </p>
-                    <button className = "btn-primary w-5 justify-content-end"> Add new epic </button>
+                    <p className='w-75 text-center'> Stats bar </p>
+                    <AddEpicModal create={true} resetState={this.resetState} />
                 </div>
 
                 <div>
