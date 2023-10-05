@@ -74,3 +74,6 @@
 * *1.5 hours* Created navigation bar and homepage react componenets and styled navigation bar
 * *1 hour*  Researched how to add routing in react and implemented it
 * *2 hours*  Set up basic Epic dashboard along with initial styling, also added team dashboard
+
+### 5 Oct 2023
+* *3 hours* Added modal popup form to allow user to input a title to create an Epic, the form is then posted to the Django API and an Epic is added to the Epic List
