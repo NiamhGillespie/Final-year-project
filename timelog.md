@@ -77,3 +77,7 @@
 
 ### 5 Oct 2023
 * *3 hours* Added modal popup form to allow user to input a title to create an Epic, the form is then posted to the Django API and an Epic is added to the Epic List
+
+### 6 Oct 2023
+* *1.5 hours* Started on getting epic data from the Django API
+* *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
