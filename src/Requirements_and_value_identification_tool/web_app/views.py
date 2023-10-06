@@ -17,7 +17,8 @@ def EpicDashboardInfo(request):
         story_serializer = StorySerializer(story_data, context={'request': request}, many=True)
 
         epic_and_story_data = [epic_serializer.data, story_serializer.data]
-
+        print("getting data...")
+        print(story_serializer.data)
         return Response(epic_and_story_data)
     
     if request.method == 'POST':

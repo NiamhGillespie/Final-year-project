@@ -39,7 +39,7 @@ export class NavigationBar extends Component {
                         <ul className="navbar-nav flex-grow">
 
                                 <NavItem>
-                                    <NavLink className="text-dark nav-item"><span>Home </span></NavLink>
+                                    <NavLink tag={Link} className="text-dark nav-item" to="/"><span>Home </span></NavLink>
                                 </NavItem>
 
                                 <NavItem>

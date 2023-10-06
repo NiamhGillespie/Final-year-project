@@ -15,34 +15,34 @@
 .epic-container {
     color: white;
     text-align: center;
-    background: rgb(211, 215, 220);
+    background: rgba(211, 215, 220, 0.231);
     border-radius: 10px;
     margin: 1%;
-    width: 15%;
-    height: 100%;
+    min-width: 15%;
+    min-height: 100%;
 }
 
 .epic-box {
     color: white;
-    text-align: center;
-    padding: 30px 30px 30px 30px;
+    text-align: left;
+    padding: 15px 10px 10px 10px;
     background: var(--blue-highlight);
     border-radius: 15px;
     margin: 5%;
-    width: 90%;
-    height: 10%;
+    min-width: 90%;
+    min-height: 20%;
 }
 
 .story-box {
     color: black;
-    text-align: center;
-    padding: 30px 30px 30px 30px;
+    text-align: left;
+    padding: 10px 10px 10px 10px;
     background: white;
     border-radius: 15px;
     border: 2px solid var(--blue-highlight);
     margin: 5%;
-    width: 90%;
-    height: 100%;
+    min-width: 90%;
+    min-height: 30%;
 }
 
 .add-story-box {
@@ -54,6 +54,6 @@
     border-radius: 15px;
     border: 2px dashed var(--blue-highlight);
     margin: 5%;
-    width: 90%;
-    height: 100%;
+    min-width: 90%;
+    min-height: 100%;
 }
