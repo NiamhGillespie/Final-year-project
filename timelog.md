@@ -81,3 +81,4 @@
 ### 6 Oct 2023
 * *1.5 hours* Started on getting epic data from the Django API
 * *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
+* *1 hour* Finished getting epic data from Django API and displayed epic title in the epic dashboard
