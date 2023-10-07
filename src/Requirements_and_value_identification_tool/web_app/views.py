@@ -9,6 +9,7 @@ from .serializers import EpicSerializer, StorySerializer, TaskSerializer
 @api_view(['GET', 'POST'])
 def EpicDashboardInfo(request):
     if request.method == 'GET':
+        print("getting data...")
 
         epic_data =  Epic.objects.all()
         epic_serializer = EpicSerializer(epic_data, context={'request': request}, many=True)
@@ -17,19 +18,35 @@ def EpicDashboardInfo(request):
         story_serializer = StorySerializer(story_data, context={'request': request}, many=True)
 
         epic_and_story_data = [epic_serializer.data, story_serializer.data]
-        print("getting data...")
-        print(story_serializer.data)
+        
         return Response(epic_and_story_data)
     
     if request.method == 'POST':
 
-        epic_serializer = EpicSerializer(data=request.data)
-        if epic_serializer.is_valid():
-            epic_serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+        if (request.data.get('dashboard_id')):
+            epic_serializer = EpicSerializer(data=request.data)
+            
+            if epic_serializer.is_valid():
+                print("adding epic...")
+                epic_serializer.save()
+                return Response(status=status.HTTP_201_CREATED)
+            else:
+                return Response(epic_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        print(epic_serializer)
-        return Response(epic_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        print(request.data)
+        if (request.data.get('story_id')):
+            story_serializer = StorySerializer(data=request.data)
+            story_serializer.is_valid()
+            print('----- ', story_serializer.errors)
+            if story_serializer.is_valid():
+                print("adding story...")
+                print(request.data)
+                story_serializer.save()
+                return Response(status=status.HTTP_201_CREATED)
+            else: 
+                return Response(story_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response(status=status.HTTP_400_BAD_REQUEST)
     
     
 

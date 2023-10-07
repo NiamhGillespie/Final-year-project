@@ -25,7 +25,6 @@ class Story(models.Model):
     definition_of_done = models.CharField(max_length=1028)
     value_statement = models.CharField(max_length=1028)
 
-    #make this an actual enum
     LOW = "LOW"
     MEDIUM = "MEDIUM"
     HIGH = "HIGH"
@@ -39,9 +38,9 @@ class Story(models.Model):
     assigned_to = models.CharField(max_length=128) #this should be list of users in future
 
     last_edited_by = models.CharField(max_length=128)
-    last_edited = models.DateTimeField(default=datetime(2023, 10, 3, 15))
+    last_edited =  models.CharField(max_length=128)
     created_by = models.CharField(max_length=128)
-    time_created = models.DateTimeField(default=datetime(2023, 10, 3, 15))
+    time_created = models.CharField(max_length=128)
     
 
     def __str__(self):
