@@ -82,3 +82,8 @@
 * *1.5 hours* Started on getting epic data from the Django API
 * *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
 * *1 hour* Finished getting epic data from Django API and displayed epic title in the epic dashboard
+
+## Week 3
+
+### 7 Oct 2023
+* *3 hours* Added modal popup and form to allow user to input simpilised data to create a story, this information is then posted to the Django API and a story is added to the story list. Then fetched this data from the Django API to display the relevant stories under each epic.
