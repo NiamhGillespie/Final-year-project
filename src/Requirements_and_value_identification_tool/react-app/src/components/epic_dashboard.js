@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import '../css/basic.css';
 import AddEpicModal from './add_epic_modal';
 import AddStoryModal from './add_story_modal';
@@ -11,7 +11,8 @@ export class EpicsDashboard extends Component {
 
     state = {
         epics: [],
-        stories: []
+        stories: [],
+        colour: null,
     };
     
     async componentDidMount() {
@@ -31,20 +32,23 @@ export class EpicsDashboard extends Component {
         await this.getStories();
     };
 
+    
+
     displayEpics() {
         var epics = this.state.epics;
         var return_list = [];
 
+        console.log(epics)
         for (var i = 0; i < epics.length; i++) {
             
             return_list.push(
-                <div class="epic-container">
-                    <div class="epic-box"> { epics[i].title }</div>
+                <div className="epic-container">
+                    <div style={{background: '#' + epics[i].epic_colour}} className="epic-box" > { epics[i].title }</div>
 
-                    <div class="d-flex flex-column">
-                        { this.displayStories(epics[i].epic_id) }
+                    <div className="d-flex flex-column">
+                        { this.displayStories(epics[i].epic_id, epics[i].epic_colour) }
 
-                        <div class="add-story-box">
+                        <div style={{border: '2px dashed ' + '#' + epics[i].epic_colour}} className="add-story-box">
                             <AddStoryModal resetState={this.resetState} epic_id={epics[i].epic_id}/>
                         </div>
 
@@ -55,7 +59,8 @@ export class EpicsDashboard extends Component {
         return return_list;
     };
 
-    displayStories(epic_id) {
+    
+    displayStories(epic_id, epic_colour) {
         var stories = this.state.stories;
         var matching_list = [];
         var return_list = [];
@@ -65,10 +70,12 @@ export class EpicsDashboard extends Component {
                 matching_list.push(stories[i]);
             }
         }
-
+        
         for (var j = 0; j < matching_list.length; j++) {
             return_list.push(
-                <div className="story-box">{ matching_list[j].title}</div>
+                <div>
+                    <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">{matching_list[j].title}</div>
+                </div>
             )
         }
 
@@ -78,7 +85,7 @@ export class EpicsDashboard extends Component {
 
     render() {
         return (
-            <>
+            <div>
                 <div className= "border-bottom d-flex flex-row">
                     <p className='w-75 text-center'> Stats bar </p>
                     <AddEpicModal create={true} resetState={this.resetState} />
@@ -89,11 +96,11 @@ export class EpicsDashboard extends Component {
                         <p> Team name - Epic Dashboard</p>
                     </div>
                     
-                    <div class="d-flex flex-row w-30 h-100 overflow-auto">
+                    <div className="d-flex flex-row w-30 h-100 overflow-auto">
                         { this.displayEpics() }
                     </div>
                 </div>
-            </>
+            </div>
         );
     }
 }

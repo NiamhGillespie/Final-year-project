@@ -6,7 +6,7 @@ from .models import Epic, Story, Task
 from .serializers import EpicSerializer, StorySerializer, TaskSerializer
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'DELETE'])
 def EpicDashboardInfo(request):
     if request.method == 'GET':
         print("getting data...")
@@ -33,14 +33,11 @@ def EpicDashboardInfo(request):
             else:
                 return Response(epic_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        print(request.data)
         if (request.data.get('story_id')):
             story_serializer = StorySerializer(data=request.data)
             story_serializer.is_valid()
-            print('----- ', story_serializer.errors)
             if story_serializer.is_valid():
                 print("adding story...")
-                print(request.data)
                 story_serializer.save()
                 return Response(status=status.HTTP_201_CREATED)
             else: 

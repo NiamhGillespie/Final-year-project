@@ -10,6 +10,7 @@ def populate():
     epics = [
         {
             'epic_id': '00000000',
+            'epic_colour': "#3fd9cc",
             'dashboard_id': '0000000',
             'title': 'Epic for testing',
             'last_edited_by': 'Niamh',
@@ -20,7 +21,7 @@ def populate():
     ]
 
     for epic in epics:
-        add_epic(epic['epic_id'], epic['dashboard_id'], epic['title'], epic['last_edited_by'], 
+        add_epic(epic['epic_id'], epic['epic_colour'], epic['dashboard_id'], epic['title'], epic['last_edited_by'], 
                  epic['last_edited'], epic['created_by'], epic['time_created'])
         
     stories = [
@@ -47,8 +48,9 @@ def populate():
                 story['pairable'], story['assigned_to'], story['last_edited_by'],
                 story['last_edited'], story['created_by'], story['time_created'])
 
-def add_epic(epic_id, dashboard_id, title, last_edited_by, last_edited, created_by, time_created):
+def add_epic(epic_id, epic_colour, dashboard_id, title, last_edited_by, last_edited, created_by, time_created):
     epic = Epic.objects.get_or_create(epic_id=epic_id, dashboard_id=dashboard_id)[0]
+    epic.epic_colour = epic_colour,
     epic.title = title
     epic.last_edited_by = last_edited_by
     epic.last_edited = last_edited
