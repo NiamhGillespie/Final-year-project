@@ -87,3 +87,6 @@
 
 ### 7 Oct 2023
 * *3 hours* Added modal popup and form to allow user to input simpilised data to create a story, this information is then posted to the Django API and a story is added to the story list. Then fetched this data from the Django API to display the relevant stories under each epic.
+
+### 8 Oct 2023
+* *2.5 hours* Added colour picker to the 'add epic' modal so that users can choose a colour for their epic, this colour is then also used in the story and add story button design. Also ammended epic model and seralizer so that this information will be stored in the database. 
