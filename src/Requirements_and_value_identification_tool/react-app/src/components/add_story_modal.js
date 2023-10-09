@@ -16,9 +16,9 @@ class AddStoryModal extends Component {
 
     render() {
         var button = (
-            <Button className="add-story-box" onClick={this.toggleModal}>
+            <p style={{color: '#' + this.props.epic_colour}} className="inner-add-story-box" onClick={this.toggleModal}>
                 +
-            </Button>
+            </p>
         );
 
         return (

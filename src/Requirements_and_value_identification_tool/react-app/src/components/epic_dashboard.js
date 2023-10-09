@@ -49,7 +49,7 @@ export class EpicsDashboard extends Component {
                         { this.displayStories(epics[i].id, epics[i].epic_colour) }
 
                         <div style={{border: '2px dashed ' + '#' + epics[i].epic_colour}} className="add-story-box">
-                            <AddStoryModal resetState={this.resetState} epic_id={epics[i].epic_id}/>
+                            <AddStoryModal resetState={this.resetState} epic_id={epics[i].epic_id} epic_colour = {epics[i].epic_colour} />
                         </div>
 
                     </div>
@@ -88,7 +88,7 @@ export class EpicsDashboard extends Component {
         return (
             <div>
                 <div className= "border-bottom d-flex flex-row">
-                    <p className='w-75 text-center'> Stats bar </p>
+                    <p className='text-center'> Stats bar </p>
                     <AddEpicModal create={true} resetState={this.resetState} />
                 </div>
 

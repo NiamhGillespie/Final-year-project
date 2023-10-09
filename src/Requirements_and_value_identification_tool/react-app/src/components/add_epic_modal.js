@@ -15,7 +15,7 @@ class AddEpicModal extends Component {
 
     render() {
         var button = (
-            <Button className="btn-primary w-5 justify-content-end" onClick={this.toggleModal}>
+            <Button className="stat-bar-btn btn-primary" onClick={this.toggleModal}>
                 Add Epic
             </Button>
         );
