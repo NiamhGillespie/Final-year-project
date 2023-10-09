@@ -93,3 +93,4 @@
 
 ### 9 Oct 2023
 * *3 hours* Altering epic_id and story_id so they are unique values (and match id)
+* *0.5 hours* Updating epic dashboard stylesheets so it better matches the Figma design I created
