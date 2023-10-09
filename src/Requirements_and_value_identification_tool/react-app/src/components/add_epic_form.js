@@ -6,9 +6,10 @@ import { ColorPicker } from 'primereact/colorpicker';
 
 //need to add error handeling to this :)
 class AddEpicForm extends Component {
+    ID = 0;
 
     state = {
-        epic_id: "0001",
+        epic_id: '0',
         epic_colour: "#3fd9cc",
         dashboard_id: "0001",
         title: "",
@@ -24,6 +25,12 @@ class AddEpicForm extends Component {
         return date.toDateString()
     }
     
+    getID() {
+        console.log(this.ID)
+        var epic_id = this.ID;
+        this.ID = this.ID + 1;
+        return String(epic_id);
+    }
 
     onTitleChange = e => {
         this.setState({ [e.target.title]: e.target.value });
@@ -35,6 +42,7 @@ class AddEpicForm extends Component {
 
     createEpic = e => {
         console.log('epic being created ...');
+        console.log(this.state);
         e.preventDefault();
         axios.post(API_URL, this.state).then(() => {
             this.props.toggle();

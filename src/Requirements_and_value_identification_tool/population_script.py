@@ -9,8 +9,8 @@ from web_app.models import Epic, Story, Task
 def populate():
     epics = [
         {
-            'epic_id': '00000000',
-            'epic_colour': "#3fd9cc",
+            'epic_id': '1',
+            'epic_colour': 'c93434',
             'dashboard_id': '0000000',
             'title': 'Epic for testing',
             'last_edited_by': 'Niamh',
@@ -26,9 +26,9 @@ def populate():
         
     stories = [
         {
-            'story_id': '00000000',
-            'epic_id': '0000000',
-            'title': 'Epic for testing',
+            'story_id': '1',
+            'epic_id': '1',
+            'title': 'Story for testing',
             'user_story': 'As a developer, I want to have a test story, so I can use it in the react app',
             'definition_of_done': 'Test story should display on REST framework page',
             'value_statement': 'Means I do not need to add a story to display it',
@@ -49,7 +49,7 @@ def populate():
                 story['last_edited'], story['created_by'], story['time_created'])
 
 def add_epic(epic_id, epic_colour, dashboard_id, title, last_edited_by, last_edited, created_by, time_created):
-    epic = Epic.objects.get_or_create(epic_id=epic_id, dashboard_id=dashboard_id)[0]
+    epic = Epic.objects.get_or_create(epic_id = epic_id, dashboard_id=dashboard_id)[0]
     epic.epic_colour = epic_colour,
     epic.title = title
     epic.last_edited_by = last_edited_by

@@ -8,7 +8,7 @@ import '../css/basic.css';
 class AddStoryForm extends Component {
 
     state = {
-        story_id: "0001",
+        story_id: "0",
         epic_id: this.props.epic_id,
         title: "",
 

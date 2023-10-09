@@ -46,7 +46,7 @@ export class EpicsDashboard extends Component {
                     <div style={{background: '#' + epics[i].epic_colour}} className="epic-box" > { epics[i].title }</div>
 
                     <div className="d-flex flex-column">
-                        { this.displayStories(epics[i].epic_id, epics[i].epic_colour) }
+                        { this.displayStories(epics[i].id, epics[i].epic_colour) }
 
                         <div style={{border: '2px dashed ' + '#' + epics[i].epic_colour}} className="add-story-box">
                             <AddStoryModal resetState={this.resetState} epic_id={epics[i].epic_id}/>
@@ -64,9 +64,10 @@ export class EpicsDashboard extends Component {
         var stories = this.state.stories;
         var matching_list = [];
         var return_list = [];
+        console.log(stories, "AHHH");
 
         for (var i = 0; i < stories.length; i++) {
-            if (stories[i].epic_id === epic_id) {
+            if (stories[i].epic_id === String(epic_id)) {
                 matching_list.push(stories[i]);
             }
         }
