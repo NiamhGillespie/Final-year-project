@@ -91,5 +91,5 @@
 ### 8 Oct 2023
 * *2.5 hours* Added colour picker to the 'add epic' modal so that users can choose a colour for their epic, this colour is then also used in the story and add story button design. Also ammended epic model and seralizer so that this information will be stored in the database. 
 
-### 8 Oct 2023
+### 9 Oct 2023
 * *3 hours* Altering epic_id and story_id so they are unique values (and match id)
