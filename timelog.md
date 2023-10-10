@@ -92,5 +92,5 @@
 * *2.5 hours* Added colour picker to the 'add epic' modal so that users can choose a colour for their epic, this colour is then also used in the story and add story button design. Also ammended epic model and seralizer so that this information will be stored in the database. 
 
 ### 9 Oct 2023
-* *3 hours* Altering epic_id and story_id so they are unique values (and match id)
+* *3 hours* Altering epic_id and story_id so they are unique values (and match id), also created detail views for storys and epics that allow a user to edit and delete a story or epic
 * *0.5 hours* Updating epic dashboard stylesheets so it better matches the Figma design I created
