@@ -64,7 +64,6 @@ export class EpicsDashboard extends Component {
         var stories = this.state.stories;
         var matching_list = [];
         var return_list = [];
-        console.log(stories, "AHHH");
 
         for (var i = 0; i < stories.length; i++) {
             if (stories[i].epic_id === String(epic_id)) {

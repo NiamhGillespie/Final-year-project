@@ -10,7 +10,7 @@ class AddEpicForm extends Component {
 
     state = {
         epic_id: '0',
-        epic_colour: "#3fd9cc",
+        epic_colour: "ff0000",
         dashboard_id: "0001",
         title: "",
 
@@ -51,6 +51,7 @@ class AddEpicForm extends Component {
 
     setColour(colour) {
         this.state.epic_colour = colour;
+        this.setState(this.state);
     }
 
     render() {
@@ -66,9 +67,12 @@ class AddEpicForm extends Component {
                 />
             </FormGroup>
 
-            <ColorPicker value={this.epic_colour} onChange={(e) => this.setColour(e.value)} inline />
-            
-            <Button className="btn-primary justify-content-start">Create Epic</Button>
+            <ColorPicker className="colour-picker d-inline h-100 w-100" value={this.epic_colour} onChange={(e) => this.setColour(e.value)} inline />
+            <br/>
+            <p style={{background: '#' + this.state.epic_colour, color: 'white'}} className="d-inline-block float-right colour-example w-1 h-1" > Colour example </p>
+            <br/>
+
+            <Button className="btn-primary d-block">Create Epic</Button>
         </Form>
         );
     }
