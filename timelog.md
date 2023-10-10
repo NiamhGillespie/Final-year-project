@@ -97,3 +97,4 @@
 
 ### 10 Oct 2023
 * *0.5 hours* Adding a GET request to the detail views for stories and epics and manually testing this
+* *1 hours* Added an example colour section to the 'add epic' modal so that users can see how visable the title will be based on the colour chosen
