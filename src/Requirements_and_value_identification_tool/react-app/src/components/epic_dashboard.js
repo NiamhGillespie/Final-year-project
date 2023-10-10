@@ -59,6 +59,31 @@ export class EpicsDashboard extends Component {
         return return_list;
     };
 
+    displayPriority(priority) {
+        var priorityText = '';
+        var priorityIcon;
+        var priorityColour;
+        
+        if (priority==='LOW') {
+            priorityText = 'low';
+            priorityIcon='!';
+            priorityColour='green'
+        } else if (priority==='MEDIUM') {
+            priorityText = 'medium';
+            priorityIcon='!!';
+            priorityColour='orange'
+        } else {
+            priorityText = 'high';
+            priorityIcon='!!!';
+            priorityColour='red'
+        }
+
+        return(
+            <div>
+                <p style={{color: priorityColour}}> { priorityText }    { priorityIcon } </p>
+            </div>
+        )
+    }
     
     displayStories(epic_id, epic_colour) {
         var stories = this.state.stories;
@@ -74,7 +99,11 @@ export class EpicsDashboard extends Component {
         for (var j = 0; j < matching_list.length; j++) {
             return_list.push(
                 <div>
-                    <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">{matching_list[j].title}</div>
+                    <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
+                        <p className='story-title'> {matching_list[j].title} </p>
+                        <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
+                        <p className='story-priority'> {this.displayPriority(matching_list[j].priority)} </p>
+                    </div>
                 </div>
             )
         }

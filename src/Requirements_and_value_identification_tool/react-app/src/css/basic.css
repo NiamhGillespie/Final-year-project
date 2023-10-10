@@ -17,7 +17,7 @@
     background: rgba(211, 215, 220, 0.231);
     border-radius: 10px;
     margin: 1%;
-    min-width: 15%;
+    width: 15%;
     min-height: 100%;
 }
 
@@ -27,8 +27,8 @@
     padding: 15px 10px 10px 10px;
     border-radius: 15px;
     margin: 5%;
-    min-width: 90%;
-    min-height: 80px;
+    width: 90%;
+    min-height: 90px;
 }
 
 .story-box {
@@ -38,8 +38,8 @@
     background: white;
     border-radius: 15px;
     margin: 5%;
-    min-width: 90%;
-    min-height: 80px;
+    width: 90%;
+    min-height: 90px;
 }
 
 .add-story-box {
@@ -50,7 +50,7 @@
     border-radius: 15px;
     margin: 5%;
     min-width: 90%;
-    min-height: 80px;
+    min-height: 90px;
     display: table;
 }
 
@@ -81,4 +81,27 @@
     padding: 1% 2%;
     margin-bottom: 2%;
     margin-top: 2%;
+}
+
+.story-title {
+    font-size: 100%;
+    width: 80%;
+    float: left;
+    display: inline;
+    margin-bottom: 0px;
+}
+
+.story-profile-photo {
+    border-radius: 200%;
+    padding: 2%;
+    width: 20%;
+    float: right;
+    display: inline;
+    color: white;
+}
+
+.story-priority {
+    font-size: 80%;
+    float: left;
+    display: block;
 }
