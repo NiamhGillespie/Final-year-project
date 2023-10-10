@@ -56,7 +56,7 @@ def EpicDashboardInfo(request):
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
-@api_view(['PUT', 'DELETE'])
+@api_view(['PUT', 'DELETE', 'GET'])
 def EpicDetails(request, epic_id):
     try:
         epic = Epic.objects.get(id=epic_id)
@@ -72,7 +72,11 @@ def EpicDetails(request, epic_id):
 
     elif request.method == 'DELETE':
         epic.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)    
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    elif request.method == 'GET':
+        epic_serializer = EpicSerializer(epic)
+        return Response(epic_serializer.data, status=status.HTTP_204_NO_CONTENT)
     
 
 @api_view(['PUT', 'DELETE'])
@@ -91,6 +95,10 @@ def StoryDetails(request, story_id):
 
     elif request.method == 'DELETE':
         story.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)    
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'GET':
+        story_serializer = StorySerializer(story)
+        return Response(story_serializer.data, status=status.HTTP_204_NO_CONTENT)    
 
 
