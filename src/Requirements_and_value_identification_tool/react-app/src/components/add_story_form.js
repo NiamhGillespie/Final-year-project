@@ -52,77 +52,100 @@ class AddStoryForm extends Component {
     render() {
         return (
         <Form onSubmit={ this.createStory }>
-            <FormGroup>
-                <Label for="title">Story title:</Label>
-                <Input
-                    type="text"
-                    name="title"
-                    onChange={this.onChange}
-                    value={this.returnDefaultIfFieldEmpty(this.state.title)}
-                />
-            </FormGroup>
+            <div className='row  mb-4'>
+                <div className='col'>
+                    <FormGroup>
+                        <Label for="title">Story title:</Label>
+                        <Input
+                            type="text"
+                            name="title"
+                            onChange={this.onChange}
+                            value={this.returnDefaultIfFieldEmpty(this.state.title)}
+                        />
+                    </FormGroup>
+                </div>
 
-            <FormGroup>
-                <Label for="user_story">User Story:</Label>
-                <Input
-                    type="text"
-                    name="user_story"
-                    onChange={this.onChange}
-                    value={this.returnDefaultIfFieldEmpty(this.state.user_story)}
-                />
-            </FormGroup>
+                <div className='col'>
+                    <FormGroup>
+                        <Label for="user_story">User Story:</Label>
+                        <Input
+                            type="text"
+                            name="user_story"
+                            onChange={this.onChange}
+                            value={this.returnDefaultIfFieldEmpty(this.state.user_story)}
+                        />
+                    </FormGroup>
+                </div>
+                
+            </div>
 
-            <FormGroup>
-                <Label for="definition_of_done">Definition of Done:</Label>
-                <Input
-                    type="text"
-                    name="definition_of_done"
-                    onChange={this.onChange}
-                    value={this.returnDefaultIfFieldEmpty(this.state.definition_of_done)}
-                />
-            </FormGroup>
+            <div className='row'>
+                <div className='col'>
+                    <FormGroup>
+                        <Label for="definition_of_done">Definition of Done:</Label>
+                        <Input
+                            type="text"
+                            name="definition_of_done"
+                            onChange={this.onChange}
+                            value={this.returnDefaultIfFieldEmpty(this.state.definition_of_done)}
+                        />
+                    </FormGroup>
+                </div>
 
-            <FormGroup>
-                <Label for="value_statement">Value statement:</Label>
-                <Input
-                    type="text"
-                    name="value_statement"
-                    onChange={this.onChange}
-                    value={this.returnDefaultIfFieldEmpty(this.state.value_statement)}
-                />
-            </FormGroup>
+                <div className='col'>
+                    <FormGroup>
+                        <Label for="value_statement">Value statement:</Label>
+                        <Input
+                            type="text"
+                            name="value_statement"
+                            onChange={this.onChange}
+                            value={this.returnDefaultIfFieldEmpty(this.state.value_statement)}
+                        />
+                    </FormGroup>
+                </div>
+            </div>
 
-            <FormGroup>
-                <Label for="priority">Priority:</Label>
-                <Input
-                    type="text"
-                    name="priority"
-                    onChange={this.onChange}
-                    value={this.returnDefaultIfFieldEmpty(this.state.priority)}
-                />
-            </FormGroup>
-
-            <FormGroup>
-                <Label for="pairable">Pairable:</Label>
-                <Input
-                    type="boolean"
-                    name="pairable"
-                    onChange={this.onChange}
-                    value={this.returnDefaultIfFieldEmpty(this.state.pairable)}
-                />
-            </FormGroup>
-
-            <FormGroup>
-                <Label for="assigned_to">Assigned to:</Label>
-                <Input
-                    type="text"
-                    name="assigned_to"
-                    onChange={this.onChange}
-                    value={this.returnDefaultIfFieldEmpty(this.state.assigned_to)}
-                />
-            </FormGroup>
+            <div className='row'>
+                <div className='col'>
+                    <FormGroup>
+                        <Label for="priority">Priority:</Label>
+                        <Input
+                            type="text"
+                            name="priority"
+                            onChange={this.onChange}
+                            value={this.returnDefaultIfFieldEmpty(this.state.priority)}
+                        />
+                    </FormGroup>
+                </div>
             
-            <Button className="btn-primary justify-content-start">Create Story</Button>
+                <div className='col'>
+                    <FormGroup>
+                        <Label for="pairable">Pairable:</Label>
+                        <Input
+                            type="boolean"
+                            name="pairable"
+                            onChange={this.onChange}
+                            value={this.returnDefaultIfFieldEmpty(this.state.pairable)}
+                        />
+                    </FormGroup>
+                </div>
+            </div>
+
+            <div className='col'>
+                <FormGroup>
+                    <Label for="assigned_to">Assigned to:</Label>
+                    <Input
+                        type="text"
+                        name="assigned_to"
+                        onChange={this.onChange}
+                        value={this.returnDefaultIfFieldEmpty(this.state.assigned_to)}
+                    />
+                </FormGroup>
+            </div>
+                
+            <div className='col'>
+                <Button className="btn-primary justify-content-start">Create Story</Button>
+            </div>
         </Form>
         );
     }
