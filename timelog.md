@@ -99,3 +99,4 @@
 * *0.5 hours* Adding a GET request to the detail views for stories and epics and manually testing this
 * *1 hours* Added an example colour section to the 'add epic' modal so that users can see how visable the title will be based on the colour chosen
 * *1 hour* "Added priority information and styling and user icon styling to story displays on epic dashboard
+* *0.5 hours* Thought add story form wasn't well designed so made figma design utalising 2 columns instead of the current 1. Started implementing this in react app
