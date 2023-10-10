@@ -94,3 +94,6 @@
 ### 9 Oct 2023
 * *3 hours* Altering epic_id and story_id so they are unique values (and match id), also created detail views for storys and epics that allow a user to edit and delete a story or epic
 * *0.5 hours* Updating epic dashboard stylesheets so it better matches the Figma design I created
+
+### 9 Oct 2023
+* *0.5 hours* Adding a GET request to the detail views for stories and epics and manually testing this
