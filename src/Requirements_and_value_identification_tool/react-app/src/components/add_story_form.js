@@ -12,7 +12,7 @@ class AddStoryForm extends Component {
         epic_id: this.props.epic_id,
         title: "",
 
-        user_story: "",
+        user_story: "As a \nI would like to \nSo that I can ",
         definition_of_done: "",
         value_statement: "",
         priority: "LOW",
@@ -31,10 +31,17 @@ class AddStoryForm extends Component {
         const date = new Date();
         return date.toDateString()
     }
-    
 
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
+    };
+
+    onChangeCheckbox= e => {
+        if (this.state.pairable === false) {
+            this.setState({ [e.target.name]: true });
+        } else {
+            this.setState({ [e.target.name]: false });
+        }
     };
 
     returnDefaultIfFieldEmpty = value => {
@@ -57,19 +64,21 @@ class AddStoryForm extends Component {
                     <FormGroup>
                         <Label for="title">Story title:</Label>
                         <Input
-                            type="text"
+                            type="text-long"
                             name="title"
                             onChange={this.onChange}
                             value={this.returnDefaultIfFieldEmpty(this.state.title)}
+                            className='w-40'
                         />
                     </FormGroup>
                 </div>
 
-                <div className='col'>
+                <div className='row'>
                     <FormGroup>
                         <Label for="user_story">User Story:</Label>
                         <Input
-                            type="text"
+                            type="textarea"
+                            rows={5}
                             name="user_story"
                             onChange={this.onChange}
                             value={this.returnDefaultIfFieldEmpty(this.state.user_story)}
@@ -84,7 +93,8 @@ class AddStoryForm extends Component {
                     <FormGroup>
                         <Label for="definition_of_done">Definition of Done:</Label>
                         <Input
-                            type="text"
+                            type="textarea"
+                            rows={4}
                             name="definition_of_done"
                             onChange={this.onChange}
                             value={this.returnDefaultIfFieldEmpty(this.state.definition_of_done)}
@@ -96,11 +106,13 @@ class AddStoryForm extends Component {
                     <FormGroup>
                         <Label for="value_statement">Value statement:</Label>
                         <Input
-                            type="text"
+                            type="textarea"
+                            rows={4}
                             name="value_statement"
                             onChange={this.onChange}
                             value={this.returnDefaultIfFieldEmpty(this.state.value_statement)}
                         />
+                        <span class="bigcheck-target"></span>
                     </FormGroup>
                 </div>
             </div>
@@ -109,22 +121,21 @@ class AddStoryForm extends Component {
                 <div className='col'>
                     <FormGroup>
                         <Label for="priority">Priority:</Label>
-                        <Input
-                            type="text"
-                            name="priority"
-                            onChange={this.onChange}
-                            value={this.returnDefaultIfFieldEmpty(this.state.priority)}
-                        />
+                        <select value={this.state.value} onChange={this.onChange} name="priority">
+                            <option value="LOW">Low</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="HIGH">High</option>
+                        </select>
                     </FormGroup>
                 </div>
             
                 <div className='col'>
-                    <FormGroup>
-                        <Label for="pairable">Pairable:</Label>
+                    <FormGroup className='checkbox-styling'>
+                        <Label for="pairable">Pairable: </Label>
                         <Input
-                            type="boolean"
+                            type="checkbox"
                             name="pairable"
-                            onChange={this.onChange}
+                            onChange={this.onChangeCheckbox}
                             value={this.returnDefaultIfFieldEmpty(this.state.pairable)}
                         />
                     </FormGroup>

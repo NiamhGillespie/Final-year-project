@@ -24,7 +24,7 @@ class AddStoryModal extends Component {
         return (
         <Fragment>
             {button}
-            <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
+            <Modal className='modal-lg' isOpen={this.state.modal} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal}>Add Story</ModalHeader>
 
                 <ModalBody>

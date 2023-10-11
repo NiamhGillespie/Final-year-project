@@ -11,13 +11,16 @@
         padding: 1% 2%;
 }
 
+.epic-time {
+    overflow-x: scroll
+}
 .epic-container {
     color: white;
     text-align: center;
     background: rgba(211, 215, 220, 0.231);
     border-radius: 10px;
     margin: 1%;
-    width: 15%;
+    width: 150px !important;
     min-height: 100%;
 }
 
@@ -104,4 +107,8 @@
     font-size: 80%;
     float: left;
     display: block;
+}
+
+.checkbox-styling label {
+    margin-right: 10px;
 }

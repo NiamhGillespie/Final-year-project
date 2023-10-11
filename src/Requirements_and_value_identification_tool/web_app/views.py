@@ -79,7 +79,7 @@ def EpicDetails(request, epic_id):
         return Response(epic_serializer.data, status=status.HTTP_204_NO_CONTENT)
     
 
-@api_view(['PUT', 'DELETE'])
+@api_view(['PUT', 'DELETE', 'GET'])
 def StoryDetails(request, story_id):
     try:
         story = Story.objects.get(story_id=story_id)

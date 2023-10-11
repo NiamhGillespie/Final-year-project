@@ -89,6 +89,7 @@ export class EpicsDashboard extends Component {
         var stories = this.state.stories;
         var matching_list = [];
         var return_list = [];
+        console.log('stories:', stories);
 
         for (var i = 0; i < stories.length; i++) {
             if (stories[i].epic_id === String(epic_id)) {
@@ -125,7 +126,7 @@ export class EpicsDashboard extends Component {
                         <p> Team name - Epic Dashboard</p>
                     </div>
                     
-                    <div className="d-flex flex-row w-30 h-100 overflow-auto">
+                    <div className="d-flex flex-row h-80 bg-primary  inline-block epic-time">
                         { this.displayEpics() }
                     </div>
                 </div>
