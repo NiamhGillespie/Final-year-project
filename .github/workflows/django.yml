@@ -26,5 +26,5 @@ jobs:
         python -m pip install --upgrade pip
     - name: Run Tests
       run: |
-        cd src\Requirements_and_value_identification_tool
+        cd /src/Requirements_and_value_identification_tool
         python manage.py test
