@@ -126,7 +126,7 @@ export class EpicsDashboard extends Component {
                         <p> Team name - Epic Dashboard</p>
                     </div>
                     
-                    <div className="d-flex flex-row h-80 bg-primary  inline-block epic-time">
+                    <div class="d-flex flex-row w-30 h-100 overflow-auto">
                         { this.displayEpics() }
                     </div>
                 </div>

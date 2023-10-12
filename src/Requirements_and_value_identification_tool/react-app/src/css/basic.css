@@ -12,7 +12,7 @@
 }
 
 .epic-time {
-    overflow-x: scroll
+    overflow-x: scroll;
 }
 .epic-container {
     color: white;
@@ -20,7 +20,7 @@
     background: rgba(211, 215, 220, 0.231);
     border-radius: 10px;
     margin: 1%;
-    width: 150px !important;
+    width: 600px !important;
     min-height: 100%;
 }
 
@@ -30,7 +30,7 @@
     padding: 15px 10px 10px 10px;
     border-radius: 15px;
     margin: 5%;
-    width: 90%;
+    width: 200px;
     min-height: 90px;
 }
 
