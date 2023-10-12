@@ -103,3 +103,6 @@
 
 ### 11 Oct 2023
 * *2 hours* Added checkbox to pairable component and dropdown to priority component in the add story form, also started to fix scrolling in epic dashboard
+
+### 12 Oct 2023
+* *1.5 hours* Created unit tests for Epic model and automated tests on main branch through GitHub actions (continous integration)
