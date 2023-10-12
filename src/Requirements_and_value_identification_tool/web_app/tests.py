@@ -120,4 +120,4 @@ class EpicCreationTests(TestCase):
                 time_created = date.today()
             )
         epic.save()
-        self.assertEqual(epic.time_created, 'date.today()')
+        self.assertEqual(epic.time_created, date.today())
