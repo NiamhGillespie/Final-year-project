@@ -106,3 +106,6 @@
 
 ### 12 Oct 2023
 * *1.5 hours* Created unit tests for Epic model and automated tests on main branch through GitHub actions (continous integration)
+
+### 13 Oct 2023
+* *0.5 hours* Updated css for epic dashboard to rectify some display issues
