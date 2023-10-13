@@ -111,4 +111,5 @@
 * *0.5 hours* Updated css for epic dashboard to rectify some display issues
 * *1 hour* Planning next sprint and adding issues to backlog (in github project)
 * *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
-* *0.5 hours* Added unit tests for Story model
+* *0.5 hours* Added unit tests for Story model 
+* *1 hour* Added unit tests for /api/teamName/epicsDashboard GET and POST requests
