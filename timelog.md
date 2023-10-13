@@ -110,3 +110,4 @@
 ### 13 Oct 2023
 * *0.5 hours* Updated css for epic dashboard to rectify some display issues
 * *1 hour* Planning next sprint and adding issues to backlog (in github project)
+* *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
