@@ -11,7 +11,7 @@ def populate():
         {
             'epic_id': '1',
             'epic_colour': 'c93434',
-            'dashboard_id': '0000000',
+            'dashboard_id': '0',
             'title': 'Epic for testing',
             'last_edited_by': 'Niamh',
             'last_edited': datetime(2023, 10, 3, 15),
@@ -49,8 +49,7 @@ def populate():
                 story['last_edited'], story['created_by'], story['time_created'])
 
 def add_epic(epic_id, epic_colour, dashboard_id, title, last_edited_by, last_edited, created_by, time_created):
-    epic = Epic.objects.get_or_create(epic_id = epic_id, dashboard_id=dashboard_id)[0]
-    epic.epic_colour = epic_colour,
+    epic = Epic.objects.get_or_create(epic_id = epic_id, dashboard_id=dashboard_id, epic_colour = epic_colour)[0]
     epic.title = title
     epic.last_edited_by = last_edited_by
     epic.last_edited = last_edited

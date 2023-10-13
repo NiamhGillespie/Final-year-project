@@ -1,6 +1,69 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from web_app.models import Epic, Story
 from datetime import date
+from django.urls import reverse
+from collections import OrderedDict
+from population_script import populate
+
+client = Client()
+class EpicDashboardTests(TestCase):
+    def test_GET_request_returns_200(self):
+        """
+        Check if the GET request on /api/teamName/epicsDashboard returns status code 200
+        """
+        populate()
+        response = client.get('/api/teamName/epicsDashboard')
+        self.assertEqual(response.status_code, 200)
+
+    def test_GET_request_expected_data(self):
+        populate()
+        response = client.get('/api/teamName/epicsDashboard')
+        
+        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])], [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('value_statement', 'Means I do not need to add a story to display it'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
+        self.assertEqual(response.data, expected_data)
+
+    def test_add_epic_POST_request_returns_201(self):
+        """
+        Check if the POST request on /api/teamName/epicsDashboard returns status code 201
+        """
+        epic = {
+            "id": 0,
+            "epic_id": "0",
+            "epic_colour": "ffffff",
+            "dashboard_id": "0",
+            "title": "Test Epic Title",
+            "last_edited_by": "Niamh Gillespie",
+            "last_edited": "Fri Oct 13 2023",
+            "created_by": "Niamh Gillespie",
+            "time_created": "Fri Oct 13 2023"
+        }
+                
+        response = client.post('/api/teamName/epicsDashboard', epic)
+        self.assertEqual(response.status_code, 201)
+
+    def test_add_story_POST_request_returns_201(self):
+        """
+        Check if the POST request on /api/teamName/epicsDashboard returns status code 201
+        """
+        epic = {
+            "id": 0,
+            "story_id": "0",
+            "epic_id": "0",
+            "title": "Create unit tests for Epic Model",
+            "user_story": "As a \nI would like to \nSo that I can",
+            "definition_of_done": "dod",
+            "value_statement": "values",
+            "priority": "LOW",
+            "pairable": True,
+            "assigned_to": "Niamh Gillespie",
+            "last_edited_by": "Niamh Gillespie",
+            "last_edited": "Fri Oct 13 2023",
+            "created_by": "Niamh Gillespie",
+            "time_created": "Fri Oct 13 2023"
+        }
+                
+        response = client.post('/api/teamName/epicsDashboard', epic)
+        self.assertEqual(response.status_code, 201)
 
 class EpicCreationTests(TestCase):
     def test_epic_id_created(self):

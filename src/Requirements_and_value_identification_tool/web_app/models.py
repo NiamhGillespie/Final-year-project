@@ -4,7 +4,7 @@ from datetime import datetime
 # Create your models here.
 class Epic(models.Model):
     epic_id = models.CharField(max_length=8) #8 digits specific only - constrain this
-    epic_colour = models.CharField(max_length=20)
+    epic_colour = models.CharField(max_length=6)
     dashboard_id = models.CharField(max_length=8) #this will be a foreign key
     title = models.CharField(max_length=128)
 
