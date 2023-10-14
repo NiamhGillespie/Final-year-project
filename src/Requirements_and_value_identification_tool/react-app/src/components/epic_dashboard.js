@@ -4,7 +4,13 @@ import AddEpicModal from './add_epic_modal';
 import AddStoryModal from './add_story_modal';
 import axios from "axios";
 import { API_URL } from "../constants";
-
+import {DndContext} from '@dnd-kit/core';
+import {Draggable} from './draggable';
+import {Droppable} from './droppable';
+import {
+    SortableContext,
+    verticalListSortingStrategy
+  } from "@dnd-kit/sortable";
 
 
 export class EpicsDashboard extends Component {
@@ -13,6 +19,8 @@ export class EpicsDashboard extends Component {
         epics: [],
         stories: [],
         colour: null,
+        parent: null,
+        children:null
     };
     
     async componentDidMount() {
@@ -32,7 +40,63 @@ export class EpicsDashboard extends Component {
         await this.getStories();
     };
 
-    
+     story_drag_and_drop() {
+        const containers = this.state.stories;
+        const parent = this.state.parent;
+        const draggableMarkup = (
+          <Draggable id="draggable"> boop </Draggable>
+        );
+        // return (
+        //   <DndContext onDragEnd={this.handleDragEnd}>
+        //     {parent === null ? draggableMarkup : null}
+      
+        //     {containers.map((id) => (
+        //       <Droppable key={id} id={id}>
+        //         {parent === id ? draggableMarkup : id.title }
+        //       </Droppable>
+        //     ))}
+        //   </DndContext>
+        // );
+        
+        const items = this.state.stories;
+        const epic_colour = 'c45676'
+
+        return (
+          <DndContext onDragEnd={this.handleDragEnd}>
+            {parent === null ? draggableMarkup : null}
+            {/* {items.map((story) => ( <Draggable id="draggable"> {story.title} </Draggable>))} */}
+            {/* <SortableContext
+                items={items}
+                strategy={verticalListSortingStrategy}
+                > */}
+                <div div style={{ background: '#00000r' }} className="epic-box">
+                    {items.map((story) => (
+                        <Droppable key={story.story_id} id={story.story_id}>
+                            {parent === story ? draggableMarkup:
+                                <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
+                                    <p className='story-title'> {story.title} </p>
+                                    { console.log(parent)  }
+                                    <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
+                                    <p className='story-priority'> {this.displayPriority(story.priority)} </p>
+                                </div> 
+                            }
+                        </Droppable>
+                    ))}
+                </div>
+            {/* </SortableContext> */}
+          </DndContext>
+        );
+      
+        
+      }
+
+    handleDragEnd = event => {
+        console.log(this.state.parent)
+        const {over} = event;
+        this.state.parent = (over ? over.id : null);
+        this.setState(this.state.parent);
+        console.log(this.state.parent)
+    }
 
     displayEpics() {
         var epics = this.state.epics;
@@ -43,13 +107,13 @@ export class EpicsDashboard extends Component {
             
             return_list.push(
                 <div className="epic-container">
-                    <div style={{background: '#' + epics[i].epic_colour}} className="epic-box" > { epics[i].title }</div>
+                    <div style={{ background: '#' + epics[i].epic_colour }} className="epic-box"> {epics[i].title}</div>
 
                     <div className="d-flex flex-column">
-                        { this.displayStories(epics[i].id, epics[i].epic_colour) }
+                        {this.displayStories(epics[i].id, epics[i].epic_colour)}
 
-                        <div style={{border: '2px dashed ' + '#' + epics[i].epic_colour}} className="add-story-box">
-                            <AddStoryModal resetState={this.resetState} epic_id={epics[i].epic_id} epic_colour = {epics[i].epic_colour} />
+                        <div style={{ border: '2px dashed ' + '#' + epics[i].epic_colour }} className="add-story-box">
+                            <AddStoryModal resetState={this.resetState} epic_id={epics[i].epic_id} epic_colour={epics[i].epic_colour} />
                         </div>
 
                     </div>
@@ -124,6 +188,8 @@ export class EpicsDashboard extends Component {
                 <div>
                     <div> 
                         <p> Team name - Epic Dashboard</p>
+                        {this.story_drag_and_drop()}
+                        <p> draggable component ^</p>
                     </div>
                     
                     <div class="d-flex flex-row w-30 h-100 overflow-auto">
