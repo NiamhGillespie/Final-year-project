@@ -113,3 +113,8 @@
 * *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
 * *0.5 hours* Added unit tests for Story model 
 * *1 hour* Added unit tests for /api/teamName/epicsDashboard GET and POST requests
+
+## Week 4
+
+### 14 Oct 2023
+* *4 hours* Started working on adding vertical drag and drop feature to stories on the epic dashboard, lots of trial and error with different libraries
