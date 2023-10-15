@@ -118,3 +118,6 @@
 
 ### 14 Oct 2023
 * *4 hours* Started working on adding vertical drag and drop feature to stories on the epic dashboard, lots of trial and error with different libraries
+
+### 15 Oct 2023
+* *1.5 hours* Updating 'add story' and 'add epic' forms and modals to automatically update the epic dashboard once a new epic/story is added
