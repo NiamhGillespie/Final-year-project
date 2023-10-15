@@ -30,6 +30,7 @@ class AddEpicModal extends Component {
                     <AddEpicForm
                         toggle={this.toggleModal}
                         epic={this.props.epics}
+                        resetState={this.props.resetState}
                     />
                 </ModalBody>
             </Modal>

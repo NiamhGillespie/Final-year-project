@@ -31,6 +31,7 @@ class AddStoryModal extends Component {
                     <AddStoryForm
                         toggle={this.toggleModal}
                         epic_id={this.props.epic_id}
+                        resetState={this.props.resetState}
                     />
                 </ModalBody>
             </Modal>

@@ -52,6 +52,7 @@ class AddStoryForm extends Component {
         console.log('story being created ...');
         e.preventDefault();
         axios.post(API_URL, this.state).then(() => {
+            this.props.resetState();
             this.props.toggle();
         });
     };

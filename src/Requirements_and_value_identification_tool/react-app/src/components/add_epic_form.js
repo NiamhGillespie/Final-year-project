@@ -45,6 +45,7 @@ class AddEpicForm extends Component {
         console.log(this.state);
         e.preventDefault();
         axios.post(API_URL, this.state).then(() => {
+            this.props.resetState();
             this.props.toggle();
         });
     };

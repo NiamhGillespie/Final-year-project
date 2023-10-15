@@ -35,9 +35,9 @@ export class EpicsDashboard extends Component {
         await axios.get(API_URL).then(response => this.setState({ stories: response.data[1] }));
     };
     
-    async resetState() {
-        await this.getEpics();
-        await this.getStories();
+    resetState= () => {
+        this.getEpics();
+        this.getStories();
     };
 
      story_drag_and_drop() {
@@ -94,7 +94,7 @@ export class EpicsDashboard extends Component {
         console.log(this.state.parent)
         const {over} = event;
         this.state.parent = (over ? over.id : null);
-        this.setState(this.state.parent);
+        this.setState(this.state);
         console.log(this.state.parent)
     }
 
@@ -188,7 +188,7 @@ export class EpicsDashboard extends Component {
                 <div>
                     <div> 
                         <p> Team name - Epic Dashboard</p>
-                        {this.story_drag_and_drop()}
+                        {/* {this.story_drag_and_drop()} */}
                         <p> draggable component ^</p>
                     </div>
                     
