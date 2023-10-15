@@ -41,22 +41,40 @@ export class EpicsDashboard extends Component {
     };
 
      story_drag_and_drop() {
-        const containers = this.state.stories;
+        const stories = this.state.stories;
+        const containers = ['A', 'B', 'C'];
+        
         const parent = this.state.parent;
         const draggableMarkup = (
           <Draggable id="draggable"> boop </Draggable>
         );
+
         // return (
-        //   <DndContext onDragEnd={this.handleDragEnd}>
-        //     {parent === null ? draggableMarkup : null}
+        //     <DndContext onDragEnd={this.handleDragEnd}>
+        //       {parent === null ? draggableMarkup : null}
+        
+        //       {containers.map((id) => (
+        //         // We updated the Droppable component so it would accept an `id`
+        //         // prop and pass it to `useDroppable`
+        //         <Droppable key={id} id={id}>
+        //           {parent === id ? draggableMarkup : 'Drop here'}
+        //         </Droppable>
+        //       ))}
+        //     </DndContext>
+        //   );
+
+          
+        return (
+          <DndContext onDragEnd={this.handleDragEnd}>
+            {parent === null ? draggableMarkup : null}
       
-        //     {containers.map((id) => (
-        //       <Droppable key={id} id={id}>
-        //         {parent === id ? draggableMarkup : id.title }
-        //       </Droppable>
-        //     ))}
-        //   </DndContext>
-        // );
+            {stories.map((story) => (
+              <Droppable key={story.id} id={story.id}>
+                {parent === story ? draggableMarkup : story.title }
+              </Droppable>
+            ))}
+          </DndContext>
+        );
         
         const items = this.state.stories;
         const epic_colour = 'c45676'
@@ -91,12 +109,23 @@ export class EpicsDashboard extends Component {
       }
 
     handleDragEnd = event => {
-        console.log(this.state.parent)
+        
         const {over} = event;
+        console.log(this.state.parent, "ahjhhh", over.id);
+        //this.state.stories = this.swapElement(this.state.stories, over.id, 4);
         this.state.parent = (over ? over.id : null);
+
         this.setState(this.state);
         console.log(this.state.parent)
+        console.log(this.state.stories)
     }
+
+    swapElement(array, elt_1, elt_2) {
+        var temp = array[elt_1];
+        array[elt_1] = array[elt_2];
+        array[elt_2] = temp;
+        return array;
+      }
 
     displayEpics() {
         var epics = this.state.epics;
@@ -153,7 +182,7 @@ export class EpicsDashboard extends Component {
         var stories = this.state.stories;
         var matching_list = [];
         var return_list = [];
-        console.log('stories:', stories);
+        //console.log('stories:', stories);
 
         for (var i = 0; i < stories.length; i++) {
             if (stories[i].epic_id === String(epic_id)) {
@@ -188,7 +217,7 @@ export class EpicsDashboard extends Component {
                 <div>
                     <div> 
                         <p> Team name - Epic Dashboard</p>
-                        {/* {this.story_drag_and_drop()} */}
+                        { this.story_drag_and_drop() }
                         <p> draggable component ^</p>
                     </div>
                     
