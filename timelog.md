@@ -124,4 +124,4 @@
 * *1 hour* Continuing work on drag and drop features
 
 ### 17 Oct 2023
-* *2 hours* Added order field to Story model so that stories can be ordered by this field
+* *2 hours* Added order field to Story model so that stories can be ordered by this field and updated tests
