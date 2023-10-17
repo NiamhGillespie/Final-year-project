@@ -122,3 +122,6 @@
 ### 15 Oct 2023
 * *1.5 hours* Updating 'add story' and 'add epic' forms and modals to automatically update the epic dashboard once a new epic/story is added
 * *1 hour* Continuing work on drag and drop features
+
+### 17 Oct 2023
+* *2 hours* Added order field to Story model so that stories can be ordered by this field
