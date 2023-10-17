@@ -4,9 +4,8 @@ import AddEpicModal from './add_epic_modal';
 import AddStoryModal from './add_story_modal';
 import axios from "axios";
 import { API_URL } from "../constants";
-import {DndContext} from '@dnd-kit/core';
-import {Draggable} from './draggable';
-import {Droppable} from './droppable';
+import { DragDropContext, Droppable, Draggable   } from 'react-beautiful-dnd';
+import SortableStory from './sortable_story'
 import {
     SortableContext,
     verticalListSortingStrategy
@@ -19,8 +18,7 @@ export class EpicsDashboard extends Component {
         epics: [],
         stories: [],
         colour: null,
-        parent: null,
-        children:null
+        parent: null
     };
     
     async componentDidMount() {
@@ -40,51 +38,72 @@ export class EpicsDashboard extends Component {
         this.getStories();
     };
 
-     story_drag_and_drop(stories, epic_colour) {
+    story_drag_and_drop(stories, epic_colour) {
         //const stories = this.state.stories;
-        console.log(stories)
-        
-        const parent = this.state.parent;
-        const draggableMarkup = (
-          <Draggable id="draggable"> 
-            { console.log(stories[0]['title']) }
-            <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
-                <p className='story-title'> {stories[0]['title']} </p>
-                <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
-                <p className='story-priority'> {this.displayPriority(stories[0]['priority'])} </p>
-            </div> 
-          
-          </Draggable>
-        );
-          
-        return (
-          <DndContext onDragEnd={this.handleDragEnd}>
-            {parent === null ? draggableMarkup : null}
-      
-            {stories.map((story) => (
-                <Droppable key={story.id} id={story.id}>
-                    {parent === story ? draggableMarkup:
-                        <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
-                            <p className='story-title'> {story.title} </p>
-                            { console.log(parent)  }
-                            <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
-                            <p className='story-priority'> {this.displayPriority(story.priority)} </p>
-                        </div> 
-                    }
-                </Droppable>
-            ))}
-          </DndContext>
-        );
-      }
+        console.log('-----', stories)
+        if (stories != []) {
+            console.log('stories!!!:', stories)
+            
+            const parent = this.state.parent;
 
-    handleDragEnd = event => {
+            return (
+                <DragDropContext onDragEnd={this.onDragEnd}>
+                    <Droppable droppableId="droppable">
+                    {(provided, snapshot) => (
+                        <div {...provided.droppableProps} ref={provided.id}>
+                        
+                       
+                        {stories.map((story, index) => (
+                            <div className='stories' {...stories.droppableProps} ref={React.useRef()}> 
+                                <Draggable key={story.id} draggableId={story.id} index={index}>
+                                {(provided, snapshot) => (
+                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                        <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
+                                            <p className='story-title'> {story.title} </p>
+                                            <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
+                                            <p className='story-priority'> {this.displayPriority(story.priority)} </p>
+                                        </div> 
+                                    </div>
+                                )}
+                                </Draggable>
+                            </div>
+                        ))}
+                        </div>
+                    )}
+                    </Droppable>
+              </DragDropContext>
+            );
+        }
+    }
+
+    reorder(list, startIndex, endIndex) {
+        console.log('reordering')
+      };
+
+    handleOnDragEnd(result) {
+            // dropped outside the list
+            if (!result.destination) {
+              return;
+            }
+        
+            const items = this.reorder(
+              this.state.items,
+              result.source.index,
+              result.destination.index
+            );
+        
+           this.setState(this.state);
+          }
+
+
+    handleDragEndOld = event => {
         
         const {over} = event;
-        console.log(this.state.parent, "ahjhhh", over.id);
-        //this.state.stories = this.swapElement(this.state.stories, over.id, 4);
-        this.state.parent = (over ? over.id : null);
+        console.log(this.state.parent, "ahjhhh", over);
+        //this.state.stories = this.swapElement(stories, over.id, this.state.parent);
+        //this.state.parent = (over ? over.id : null);
 
-        this.setState(this.state);
+        //this.setState(this.state);
         console.log(this.state.parent)
         console.log(this.state.stories)
     }
@@ -153,21 +172,22 @@ export class EpicsDashboard extends Component {
         var return_list = [];
         //console.log('stories:', stories);
 
-        for (var i = 0; i < stories.length; i++) {
-            if (stories[i].epic_id === String(epic_id)) {
-                matching_list.push(stories[i]);
+        if (stories.length >= 1) {
+            for (var i = 0; i < stories.length; i++) {
+                if (stories[i].epic_id === String(epic_id)) {
+                    matching_list.push(stories[i]);
+                }
             }
+            
+            return_list.push(
+                <div>
+                        {/* <p className='story-title'> {matching_list[j].title} </p>
+                        <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
+                        <p className='story-priority'> {this.displayPriority(matching_list[j].priority)} </p> */}
+                        { this.story_drag_and_drop(matching_list, epic_colour) }            
+                </div>
+            )
         }
-        
-        return_list.push(
-            <div>
-                    {/* <p className='story-title'> {matching_list[j].title} </p>
-                    <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
-                    <p className='story-priority'> {this.displayPriority(matching_list[j].priority)} </p> */}
-                    { this.story_drag_and_drop(matching_list, epic_colour) }            
-            </div>
-        )
-
         return return_list;
     }
     
