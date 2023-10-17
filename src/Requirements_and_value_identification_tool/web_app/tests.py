@@ -19,7 +19,8 @@ class EpicDashboardTests(TestCase):
         populate()
         response = client.get('/api/teamName/epicsDashboard')
         
-        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])], [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('value_statement', 'Means I do not need to add a story to display it'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
+        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])], 
+                         [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('order', 0), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('value_statement', 'Means I do not need to add a story to display it'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
         self.assertEqual(response.data, expected_data)
 
     def test_add_epic_POST_request_returns_201(self):
@@ -187,6 +188,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -209,6 +211,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -231,6 +234,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -245,6 +249,29 @@ class StoryCreationTests(TestCase):
         story.save()
         self.assertEqual(story.title, 'Test Story Title')
 
+    def test_order_created(self):
+        """
+        Checks to make sure that when a Story is created, the correct order is added.
+        """
+        story = Story(
+                story_id = '0',
+                epic_id = '1',
+                title = 'Test Story Title',
+                order = 0,
+                user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
+                definition_of_done = 'Set up a unit test suite',
+                value_statement = 'ensures functional requirements of code are met',
+                priority = 'MEDIUM',
+                pairable = False,
+                assigned_to = 'Niamh Gillespie',
+                last_edited_by = 'Niamh Gillespie',
+                last_edited = date.today(),
+                created_by = 'Niamh Gillespie',
+                time_created = date.today()
+            )
+        story.save()
+        self.assertEqual(story.order, 0)
+
     def test_user_story_created(self):
         """
         Checks to make sure that when a Story is created, the correct user_story is added.
@@ -253,6 +280,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -275,6 +303,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -297,6 +326,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -319,6 +349,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -342,6 +373,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -364,6 +396,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -386,6 +419,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -408,6 +442,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -431,6 +466,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',
@@ -453,6 +489,7 @@ class StoryCreationTests(TestCase):
                 story_id = '0',
                 epic_id = '1',
                 title = 'Test Story Title',
+                order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
                 value_statement = 'ensures functional requirements of code are met',

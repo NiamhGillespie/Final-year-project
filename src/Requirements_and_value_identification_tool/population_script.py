@@ -29,6 +29,7 @@ def populate():
             'story_id': '1',
             'epic_id': '1',
             'title': 'Story for testing',
+            'order': 0,
             'user_story': 'As a developer, I want to have a test story, so I can use it in the react app',
             'definition_of_done': 'Test story should display on REST framework page',
             'value_statement': 'Means I do not need to add a story to display it',
@@ -43,7 +44,7 @@ def populate():
     ]
 
     for story in stories:
-        add_story(story['story_id'], story['epic_id'], story['title'], story['user_story'], 
+        add_story(story['story_id'], story['epic_id'], story['title'], story['order'], story['user_story'], 
                 story['definition_of_done'], story['value_statement'], story['priority'], 
                 story['pairable'], story['assigned_to'], story['last_edited_by'],
                 story['last_edited'], story['created_by'], story['time_created'])
@@ -58,10 +59,11 @@ def add_epic(epic_id, epic_colour, dashboard_id, title, last_edited_by, last_edi
     epic.save()
     return epic
 
-def add_story(story_id, epic_id, title, user_story, definition_of_done, value_statement, priority,
+def add_story(story_id, epic_id, title, order, user_story, definition_of_done, value_statement, priority,
               pairable, assigned_to,  last_edited_by, last_edited, created_by, time_created):
     story = Story.objects.get_or_create(story_id=story_id, epic_id=epic_id)[0]
     story.title = title
+    story.order = order
     story.user_story = user_story
     story.definition_of_done = definition_of_done
     story.value_statement = value_statement
