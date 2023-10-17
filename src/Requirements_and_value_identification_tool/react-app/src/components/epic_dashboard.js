@@ -4,8 +4,9 @@ import AddEpicModal from './add_epic_modal';
 import AddStoryModal from './add_story_modal';
 import axios from "axios";
 import { API_URL } from "../constants";
+import { resetServerContext } from "react-beautiful-dnd"
 import { DragDropContext, Droppable, Draggable   } from 'react-beautiful-dnd';
-import SortableStory from './sortable_story'
+import ReactDOM from "react-dom";
 import {
     SortableContext,
     verticalListSortingStrategy
@@ -18,7 +19,8 @@ export class EpicsDashboard extends Component {
         epics: [],
         stories: [],
         colour: null,
-        parent: null
+        parent: null,
+        current_stories: []
     };
     
     async componentDidMount() {
@@ -41,33 +43,62 @@ export class EpicsDashboard extends Component {
     story_drag_and_drop(stories, epic_colour) {
         //const stories = this.state.stories;
         console.log('-----', stories)
+        const grid = 8;
+        const getListStyle = isDraggingOver => ({
+            background: isDraggingOver ? "lightblue" : "lightgrey",
+            padding: grid,
+            width: 250
+          });
+
+        const getItemStyle = (isDragging, draggableStyle) => ({
+            // some basic styles to make the items look a bit nicer
+            userSelect: "none",
+            padding: grid * 2,
+            margin: `0 0 ${grid}px 0`,
+          
+            // change background colour if dragging
+            background: isDragging ? "lightgreen" : "grey",
+          
+            // styles we need to apply on draggables
+            ...draggableStyle
+        });
+
+          
         if (stories != []) {
+            this.state.current_stories = stories
             console.log('stories!!!:', stories)
-            
-            const parent = this.state.parent;
+            this.onDragEnd = this.onDragEnd.bind(this);
 
             return (
                 <DragDropContext onDragEnd={this.onDragEnd}>
                     <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
-                        <div {...provided.droppableProps} ref={provided.id}>
+                        <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
                         
                        
                         {stories.map((story, index) => (
-                            <div className='stories' {...stories.droppableProps} ref={React.useRef()}> 
-                                <Draggable key={story.id} draggableId={story.id} index={index}>
+                              
+                                <Draggable key={story.id} draggableId={story.id.toString()} index={index}
+                                 style={getItemStyle(
+                                    snapshot.isDragging,
+                                    provided.draggableProps
+                                  )}>
                                 {(provided, snapshot) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                        
+                                        {/* {console.log(stories, 'ahhhhhhhhh')} */}
+
                                         <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
                                             <p className='story-title'> {story.title} </p>
                                             <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
                                             <p className='story-priority'> {this.displayPriority(story.priority)} </p>
-                                        </div> 
+                                        </div>
                                     </div>
                                 )}
                                 </Draggable>
-                            </div>
+                             
                         ))}
+                        {provided.placeholder}
                         </div>
                     )}
                     </Droppable>
@@ -76,44 +107,42 @@ export class EpicsDashboard extends Component {
         }
     }
 
-    reorder(list, startIndex, endIndex) {
-        console.log('reordering')
+    reorder(stories, startIndex, endIndex) {
+        console.log('reordering...', stories, startIndex, endIndex)
+        
+        const [removed] = stories.splice(startIndex, 1);
+        stories.splice(endIndex, 0, removed);
+        console.log('STORIES REORDERED', stories)
+
+        for (var i = 0; i < stories.length; i++) {
+            stories[i].order = i+1
+            
+            axios.put('http://localhost:8000/api/teamName/stories/' + stories[i].story_id + '/details', stories[i]);
+        }
+        
+        this.state.stories = stories; //only works this way if we have 1 epic only :(
+        this.setState(this.state);
       };
 
-    handleOnDragEnd(result) {
+
+    onDragEnd(result)  {
             // dropped outside the list
+            resetServerContext()
             if (!result.destination) {
+                console.log( 'boop', result)
               return;
             }
         
+            console.log('iodsjsdk', this.state.current_stories)
             const items = this.reorder(
-              this.state.items,
-              result.source.index,
-              result.destination.index
+                this.state.current_stories,
+                result.source.index,
+                result.destination.index
+              
             );
         
-           this.setState(this.state);
+           
           }
-
-
-    handleDragEndOld = event => {
-        
-        const {over} = event;
-        console.log(this.state.parent, "ahjhhh", over);
-        //this.state.stories = this.swapElement(stories, over.id, this.state.parent);
-        //this.state.parent = (over ? over.id : null);
-
-        //this.setState(this.state);
-        console.log(this.state.parent)
-        console.log(this.state.stories)
-    }
-
-    swapElement(array, elt_1, elt_2) {
-        var temp = array[elt_1];
-        array[elt_1] = array[elt_2];
-        array[elt_2] = temp;
-        return array;
-      }
 
     displayEpics() {
         var epics = this.state.epics;
@@ -203,7 +232,7 @@ export class EpicsDashboard extends Component {
                 <div>
                     <div> 
                         <p> Team name - Epic Dashboard</p>
-                        { }
+                    
                         <p> draggable component ^</p>
                     </div>
                     
@@ -215,5 +244,5 @@ export class EpicsDashboard extends Component {
         );
     }
 }
-
+ReactDOM.render(<EpicsDashboard />, document.getElementById("root"));
 export default EpicsDashboard;

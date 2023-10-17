@@ -96,9 +96,11 @@ def StoryDetails(request, story_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
+        print('putting...')
         story_serializer = StorySerializer(story, data=request.data,context={'request': request})
         if story_serializer.is_valid():
             story_serializer.save()
+            print(story_serializer.data)
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(story_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
