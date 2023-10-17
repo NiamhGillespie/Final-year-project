@@ -14,7 +14,7 @@ def EpicDashboardInfo(request):
         epic_data =  Epic.objects.all()
         epic_serializer = EpicSerializer(epic_data, context={'request': request}, many=True)
 
-        story_data =  Story.objects.all()
+        story_data =  Story.objects.all().order_by('order')
         story_serializer = StorySerializer(story_data, context={'request': request}, many=True)
 
         epic_and_story_data = [epic_serializer.data, story_serializer.data]
@@ -46,9 +46,18 @@ def EpicDashboardInfo(request):
                 story_serializer.save()
                 print(story_serializer.data)
                 story_id = story_serializer.data['id']
+                epic_id = story_serializer.data['epic_id']
+
+                stories = Story.objects.filter(epic_id=epic_id).order_by('order')
+                story_serializer_2 = StorySerializer(stories, many=True)
+
+                if len(story_serializer_2.data) == 1:
+                    order = 1
+                else:
+                    order = stories[len(story_serializer_2.data) -1].order + 1
                 
                 Story.objects.filter(id=story_id).update(story_id = story_id)
-
+                Story.objects.filter(id=story_id).update(order = order)
 
                 return Response(status=status.HTTP_201_CREATED)
             else: 
@@ -87,7 +96,7 @@ def StoryDetails(request, story_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        story_serializer = EpicSerializer(story, data=request.data,context={'request': request})
+        story_serializer = StorySerializer(story, data=request.data,context={'request': request})
         if story_serializer.is_valid():
             story_serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
@@ -100,5 +109,3 @@ def StoryDetails(request, story_id):
     elif request.method == 'GET':
         story_serializer = StorySerializer(story)
         return Response(story_serializer.data, status=status.HTTP_204_NO_CONTENT)    
-
-

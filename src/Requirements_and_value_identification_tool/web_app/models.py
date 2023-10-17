@@ -20,6 +20,8 @@ class Story(models.Model):
     story_id = models.CharField(max_length=8) #8 digits specific?
     epic_id = models.CharField(max_length=8) #maybe foreign key #each story corresponds to only one epic
     title = models.CharField(max_length=128)
+
+    order = models.IntegerField(null = True)
     
 
     user_story = models.CharField(max_length=1028) #Trefine this number at later date

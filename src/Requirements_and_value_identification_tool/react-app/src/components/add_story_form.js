@@ -12,6 +12,8 @@ class AddStoryForm extends Component {
         epic_id: this.props.epic_id,
         title: "",
 
+        order: 0,
+
         user_story: "As a \nI would like to \nSo that I can ",
         definition_of_done: "",
         value_statement: "",

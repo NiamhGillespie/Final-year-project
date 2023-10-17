@@ -9,8 +9,13 @@ class EpicSerializer(serializers.ModelSerializer):
 class StorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
-        fields = ('id', 'story_id', 'epic_id', 'title', 'user_story', 'definition_of_done', 'value_statement', 'priority', 'pairable', 'assigned_to',
+        fields = ('id', 'story_id', 'epic_id', 'title', 'order', 'user_story', 'definition_of_done', 'value_statement', 'priority', 'pairable', 'assigned_to',
                   'last_edited_by', 'last_edited', 'created_by', 'time_created')
+        
+        @property 
+        def order(self, obj):
+            print("?")
+            return Story.objects.count()
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:

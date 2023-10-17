@@ -40,72 +40,41 @@ export class EpicsDashboard extends Component {
         this.getStories();
     };
 
-     story_drag_and_drop() {
-        const stories = this.state.stories;
-        const containers = ['A', 'B', 'C'];
+     story_drag_and_drop(stories, epic_colour) {
+        //const stories = this.state.stories;
+        console.log(stories)
         
         const parent = this.state.parent;
         const draggableMarkup = (
-          <Draggable id="draggable"> boop </Draggable>
+          <Draggable id="draggable"> 
+            { console.log(stories[0]['title']) }
+            <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
+                <p className='story-title'> {stories[0]['title']} </p>
+                <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
+                <p className='story-priority'> {this.displayPriority(stories[0]['priority'])} </p>
+            </div> 
+          
+          </Draggable>
         );
-
-        // return (
-        //     <DndContext onDragEnd={this.handleDragEnd}>
-        //       {parent === null ? draggableMarkup : null}
-        
-        //       {containers.map((id) => (
-        //         // We updated the Droppable component so it would accept an `id`
-        //         // prop and pass it to `useDroppable`
-        //         <Droppable key={id} id={id}>
-        //           {parent === id ? draggableMarkup : 'Drop here'}
-        //         </Droppable>
-        //       ))}
-        //     </DndContext>
-        //   );
-
           
         return (
           <DndContext onDragEnd={this.handleDragEnd}>
             {parent === null ? draggableMarkup : null}
       
             {stories.map((story) => (
-              <Droppable key={story.id} id={story.id}>
-                {parent === story ? draggableMarkup : story.title }
-              </Droppable>
+                <Droppable key={story.id} id={story.id}>
+                    {parent === story ? draggableMarkup:
+                        <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
+                            <p className='story-title'> {story.title} </p>
+                            { console.log(parent)  }
+                            <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
+                            <p className='story-priority'> {this.displayPriority(story.priority)} </p>
+                        </div> 
+                    }
+                </Droppable>
             ))}
           </DndContext>
         );
-        
-        const items = this.state.stories;
-        const epic_colour = 'c45676'
-
-        return (
-          <DndContext onDragEnd={this.handleDragEnd}>
-            {parent === null ? draggableMarkup : null}
-            {/* {items.map((story) => ( <Draggable id="draggable"> {story.title} </Draggable>))} */}
-            {/* <SortableContext
-                items={items}
-                strategy={verticalListSortingStrategy}
-                > */}
-                <div div style={{ background: '#00000r' }} className="epic-box">
-                    {items.map((story) => (
-                        <Droppable key={story.story_id} id={story.story_id}>
-                            {parent === story ? draggableMarkup:
-                                <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
-                                    <p className='story-title'> {story.title} </p>
-                                    { console.log(parent)  }
-                                    <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
-                                    <p className='story-priority'> {this.displayPriority(story.priority)} </p>
-                                </div> 
-                            }
-                        </Droppable>
-                    ))}
-                </div>
-            {/* </SortableContext> */}
-          </DndContext>
-        );
-      
-        
       }
 
     handleDragEnd = event => {
@@ -190,17 +159,14 @@ export class EpicsDashboard extends Component {
             }
         }
         
-        for (var j = 0; j < matching_list.length; j++) {
-            return_list.push(
-                <div>
-                    <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
-                        <p className='story-title'> {matching_list[j].title} </p>
-                        <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
-                        <p className='story-priority'> {this.displayPriority(matching_list[j].priority)} </p>
-                    </div>
-                </div>
-            )
-        }
+        return_list.push(
+            <div>
+                    {/* <p className='story-title'> {matching_list[j].title} </p>
+                    <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
+                    <p className='story-priority'> {this.displayPriority(matching_list[j].priority)} </p> */}
+                    { this.story_drag_and_drop(matching_list, epic_colour) }            
+            </div>
+        )
 
         return return_list;
     }
@@ -217,7 +183,7 @@ export class EpicsDashboard extends Component {
                 <div>
                     <div> 
                         <p> Team name - Epic Dashboard</p>
-                        { this.story_drag_and_drop() }
+                        { }
                         <p> draggable component ^</p>
                     </div>
                     
