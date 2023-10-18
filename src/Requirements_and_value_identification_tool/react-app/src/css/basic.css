@@ -20,17 +20,17 @@
     background: rgba(211, 215, 220, 0.231);
     border-radius: 10px;
     margin: 1%;
-    min-width: 190px;
+    min-width: 200px;
     min-height: 100%;
 }
 
 .epic-box {
     color: white;
     text-align: left;
-    padding: 15px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
     border-radius: 15px;
-    margin: 5%;
-    width: 170px;
+    margin: 20px 10px 5px 10px;
+    width: 180px;
     height: 90px;
 }
 
@@ -40,8 +40,8 @@
     padding: 10px 10px 10px 10px;
     background: white;
     border-radius: 15px;
-    margin: 5%;
-    width: 170px;
+    margin: 30px 10px 20px 10px;
+    width: 180px;
     height: 90px;
 }
 
@@ -52,7 +52,7 @@
     background: white;
     border-radius: 15px;
     margin: 5%;
-    width: 170px;
+    width: 180px;
     height: 90px;
     display: table;
 }
