@@ -112,7 +112,7 @@ export class EpicsDashboard extends Component {
         var epics = this.state.epics;
         var return_list = [];
 
-        console.log(epics)
+        console.log('EPICS', epics)
         for (var i = 0; i < epics.length; i++) {
             
             return_list.push(

@@ -19,8 +19,8 @@ class EpicDashboardTests(TestCase):
         populate()
         response = client.get('/api/teamName/epicsDashboard')
         
-        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])], 
-                         [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('order', 0), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('value_statement', 'Means I do not need to add a story to display it'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
+        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('order', 1), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])], 
+                         [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('order', 1), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('value_statement', 'Means I do not need to add a story to display it'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
         self.assertEqual(response.data, expected_data)
 
     def test_add_epic_POST_request_returns_201(self):
@@ -33,6 +33,7 @@ class EpicDashboardTests(TestCase):
             "epic_colour": "ffffff",
             "dashboard_id": "0",
             "title": "Test Epic Title",
+            "order": 1,
             "last_edited_by": "Niamh Gillespie",
             "last_edited": "Fri Oct 13 2023",
             "created_by": "Niamh Gillespie",
@@ -51,6 +52,7 @@ class EpicDashboardTests(TestCase):
             "story_id": "0",
             "epic_id": "0",
             "title": "Create unit tests for Epic Model",
+            "order": 1,
             "user_story": "As a \nI would like to \nSo that I can",
             "definition_of_done": "dod",
             "value_statement": "values",
@@ -75,6 +77,7 @@ class EpicCreationTests(TestCase):
                 epic_id = '0',
                 dashboard_id = '0',
                 title = 'Test Epic Title',
+                order = 1,
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
@@ -91,6 +94,7 @@ class EpicCreationTests(TestCase):
                 epic_id = '0',
                 dashboard_id = '0',
                 title = 'Test Epic Title',
+                order = 1,
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
@@ -107,6 +111,7 @@ class EpicCreationTests(TestCase):
                 epic_id = '0',
                 dashboard_id = '0',
                 title = 'Test Epic Title',
+                order = 1,
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
@@ -114,6 +119,23 @@ class EpicCreationTests(TestCase):
             )
         epic.save()
         self.assertEqual(epic.title, 'Test Epic Title')
+
+    def test_epic_order_created(self):
+        """
+        Checks to make sure that when an Epic is created, the correct order is added.
+        """
+        epic = Epic(
+                epic_id = '0',
+                dashboard_id = '0',
+                title = 'Test Epic Title',
+                order = 1,
+                last_edited_by = 'Niamh Gillespie',
+                last_edited = date.today(),
+                created_by = 'Niamh Gillespie',
+                time_created = date.today()
+            )
+        epic.save()
+        self.assertEqual(epic.order, 1)
 
     def test_last_edited_by_field_created(self):
         """
@@ -123,6 +145,7 @@ class EpicCreationTests(TestCase):
                 epic_id = '0',
                 dashboard_id = '0',
                 title = 'Test Epic Title',
+                order = 1,
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
@@ -139,6 +162,7 @@ class EpicCreationTests(TestCase):
                 epic_id = '0',
                 dashboard_id = '0',
                 title = 'Test Epic Title',
+                order = 1,
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
@@ -155,6 +179,7 @@ class EpicCreationTests(TestCase):
                 epic_id = '0',
                 dashboard_id = '0',
                 title = 'Test Epic Title',
+                order = 1,
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
@@ -171,6 +196,7 @@ class EpicCreationTests(TestCase):
                 epic_id = '0',
                 dashboard_id = '0',
                 title = 'Test Epic Title',
+                order = 1,
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
