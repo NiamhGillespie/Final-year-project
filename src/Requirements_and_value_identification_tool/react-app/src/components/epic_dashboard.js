@@ -50,7 +50,6 @@ export class EpicsDashboard extends Component {
 
           
         if (stories != []) {
-            this.current_stories = stories
 
             return (
                 <DragDropContext onDragEnd={result => {
@@ -58,7 +57,7 @@ export class EpicsDashboard extends Component {
                       return;
                     }
                 
-                    this.reorder(stories, result.source.index, result.destination.index);
+                    this.reorderStories(stories, result.source.index, result.destination.index);
                 }}>
                     <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
@@ -92,7 +91,7 @@ export class EpicsDashboard extends Component {
         }
     }
 
-    reorder(stories, startIndex, endIndex) {
+    reorderStories(stories, startIndex, endIndex) {
         //console.log('reordering...', stories, startIndex, endIndex)
         
         const [removed] = stories.splice(startIndex, 1);
@@ -106,31 +105,108 @@ export class EpicsDashboard extends Component {
         }
         
         this.getStories();
-      };
+    };
+
+    epics_drag_and_drop(epics) {
+        const getDraggingStyle = isDraggingOver => ({
+            background: isDraggingOver ? "blue" : "WhiteSmoke",
+            paddingTop: 2,
+            paddingBottom: 2,
+            borderRadius: 10,
+            display: "inline-flex",
+          });
+
+          
+        if (epics != []) {
+
+            return (
+                <DragDropContext onDragEnd={result => {
+                    if (!result.destination) {
+                      return;
+                    }
+                
+                    this.reorderEpics(epics, result.source.index, result.destination.index);
+                }}>
+                    <Droppable droppableId="droppable">
+                    {(provided, snapshot) => (
+                        <div {...provided.droppableProps} ref={provided.innerRef} style={getDraggingStyle(snapshot.isDraggingOver)}>
+                        
+                       
+                        {epics.map((epic, index) => (
+                              
+                              
+                              <Draggable key={epic.id} draggableId={epic.id.toString()} index={index}
+                                  >
+                                {(provided, snapshot) => (
+                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                        <div className="epic-container">
+                                            <div style={{ background: '#' + epic.epic_colour }} className="epic-box"> {epic.title}</div>
+                    
+                                            <div className="d-flex flex-column">
+                                                {this.displayStories(epic.id, epic.epic_colour)}
+                    
+                                                <div style={{ border: '2px dashed ' + '#' + epic.epic_colour }} className="add-story-box">
+                                                    <AddStoryModal resetState={this.resetState} epic_id={epic.epic_id} epic_colour={epic.epic_colour} />
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                                </Draggable>
+                             
+                        ))}
+                        {provided.placeholder}
+                        </div>
+                    )}
+                    </Droppable>
+              </DragDropContext>
+            );
+        }
+    }
+
+    reorderEpics(epics, startIndex, endIndex) {
+        console.log('reordering...', epics, startIndex, endIndex)
+        
+        const [removed] = epics.splice(startIndex, 1);
+        epics.splice(endIndex, 0, removed);
+        console.log('EPICS REORDERED', epics)
+
+        for (var i = 0; i < epics.length; i++) {
+            epics[i].order = i+1
+            
+            axios.put('http://localhost:8000/api/teamName/epics/' + epics[i].epic_id + '/details', epics[i]);
+        }
+        
+        this.state.epics = epics;
+        this.setState(this.state);
+    };
 
     displayEpics() {
         var epics = this.state.epics;
         var return_list = [];
 
-        console.log('EPICS', epics)
-        for (var i = 0; i < epics.length; i++) {
+        return this.epics_drag_and_drop(epics);
+        
+        // console.log('EPICS', epics)
+        // for (var i = 0; i < epics.length; i++) {
             
-            return_list.push(
-                <div className="epic-container">
-                    <div style={{ background: '#' + epics[i].epic_colour }} className="epic-box"> {epics[i].title}</div>
+        //     return_list.push(
+        //         <div className="epic-container">
+        //             <div style={{ background: '#' + epics[i].epic_colour }} className="epic-box"> {epics[i].title}</div>
 
-                    <div className="d-flex flex-column">
-                        {this.displayStories(epics[i].id, epics[i].epic_colour)}
+        //             <div className="d-flex flex-column">
+        //                 {this.displayStories(epics[i].id, epics[i].epic_colour)}
 
-                        <div style={{ border: '2px dashed ' + '#' + epics[i].epic_colour }} className="add-story-box">
-                            <AddStoryModal resetState={this.resetState} epic_id={epics[i].epic_id} epic_colour={epics[i].epic_colour} />
-                        </div>
+        //                 <div style={{ border: '2px dashed ' + '#' + epics[i].epic_colour }} className="add-story-box">
+        //                     <AddStoryModal resetState={this.resetState} epic_id={epics[i].epic_id} epic_colour={epics[i].epic_colour} />
+        //                 </div>
 
-                    </div>
-                </div>
-            )
-        }
-        return return_list;
+        //             </div>
+        //         </div>
+        //     )
+        // }
+        // return return_list;
     };
 
     displayPriority(priority) {
