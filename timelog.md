@@ -130,3 +130,4 @@
 
 ### 18 Oct 2023
 * *1 hour* Updated drag and drop sorting of stories to work with multiple epics
+* *1 hour* Added order field to Epic model so that epics can be ordered by this field, updated tests to reflect this addition
