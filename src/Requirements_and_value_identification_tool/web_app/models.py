@@ -8,6 +8,8 @@ class Epic(models.Model):
     dashboard_id = models.CharField(max_length=8) #this will be a foreign key
     title = models.CharField(max_length=128)
 
+    order = models.IntegerField(default=-1)
+
     last_edited_by = models.CharField(max_length=128)
     last_edited =  models.CharField(max_length=128)
     created_by = models.CharField(max_length=128)
@@ -21,7 +23,7 @@ class Story(models.Model):
     epic_id = models.CharField(max_length=8) #maybe foreign key #each story corresponds to only one epic
     title = models.CharField(max_length=128)
 
-    order = models.IntegerField(null = True)
+    order = models.IntegerField(default=-1)
     
 
     user_story = models.CharField(max_length=1028) #Trefine this number at later date

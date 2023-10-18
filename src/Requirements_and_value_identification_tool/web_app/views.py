@@ -11,7 +11,7 @@ def EpicDashboardInfo(request):
     if request.method == 'GET':
         print("getting data...")
 
-        epic_data =  Epic.objects.all()
+        epic_data =  Epic.objects.all().order_by('order')
         epic_serializer = EpicSerializer(epic_data, context={'request': request}, many=True)
 
         story_data =  Story.objects.all().order_by('order')
@@ -30,8 +30,18 @@ def EpicDashboardInfo(request):
                 print("adding epic...")
                 epic_serializer.save()
                 epic_id = epic_serializer.data['id']
+                dashboard_id = epic_serializer.data['dashboard_id']
+
+                epics = Epic.objects.filter(dashboard_id=dashboard_id).order_by('order')
+                epic_serializer_2 = EpicSerializer(epics, many=True)
+
+                if len(epic_serializer_2.data) == 1:
+                    order = 1
+                else:
+                    order = epics[len(epic_serializer_2.data) -1].order + 1
                 
                 Epic.objects.filter(id=epic_id).update(epic_id = epic_id)
+                Epic.objects.filter(id=epic_id).update(order = order)
             
 
                 return Response(status=status.HTTP_201_CREATED)

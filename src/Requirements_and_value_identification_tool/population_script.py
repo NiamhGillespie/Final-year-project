@@ -13,6 +13,7 @@ def populate():
             'epic_colour': 'c93434',
             'dashboard_id': '0',
             'title': 'Epic for testing',
+            'order': 1,
             'last_edited_by': 'Niamh',
             'last_edited': datetime(2023, 10, 3, 15),
             'created_by': 'Niamh',
@@ -21,7 +22,7 @@ def populate():
     ]
 
     for epic in epics:
-        add_epic(epic['epic_id'], epic['epic_colour'], epic['dashboard_id'], epic['title'], epic['last_edited_by'], 
+        add_epic(epic['epic_id'], epic['epic_colour'], epic['dashboard_id'], epic['title'], epic['order'], epic['last_edited_by'], 
                  epic['last_edited'], epic['created_by'], epic['time_created'])
         
     stories = [
@@ -29,7 +30,7 @@ def populate():
             'story_id': '1',
             'epic_id': '1',
             'title': 'Story for testing',
-            'order': 0,
+            'order': 1,
             'user_story': 'As a developer, I want to have a test story, so I can use it in the react app',
             'definition_of_done': 'Test story should display on REST framework page',
             'value_statement': 'Means I do not need to add a story to display it',
@@ -49,8 +50,8 @@ def populate():
                 story['pairable'], story['assigned_to'], story['last_edited_by'],
                 story['last_edited'], story['created_by'], story['time_created'])
 
-def add_epic(epic_id, epic_colour, dashboard_id, title, last_edited_by, last_edited, created_by, time_created):
-    epic = Epic.objects.get_or_create(epic_id = epic_id, dashboard_id=dashboard_id, epic_colour = epic_colour)[0]
+def add_epic(epic_id, epic_colour, dashboard_id, title, order, last_edited_by, last_edited, created_by, time_created):
+    epic = Epic.objects.get_or_create(epic_id = epic_id, dashboard_id=dashboard_id, epic_colour = epic_colour, order=order)[0]
     epic.title = title
     epic.last_edited_by = last_edited_by
     epic.last_edited = last_edited
