@@ -17,9 +17,9 @@
 .epic-container {
     color: white;
     text-align: center;
-    background: rgba(211, 215, 220, 0.231);
+    background: #d3d7dc20;
     border-radius: 10px;
-    margin: 1%;
+    margin: 10%;
     min-width: 200px;
     min-height: 100%;
 }
@@ -29,7 +29,9 @@
     text-align: left;
     padding: 10px 10px 10px 10px;
     border-radius: 15px;
-    margin: 20px 10px 5px 10px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 5px;
     width: 180px;
     height: 90px;
 }
@@ -40,7 +42,7 @@
     padding: 10px 10px 10px 10px;
     background: white;
     border-radius: 15px;
-    margin: 30px 10px 20px 10px;
+    margin: 10px 10px 10px 10px;
     width: 180px;
     height: 90px;
 }

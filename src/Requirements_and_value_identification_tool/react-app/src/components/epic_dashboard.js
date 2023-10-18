@@ -42,7 +42,7 @@ export class EpicsDashboard extends Component {
 
     story_drag_and_drop(stories, epic_colour) {
         const getDraggingStyle = isDraggingOver => ({
-            background: isDraggingOver ? "#" + epic_colour + "20" : "WhiteSmoke",
+            background: isDraggingOver ? "#" + epic_colour + "20" : "",
             paddingTop: 2,
             paddingBottom: 2,
             borderRadius: 10,
@@ -59,7 +59,7 @@ export class EpicsDashboard extends Component {
                 
                     this.reorderStories(stories, result.source.index, result.destination.index);
                 }}>
-                    <Droppable droppableId="droppable">
+                    <Droppable droppableId="droppable" direction="vertical">
                     {(provided, snapshot) => (
                         <div {...provided.droppableProps} ref={provided.innerRef} style={getDraggingStyle(snapshot.isDraggingOver)}>
                         
@@ -108,15 +108,14 @@ export class EpicsDashboard extends Component {
     };
 
     epics_drag_and_drop(epics) {
-        const getDraggingStyle = isDraggingOver => ({
-            background: isDraggingOver ? "blue" : "WhiteSmoke",
+        const getDraggingStyleEpicList = isDraggingOver => ({
+            // background: isDraggingOver ? "#58c1d620" : "",
             paddingTop: 2,
             paddingBottom: 2,
             borderRadius: 10,
-            display: "inline-flex",
-          });
+            display: "flex",
+        });
 
-          
         if (epics != []) {
 
             return (
@@ -127,20 +126,22 @@ export class EpicsDashboard extends Component {
                 
                     this.reorderEpics(epics, result.source.index, result.destination.index);
                 }}>
-                    <Droppable droppableId="droppable">
+                    <Droppable droppableId="droppable" direction="horizontal">
                     {(provided, snapshot) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef} style={getDraggingStyle(snapshot.isDraggingOver)}>
+                        <div {...provided.droppableProps} ref={provided.innerRef} style={getDraggingStyleEpicList(snapshot.isDraggingOver)}>
                         
                        
                         {epics.map((epic, index) => (
                               
                               
-                              <Draggable key={epic.id} draggableId={epic.id.toString()} index={index}
-                                  >
+                              <Draggable key={epic.id} draggableId={epic.id.toString()} index={index}>
                                 {(provided, snapshot) => (
-                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                        <div className="epic-container">
-                                            <div style={{ background: '#' + epic.epic_colour }} className="epic-box"> {epic.title}</div>
+                                    <div ref={provided.innerRef} {...provided.draggableProps}>
+                                        <div className="epic-container" style={{ 
+                                                border: snapshot.draggingOver ? "3px solid #" + epic.epic_colour + "60" : "", 
+                                                }}>
+                                            <div style={{ background: '#' + epic.epic_colour }} className="epic-box"
+                                            {...provided.dragHandleProps}> {epic.title}</div>
                     
                                             <div className="d-flex flex-column">
                                                 {this.displayStories(epic.id, epic.epic_colour)}
