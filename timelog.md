@@ -127,3 +127,6 @@
 * *2 hours* Added order field to Story model so that stories can be ordered by this field and updated tests
 * *3.5 hours* Chosen library was not working so began trying out new libraries, began setup drag and drop with react-beautiful-dnd library
 * *2.5 hours* Implemented drag and drop sorting of stories - only works if there is only one epic on the dashboard
+
+### 18 Oct 2023
+* *1 hour* Updated drag and drop sorting of stories to work with multiple epics
