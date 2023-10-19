@@ -66,13 +66,13 @@ export class EpicsDashboard extends Component {
                        
                         {stories.map((story, index) => (
                               
-                              
-                              <Draggable key={story.id} draggableId={story.id.toString()} index={index}
+                              <div>
+                              <Draggable key={story.id} draggableId={story.id.toString()} index={index} className="story-drag-and-drop"
                                   >
                                 {(provided, snapshot) => (
-                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                    <div ref={provided.innerRef} {...provided.draggableProps}>
 
-                                        <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box">
+                                        <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box"  {...provided.dragHandleProps}>
                                             <p className='story-title'> {story.title} </p>
                                             <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
                                             <p className='story-priority'> {this.displayPriority(story.priority)} </p>
@@ -80,6 +80,7 @@ export class EpicsDashboard extends Component {
                                     </div>
                                 )}
                                 </Draggable>
+                                </div>
                              
                         ))}
                         {provided.placeholder}

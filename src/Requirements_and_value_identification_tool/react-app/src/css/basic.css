@@ -20,6 +20,7 @@
     background: #d3d7dc20;
     border-radius: 10px;
     margin: 10%;
+    margin-right: 5px;
     min-width: 200px;
     min-height: 100%;
 }
@@ -42,7 +43,7 @@
     padding: 10px 10px 10px 10px;
     background: white;
     border-radius: 15px;
-    margin: 10px 10px 10px 10px;
+    margin: 20px 10px 20px 10px;
     width: 180px;
     height: 90px;
 }
@@ -113,4 +114,8 @@
 
 .checkbox-styling label {
     margin-right: 10px;
+}
+
+.story-drag-and-drop {
+    margin: 30px;
 }
