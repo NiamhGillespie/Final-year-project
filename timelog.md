@@ -133,3 +133,6 @@
 * *1 hour* Added order field to Epic model so that epics can be ordered by this field, updated tests to reflect this addition
 * *0.5 hour* Starting drag and drop feature for reordering epics
 * *1 hour* Finished drag and drop feature for epics
+
+### 19 Oct 2023
+* *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
