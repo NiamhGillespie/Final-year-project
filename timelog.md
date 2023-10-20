@@ -137,3 +137,6 @@
 ### 19 Oct 2023
 * *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
 * *1 hours* Created Figma designs for story details, decided against loading up a seperate page currently but it could be a good idea to have this option in the future - possibly linked to by title?
+
+### 20 Oct 2023
+* *0.5 hours* Created Figma designs for epic detail =s based on the story details designs
