@@ -119,3 +119,16 @@
 .story-drag-and-drop {
     margin: 30px;
 }
+
+.right-modal {
+    float: right;
+    position: absolute;
+    top: 0%;
+    height: 95%;
+    background: #000;
+    margin: 0;
+}
+
+.coloured-header {
+    color: white;
+}

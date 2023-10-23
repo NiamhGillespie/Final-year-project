@@ -11,6 +11,7 @@ import {
     SortableContext,
     verticalListSortingStrategy
   } from "@dnd-kit/sortable";
+import EpicDetailsModal from './epic_details_modal';
 
 
 export class EpicsDashboard extends Component {
@@ -140,10 +141,12 @@ export class EpicsDashboard extends Component {
                                     <div ref={provided.innerRef} {...provided.draggableProps}>
                                         <div className="epic-container" style={{ 
                                                 border: snapshot.draggingOver ? "3px solid #" + epic.epic_colour + "60" : "", 
-                                                }}>
-                                            <div style={{ background: '#' + epic.epic_colour }} className="epic-box"
-                                            {...provided.dragHandleProps}> {epic.title}</div>
-                    
+                                            }}>
+
+                                            <div {...provided.dragHandleProps}> 
+                                                <EpicDetailsModal resetState={this.resetState} epic={epic}/>
+                                            </div>
+                                                
                                             <div className="d-flex flex-column">
                                                 {this.displayStories(epic.id, epic.epic_colour)}
                     
