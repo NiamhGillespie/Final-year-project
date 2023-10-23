@@ -140,3 +140,9 @@
 
 ### 20 Oct 2023
 * *0.5 hours* Created Figma designs for epic detail =s based on the story details designs
+
+
+## Week 5
+
+### 23 Oct 2023
+* *2 hours* Started on epic details modal, having significant problems styling the react modal componant to display like the Figma design (both height and width problems), I may need to create my own modal component or rethink my design
