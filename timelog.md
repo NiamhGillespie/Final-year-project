@@ -146,3 +146,6 @@
 
 ### 23 Oct 2023
 * *2 hours* Started on epic details modal, having significant problems styling the react modal componant to display like the Figma design (both height and width problems), I may need to create my own modal component or rethink my design
+
+### 24 Oct 2023
+* *1.5 hours* Fixed display issues I was having with the epic details modal
