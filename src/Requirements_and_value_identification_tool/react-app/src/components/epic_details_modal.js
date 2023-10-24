@@ -23,15 +23,16 @@ class EpicDetailsModal extends Component {
         return (
         <div>
             {epic_box}
-            <Modal className= 'modal-lg right-modal float-right w-100 h-100' isOpen={this.state.modal} toggle={this.toggleModal}>
-                <div>
-                <ModalHeader toggle={this.toggleModal} className='coloured-header h-10' style={{ background: '#' + this.props.epic.epic_colour }}>
-                    {this.props.epic.title} 
-                </ModalHeader>
+            <Modal className= 'right-modal float-right' isOpen={this.state.modal} toggle={this.toggleModal}
+            style={{minWidth: '60vw', minHeight: '100vh', margin: '0px'}}>
+                <div className="details-modal">
+                    <ModalHeader toggle={this.toggleModal} className='coloured-header h-10' style={{ background: '#' + this.props.epic.epic_colour }}>
+                        {this.props.epic.title} 
+                    </ModalHeader>
 
-                <ModalBody className="h-90">
-                    <p> Epic details go here </p>
-                </ModalBody>
+                    <ModalBody >
+                        <p> Epic details go here </p>
+                    </ModalBody>
                 </div>
             </Modal>
         </div>
