@@ -149,3 +149,6 @@
 
 ### 24 Oct 2023
 * *1.5 hours* Fixed display issues I was having with the epic details modal
+
+### 25 Oct 2023
+* *2 hours* Added information to epic details modal and began formatting with css
