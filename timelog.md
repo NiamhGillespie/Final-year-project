@@ -152,3 +152,4 @@
 
 ### 25 Oct 2023
 * *2 hours* Added information to epic details modal and began formatting with css
+* *2.5 hours* Finished epic details modal, added functionality to display all the stories associated with an epic, will need to add a values component to the add epic form and model
