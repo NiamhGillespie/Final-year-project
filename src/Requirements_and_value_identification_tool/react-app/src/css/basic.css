@@ -157,3 +157,61 @@
     padding-bottom: 0px;
     width: 60vw;
 }
+
+.details-value-box-header {
+    width: 32vw;
+    color: white;
+    height: 6vh;
+    border-radius: 15px 15px 0px 0px;
+    font-size: 20px;
+    margin-bottom: 0px;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.details-value-box {
+    width: 32vw;
+    color: black;
+    height: 20vh;
+    border-radius: 0px 0px 15px 15px;
+    margin-top: 0px;
+    padding: 10px;
+}
+
+.details-stories-header {
+    width: 32vw;
+    height: 6vh;
+    font-size: 20px;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.details-stories {
+    width: 32vw;
+    height: 5vh;
+    color: black;
+    height: 6vh;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 5px;
+    padding-left: 10px;
+    display: block;
+}
+
+.details-left-col {
+    width: 35vw;
+    float: left;
+}
+
+.details-right-col {
+    width: 25vw;
+    float: left;
+}
+
+.details-heading {
+    font-size: 20px;
+}
+
+.epic-stories-scrollable {
+    height: 35vh;
+}

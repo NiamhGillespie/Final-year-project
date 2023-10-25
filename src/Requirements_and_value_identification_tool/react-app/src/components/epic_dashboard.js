@@ -144,7 +144,7 @@ export class EpicsDashboard extends Component {
                                             }}>
 
                                             <div {...provided.dragHandleProps}> 
-                                                <EpicDetailsModal resetState={this.resetState} epic={epic}/>
+                                                <EpicDetailsModal resetState={this.resetState} epic={epic} stories={this.state.stories}/>
                                             </div>
                                                 
                                             <div className="d-flex flex-column">
@@ -189,29 +189,8 @@ export class EpicsDashboard extends Component {
 
     displayEpics() {
         var epics = this.state.epics;
-        var return_list = [];
 
         return this.epics_drag_and_drop(epics);
-        
-        // console.log('EPICS', epics)
-        // for (var i = 0; i < epics.length; i++) {
-            
-        //     return_list.push(
-        //         <div className="epic-container">
-        //             <div style={{ background: '#' + epics[i].epic_colour }} className="epic-box"> {epics[i].title}</div>
-
-        //             <div className="d-flex flex-column">
-        //                 {this.displayStories(epics[i].id, epics[i].epic_colour)}
-
-        //                 <div style={{ border: '2px dashed ' + '#' + epics[i].epic_colour }} className="add-story-box">
-        //                     <AddStoryModal resetState={this.resetState} epic_id={epics[i].epic_id} epic_colour={epics[i].epic_colour} />
-        //                 </div>
-
-        //             </div>
-        //         </div>
-        //     )
-        // }
-        // return return_list;
     };
 
     displayPriority(priority) {

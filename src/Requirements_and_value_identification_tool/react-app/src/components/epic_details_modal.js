@@ -14,6 +14,26 @@ class EpicDetailsModal extends Component {
         }));
     };
 
+    getStories() {
+        var stories = this.props.stories;
+        var epic_id = this.props.epic.epic_id;
+
+        var return_list = [];
+    
+        if (stories.length >= 1) {
+            for (var i = 0; i < stories.length; i++) {
+                if (stories[i].epic_id === String(epic_id)) {
+                    return_list.push(
+                        <div className="d-block">
+                            <p className="details-stories" style={{ border: '2px solid #' + this.props.epic.epic_colour}}> {stories[i].title} </p> 
+                        </div>
+                    )
+                }
+            }
+        }
+        return return_list;
+    }
+
     render() {
         var epic_box = (
             <div style={{ background: '#' + this.props.epic.epic_colour }} className="epic-box" onClick={this.toggleModal}>
@@ -33,28 +53,39 @@ class EpicDetailsModal extends Component {
                     </ModalHeader>
 
                     <ModalBody >
-                        <div className="row">
-                            <div className="col-sm"> 
-                                <p> Value statement </p>
-                                <p> {this.props.epic.epic_colour} - replace this with values when added </p>
+                        <div className="details-left-col float-left" >
+                            <div className="details-value-box h-100"> 
+                                <p className="details-value-box-header" style={{ backgroundColor: '#' + this.props.epic.epic_colour}}> Value statement </p>
+                                <p className="details-value-box" style={{ backgroundColor: '#' + this.props.epic.epic_colour + '40'}}> Need to add in a value section for epic form :) </p>
                             </div>
 
-                            <div className="col-sm"> 
-                                <p> Relevant Stories </p>
-                                <p> list of stories :) - function </p>
+                            <div>
+                                <p className="details-stories-header" style={{ color: '#' + this.props.epic.epic_colour}}> Stories: </p>
+                                <div class="overflow-auto epic-stories-scrollable">
+                                    { this.getStories() }
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div className="details-right-col float-right">
+                            <div> 
+                                <p style={{ color: '#' + this.props.epic.epic_colour}} className="details-heading mb-2"> Last edited: </p>
+                                <p className="p-0 mb-1 mt-1"> {this.props.epic.last_edited_by} </p>
+                                <p className="p-0 mt-1"> {this.props.epic.last_edited} </p>
+                            </div>
+
+                            <div className="mt-5"> 
+                                <p style={{ color: '#' + this.props.epic.epic_colour}} className="details-heading mb-2"> Created by: </p>
+                                <p className="p-0 mb-1 mt-1"> {this.props.epic.created_by} </p>
+                                <p className="p-0 mt-1">{this.props.epic.time_created} </p>
+                            </div>
+                        
+                            <div className="mt-5">
+                                <p style={{ color: '#' + this.props.epic.epic_colour}} className="details-heading"> Epic colour: </p>
+                                <ColorPicker className="colour-picker d-inline  w-120 h-120" value={this.props.epic.epic_colour} inline disabled ></ColorPicker>
                             </div>
                         </div>
-                        <div> 
-                            <p> Last edited: </p>
-                            <p> {this.props.epic.last_edited_by} - {this.props.epic.last_edited} </p>
-                        </div>
-
-                        <div> 
-                            <p> Created by: </p>
-                            <p> {this.props.epic.created_by} - {this.props.epic.time_created} </p>
-                        </div>
-
-                        <ColorPicker className="colour-picker d-inline h-100 w-100" value={this.props.epic.epic_colour} inline disabled ></ColorPicker>
                     </ModalBody>
                 </div>
             </Modal>
