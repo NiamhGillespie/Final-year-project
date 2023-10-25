@@ -122,6 +122,7 @@
 
 .right-modal {
     float: right;
+    border-radius: 0px;
 }
 
 .details-modal {
@@ -130,5 +131,29 @@
 }
 
 .coloured-header {
+    margin: 1vh !important;
+    width: 59vw;
+    max-height: 20vh;
     color: white;
+    padding-bottom: 0px;
+    border-radius: 2vw !important;
+}
+
+.details-title {
+    font-size: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    width: 60vw;
+}
+
+.details-id {
+    font-size: 20px;
+    float:right;
+    text-align: right;
+    margin-top: -10px;
+    padding-right: 5vw;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 60vw;
 }
