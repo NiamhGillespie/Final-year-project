@@ -133,17 +133,19 @@
 .coloured-header {
     margin: 1vh !important;
     width: 59vw;
-    max-height: 20vh;
+    max-height: 16vh;
     color: white;
     padding-bottom: 0px;
     border-radius: 2vw !important;
 }
 
 .details-title {
-    font-size: 30px;
+    font-size: 25px;
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 40px;
     padding-bottom: 0px;
+    padding-top: 10px;
+    margin-bottom: 2px;
     width: 60vw;
 }
 
@@ -151,14 +153,15 @@
     font-size: 20px;
     float:right;
     text-align: right;
-    margin-top: -10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     padding-right: 5vw;
     padding-top: 0px;
     padding-bottom: 0px;
     width: 60vw;
 }
 
-.details-value-box-header {
+.details-box-header {
     width: 32vw;
     color: white;
     height: 6vh;
@@ -169,13 +172,24 @@
     vertical-align: middle;
 }
 
-.details-value-box {
+.details-box-large {
     width: 32vw;
     color: black;
-    height: 20vh;
+    height: 18vh;
     border-radius: 0px 0px 15px 15px;
     margin-top: 0px;
-    padding: 10px;
+    padding: 5px 10px;
+    overflow-y: scroll;
+} 
+
+.details-box-small {
+    width: 32vw;
+    color: black;
+    height: 11vh;
+    border-radius: 0px 0px 15px 15px;
+    margin-top: 0px;
+    padding: 5px 10px;
+    overflow-y: scroll;
 }
 
 .details-stories-header {
@@ -192,9 +206,10 @@
     color: black;
     height: 6vh;
     border-radius: 15px;
-    margin: 10px;
+    margin-left: 10px;
     padding: 5px;
     padding-left: 10px;
+    padding-right: 0px;
     display: block;
 }
 
@@ -204,6 +219,8 @@
 }
 
 .details-right-col {
+    margin-left: 20px;
+    padding-left: 10px;
     width: 25vw;
     float: left;
 }
@@ -214,4 +231,32 @@
 
 .epic-stories-scrollable {
     height: 35vh;
+}
+
+.details-story-points {
+    width: 4vw;
+    height: 4vw;
+    line-height: 4vw;
+    font-size: 2vw;
+    color: white;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.details-tag {
+    font-size: 2vh;
+    border-radius: 15px;
+    padding: 0px 1vw;
+    margin-right: 1vw; 
+    margin-bottom: 1vh; 
+    width: auto;
+    display: inline-block;
+}
+
+.details-state {
+    padding-left: 10px;
+}
+
+.details-priority {
+    padding-left: 10px;
 }

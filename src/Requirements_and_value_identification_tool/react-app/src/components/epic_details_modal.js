@@ -31,6 +31,14 @@ class EpicDetailsModal extends Component {
                 }
             }
         }
+
+        if (return_list.length == 0) {
+            return_list.push(
+                <div className="d-block">
+                    <p className="details-stories" style={{ border: '2px solid #' + this.props.epic.epic_colour}}> No stories added yet! </p> 
+                </div>
+            )
+        }
         return return_list;
     }
 
@@ -52,11 +60,13 @@ class EpicDetailsModal extends Component {
                         <p className="details-id float-end"> #{this.props.epic.id} </p>
                     </ModalHeader>
 
-                    <ModalBody >
-                        <div className="details-left-col float-left" >
+                    <ModalBody className="mt-3">
+                        <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.props.epic.epic_colour + '60'}}>
                             <div className="details-value-box h-100"> 
-                                <p className="details-value-box-header" style={{ backgroundColor: '#' + this.props.epic.epic_colour}}> Value statement </p>
-                                <p className="details-value-box" style={{ backgroundColor: '#' + this.props.epic.epic_colour + '40'}}> Need to add in a value section for epic form :) </p>
+                                <p className="details-box-header" style={{ backgroundColor: '#' + this.props.epic.epic_colour}}> Value statement </p>
+                                <p className="details-box-large" style={{ backgroundColor: '#' + this.props.epic.epic_colour + '40',  scrollbarColor: '#' + this.props.epic.epic_colour + '90  #' + this.props.epic.epic_colour + '30'}}>
+                                    Need to add in a value section for epic form :) 
+                                </p>
                             </div>
 
                             <div>

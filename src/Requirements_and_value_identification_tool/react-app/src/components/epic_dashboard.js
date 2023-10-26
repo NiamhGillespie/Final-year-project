@@ -12,6 +12,7 @@ import {
     verticalListSortingStrategy
   } from "@dnd-kit/sortable";
 import EpicDetailsModal from './epic_details_modal';
+import StoryDetailsModal from './story_details_modal';
 
 
 export class EpicsDashboard extends Component {
@@ -72,12 +73,10 @@ export class EpicsDashboard extends Component {
                                   >
                                 {(provided, snapshot) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps}>
-
-                                        <div style={{border: '2px solid ' + '#' + epic_colour}} className="story-box"  {...provided.dragHandleProps}>
-                                            <p className='story-title'> {story.title} </p>
-                                            <p style={{background: '#' + epic_colour}} className='story-profile-photo'> icon </p>
-                                            <p className='story-priority'> {this.displayPriority(story.priority)} </p>
-                                        </div>
+                                    
+                                    <div {...provided.dragHandleProps}>
+                                        <StoryDetailsModal resetState={this.resetState} story={story} epic_colour={epic_colour}/>
+                                    </div>
                                     </div>
                                 )}
                                 </Draggable>
@@ -192,32 +191,6 @@ export class EpicsDashboard extends Component {
 
         return this.epics_drag_and_drop(epics);
     };
-
-    displayPriority(priority) {
-        var priorityText = '';
-        var priorityIcon;
-        var priorityColour;
-        
-        if (priority==='LOW') {
-            priorityText = 'low';
-            priorityIcon='!';
-            priorityColour='green'
-        } else if (priority==='MEDIUM') {
-            priorityText = 'medium';
-            priorityIcon='!!';
-            priorityColour='orange'
-        } else {
-            priorityText = 'high';
-            priorityIcon='!!!';
-            priorityColour='red'
-        }
-
-        return(
-            <div>
-                <p style={{color: priorityColour}}> { priorityText }    { priorityIcon } </p>
-            </div>
-        )
-    }
     
     displayStories(epic_id, epic_colour) {
         var stories = this.state.stories;
