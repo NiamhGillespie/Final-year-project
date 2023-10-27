@@ -65,7 +65,7 @@ class EpicDetailsModal extends Component {
                             <div className="details-value-box h-100"> 
                                 <p className="details-box-header" style={{ backgroundColor: '#' + this.props.epic.epic_colour}}> Value statement </p>
                                 <p className="details-box-large" style={{ backgroundColor: '#' + this.props.epic.epic_colour + '40',  scrollbarColor: '#' + this.props.epic.epic_colour + '90  #' + this.props.epic.epic_colour + '30'}}>
-                                    Need to add in a value section for epic form :) 
+                                    Need to add in a value section in epic model and form! 
                                 </p>
                             </div>
 

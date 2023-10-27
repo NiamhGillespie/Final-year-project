@@ -96,7 +96,7 @@ class StoryDetailsModal extends Component {
                         <div className="details-right-col float-right">
                             <div> 
                                 <p style={{ color: '#' + this.props.epic_colour}} className="details-heading mb-2"> Epic: </p>
-                                <p className="p-0 mb-1 mt-1"> {this.props.story.epic_id} </p>
+                                <p className="p-0 mb-1 mt-1"> #{this.props.story.epic_id} </p>
                             </div>
 
                             <div className="mt-3"> 

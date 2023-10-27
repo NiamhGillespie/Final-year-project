@@ -35,6 +35,8 @@
     margin-bottom: 5px;
     width: 180px;
     height: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .story-box {
@@ -46,6 +48,9 @@
     margin: 20px 10px 20px 10px;
     width: 180px;
     height: 90px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .add-story-box {
@@ -259,4 +264,17 @@
 
 .details-priority {
     padding-left: 10px;
+}
+
+.add-story-left-col {
+    width: 32vw;
+    float: left;
+    margin-left: 0.5vw;
+}
+
+.add-story-right-col {
+    margin-left: 2vw;
+    margin-right: 0.5vw;
+    width: 32vw;
+    float: left;
 }

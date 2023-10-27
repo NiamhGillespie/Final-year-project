@@ -62,8 +62,8 @@ class AddStoryForm extends Component {
     render() {
         return (
         <Form onSubmit={ this.createStory }>
-            <div className='row  mb-4'>
-                <div className='col'>
+
+                <div className='add-story-left-col'>
                     <FormGroup>
                         <Label for="title">Story title:</Label>
                         <Input
@@ -74,9 +74,8 @@ class AddStoryForm extends Component {
                             className='w-40'
                         />
                     </FormGroup>
-                </div>
 
-                <div className='row'>
+
                     <FormGroup>
                         <Label for="user_story">User Story:</Label>
                         <Input
@@ -87,12 +86,7 @@ class AddStoryForm extends Component {
                             value={this.returnDefaultIfFieldEmpty(this.state.user_story)}
                         />
                     </FormGroup>
-                </div>
-                
-            </div>
 
-            <div className='row'>
-                <div className='col'>
                     <FormGroup>
                         <Label for="definition_of_done">Definition of Done:</Label>
                         <Input
@@ -105,7 +99,7 @@ class AddStoryForm extends Component {
                     </FormGroup>
                 </div>
 
-                <div className='col'>
+                <div className='add-story-right-col'>
                     <FormGroup>
                         <Label for="value_statement">Value statement:</Label>
                         <Input
@@ -117,11 +111,7 @@ class AddStoryForm extends Component {
                         />
                         <span class="bigcheck-target"></span>
                     </FormGroup>
-                </div>
-            </div>
 
-            <div className='row'>
-                <div className='col'>
                     <FormGroup>
                         <Label for="priority">Priority:</Label>
                         <select value={this.state.value} onChange={this.onChange} name="priority">
@@ -130,9 +120,7 @@ class AddStoryForm extends Component {
                             <option value="HIGH">High</option>
                         </select>
                     </FormGroup>
-                </div>
-            
-                <div className='col'>
+
                     <FormGroup className='checkbox-styling'>
                         <Label for="pairable">Pairable: </Label>
                         <Input
@@ -142,10 +130,7 @@ class AddStoryForm extends Component {
                             value={this.returnDefaultIfFieldEmpty(this.state.pairable)}
                         />
                     </FormGroup>
-                </div>
-            </div>
 
-            <div className='col'>
                 <FormGroup>
                     <Label for="assigned_to">Assigned to:</Label>
                     <Input
@@ -155,11 +140,13 @@ class AddStoryForm extends Component {
                         value={this.returnDefaultIfFieldEmpty(this.state.assigned_to)}
                     />
                 </FormGroup>
+
             </div>
-                
-            <div className='col'>
-                <Button className="btn-primary justify-content-start">Create Story</Button>
+
+            <div className='w-100'>
+                <Button className="btn-primary w-100 float-right mt-5"> Create Story </Button>
             </div>
+            
         </Form>
         );
     }
