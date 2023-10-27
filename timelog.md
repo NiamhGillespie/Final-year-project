@@ -156,3 +156,7 @@
 
 ### 26 Oct 2023
 * *3.5 hours* Created story details modal, will need to some fields to the Story model to fully complete this but these will require very little change to the modal code
+* Also added a custom issue template to my repository so I could simplify my issue adding process
+
+### 27 Oct 2023
+* *0.5 hours* Started refining the 'add story' form and modal by making them a custom width and adding customised columns.
