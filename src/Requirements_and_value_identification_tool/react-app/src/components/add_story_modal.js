@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import AddStoryForm from "./add_story_form";
 import '../css/basic.css';
 

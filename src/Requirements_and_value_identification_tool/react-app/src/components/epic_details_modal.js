@@ -32,7 +32,7 @@ class EpicDetailsModal extends Component {
             }
         }
 
-        if (return_list.length == 0) {
+        if (return_list.length === 0) {
             return_list.push(
                 <div className="d-block">
                     <p className="details-stories" style={{ border: '2px solid #' + this.props.epic.epic_colour}}> No stories added yet! </p> 

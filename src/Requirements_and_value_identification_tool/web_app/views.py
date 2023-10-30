@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
-from .models import Epic, Story, Task
-from .serializers import EpicSerializer, StorySerializer, TaskSerializer
+from .models import Epic, Story, Task, Tag
+from .serializers import EpicSerializer, StorySerializer, TaskSerializer, TagSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -121,3 +121,53 @@ def StoryDetails(request, story_id):
     elif request.method == 'GET':
         story_serializer = StorySerializer(story)
         return Response(story_serializer.data, status=status.HTTP_204_NO_CONTENT)    
+
+@api_view(['GET', 'POST'])
+def TeamTags(request):
+    if request.method == 'GET':
+        print("GETTING DATA...")
+
+    #tags = Tag.objects.all() 
+        tags = Tag.objects.filter(team_id='0000') #implement teams later
+        print(tags)
+        tag_serializer = TagSerializer(tags, context={'request': request}, many=True)
+        
+        return Response(tag_serializer.data)
+    
+    if request.method == 'POST':
+        tag_serializer = TagSerializer(data=request.data)
+            
+        if tag_serializer.is_valid():
+            print("adding tag...")
+            tag_serializer.save()
+            tag_id = tag_serializer.data['id']
+                
+            Tag.objects.filter(id=tag_id).update(tag_id = tag_id)
+            
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(tag_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['PUT', 'DELETE', 'GET'])
+def TagDetail(request, tag_id):
+    try:
+        tag = Tag.objects.get(tag_id = tag_id, team_id = '0000') #chnge this when implementing teams
+    except Tag.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        print('putting...')
+        tag_serializer = TagSerializer(tag, data=request.data,context={'request': request})
+        if tag_serializer.is_valid():
+            tag_serializer.save()
+            print(tag_serializer.data)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(tag_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        tag.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'GET':
+        tag_serializer = TagSerializer(tag)
+        return Response(tag_serializer.data, status=status.HTTP_204_NO_CONTENT)

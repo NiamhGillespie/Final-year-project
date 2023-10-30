@@ -2,6 +2,18 @@ from django.db import models
 from datetime import datetime
 
 # Create your models here.
+
+class Tag(models.Model):
+    tag_id = models.CharField(max_length=8, default='error')
+    team_id = models.CharField(max_length=8, default='error') # each team has a set of tags?
+    title = models.CharField(max_length=16)
+    description = models.CharField(max_length=128)
+    colour = models.CharField(max_length=6)
+
+    def __str__(self):
+        return self.title
+
+
 class Epic(models.Model):
     epic_id = models.CharField(max_length=8) #8 digits specific only - constrain this
     epic_colour = models.CharField(max_length=6)
@@ -9,6 +21,7 @@ class Epic(models.Model):
     title = models.CharField(max_length=128)
 
     order = models.IntegerField(default=-1)
+    tags = models.ManyToManyField(Tag)
 
     last_edited_by = models.CharField(max_length=128)
     last_edited =  models.CharField(max_length=128)
@@ -24,6 +37,7 @@ class Story(models.Model):
     title = models.CharField(max_length=128)
 
     order = models.IntegerField(default=-1)
+    tags = models.ManyToManyField(Tag)
     
 
     user_story = models.CharField(max_length=1028) #Trefine this number at later date
@@ -35,7 +49,6 @@ class Story(models.Model):
     HIGH = "HIGH"
     priority = models.CharField(max_length=6, choices = [(LOW, "low priority"), (MEDIUM, "medium priority"), (HIGH, "high priority")])
 
-    #user defined tag list?
     #state variable - based on issue board (e.g backlog, in progress, complete <- these may be defined by user)
     #linked/dependent stories
 
@@ -78,13 +91,3 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
-
-#will have multiple dashboards how to refine
-#each dashboard has multiple epics
-#each epic has only one dashboard
-#each epic has multiple stories
-#a story only has one epic
-#each story can have multiple tasks
-#each task can only have one story 
-
-#consider moving logging info into own class?
