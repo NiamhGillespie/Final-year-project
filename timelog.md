@@ -161,3 +161,9 @@
 ### 27 Oct 2023
 * *0.5 hours* Started refining the 'add story' form and modal by making them a custom width and adding customised columns.
 * *1 hour* Supervisor meeting with Peggy, wrote up meeting notes and added new issues to my backlog
+
+
+## Week 5
+
+### 30 Oct 2023
+* *0.5 hours* Finished refining the 'add story' form and modal
