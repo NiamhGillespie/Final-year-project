@@ -113,8 +113,8 @@ class AddStoryForm extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label for="priority">Priority:</Label>
-                        <select value={this.state.value} onChange={this.onChange} name="priority">
+                        <Label for="priority">Priority: </Label>
+                        <select value={this.state.value} onChange={this.onChange} name="priority" className='ms-2'>
                             <option value="LOW">Low</option>
                             <option value="MEDIUM">Medium</option>
                             <option value="HIGH">High</option>

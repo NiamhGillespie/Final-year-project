@@ -267,7 +267,7 @@
 }
 
 .add-story-left-col {
-    width: 32vw;
+    width: 29vw;
     float: left;
     margin-left: 0.5vw;
 }
@@ -275,6 +275,6 @@
 .add-story-right-col {
     margin-left: 2vw;
     margin-right: 0.5vw;
-    width: 32vw;
+    width: 29vw;
     float: left;
 }

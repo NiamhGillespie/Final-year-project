@@ -24,7 +24,7 @@ class AddStoryModal extends Component {
         return (
         <Fragment>
             {button}
-            <Modal className='modal-lg' isOpen={this.state.modal} toggle={this.toggleModal} style={{minWidth: '70vw', minHeight: '80vh'}}>
+            <Modal className='modal-lg' isOpen={this.state.modal} toggle={this.toggleModal} style={{minWidth: '64vw', minHeight: '80vh'}}>
                 <ModalHeader toggle={this.toggleModal}>Add Story</ModalHeader>
 
                 <ModalBody>
