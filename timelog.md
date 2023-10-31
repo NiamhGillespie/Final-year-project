@@ -168,3 +168,6 @@
 ### 30 Oct 2023
 * *0.5 hours* Finished refining the 'add story' form and modal
 * *2 hours* Added new Tags model with GET and POST API calls for a teams associated tags (currently hardcoded) and GET, PUT and Delete API calls for an individual tag. Also updated the population script to indclude an example tag.
+
+### 31 Oct 2023
+* *3 hours* Added tags to 'add story form', user can select a tag by clicking its title in a dropdown menu then unselect it by recklicking the tag title, currently this is very clunky and needs refinement
