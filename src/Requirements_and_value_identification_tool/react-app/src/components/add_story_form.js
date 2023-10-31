@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
 import { API_URL } from "../constants";
@@ -17,6 +17,8 @@ class AddStoryForm extends Component {
         user_story: "As a \nI would like to \nSo that I can ",
         definition_of_done: "",
         value_statement: "",
+        team_tags: this.getTeamTags(),
+        tags: [],
         priority: "LOW",
 
         pairable: false,
@@ -35,6 +37,7 @@ class AddStoryForm extends Component {
     }
 
     onChange = e => {
+        console.log(e.target.value);
         this.setState({ [e.target.name]: e.target.value });
     };
 
@@ -59,6 +62,43 @@ class AddStoryForm extends Component {
         });
     };
 
+    async getTeamTags() {
+        await axios.get('http://localhost:8000/api/teamName/tags').then(response => this.setState({ team_tags: response.data }))
+    }
+
+    displayTeamTags() {
+        var teamTags = this.state.team_tags;
+        var returnList = [];
+
+        for (var i = 0; i < teamTags.length; i++) {
+            returnList.push(
+                <option value={teamTags[i].id}> { teamTags[i].title } </option>
+            )
+        }
+
+        return returnList;
+    }
+
+    onTagAddition = e => {
+        if (!this.state.tags.includes(e.target.value)) {
+            this.setState({tags: this.state.tags.concat(e.target.value)});
+        } else {
+            this.setState({tags: this.state.tags.filter(function (element) {
+                return element !== e.target.value;
+            })});
+        }
+    }
+
+    getTagsInList() {
+        var returnList = []
+        if (this.state.team_tags !== undefined && this.state.tags.length > 0) {
+            for (var i = 0; i < this.state.tags.length; i++) {
+                returnList.push((this.state.team_tags[this.state.tags[i]].title + ", "));
+            }
+        }
+        return returnList
+    }
+
     render() {
         return (
         <Form onSubmit={ this.createStory }>
@@ -77,7 +117,7 @@ class AddStoryForm extends Component {
 
 
                     <FormGroup>
-                        <Label for="user_story">User Story:</Label>
+                        <Label for="user_story"> User Story:</Label>
                         <Input
                             type="textarea"
                             rows={5}
@@ -110,6 +150,14 @@ class AddStoryForm extends Component {
                             value={this.returnDefaultIfFieldEmpty(this.state.value_statement)}
                         />
                         <span class="bigcheck-target"></span>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label for="tags">Tags: </Label>
+                        <select value={this.state.value} onClick={this.onTagAddition} name="tags" className='ms-2'>
+                            { this.displayTeamTags() }
+                        </select>
+                        { this.getTagsInList() }
                     </FormGroup>
 
                     <FormGroup>
