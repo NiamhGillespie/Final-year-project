@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import '../css/basic.css';
+import axios from "axios";
 
 class StoryDetailsModal extends Component {
     state = {
-        modal: false
+        modal: false,
+        teamTags: this.getTags()
     };
 
     toggleModal = () => {
@@ -39,6 +41,35 @@ class StoryDetailsModal extends Component {
         )
     }
 
+    displayTags() {
+        var returnList = [];
+        //console.log('tags bb', this.props.story.tags)
+        for (var i = 0; i < this.props.story.tags.length; i++ ) {
+            var title = this.getTagTitleFromId(this.props.story.tags[i]);
+            console.log("title = ", title);
+                returnList.push(
+                    <p className="details-tag" style={{ border: '2px solid #' + this.props.epic_colour}}> { title } </p>
+                )
+            }
+        return returnList
+    }
+
+
+    getTagTitleFromId(id) {
+        console.log(this.state.teamTags)
+        for (var i = 0; i < this.state.teamTags.length; i++) {
+            console.log(this.state.teamTags[i].title)
+            if (this.state.teamTags[i].id == id) {
+                return this.state.teamTags[i].title
+            }
+        }
+    }
+
+    async getTags() {
+        var tags = await axios.get('http://localhost:8000/api/teamName/tags/')
+        this.setState({teamTags: tags.data})
+
+    }
     render() {
         var story_box = (
             <div style={{border: '2px solid ' + '#' + this.props.epic_colour}} className="story-box" onClick={this.toggleModal}>
@@ -61,9 +92,7 @@ class StoryDetailsModal extends Component {
 
                     <ModalBody className="mt-0 mb-0">
                         <div className="mt-0 mb-0">
-                            <p className="details-tag" style={{ border: '2px solid #' + this.props.epic_colour}}> tag 1 </p>
-                            <p className="details-tag" style={{ border: '2px solid #' + this.props.epic_colour}}> tag 2 </p>
-                            <p className="details-tag" style={{ border: '2px solid #' + this.props.epic_colour}}> tag 3 </p>
+                            { this.displayTags() }
                         </div>
                        
                         <p className="mt-0 mb-0 details-state"> State - come back to once I have kanban boards setup</p>

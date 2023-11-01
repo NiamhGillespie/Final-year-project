@@ -46,6 +46,7 @@ def EpicDashboardInfo(request):
 
                 return Response(status=status.HTTP_201_CREATED)
             else:
+                print(epic_serializer.data['tags'], epic_serializer.errors)
                 return Response(epic_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         if (request.data.get('story_id')):
@@ -152,7 +153,8 @@ def TeamTags(request):
 @api_view(['PUT', 'DELETE', 'GET'])
 def TagDetail(request, tag_id):
     try:
-        tag = Tag.objects.get(tag_id = tag_id, team_id = '0000') #chnge this when implementing teams
+        tag = Tag.objects.get(id = tag_id, team_id = '0000') #chnge this when implementing teams
+        print(tag.title)
     except Tag.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -171,4 +173,5 @@ def TagDetail(request, tag_id):
 
     elif request.method == 'GET':
         tag_serializer = TagSerializer(tag)
+        print(tag_serializer.data)
         return Response(tag_serializer.data, status=status.HTTP_204_NO_CONTENT)

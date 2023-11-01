@@ -29,6 +29,7 @@ urlpatterns = [
     re_path(r'^api/teamName/tags', views.TeamTags, name='teamTags'),
     re_path(r'^api/teamName/epics/([0-9]*)/details$', views.EpicDetails, name='epicDetails'),
     re_path(r'^api/teamName/stories/([0-9]*)/details$', views.StoryDetails, name='storyDetails'),
+    re_path(r'^api/teamName/tag-details/([0-9]*)$', views.TagDetail, name='tagDetails')
 
     #signup
     #profile

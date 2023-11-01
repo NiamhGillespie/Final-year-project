@@ -14,6 +14,7 @@ class AddEpicForm extends Component {
         dashboard_id: "0001",
         title: "",
 
+        tags: [],
         order: -1,
 
         last_edited_by: "Niamh Gillespie",

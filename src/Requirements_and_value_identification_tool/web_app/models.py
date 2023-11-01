@@ -21,7 +21,7 @@ class Epic(models.Model):
     title = models.CharField(max_length=128)
 
     order = models.IntegerField(default=-1)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     last_edited_by = models.CharField(max_length=128)
     last_edited =  models.CharField(max_length=128)
@@ -37,7 +37,7 @@ class Story(models.Model):
     title = models.CharField(max_length=128)
 
     order = models.IntegerField(default=-1)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
     
 
     user_story = models.CharField(max_length=1028) #Trefine this number at later date

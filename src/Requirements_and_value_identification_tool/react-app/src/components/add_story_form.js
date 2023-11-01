@@ -2,6 +2,7 @@ import React, { Component, useEffect } from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
 import { API_URL } from "../constants";
+import Multiselect from 'multiselect-react-dropdown';
 import '../css/basic.css';
 
 //need to add error handeling to this :)
@@ -72,7 +73,7 @@ class AddStoryForm extends Component {
 
         for (var i = 0; i < teamTags.length; i++) {
             returnList.push(
-                <option value={teamTags[i].id}> { teamTags[i].title } </option>
+                {title: teamTags[i].title + " - " + teamTags[i].description, id: teamTags[i].id}
             )
         }
 
@@ -80,13 +81,28 @@ class AddStoryForm extends Component {
     }
 
     onTagAddition = e => {
-        if (!this.state.tags.includes(e.target.value)) {
-            this.setState({tags: this.state.tags.concat(e.target.value)});
-        } else {
-            this.setState({tags: this.state.tags.filter(function (element) {
-                return element !== e.target.value;
-            })});
+
+        var tag_ids = [];
+        for (var i = 0; i < e.length; i++) {
+            tag_ids.push(e[i].id)
         }
+        console.log("the tags: ", tag_ids)
+        this.setState({tags: tag_ids});
+        
+        console.log("adding - current tags", this.state.tags)
+    
+    }
+
+    onTagDeletion= e => {
+
+        var tag_ids = [];
+        for (var i = 0; i < e.length; i++) {
+            tag_ids.push(e[i].id)
+        }
+        this.setState({tags: tag_ids});
+        console.log("the new tags: ", tag_ids)
+
+        console.log("deleting - current tags", this.state.tags)
     }
 
     getTagsInList() {
@@ -154,10 +170,13 @@ class AddStoryForm extends Component {
 
                     <FormGroup>
                         <Label for="tags">Tags: </Label>
-                        <select value={this.state.value} onClick={this.onTagAddition} name="tags" className='ms-2'>
-                            { this.displayTeamTags() }
-                        </select>
-                        { this.getTagsInList() }
+                        <Multiselect value={this.state.value} options = { this.displayTeamTags() } onSelect={this.onTagAddition} 
+                        onRemove={this.onTagDeletion}
+                        name="tags" 
+                        className='ms-2' style={{ chips: { background: "red" }, searchBox: 
+                        { border: "none", "border-bottom": "1px solid blue", "border-radius": "0px" }} }
+                        placeholder="Choose Tags" displayValue="title"/>
+
                     </FormGroup>
 
                     <FormGroup>
