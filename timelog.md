@@ -171,3 +171,6 @@
 
 ### 31 Oct 2023
 * *3 hours* Added tags to 'add story form', user can select a tag by clicking its title in a dropdown menu then unselect it by recklicking the tag title, currently this is very clunky and needs refinement
+
+### 1 Oct 2023
+* *2.5 hours* Refined tag adding in user story form and updated story details view so relevent tag titles are displayed
