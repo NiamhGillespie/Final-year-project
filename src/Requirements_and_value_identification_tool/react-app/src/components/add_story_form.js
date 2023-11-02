@@ -17,7 +17,8 @@ class AddStoryForm extends Component {
 
         user_story: "As a \nI would like to \nSo that I can ",
         definition_of_done: "",
-        value_statement: "",
+        team_values: this.getTeamValues(),
+        values: [],
         team_tags: this.getTeamTags(),
         tags: [],
         priority: "LOW",
@@ -36,6 +37,15 @@ class AddStoryForm extends Component {
         const date = new Date();
         return date.toDateString()
     }
+
+    async getTeamValues() {
+        await axios.get('http://localhost:8000/api/teamName/values').then(response => this.setState({ team_values: response.data }))
+    }
+
+    async getTeamTags() {
+        await axios.get('http://localhost:8000/api/teamName/tags').then(response => this.setState({ team_tags: response.data }))
+    }
+
 
     onChange = e => {
         console.log(e.target.value);
@@ -63,8 +73,42 @@ class AddStoryForm extends Component {
         });
     };
 
-    async getTeamTags() {
-        await axios.get('http://localhost:8000/api/teamName/tags').then(response => this.setState({ team_tags: response.data }))
+    displayValues() {
+        var teamValues = this.state.team_values;
+        var returnList = [];
+
+        for (var i = 0; i < teamValues.length; i++) {
+            returnList.push(
+                {title: teamValues[i].title + " - " + teamValues[i].description, id: teamValues[i].id}
+            )
+        }
+
+        return returnList;
+    }
+
+    onValueAddition = e => {
+
+        var value_ids = [];
+        for (var i = 0; i < e.length; i++) {
+            value_ids.push(e[i].id)
+        }
+        console.log("the tags: ", value_ids)
+        this.setState({values: value_ids});
+        
+        console.log("adding - current tags", this.state.values)
+    
+    }
+
+    onValueDeletion= e => {
+
+        var value_ids = [];
+        for (var i = 0; i < e.length; i++) {
+            value_ids.push(e[i].id)
+        }
+        this.setState({values: value_ids});
+        console.log("the new tags: ", value_ids)
+
+        console.log("deleting - current tags", this.state.values)
     }
 
     displayTeamTags() {
@@ -103,16 +147,6 @@ class AddStoryForm extends Component {
         console.log("the new tags: ", tag_ids)
 
         console.log("deleting - current tags", this.state.tags)
-    }
-
-    getTagsInList() {
-        var returnList = []
-        if (this.state.team_tags !== undefined && this.state.tags.length > 0) {
-            for (var i = 0; i < this.state.tags.length; i++) {
-                returnList.push((this.state.team_tags[this.state.tags[i]].title + ", "));
-            }
-        }
-        return returnList
     }
 
     render() {
@@ -157,20 +191,19 @@ class AddStoryForm extends Component {
 
                 <div className='add-story-right-col'>
                     <FormGroup>
-                        <Label for="value_statement">Value statement:</Label>
-                        <Input
-                            type="textarea"
-                            rows={4}
-                            name="value_statement"
-                            onChange={this.onChange}
-                            value={this.returnDefaultIfFieldEmpty(this.state.value_statement)}
-                        />
-                        <span class="bigcheck-target"></span>
+                        <Label for="values">Value statement:</Label>
+                        
+                        <Multiselect options = { this.displayValues() } onSelect={this.onValueAddition} 
+                        onRemove={this.onValueDeletion}
+                        name="tags" 
+                        className='ms-2' style={{ chips: { background: "green" }, searchBox: 
+                        { border: "none", "border-bottom": "1px solid blue", "border-radius": "0px" }} }
+                        placeholder="Choose Tags" displayValue="title"/>
                     </FormGroup>
 
                     <FormGroup>
                         <Label for="tags">Tags: </Label>
-                        <Multiselect value={this.state.value} options = { this.displayTeamTags() } onSelect={this.onTagAddition} 
+                        <Multiselect  options = { this.displayTeamTags() } onSelect={this.onTagAddition} 
                         onRemove={this.onTagDeletion}
                         name="tags" 
                         className='ms-2' style={{ chips: { background: "red" }, searchBox: 

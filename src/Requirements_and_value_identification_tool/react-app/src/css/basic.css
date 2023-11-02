@@ -278,3 +278,37 @@
     width: 29vw;
     float: left;
 }
+
+.details-value {
+    font-size: 2vh;
+    border-radius: 15px;
+    padding: 0.5vh 0.6vw;
+    margin-right: 0.5vw; 
+    margin-left: 0.5vw; 
+    margin-bottom: 1vh; 
+    width: 96%;
+    display: inline-block;
+}
+
+.details-value-title{
+    margin-bottom: 0px;
+    font-size: 16px;
+}
+
+.details-value-description{
+    margin-bottom: 0px;
+    padding-left: 0.2vw;
+    font-size: 10px;
+}
+
+.values-scrollable {
+    margin-top: 0px;
+    height: 11vh;
+    width: 32vw;
+}
+
+.values-scrollable-epic {
+    margin-top: 0px;
+    height: 22vh;
+    width: 32vw;
+}

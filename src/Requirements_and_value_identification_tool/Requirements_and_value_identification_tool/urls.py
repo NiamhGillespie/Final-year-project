@@ -27,9 +27,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/teamName/epicsDashboard', views.EpicDashboardInfo, name='epicDashboard'),
     re_path(r'^api/teamName/tags', views.TeamTags, name='teamTags'),
+    re_path(r'^api/teamName/values', views.TeamValues, name='teamValues'),
     re_path(r'^api/teamName/epics/([0-9]*)/details$', views.EpicDetails, name='epicDetails'),
     re_path(r'^api/teamName/stories/([0-9]*)/details$', views.StoryDetails, name='storyDetails'),
-    re_path(r'^api/teamName/tag-details/([0-9]*)$', views.TagDetail, name='tagDetails')
+    re_path(r'^api/teamName/tag-details/([0-9]*)$', views.TagDetail, name='tagDetails'),
+    re_path(r'^api/teamName/value-details/([0-9]*)$', views.ValueDetail, name='valueDetails')
 
     #signup
     #profile

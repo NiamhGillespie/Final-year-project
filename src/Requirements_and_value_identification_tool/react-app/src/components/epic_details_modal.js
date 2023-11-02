@@ -2,11 +2,19 @@ import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import '../css/basic.css';
 import { ColorPicker } from 'primereact/colorpicker';
+import axios from "axios";
 
 class EpicDetailsModal extends Component {
     state = {
-        modal: false
+        modal: false,
+        teamValues: this.getTeamValues()
     };
+
+    async getTeamValues() {
+        var values = await axios.get('http://localhost:8000/api/teamName/values/')
+        this.setState({teamValues: values.data})
+
+    }
 
     toggleModal = () => {
         this.setState(previous => ({
@@ -42,6 +50,38 @@ class EpicDetailsModal extends Component {
         return return_list;
     }
 
+    displayValues() {
+        var returnList = [];
+        //console.log('tags bb', this.props.story.tags)
+        console.log(this.props.epic.values)
+        for (var i = 0; i < this.props.epic.values.length; i++ ) {
+            var value = this.getValueFromId(this.props.epic.values[i]);
+            
+            if ( value !== undefined ) {
+                returnList.push(
+                    <div className="details-value" style={{ border: '2px solid #' + value.colour}}>
+                        <p className="details-value-title" > { value.title } </p>
+                        <p className="details-value-description"> { value.description } </p>
+                    </div>
+                    
+                )
+            }
+            
+        }
+        return returnList
+    }
+
+
+    getValueFromId(id) {
+        console.log(this.state.teamValues)
+        for (var i = 0; i < this.state.teamValues.length; i++) {
+            console.log('boop', this.state.teamValues[i].title)
+            if (this.state.teamValues[i].id == id) {
+                return this.state.teamValues[i]
+            }
+        }
+    }
+
     render() {
         var epic_box = (
             <div style={{ background: '#' + this.props.epic.epic_colour }} className="epic-box" onClick={this.toggleModal}>
@@ -62,10 +102,10 @@ class EpicDetailsModal extends Component {
 
                     <ModalBody className="mt-3">
                         <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.props.epic.epic_colour + '60'}}>
-                            <div className="details-value-box h-100"> 
-                                <p className="details-box-header" style={{ backgroundColor: '#' + this.props.epic.epic_colour}}> Value statement </p>
-                                <p className="details-box-large" style={{ backgroundColor: '#' + this.props.epic.epic_colour + '40',  scrollbarColor: '#' + this.props.epic.epic_colour + '90  #' + this.props.epic.epic_colour + '30'}}>
-                                    Need to add in a value section in epic model and form! 
+                            <div className="story-details-values-box h-100 mt-0 mb-0"> 
+                                <p className="details-stories-header" style={{ color: '#' + this.props.epic_colour}}> Values </p>
+                                <p className="overflow-auto values-scrollable-epic" style={{ scrollbarColor: '#' + this.props.epic_colour + '90  #' + this.props.epic_colour + '30'}}> 
+                                    { this.displayValues() }
                                 </p>
                             </div>
 

@@ -13,6 +13,16 @@ class Tag(models.Model):
     def __str__(self):
         return self.title
 
+class ValueTag(models.Model):
+    tag_id = models.CharField(max_length=8, default='error')
+    team_id = models.CharField(max_length=8, default='error')
+    title = models.CharField(max_length=16)
+    description = models.CharField(max_length=128)
+    sub_values = models.ManyToManyField("self", blank=True, default='error')
+    colour = models.CharField(max_length=6)
+
+    def __str__(self):
+        return self.title
 
 class Epic(models.Model):
     epic_id = models.CharField(max_length=8) #8 digits specific only - constrain this
@@ -22,6 +32,7 @@ class Epic(models.Model):
 
     order = models.IntegerField(default=-1)
     tags = models.ManyToManyField(Tag, blank=True)
+    values = models.ManyToManyField(ValueTag, blank=True)
 
     last_edited_by = models.CharField(max_length=128)
     last_edited =  models.CharField(max_length=128)
@@ -42,7 +53,7 @@ class Story(models.Model):
 
     user_story = models.CharField(max_length=1028) #Trefine this number at later date
     definition_of_done = models.CharField(max_length=1028)
-    value_statement = models.CharField(max_length=1028)
+    values = models.ManyToManyField(ValueTag, blank=True)
 
     LOW = "LOW"
     MEDIUM = "MEDIUM"

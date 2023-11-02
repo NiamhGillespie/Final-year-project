@@ -6,8 +6,21 @@ import axios from "axios";
 class StoryDetailsModal extends Component {
     state = {
         modal: false,
-        teamTags: this.getTags()
+        teamTags: this.getTeamTags(),
+        teamValues: this.getTeamValues()
     };
+
+    async getTeamTags() {
+        var tags = await axios.get('http://localhost:8000/api/teamName/tags/')
+        this.setState({teamTags: tags.data})
+
+    }
+
+    async getTeamValues() {
+        var values = await axios.get('http://localhost:8000/api/teamName/values/')
+        this.setState({teamValues: values.data})
+
+    }
 
     toggleModal = () => {
         this.setState(previous => ({
@@ -65,11 +78,38 @@ class StoryDetailsModal extends Component {
         }
     }
 
-    async getTags() {
-        var tags = await axios.get('http://localhost:8000/api/teamName/tags/')
-        this.setState({teamTags: tags.data})
-
+    displayValues() {
+        var returnList = [];
+        //console.log('tags bb', this.props.story.tags)
+        console.log(this.props.story.values)
+        for (var i = 0; i < this.props.story.values.length; i++ ) {
+            var value = this.getValueFromId(this.props.story.values[i]);
+            
+            if ( value !== undefined ) {
+                returnList.push(
+                    <div className="details-value" style={{ border: '2px solid #' + value.colour}}>
+                        <p className="details-value-title" > { value.title } </p>
+                        <p className="details-value-description"> { value.description } </p>
+                    </div>
+                    
+                )
+            }
+            
+        }
+        return returnList
     }
+
+
+    getValueFromId(id) {
+        console.log(this.state.teamValues)
+        for (var i = 0; i < this.state.teamValues.length; i++) {
+            console.log('boop', this.state.teamValues[i].title)
+            if (this.state.teamValues[i].id == id) {
+                return this.state.teamValues[i]
+            }
+        }
+    }
+
     render() {
         var story_box = (
             <div style={{border: '2px solid ' + '#' + this.props.epic_colour}} className="story-box" onClick={this.toggleModal}>
@@ -114,9 +154,9 @@ class StoryDetailsModal extends Component {
                             </div>
 
                             <div className="story-details-values-box h-100 mt-0 mb-0"> 
-                                <p className="details-box-header" style={{ backgroundColor: '#' + this.props.epic_colour}}> Value statement </p>
-                                <p className="details-box-small" style={{ backgroundColor: '#' + this.props.epic_colour + '40',  scrollbarColor: '#' + this.props.epic_colour + '90  #' + this.props.epic_colour + '30'}}> 
-                                    {this.props.story.value_statement} 
+                                <p className="details-stories-header" style={{ color: '#' + this.props.epic_colour}}> Values </p>
+                                <p className="overflow-auto values-scrollable" style={{ scrollbarColor: '#' + this.props.epic_colour + '90  #' + this.props.epic_colour + '30'}}> 
+                                    { this.displayValues() }
                                 </p>
                             </div>
 

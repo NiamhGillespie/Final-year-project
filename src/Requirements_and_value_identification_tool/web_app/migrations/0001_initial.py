@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=128)),
                 ('user_story', models.CharField(max_length=1028)),
                 ('definition_of_done', models.CharField(max_length=1028)),
-                ('value_statement', models.CharField(max_length=1028)),
+                ('values', models.CharField(max_length=1028)),
                 ('priority', models.CharField(choices=[('LOW', 'low priority'), ('MEDIUM', 'medium priority'), ('HIGH', 'high priority')], max_length=6)),
                 ('pairable', models.BooleanField()),
                 ('assigned_to', models.CharField(max_length=128)),

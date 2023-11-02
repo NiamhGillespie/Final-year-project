@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
-from .models import Epic, Story, Task, Tag
-from .serializers import EpicSerializer, StorySerializer, TaskSerializer, TagSerializer
+from .models import Epic, Story, Task, Tag, ValueTag
+from .serializers import EpicSerializer, StorySerializer, TaskSerializer, TagSerializer, ValueTagSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -175,3 +175,56 @@ def TagDetail(request, tag_id):
         tag_serializer = TagSerializer(tag)
         print(tag_serializer.data)
         return Response(tag_serializer.data, status=status.HTTP_204_NO_CONTENT)
+    
+
+@api_view(['GET', 'POST'])
+def TeamValues(request):
+    if request.method == 'GET':
+        print("GETTING DATA...")
+
+    #tags = Tag.objects.all() 
+        values = ValueTag.objects.filter(team_id='0000') #implement teams later
+        print(values)
+        value_serializer = ValueTagSerializer(values, context={'request': request}, many=True)
+        
+        return Response(value_serializer.data)
+    
+    if request.method == 'POST':
+        value_serializer = ValueTagSerializer(data=request.data)
+            
+        if value_serializer.is_valid():
+            print("adding tag...")
+            value_serializer.save()
+            tag_id = value_serializer.data['id']
+                
+            ValueTag.objects.filter(id=tag_id).update(tag_id = tag_id)
+            
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(value_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['PUT', 'DELETE', 'GET'])
+def ValueDetail(request, tag_id):
+    try:
+        value = ValueTag.objects.get(id = tag_id, team_id = '0000') #chnge this when implementing teams
+        print(value.title)
+    except ValueTag.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        print('putting...')
+        value_serializer = ValueTagSerializer(value, data=request.data,context={'request': request})
+        if value_serializer.is_valid():
+            value_serializer.save()
+            print(value_serializer.data)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(value_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        value.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'GET':
+        value_serializer = ValueTagSerializer(value)
+        print(value_serializer.data)
+        return Response(value_serializer.data, status=status.HTTP_204_NO_CONTENT)
