@@ -177,3 +177,4 @@
 
 ### 2 Nov 2023
 * *3 hours* Adding ValueTag model, updated 'add story' and 'add epic' forms to allow users to add value tags and updating both epic and story details components to use new value tags instead of value statements
+* *0.5 hours* Updated Story model so it includes state and story point fields, updated the population script to reflected these changes and replaced placeholders in the story detail view
