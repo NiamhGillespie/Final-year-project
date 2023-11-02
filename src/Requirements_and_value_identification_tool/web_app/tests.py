@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from web_app.models import Epic, Story
+from web_app.models import Epic, Story, Tag, ValueTag
 from datetime import date
 from django.urls import reverse
 from collections import OrderedDict
@@ -19,8 +19,8 @@ class EpicDashboardTests(TestCase):
         populate()
         response = client.get('/api/teamName/epicsDashboard')
         
-        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('order', 1), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])], 
-                         [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('order', 1), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('values', 'Means I do not need to add a story to display it'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
+        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('order', 1), ('tags', []), ('values', [0, 1]), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])], 
+                         [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('order', 1), ('tags', [0]), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('values', [0]), ('story_points', '3'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('state', 'In progress'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
         self.assertEqual(response.data, expected_data)
 
     def test_add_epic_POST_request_returns_201(self):
@@ -34,6 +34,7 @@ class EpicDashboardTests(TestCase):
             "dashboard_id": "0",
             "title": "Test Epic Title",
             "order": 1,
+            "values": [],
             "last_edited_by": "Niamh Gillespie",
             "last_edited": "Fri Oct 13 2023",
             "created_by": "Niamh Gillespie",
@@ -47,7 +48,7 @@ class EpicDashboardTests(TestCase):
         """
         Check if the POST request on /api/teamName/epicsDashboard returns status code 201
         """
-        epic = {
+        story = {
             "id": 0,
             "story_id": "0",
             "epic_id": "0",
@@ -55,7 +56,7 @@ class EpicDashboardTests(TestCase):
             "order": 1,
             "user_story": "As a \nI would like to \nSo that I can",
             "definition_of_done": "dod",
-            "values": "values",
+            "values": [],
             "priority": "LOW",
             "pairable": True,
             "assigned_to": "Niamh Gillespie",
@@ -65,7 +66,7 @@ class EpicDashboardTests(TestCase):
             "time_created": "Fri Oct 13 2023"
         }
                 
-        response = client.post('/api/teamName/epicsDashboard', epic)
+        response = client.post('/api/teamName/epicsDashboard', story)
         self.assertEqual(response.status_code, 201)
 
 class EpicCreationTests(TestCase):
@@ -217,7 +218,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -240,7 +240,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -263,7 +262,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -286,7 +284,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -309,7 +306,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -332,7 +328,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -344,29 +339,6 @@ class StoryCreationTests(TestCase):
         story.save()
         self.assertEqual(story.definition_of_done, 'Set up a unit test suite')
 
-    def test_values_created(self):
-        """
-        Checks to make sure that when a Story is created, the correct values is added.
-        """
-        story = Story(
-                story_id = '0',
-                epic_id = '1',
-                title = 'Test Story Title',
-                order = 0,
-                user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
-                definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
-                priority = 'MEDIUM',
-                pairable = False,
-                assigned_to = 'Niamh Gillespie',
-                last_edited_by = 'Niamh Gillespie',
-                last_edited = date.today(),
-                created_by = 'Niamh Gillespie',
-                time_created = date.today()
-            )
-        story.save()
-        self.assertEqual(story.values, 'ensures functional requirements of code are met')
-    
     def test_priority_created(self):
         """
         Checks to make sure that when a Story is created, the correct priority is added.
@@ -378,7 +350,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -402,7 +373,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -425,7 +395,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -448,7 +417,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -471,7 +439,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -495,7 +462,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -518,7 +484,6 @@ class StoryCreationTests(TestCase):
                 order = 0,
                 user_story = 'As a developer, I want to create unit tests, So that I can continously integrate my code',
                 definition_of_done = 'Set up a unit test suite',
-                values = 'ensures functional requirements of code are met',
                 priority = 'MEDIUM',
                 pairable = False,
                 assigned_to = 'Niamh Gillespie',
@@ -529,3 +494,41 @@ class StoryCreationTests(TestCase):
             )
         story.save()
         self.assertEqual(story.time_created, date.today())
+
+class TagCreationTests(TestCase):
+    def test_tag_created(self):
+        """
+        Checks to make sure that when a Tag is created, the correct information is added.
+        """
+        tag = Tag(
+                tag_id = '0',
+                team_id = '0000',
+                title = 'Test Tag Title',
+                description = "description...",
+                colour = 'ffffff'
+            )
+        tag.save()
+        self.assertEqual(tag.tag_id, '0')
+        self.assertEqual(tag.team_id, '0000')
+        self.assertEqual(tag.title, 'Test Tag Title')
+        self.assertEqual(tag.description, 'description...')
+        self.assertEqual(tag.colour, 'ffffff')
+
+class ValueTagCreationTests(TestCase):
+    def test__value_tag_created(self):
+        """
+        Checks to make sure that when a ValueTag is created, the correct information is added.
+        """
+        value = ValueTag(
+                tag_id = '0',
+                team_id = '0000',
+                title = 'Test Tag Title',
+                description = "description...",
+                colour = 'ffffff'
+            )
+        value.save()
+        self.assertEqual(value.tag_id, '0')
+        self.assertEqual(value.team_id, '0000')
+        self.assertEqual(value.title, 'Test Tag Title')
+        self.assertEqual(value.description, 'description...')
+        self.assertEqual(value.colour, 'ffffff')

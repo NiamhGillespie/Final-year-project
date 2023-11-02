@@ -18,7 +18,7 @@ class ValueTag(models.Model):
     team_id = models.CharField(max_length=8, default='error')
     title = models.CharField(max_length=16)
     description = models.CharField(max_length=128)
-    sub_values = models.ManyToManyField("self", blank=True, default='error')
+    sub_values = models.ManyToManyField("self", blank=True, default=[])
     colour = models.CharField(max_length=6)
 
     def __str__(self):
