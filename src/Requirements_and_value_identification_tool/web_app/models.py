@@ -55,16 +55,17 @@ class Story(models.Model):
     definition_of_done = models.CharField(max_length=1028)
     values = models.ManyToManyField(ValueTag, blank=True)
 
+    story_points = models.CharField(max_length=10, default='N/A')
+
     LOW = "LOW"
     MEDIUM = "MEDIUM"
     HIGH = "HIGH"
     priority = models.CharField(max_length=6, choices = [(LOW, "low priority"), (MEDIUM, "medium priority"), (HIGH, "high priority")])
 
-    #state variable - based on issue board (e.g backlog, in progress, complete <- these may be defined by user)
-    #linked/dependent stories
-
     pairable = models.BooleanField(default = False)
     assigned_to = models.CharField(max_length=128) #this should be list of users in future
+
+    state = models.CharField(max_length=128, default='backlog')
 
     last_edited_by = models.CharField(max_length=128)
     last_edited =  models.CharField(max_length=128)

@@ -135,7 +135,7 @@ class StoryDetailsModal extends Component {
                             { this.displayTags() }
                         </div>
                        
-                        <p className="mt-0 mb-0 details-state"> State - come back to once I have kanban boards setup</p>
+                        <p className="mt-0 mb-0 details-state"> { this.props.story.state }</p>
                         <p className="mt-0 mb-0 details-priority"> {this.displayPriority(this.props.story.priority)} </p>
 
                         <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.props.epic_colour + '60'}}>
@@ -186,7 +186,7 @@ class StoryDetailsModal extends Component {
                             </div>
 
                             <div className="mt-3 mb-0">
-                                <p className="details-story-points" style={{ background: '#' + this.props.epic_colour}}> 8 </p>
+                                <p className="details-story-points" style={{ background: '#' + this.props.epic_colour}}> { this.props.story.story_points } </p>
                             </div>
                     
                         </div>

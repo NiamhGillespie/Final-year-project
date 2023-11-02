@@ -9,8 +9,8 @@ class EpicSerializer(serializers.ModelSerializer):
 class StorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
-        fields = ('id', 'story_id', 'epic_id', 'title', 'order', 'tags', 'user_story', 'definition_of_done', 'values', 'priority', 'pairable', 'assigned_to',
-                  'last_edited_by', 'last_edited', 'created_by', 'time_created')
+        fields = ('id', 'story_id', 'epic_id', 'title', 'order', 'tags', 'user_story', 'definition_of_done', 'values', 'story_points', 'priority', 
+                  'pairable', 'assigned_to', 'state', 'last_edited_by', 'last_edited', 'created_by', 'time_created')
         
         @property 
         def order(self, obj):

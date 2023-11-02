@@ -69,12 +69,15 @@ def populate():
             'epic_id': '1',
             'title': 'Story for testing',
             'order': 1,
+            'tags': [0],
             'user_story': 'As a developer, I want to have a test story, so I can use it in the react app',
             'definition_of_done': 'Test story should display on REST framework page',
             'values': [0],
+            'story_points': 3,
             'priority': 'MEDIUM',
             'pairable': False,
             'assigned_to': 'Niamh',
+            'state': 'In progress',
             'last_edited_by': 'Niamh',
             'last_edited': datetime(2023, 10, 3, 15),
             'created_by': 'Niamh',
@@ -83,9 +86,9 @@ def populate():
     ]
 
     for story in stories:
-        add_story(story['story_id'], story['epic_id'], story['title'], story['order'], story['user_story'], 
-                story['definition_of_done'], story['values'], story['priority'], 
-                story['pairable'], story['assigned_to'], story['last_edited_by'],
+        add_story(story['story_id'], story['epic_id'], story['title'], story['order'], story['tags'], story['user_story'], 
+                story['definition_of_done'], story['values'], story['story_points'], story['priority'], 
+                story['pairable'], story['assigned_to'], story['state'], story['last_edited_by'],
                 story['last_edited'], story['created_by'], story['time_created'])
         
 
@@ -119,17 +122,20 @@ def add_epic(epic_id, epic_colour, dashboard_id, title, order, values, last_edit
     epic.save()
     return epic
 
-def add_story(story_id, epic_id, title, order, user_story, definition_of_done, values, priority,
-              pairable, assigned_to,  last_edited_by, last_edited, created_by, time_created):
+def add_story(story_id, epic_id, title, order, tags, user_story, definition_of_done, values, story_points, priority,
+              pairable, assigned_to, state, last_edited_by, last_edited, created_by, time_created):
     story = Story.objects.get_or_create(story_id=story_id, epic_id=epic_id)[0]
     story.title = title
     story.order = order
+    story.tags.set(tags)
     story.user_story = user_story
     story.definition_of_done = definition_of_done
     story.values.set(values)
+    story.story_points = story_points
     story.priority = priority
     story.pairable = pairable
     story.assigned_to = assigned_to
+    story.state = state
     story.last_edited_by = last_edited_by
     story.last_edited = last_edited
     story.created_by = created_by
