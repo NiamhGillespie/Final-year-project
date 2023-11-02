@@ -172,5 +172,8 @@
 ### 31 Oct 2023
 * *3 hours* Added tags to 'add story form', user can select a tag by clicking its title in a dropdown menu then unselect it by recklicking the tag title, currently this is very clunky and needs refinement
 
-### 1 Oct 2023
+### 1 Nov 2023
 * *2.5 hours* Refined tag adding in user story form and updated story details view so relevent tag titles are displayed
+
+### 2 Nov 2023
+* *3 hours* Adding ValueTag model, updated 'add story' and 'add epic' forms to allow users to add value tags and updating both epic and story details components to use new value tags instead of value statements
