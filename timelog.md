@@ -179,3 +179,6 @@
 * *3 hours* Adding ValueTag model, updated 'add story' and 'add epic' forms to allow users to add value tags and updating both epic and story details components to use new value tags instead of value statements
 * *0.5 hours* Updated Story model so it includes state and story point fields, updated the population script to reflected these changes and replaced placeholders in the story detail view
 * *0.5 hours* Updating tests so CI is up and running again
+
+### 3 Nov 2023
+* *2.5 hours* Researching agile metrics to understand which ones could be good to use in the epic dashboard
