@@ -182,3 +182,8 @@
 
 ### 3 Nov 2023
 * *2.5 hours* Researching agile metrics to understand which ones could be good to use in the epic dashboard
+
+## Week 7
+
+### 5 Nov 2023
+* *0.5 hours* Deciding on tasks for the sprint backlog and creating placeholder issues for these
