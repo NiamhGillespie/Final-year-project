@@ -53,7 +53,7 @@ class EpicDetailsModal extends Component {
     displayValues() {
         var returnList = [];
         //console.log('tags bb', this.props.story.tags)
-        console.log(this.props.epic.values)
+        //console.log(this.props.epic.values)
         for (var i = 0; i < this.props.epic.values.length; i++ ) {
             var value = this.getValueFromId(this.props.epic.values[i]);
             
@@ -73,9 +73,9 @@ class EpicDetailsModal extends Component {
 
 
     getValueFromId(id) {
-        console.log(this.state.teamValues)
+        //console.log(this.state.teamValues)
         for (var i = 0; i < this.state.teamValues.length; i++) {
-            console.log('boop', this.state.teamValues[i].title)
+            //console.log('boop', this.state.teamValues[i].title)
             if (this.state.teamValues[i].id == id) {
                 return this.state.teamValues[i]
             }

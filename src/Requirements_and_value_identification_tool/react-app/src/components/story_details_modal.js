@@ -59,7 +59,7 @@ class StoryDetailsModal extends Component {
         //console.log('tags bb', this.props.story.tags)
         for (var i = 0; i < this.props.story.tags.length; i++ ) {
             var title = this.getTagTitleFromId(this.props.story.tags[i]);
-            console.log("title = ", title);
+            //console.log("title = ", title);
                 returnList.push(
                     <p className="details-tag" style={{ border: '2px solid #' + this.props.epic_colour}}> { title } </p>
                 )
@@ -69,9 +69,9 @@ class StoryDetailsModal extends Component {
 
 
     getTagTitleFromId(id) {
-        console.log(this.state.teamTags)
+        //console.log(this.state.teamTags)
         for (var i = 0; i < this.state.teamTags.length; i++) {
-            console.log(this.state.teamTags[i].title)
+            //console.log(this.state.teamTags[i].title)
             if (this.state.teamTags[i].id == id) {
                 return this.state.teamTags[i].title
             }
@@ -81,7 +81,7 @@ class StoryDetailsModal extends Component {
     displayValues() {
         var returnList = [];
         //console.log('tags bb', this.props.story.tags)
-        console.log(this.props.story.values)
+        //console.log(this.props.story.values)
         for (var i = 0; i < this.props.story.values.length; i++ ) {
             var value = this.getValueFromId(this.props.story.values[i]);
             
@@ -101,9 +101,9 @@ class StoryDetailsModal extends Component {
 
 
     getValueFromId(id) {
-        console.log(this.state.teamValues)
+        //console.log(this.state.teamValues)
         for (var i = 0; i < this.state.teamValues.length; i++) {
-            console.log('boop', this.state.teamValues[i].title)
+            //console.log('boop', this.state.teamValues[i].title)
             if (this.state.teamValues[i].id == id) {
                 return this.state.teamValues[i]
             }

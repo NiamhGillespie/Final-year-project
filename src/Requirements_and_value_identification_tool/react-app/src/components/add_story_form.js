@@ -48,7 +48,7 @@ class AddStoryForm extends Component {
 
 
     onChange = e => {
-        console.log(e.target.value);
+        //console.log(e.target.value);
         this.setState({ [e.target.name]: e.target.value });
     };
 
@@ -65,7 +65,7 @@ class AddStoryForm extends Component {
     };
 
     createStory = e => {
-        console.log('story being created ...');
+        //console.log('story being created ...');
         e.preventDefault();
         axios.post(API_URL, this.state).then(() => {
             this.props.resetState();
@@ -92,10 +92,10 @@ class AddStoryForm extends Component {
         for (var i = 0; i < e.length; i++) {
             value_ids.push(e[i].id)
         }
-        console.log("the tags: ", value_ids)
+        //console.log("the tags: ", value_ids)
         this.setState({values: value_ids});
         
-        console.log("adding - current tags", this.state.values)
+        //console.log("adding - current tags", this.state.values)
     
     }
 
@@ -106,9 +106,9 @@ class AddStoryForm extends Component {
             value_ids.push(e[i].id)
         }
         this.setState({values: value_ids});
-        console.log("the new tags: ", value_ids)
+        //console.log("the new tags: ", value_ids)
 
-        console.log("deleting - current tags", this.state.values)
+        //console.log("deleting - current tags", this.state.values)
     }
 
     displayTeamTags() {
@@ -130,10 +130,10 @@ class AddStoryForm extends Component {
         for (var i = 0; i < e.length; i++) {
             tag_ids.push(e[i].id)
         }
-        console.log("the tags: ", tag_ids)
+        //console.log("the tags: ", tag_ids)
         this.setState({tags: tag_ids});
         
-        console.log("adding - current tags", this.state.tags)
+        //console.log("adding - current tags", this.state.tags)
     
     }
 
@@ -144,9 +144,9 @@ class AddStoryForm extends Component {
             tag_ids.push(e[i].id)
         }
         this.setState({tags: tag_ids});
-        console.log("the new tags: ", tag_ids)
+        //console.log("the new tags: ", tag_ids)
 
-        console.log("deleting - current tags", this.state.tags)
+        //console.log("deleting - current tags", this.state.tags)
     }
 
     render() {

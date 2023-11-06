@@ -9,6 +9,7 @@
         box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.25);
         border-radius: 10px;
         padding: 1% 2%;
+        width: 10vw;
 }
 
 .epic-time {
@@ -311,4 +312,19 @@
     margin-top: 0px;
     height: 22vh;
     width: 32vw;
+}
+
+.text-center {
+    margin: auto;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.epic-stat {
+    text-align: center;
+    font-size: 3vh;
+    margin-left: 5vw;
+    margin-top: 0px;
+    margin-bottom: 1vh;
 }

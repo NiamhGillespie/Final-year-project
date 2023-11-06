@@ -36,7 +36,7 @@ class AddEpicForm extends Component {
     }
     
     getID() {
-        console.log(this.ID)
+        //console.log(this.ID)
         var epic_id = this.ID;
         this.ID = this.ID + 1;
         return String(epic_id);
@@ -51,8 +51,8 @@ class AddEpicForm extends Component {
     };
 
     createEpic = e => {
-        console.log('epic being created ...');
-        console.log(this.state);
+        //console.log('epic being created ...');
+        //console.log(this.state);
         e.preventDefault();
         axios.post(API_URL, this.state).then(() => {
             this.props.resetState();
@@ -67,7 +67,7 @@ class AddEpicForm extends Component {
 
     displayValues() {
         var teamValues = this.state.team_values;
-        console.log('team vals bb', this.state.team_values)
+        //console.log('team vals bb', this.state.team_values)
         var returnList = [];
 
         for (var i = 0; i < teamValues.length; i++) {
@@ -85,10 +85,10 @@ class AddEpicForm extends Component {
         for (var i = 0; i < e.length; i++) {
             value_ids.push(e[i].id)
         }
-        console.log("the tags: ", value_ids)
+        //console.log("the tags: ", value_ids)
         this.setState({values: value_ids});
         
-        console.log("adding - current tags", this.state.values)
+        //console.log("adding - current tags", this.state.values)
     
     }
 
@@ -99,9 +99,9 @@ class AddEpicForm extends Component {
             value_ids.push(e[i].id)
         }
         this.setState({values: value_ids});
-        console.log("the new tags: ", value_ids)
+        //console.log("the new tags: ", value_ids)
 
-        console.log("deleting - current tags", this.state.values)
+        //console.log("deleting - current tags", this.state.values)
     }
 
 

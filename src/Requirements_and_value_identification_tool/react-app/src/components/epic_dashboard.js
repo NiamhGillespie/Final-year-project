@@ -170,11 +170,11 @@ export class EpicsDashboard extends Component {
     }
 
     reorderEpics(epics, startIndex, endIndex) {
-        console.log('reordering...', epics, startIndex, endIndex)
+        //console.log('reordering...', epics, startIndex, endIndex)
         
         const [removed] = epics.splice(startIndex, 1);
         epics.splice(endIndex, 0, removed);
-        console.log('EPICS REORDERED', epics)
+       // console.log('EPICS REORDERED', epics)
 
         for (var i = 0; i < epics.length; i++) {
             epics[i].order = i+1
@@ -213,20 +213,55 @@ export class EpicsDashboard extends Component {
         }
         return return_list;
     }
+
+    dateInWeek(createdDate) {
+
+        var weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7)
+
+        createdDate = Date.parse(createdDate)
+
+        console.log(weekAgo <= createdDate)
+        return weekAgo <= createdDate
+
+    }
     
+    displayStatsBar() {
+        var returnList = [];
+        returnList.push(
+            <div style={{ display: 'inline-block' }} >
+                <p style={{ clear: 'both' }} className='epic-stat'> {this.state.epics.filter(epic => this.dateInWeek(epic.time_created)).length} </p>
+
+                <p style={{ fontSize: '2vh'}} className='epic-stat'> Epics added this week </p>
+            </div>
+        )
+        
+        returnList.push(
+            <div style={{ display: 'inline-block' }} >
+                <p style={{ clear: 'both' }} className='epic-stat'> {this.state.stories.filter(story => this.dateInWeek(story.time_created)).length} </p>
+                
+                <p style={{ fontSize: '2vh'}} className='epic-stat'> Stories added this week </p>
+            </div>
+        )
+
+        returnList.push(
+            <div style={{ display: 'inline-block' }} >
+                <p style={{clear: 'both'}} className='epic-stat'> {this.state.stories.filter(story => story.priority == 'HIGH').length} </p>
+                <p style={{ fontSize: '2vh'}} className='epic-stat'> High priority stories </p>
+            </div>
+        )
+        return returnList;
+    }
 
     render() {
         return (
             <div>
                 <div className= "border-bottom d-flex flex-row">
-                    <p className='text-center'> Stats bar </p>
+                    <p className='text-center'> { this.displayStatsBar() } </p>
                     <AddEpicModal create={true} resetState={this.resetState} />
                 </div>
 
                 <div>
-                    <div> 
-                        <p> Team name - Epic Dashboard</p>
-                    </div>
                     
                     <div class="d-flex flex-row w-30 h-100 overflow-y">
                         { this.displayEpics() }
