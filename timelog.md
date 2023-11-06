@@ -187,3 +187,6 @@
 
 ### 5 Nov 2023
 * *0.5 hours* Deciding on tasks for the sprint backlog and creating placeholder issues for these
+
+### 6 Nov 2023
+* *0.5 hours* Writing user stories and definitions of done for the placeholder issues
