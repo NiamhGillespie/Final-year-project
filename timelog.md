@@ -191,3 +191,7 @@
 ### 6 Nov 2023
 * *0.5 hours* Writing user stories and definitions of done for the placeholder issues
 * *1.5 hours* Added some simple stats based on epics to the epic dashboard. These are very rudimentary right now but will revisit to make more complex once issue tracker dashboard is up and running.
+
+### 7 Nov 2023
+* *1 hour* Supervisor meeting with Peggy, wrote up meeting minutes
+* *2 hours* Designing tag dashboard
