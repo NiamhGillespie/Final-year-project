@@ -205,10 +205,10 @@ def TeamValues(request):
             return Response(value_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['PUT', 'DELETE', 'GET'])
-def ValueDetail(request, tag_id):
+def ValueDetail(request, value_id):
     try:
-        value = ValueTag.objects.get(id = tag_id, team_id = '0000') #chnge this when implementing teams
-        print(value.title)
+        value = ValueTag.objects.get(id = value_id, team_id = '0000') #chnge this when implementing teams
+        print(value)
     except ValueTag.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 

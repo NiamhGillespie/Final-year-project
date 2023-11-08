@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import '../css/basic.css';
 import axios from "axios";
-import { API_URL_TAGS, API_URL_STORIES } from "../constants";
+import { API_URL_TAGS, API_URL_STORIES, API_URL_VALUE_DETAILS } from "../constants";
 import ReactDOM from "react-dom";
 import AddTagModal from './add_tag_modal';
 import AddValueModal from './add_value_modal';
+import EditTagModal from './edit_tag_modal';
+import EditValueModal from './edit_value_modal';
+import DeleteTagModal from './delete_tag_modal';
+import DeleteValueModal from './delete_value_modal';
 
 
 export class TagDashboard extends Component {
@@ -57,7 +61,8 @@ export class TagDashboard extends Component {
         for (var i = 0; i < tags.length; i++) {
             returnList.push(
                 <div className='tag-list' style={{ border: '2px solid ' + '#' + tags[i].colour }}>
-                    <p className='tag-title'> { tags[i].title } </p>
+                    <DeleteTagModal resetState={this.resetState} tag={tags[i]}/>
+                    <EditTagModal resetState={this.resetState} tag={tags[i]}/>
                     <p className='tag-description'> { tags[i].description } </p>
                 </div>
             )
@@ -82,7 +87,8 @@ export class TagDashboard extends Component {
         for (var i = 0; i < values.length; i++) {
             returnList.push(
                 <div className='tag-list' style={{ border: '2px solid ' + '#' + values[i].colour }}>
-                    <p className='tag-title'> { values[i].title } </p>
+                    <DeleteValueModal resetState={this.resetState} value={values[i]}/>
+                    <EditValueModal resetState={this.resetState} value={values[i]}/>
                     <p className='tag-description'> { values[i].description } </p>
                 </div>
             )
@@ -90,7 +96,7 @@ export class TagDashboard extends Component {
 
         return returnList
     }
-
+    
     render() {
         return (
             <div className='centered'>

@@ -58,12 +58,13 @@ class StoryDetailsModal extends Component {
         var returnList = [];
         //console.log('tags bb', this.props.story.tags)
         for (var i = 0; i < this.props.story.tags.length; i++ ) {
-            var title = this.getTagTitleFromId(this.props.story.tags[i]);
-            //console.log("title = ", title);
+            var tag = this.getTagTitleFromId(this.props.story.tags[i]);
+            if ( tag !== undefined ) {
                 returnList.push(
-                    <p className="details-tag" style={{ border: '2px solid #' + this.props.epic_colour}}> { title } </p>
+                    <p className="details-tag" style={{ backgroundColor: '#' + tag.colour}}> { tag.title } </p>
                 )
             }
+        }
         return returnList
     }
 
@@ -73,7 +74,7 @@ class StoryDetailsModal extends Component {
         for (var i = 0; i < this.state.teamTags.length; i++) {
             //console.log(this.state.teamTags[i].title)
             if (this.state.teamTags[i].id == id) {
-                return this.state.teamTags[i].title
+                return this.state.teamTags[i]
             }
         }
     }

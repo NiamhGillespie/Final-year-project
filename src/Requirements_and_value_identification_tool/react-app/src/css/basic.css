@@ -138,6 +138,7 @@
 
 .coloured-header {
     margin: 1vh !important;
+    margin-bottom: 0px;
     width: 59vw;
     max-height: 16vh;
     color: white;
@@ -255,8 +256,10 @@
     padding: 0px 1vw;
     margin-right: 1vw; 
     margin-bottom: 1vh; 
+    margin-top: 0px;
     width: auto;
     display: inline-block;
+    color: white;
 }
 
 .details-state {
@@ -348,6 +351,7 @@
     height: 100%;
     background-color:#e8e8e820;
     padding-top: 2vh;
+    overflow-y: scroll;
 }
 
 .centered {
@@ -360,11 +364,12 @@
 .tag-list {
     border-radius: 15px;
     margin: 2vh;
-    padding: 1vh;
+    padding: 2vh;
 }
 
 .tag-title {
     margin-bottom: 0px;
+    font-size: 2.7vh;
 }
 
 .tag-description {
@@ -376,4 +381,13 @@
 .right-button {
     float: right !important;
     display: inline;
+}
+
+.tag-edit-button {
+    float: right;
+    display: inline;
+    margin: 0px;
+    padding: 0vh 2vh;
+    border-radius: 15px;
+    color: white;
 }
