@@ -43,6 +43,10 @@ export class NavigationBar extends Component {
                                 </NavItem>
 
                                 <NavItem>
+                                    <NavLink tag={Link} className="text-dark nav-item" to="/teamTags"><span>Tag Dashboard </span></NavLink>
+                                </NavItem>
+
+                                <NavItem>
                                     <NavLink tag={Link} className="text-dark nav-item" to="/teamName"><span>Team Dashboard </span></NavLink>
                                 </NavItem>
 

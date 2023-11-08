@@ -129,7 +129,6 @@ def TeamTags(request):
     if request.method == 'GET':
         print("GETTING DATA...")
 
-    #tags = Tag.objects.all() 
         tags = Tag.objects.filter(team_id='0000') #implement teams later
         print(tags)
         tag_serializer = TagSerializer(tags, context={'request': request}, many=True)
@@ -148,6 +147,7 @@ def TeamTags(request):
             
             return Response(status=status.HTTP_201_CREATED)
         else:
+            print('NOT WORKING')
             return Response(tag_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['PUT', 'DELETE', 'GET'])
@@ -201,6 +201,7 @@ def TeamValues(request):
             
             return Response(status=status.HTTP_201_CREATED)
         else:
+            print(value_serializer.data, value_serializer.errors)
             return Response(value_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['PUT', 'DELETE', 'GET'])

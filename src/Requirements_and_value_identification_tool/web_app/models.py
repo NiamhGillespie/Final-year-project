@@ -6,8 +6,8 @@ from datetime import datetime
 class Tag(models.Model):
     tag_id = models.CharField(max_length=8, default='error')
     team_id = models.CharField(max_length=8, default='error') # each team has a set of tags?
-    title = models.CharField(max_length=16)
-    description = models.CharField(max_length=128)
+    title = models.CharField(max_length=30)
+    description = models.CharField(max_length=200)
     colour = models.CharField(max_length=6)
 
     def __str__(self):
@@ -16,7 +16,7 @@ class Tag(models.Model):
 class ValueTag(models.Model):
     tag_id = models.CharField(max_length=8, default='error')
     team_id = models.CharField(max_length=8, default='error')
-    title = models.CharField(max_length=16)
+    title = models.CharField(max_length=30)
     description = models.CharField(max_length=128)
     sub_values = models.ManyToManyField("self", blank=True, default=[])
     colour = models.CharField(max_length=6)
