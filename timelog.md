@@ -198,3 +198,4 @@
 
 ### 8 Nov 2023
 * *4 hours* Created tag dashboard based on chosen Figma design, also created add values and tags forms and modals so that a user can add a self defined tag to their team's tag list
+* *2 hours* Updated tag dashboard so users can update and delete both tags and values
