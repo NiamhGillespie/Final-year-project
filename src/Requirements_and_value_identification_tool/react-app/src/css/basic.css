@@ -391,3 +391,14 @@
     border-radius: 15px;
     color: white;
 }
+
+/* Epic details form  */
+.details-form-title {
+    font-size: 25px;
+    padding-left: 10px;
+    padding-right: 40px;
+    padding-bottom: 0px;
+    padding-top: 10px;
+    margin-bottom: 2px;
+    width: 59vw;
+}

@@ -88,11 +88,9 @@ export class EpicsDashboard extends Component {
     }
 
     reorderStories(stories, startIndex, endIndex) {
-        //console.log('reordering...', stories, startIndex, endIndex)
         
         const [removed] = stories.splice(startIndex, 1);
         stories.splice(endIndex, 0, removed);
-        //console.log('STORIES REORDERED', stories)
 
         for (var i = 0; i < stories.length; i++) {
             stories[i].order = i+1
@@ -138,6 +136,7 @@ export class EpicsDashboard extends Component {
                                             }}>
 
                                             <div {...provided.dragHandleProps}> 
+                                                {console.log('epic being overwritten...')}
                                                 <EpicDetailsModal resetState={this.resetState} epic={epic} stories={this.state.stories}/>
                                             </div>
                                                 

@@ -35,12 +35,6 @@ class AddEpicForm extends Component {
         await axios.get('http://localhost:8000/api/teamName/values').then(response => this.setState({ team_values: response.data }))
     }
     
-    getID() {
-        //console.log(this.ID)
-        var epic_id = this.ID;
-        this.ID = this.ID + 1;
-        return String(epic_id);
-    }
 
     onTitleChange = e => {
         this.setState({ [e.target.title]: e.target.value });
@@ -51,8 +45,6 @@ class AddEpicForm extends Component {
     };
 
     createEpic = e => {
-        //console.log('epic being created ...');
-        //console.log(this.state);
         e.preventDefault();
         axios.post(API_URL, this.state).then(() => {
             this.props.resetState();
@@ -67,7 +59,6 @@ class AddEpicForm extends Component {
 
     displayValues() {
         var teamValues = this.state.team_values;
-        //console.log('team vals bb', this.state.team_values)
         var returnList = [];
 
         for (var i = 0; i < teamValues.length; i++) {
@@ -85,10 +76,7 @@ class AddEpicForm extends Component {
         for (var i = 0; i < e.length; i++) {
             value_ids.push(e[i].id)
         }
-        //console.log("the tags: ", value_ids)
         this.setState({values: value_ids});
-        
-        //console.log("adding - current tags", this.state.values)
     
     }
 
@@ -99,9 +87,6 @@ class AddEpicForm extends Component {
             value_ids.push(e[i].id)
         }
         this.setState({values: value_ids});
-        //console.log("the new tags: ", value_ids)
-
-        //console.log("deleting - current tags", this.state.values)
     }
 
 
@@ -119,7 +104,7 @@ class AddEpicForm extends Component {
             </FormGroup>
 
             <FormGroup>
-                <Label for="values">Value statement:</Label>
+                <Label for="values">Values:</Label>
                         
                 <Multiselect options = { this.displayValues() } onSelect={this.onValueAddition} 
                     onRemove={this.onValueDeletion}

@@ -85,6 +85,7 @@ def EpicDetails(request, epic_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
+        print("editing epic...")
         epic_serializer = EpicSerializer(epic, data=request.data,context={'request': request})
         if epic_serializer.is_valid():
             epic_serializer.save()
@@ -96,6 +97,7 @@ def EpicDetails(request, epic_id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     elif request.method == 'GET':
+        print("getting epic...")
         epic_serializer = EpicSerializer(epic)
         return Response(epic_serializer.data, status=status.HTTP_204_NO_CONTENT)
     
