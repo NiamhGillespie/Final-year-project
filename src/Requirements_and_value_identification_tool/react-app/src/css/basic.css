@@ -402,3 +402,13 @@
     margin-bottom: 2px;
     width: 59vw;
 }
+
+.details-edit-button {
+    float: right;
+    display: inline;
+    margin: 0px;
+    margin-right: 5vw;
+    padding: 0vh 2vh !important;
+    border-radius: 15px !important;
+    background-color: white !important;
+}

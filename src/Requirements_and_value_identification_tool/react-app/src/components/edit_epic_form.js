@@ -153,7 +153,7 @@ class UpdateEpicForm extends Component {
                         </div>
                         
                         <div className="details-right-col float-right">
-                            <Button> Update Epic</Button>
+                            <Button className="details-edit-button" style={{border: '2px solid #' + this.state.epic_colour, color: '#' + this.state.epic_colour}}> update </Button>
                             <div> 
                                 <p style={{ color: '#' + this.state.epic_colour}} className="details-heading mb-2"> Last edited: </p>
                                 <p className="p-0 mb-1 mt-1"> {this.state.last_edited_by} </p>
