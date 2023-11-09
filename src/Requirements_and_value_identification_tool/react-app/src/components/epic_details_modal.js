@@ -113,8 +113,8 @@ class EpicDetailsModal extends Component {
                     <ModalBody className="mt-3">
                         <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.state.epic.epic_colour + '60'}}>
                             <div className="story-details-values-box h-100 mt-0 mb-0"> 
-                                <p className="details-stories-header" style={{ color: '#' + this.state.epic.epic_colour}}> Values: </p>
-                                <p className="overflow-auto values-scrollable-epic" style={{ scrollbarColor: '#' + this.state.epic.epic_colour + '90  #' + this.state.epic.epic_colour + '30'}}> 
+                                <p className="details-stories-header" style={{ color: '#' + this.state.epic.epic_colour}}> Values </p>
+                                <p className="overflow-auto values-scrollable-epic" style={{ scrollbarColor: '#' + this.state.epic_colour + '90  #' + this.state.epic_colour + '30'}}> 
                                     { this.displayValues() }
                                 </p>
                             </div>
@@ -129,7 +129,9 @@ class EpicDetailsModal extends Component {
                         </div>
                         
                         <div className="details-right-col float-right">
-                            <Button className="details-edit-button" style={{border: '2px solid #' + this.state.epic.epic_colour, color: '#' + this.state.epic.epic_colour}}  onClick={this.toggleEditing}> edit </Button>
+                            <Button className="details-edit-button" style={{border: '2px solid #' + this.state.epic.epic_colour, color: '#' + this.state.epic.epic_colour, marginRight: "5vw"}}
+                            onClick={this.toggleEditing}> edit </Button>
+                            
                             <div> 
                                 <p style={{ color: '#' + this.state.epic.epic_colour}} className="details-heading mb-2"> Last edited: </p>
                                 <p className="p-0 mb-1 mt-1"> {this.state.epic.last_edited_by} </p>

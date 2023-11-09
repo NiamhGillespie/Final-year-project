@@ -37,7 +37,6 @@ class UpdateEpicForm extends Component {
 
     onTitleChange = e => {
         this.setState({ [e.target.title]: e.target.value });
-        console.log("new title: ", this.state.title)
     };
 
     returnDefaultIfFieldEmpty = value => {
@@ -79,7 +78,6 @@ class UpdateEpicForm extends Component {
         for (var i = 0; i < teamValues.length; i++) {
             for (var j = 0; j < values.length; j++) {
                 if (teamValues[i].id == values[j]) {
-                    console.log('TITLE', teamValues.title)
                     returnList.push(
                         {title: teamValues[i].title + " - " + teamValues[i].description, id: teamValues[i].id}
                     )
@@ -133,12 +131,13 @@ class UpdateEpicForm extends Component {
                             <div className="story-details-values-box h-100 mt-0 mb-0"> 
                                 <p className="details-stories-header" style={{ color: '#' + this.state.epic_colour}}> Values: </p>
                                 <FormGroup> 
-                                    <Multiselect options = { this.displayValues() } onSelect={this.onValueAddition} 
+                                    <Multiselect options = { this.displayValues() }
+                                        onSelect={this.onValueAddition} 
                                         onRemove={this.onValueDeletion}
                                         name="tags" 
-                                        className='ms-2' style={{ chips: { background: "green" }, searchBox: 
+                                        className='ms-2' style={{ chips: { background: '#' + this.state.epic_colour}, searchBox: 
                                         { border: "none", "border-bottom": "1px solid blue", "border-radius": "0px", "width": "30vw"}} }
-                                        placeholder="Choose Tags" displayValue="title" selectedValues={this.preselectedValues()}
+                                        placeholder="Choose Values" displayValue="title" selectedValues={this.preselectedValues()}
                                     />
                                 </FormGroup>
                             </div>
@@ -173,25 +172,6 @@ class UpdateEpicForm extends Component {
                         </div>
                     </ModalBody>
             
-
-            {/* <FormGroup>
-                <Label for="values">Value statement:</Label>
-                        
-                <Multiselect options = { this.displayValues() } onSelect={this.onValueAddition} 
-                    onRemove={this.onValueDeletion}
-                    name="tags" 
-                    className='ms-2' style={{ chips: { background: "green" }, searchBox: 
-                    { border: "none", "border-bottom": "1px solid blue", "border-radius": "0px" }} }
-                    placeholder="Choose Tags" displayValue="title"
-                />
-            </FormGroup>
-
-            <ColorPicker className="colour-picker d-inline h-100 w-100" value={this.state.epic_colour} onChange={(e) => this.setColour(e.value)} inline />
-            <br/>
-            <p style={{background: '#' + this.state.epic_colour, color: 'white'}} className="d-inline-block float-right colour-example w-1 h-1" > Colour example </p>
-            <br/>
-
-            <Button className="btn-primary d-block">Update Epic</Button> */}
         </div>
         </Form>
         );

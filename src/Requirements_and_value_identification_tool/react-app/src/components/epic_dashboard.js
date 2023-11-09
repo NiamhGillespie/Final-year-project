@@ -136,7 +136,6 @@ export class EpicsDashboard extends Component {
                                             }}>
 
                                             <div {...provided.dragHandleProps}> 
-                                                {console.log('epic being overwritten...')}
                                                 <EpicDetailsModal resetState={this.resetState} epic={epic} stories={this.state.stories}/>
                                             </div>
                                                 

@@ -180,9 +180,9 @@
 }
 
 .details-box-large {
-    width: 32vw;
+    width: 32vw !important;
     color: black;
-    height: 18vh;
+    height: 18vh !important;
     border-radius: 0px 0px 15px 15px;
     margin-top: 0px;
     padding: 5px 10px;
@@ -190,9 +190,9 @@
 } 
 
 .details-box-small {
-    width: 32vw;
+    width: 32vw !important;
     color: black;
-    height: 11vh;
+    height: 11vh !important;
     border-radius: 0px 0px 15px 15px;
     margin-top: 0px;
     padding: 5px 10px;
@@ -221,15 +221,15 @@
 }
 
 .details-left-col {
-    width: 35vw;
-    float: left;
+    width: 35vw !important;
+    float: left !important;
 }
 
 .details-right-col {
-    margin-left: 20px;
-    padding-left: 10px;
-    width: 25vw;
-    float: left;
+    margin-left: 20px !important;
+    padding-left: 10px !important;
+    width: 25vw !important;
+    float: left !important;
 }
 
 .details-heading {
@@ -241,13 +241,13 @@
 }
 
 .details-story-points {
-    width: 4vw;
-    height: 4vw;
-    line-height: 4vw;
-    font-size: 2vw;
-    color: white;
-    border-radius: 15px;
-    text-align: center;
+    width: 4vw !important;
+    height: 4vw !important;
+    line-height: 4vw !important;
+    font-size: 2vw !important;
+    color: white !important;
+    border-radius: 15px !important;
+    text-align: center !important;
 }
 
 .details-tag {
