@@ -203,3 +203,11 @@
 
 ### 9 Nov 2023
 * *3 hours* Refined epic details view and made the stories details view editable
+
+## Week 8
+
+### 12 Nov 2023
+* *1 hour* Brainstormed possible layouts for the tracking dashboard, no solid plans yet but I want teams to be able to use scrum or kanbans
+
+### 14 Nov 2023
+* *3 hours* Created hand-drawn wireframes for the flow of the tracking dashboard - teams will be able to choose between a scum based or kanban style tracking system. This will allow me to alter displays and metrics based on the methodology chosen. This is quite rigid currently and in the future it would be nice to allow a team to change between workstyles or to perhaps support multiple projects.
