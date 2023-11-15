@@ -211,3 +211,6 @@
 
 ### 14 Nov 2023
 * *3 hours* Created hand-drawn wireframes for the flow of the tracking dashboard - teams will be able to choose between a scum based or kanban style tracking system. This will allow me to alter displays and metrics based on the methodology chosen. This is quite rigid currently and in the future it would be nice to allow a team to change between workstyles or to perhaps support multiple projects.
+
+### 15 Nov 2023
+* *0.5 hours* Planning the new models that will be needed for the tracking dashboards and relationships between them
