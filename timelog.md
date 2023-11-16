@@ -214,3 +214,6 @@
 
 ### 15 Nov 2023
 * *0.5 hours* Planning the new models that will be needed for the tracking dashboards and relationships between them
+
+### 16 Nov 2023
+* *1.5 hours* Creating a tracking column model and serializer. Adding this to population script. Created get and post for team columns and created get, put and delete for column details.
