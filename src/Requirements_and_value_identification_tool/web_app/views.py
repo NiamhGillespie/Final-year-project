@@ -252,7 +252,7 @@ def TeamTrackingColumns(request):
             column_serializer.save()
             column_id = column_serializer.data['id']
                 
-            ValueTag.objects.filter(id=column_id).update(column_id = column_id)
+            TrackingColumn.objects.filter(id=column_id).update(column_id = column_id)
             
             return Response(status=status.HTTP_201_CREATED)
         else:

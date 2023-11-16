@@ -51,7 +51,11 @@ export class NavigationBar extends Component {
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark nav-item" to="/teamName/epicsDashboard"><span>Epics Dashboard </span></NavLink>
+                                    <NavLink tag={Link} className="text-dark nav-item" to="/teamName/tracking-dashboard"><span>Tracking Dashboard </span></NavLink>
+                                </NavItem>
+
+                                <NavItem>
+                                    <NavLink tag={Link} className="text-dark nav-item" to="/teamName/epics-dashboard"><span>Epics Dashboard </span></NavLink>
                                 </NavItem>
 
                                 <NavItem>

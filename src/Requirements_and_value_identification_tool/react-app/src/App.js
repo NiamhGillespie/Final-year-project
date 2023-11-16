@@ -7,6 +7,7 @@ import BaseTemplate from './components/base_template';
 import EpicsDashboard from './components/epic_dashboard';
 import TeamDashboard from './components/team_dashboard';
 import TagDashboard from './components/tag_dashboard';
+import TrackingDashboard from './components/tracking_dashboard';
 
 export default function App() {
   return (
@@ -16,7 +17,8 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="teamTags" element={<TagDashboard />} />
           <Route path="teamName"  index element={<TeamDashboard />} />
-          <Route path="teamName/epicsDashboard" element={<EpicsDashboard />} />
+          <Route path="teamName/epics-dashboard" element={<EpicsDashboard />} />
+          <Route path="teamName/tracking-dashboard" element={<TrackingDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>

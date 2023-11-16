@@ -99,7 +99,8 @@ export class TagDashboard extends Component {
     
     render() {
         return (
-            <div className='centered'>
+            <>
+            <div className='centered' div key='tag-dashboard'>
                 <div className='choice-section'>
                     <button className='choice-button' style={{borderRight: '2px solid white'}} onClick={this.switchToTags}>
                         Tags
@@ -116,8 +117,9 @@ export class TagDashboard extends Component {
                     {this.renderChoice()}
                 </div>
             </div>
+            </>
         );
     }
 }
-ReactDOM.render(<TagDashboard />, document.getElementById("root"));
+//ReactDOM.render(<TagDashboard />, document.getElementById("root"));
 export default TagDashboard;

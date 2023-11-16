@@ -412,3 +412,16 @@
     border-radius: 15px !important;
     background-color: white !important;
 }
+
+/* tracking dashboard */
+
+.column-container{
+    text-align: center;
+    background: #d3d7dc20;
+    border-radius: 10px;
+    margin: 3vh;
+    margin-right: 5px;
+    padding: 1vw;
+    min-width: 200px;
+    min-height: 80vh;
+}

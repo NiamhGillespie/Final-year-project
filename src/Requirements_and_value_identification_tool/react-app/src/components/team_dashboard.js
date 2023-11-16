@@ -12,7 +12,8 @@ export class TeamDashboard extends Component {
         return (
             <>
             <p> Team Dashboard </p>
-            <NavLink tag={Link} className="text-dark nav-item" to="/teamName/epicsDashboard"><span> Epic Dashboard </span></NavLink></>
+            <NavLink tag={Link} className="text-dark nav-item" to="/teamName/epicsDashboard"><span> Epic Dashboard </span></NavLink>
+            </>
         );
     }
 }

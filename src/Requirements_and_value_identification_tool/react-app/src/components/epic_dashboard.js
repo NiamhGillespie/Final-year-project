@@ -248,7 +248,8 @@ export class EpicsDashboard extends Component {
 
     render() {
         return (
-            <div>
+            <>
+            <div key='epic-dashboard'>
                 <div className= "border-bottom d-flex flex-row">
                     <p className='text-center'> { this.displayStatsBar() } </p>
                     <AddEpicModal create={true} resetState={this.resetState} />
@@ -256,13 +257,13 @@ export class EpicsDashboard extends Component {
 
                 <div>
                     
-                    <div class="d-flex flex-row w-30 h-100 overflow-y">
+                    <div className="d-flex flex-row w-30 h-100 overflow-y">
                         { this.displayEpics() }
                     </div>
                 </div>
             </div>
+            </>
         );
     }
 }
-ReactDOM.render(<EpicsDashboard />, document.getElementById("root"));
 export default EpicsDashboard;
