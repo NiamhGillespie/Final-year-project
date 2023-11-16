@@ -32,3 +32,8 @@ class ValueTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = ValueTag
         fields = ('id', 'tag_id', 'team_id', 'title', 'description', 'sub_values', 'colour')
+
+class TrackingColumnSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrackingColumn
+        fields = ('column_id', 'dashboard_id', 'team_id', 'title', 'mark_as_complete')

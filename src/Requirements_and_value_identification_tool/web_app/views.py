@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from .models import Epic, Story, Task, Tag, ValueTag
-from .serializers import EpicSerializer, StorySerializer, TaskSerializer, TagSerializer, ValueTagSerializer
+from .serializers import *
 
 
 @api_view(['GET', 'POST'])
@@ -231,3 +231,56 @@ def ValueDetail(request, value_id):
         value_serializer = ValueTagSerializer(value)
         print(value_serializer.data)
         return Response(value_serializer.data, status=status.HTTP_204_NO_CONTENT)
+    
+@api_view(['GET', 'POST'])
+def TeamTrackingColumns(request):
+    if request.method == 'GET':
+        print("GETTING DATA...")
+
+    #tags = Tag.objects.all() 
+        columns = TrackingColumn.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
+        print(columns)
+        column_serializer = TrackingColumnSerializer(columns, context={'request': request}, many=True)
+        
+        return Response(column_serializer.data)
+    
+    if request.method == 'POST':
+        column_serializer = TrackingColumnSerializer(data=request.data)
+            
+        if column_serializer.is_valid():
+            print("adding tag...")
+            column_serializer.save()
+            column_id = column_serializer.data['id']
+                
+            ValueTag.objects.filter(id=column_id).update(column_id = column_id)
+            
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            print(column_serializer.data, column_serializer.errors)
+            return Response(column_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['PUT', 'DELETE', 'GET'])
+def ColumnDetail(request, column_id):
+    try:
+        column = TrackingColumn.objects.get(id = column_id, team_id = '0000') #chnge this when implementing teams
+        print(column)
+    except TrackingColumn.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        print('putting...')
+        column_serializer = TrackingColumnSerializer(column, data=request.data,context={'request': request})
+        if column_serializer.is_valid():
+            column_serializer.save()
+            print(column_serializer.data)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(column_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        column.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'GET':
+        column_serializer = TrackingColumnSerializer(column)
+        print(column_serializer.data)
+        return Response(column_serializer.data, status=status.HTTP_204_NO_CONTENT)

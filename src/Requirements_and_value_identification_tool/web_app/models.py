@@ -2,10 +2,20 @@ from django.db import models
 from datetime import datetime
 
 # Create your models here.
+    
+class TrackingColumn(models.Model):
+    column_id = models.CharField(max_length=8, default='error')
+    dashboard_id = models.CharField(max_length=8, default='error')
+    team_id = models.CharField(max_length=8, default='error')
+    title = models.CharField(max_length=30)
+    mark_as_complete = models.BooleanField(default = False)
+
+    def __str__(self):
+        return self.title
 
 class Tag(models.Model):
     tag_id = models.CharField(max_length=8, default='error')
-    team_id = models.CharField(max_length=8, default='error') # each team has a set of tags?
+    team_id = models.CharField(max_length=8, default='error')
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=200)
     colour = models.CharField(max_length=6)

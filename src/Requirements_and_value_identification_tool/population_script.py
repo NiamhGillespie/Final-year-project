@@ -4,9 +4,22 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Requirements_and_value_identifi
 import django
 from datetime import datetime
 django.setup()
-from web_app.models import Epic, Story, Task, Tag, ValueTag
+from web_app.models import *
 
 def populate():
+    tracking_columns = [
+        {
+            'column_id': '0',
+            'dashboard_id': '0000',
+            'team_id': '0000',
+            'title': 'Backlog',
+            'mark_as_complete': False
+        }
+    ]
+
+    for column in tracking_columns:
+        add_tracking_column(column['column_id'], column['dashboard_id'], column['team_id'], column['title'], column['mark_as_complete'])
+
     tags = [
         {
             'tag_id': '0',
@@ -91,6 +104,16 @@ def populate():
                 story['pairable'], story['assigned_to'], story['state'], story['last_edited_by'],
                 story['last_edited'], story['created_by'], story['time_created'])
         
+
+def add_tracking_column(column_id, dashboard_id, team_id, title, mark_as_complete):
+    column = TrackingColumn.objects.get_or_create(id=column_id)[0]
+    column.dashboard_id = dashboard_id
+    column.team_id = team_id
+    column.title = title
+    column.mark_as_complete = mark_as_complete
+    column.save()
+    print('populating columns :)')
+    return column
 
 def add_tag(title, description, colour, tag_id, team_id):
     tag = Tag.objects.get_or_create(id=tag_id)[0]
