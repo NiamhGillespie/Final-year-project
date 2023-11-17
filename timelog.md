@@ -221,3 +221,4 @@
 
 ### 17 Nov 2023
 * *1 hour* Supervisor meeting with Peggy and wrote up meeting notes
+* *0.5 hours* Let user delete a tracking column
