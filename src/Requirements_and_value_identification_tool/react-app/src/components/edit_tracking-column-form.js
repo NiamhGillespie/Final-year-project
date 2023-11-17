@@ -41,6 +41,13 @@ class EditColumnForm extends Component {
         });
     };
 
+    deleteColumn = () => {
+        axios.delete(API_URL_TRACKING_COLUMN_DETAILS + this.state.column_id).then(() => {
+                this.props.resetState();
+                this.props.toggle();
+        });
+    } 
+
 
     render() {
         return (
@@ -67,6 +74,8 @@ class EditColumnForm extends Component {
             </FormGroup>
 
             <Button className="btn-primary">Update Column</Button>
+
+            <Button className="btn-danger float-end" onClick={this.deleteColumn}>Delete Column</Button>
         </Form>
         );
     }
