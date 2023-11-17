@@ -218,3 +218,6 @@
 ### 16 Nov 2023
 * *1.5 hours* Creating a tracking column model and serializer. Adding this to population script. Created get and post for team columns and created get, put and delete for column details.
 * *2 hours* Allowed users to add a tracking column, including the ability to choose a column to automatically mark stories as done once they are moved there. Also allowed users to edit a column.
+
+### 17 Nov 2023
+* *1 hour* Supervisor meeting with Peggy and wrote up meeting notes
