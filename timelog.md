@@ -222,3 +222,8 @@
 ### 17 Nov 2023
 * *1 hour* Supervisor meeting with Peggy and wrote up meeting notes
 * *0.5 hours* Let user delete a tracking column
+
+## Week 9
+
+### 19 Nov 2023
+* *0.5 hours* Updating tracking column model, serializer and population script to include a field for user stories
