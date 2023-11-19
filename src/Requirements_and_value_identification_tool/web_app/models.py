@@ -2,16 +2,6 @@ from django.db import models
 from datetime import datetime
 
 # Create your models here.
-    
-class TrackingColumn(models.Model):
-    column_id = models.CharField(max_length=8, default='error')
-    dashboard_id = models.CharField(max_length=8, default='error')
-    team_id = models.CharField(max_length=8, default='error')
-    title = models.CharField(max_length=30)
-    mark_as_complete = models.BooleanField(default = False)
-
-    def __str__(self):
-        return self.title
 
 class Tag(models.Model):
     tag_id = models.CharField(max_length=8, default='error')
@@ -110,6 +100,17 @@ class Task(models.Model):
     last_edited = models.DateTimeField(default=datetime(2023, 10, 3, 15))
     created_by = models.CharField(max_length=128)
     time_created = models.DateTimeField(default=datetime(2023, 10, 3, 15))
+
+    def __str__(self):
+        return self.title
+
+class TrackingColumn(models.Model):
+    column_id = models.CharField(max_length=8, default='error')
+    dashboard_id = models.CharField(max_length=8, default='error')
+    team_id = models.CharField(max_length=8, default='error')
+    title = models.CharField(max_length=30)
+    mark_as_complete = models.BooleanField(default = False)
+    stories = models.ManyToManyField(Story, blank=True, default=[])
 
     def __str__(self):
         return self.title

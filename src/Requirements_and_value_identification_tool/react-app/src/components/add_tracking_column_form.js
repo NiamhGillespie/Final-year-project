@@ -14,7 +14,8 @@ class AddColumnForm extends Component {
         dashboard_id: '0000',
         team_id: '0000',
         title: '',
-        mark_as_complete: false
+        mark_as_complete: false,
+        stories: []
     };
 
     

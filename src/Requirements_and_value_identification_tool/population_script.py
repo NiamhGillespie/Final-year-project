@@ -13,12 +13,13 @@ def populate():
             'dashboard_id': '0000',
             'team_id': '0000',
             'title': 'Backlog',
-            'mark_as_complete': False
+            'mark_as_complete': False,
+            'stories': []
         }
     ]
 
     for column in tracking_columns:
-        add_tracking_column(column['column_id'], column['dashboard_id'], column['team_id'], column['title'], column['mark_as_complete'])
+        add_tracking_column(column['column_id'], column['dashboard_id'], column['team_id'], column['title'], column['mark_as_complete'], column['stories'])
 
     tags = [
         {
@@ -105,12 +106,13 @@ def populate():
                 story['last_edited'], story['created_by'], story['time_created'])
         
 
-def add_tracking_column(column_id, dashboard_id, team_id, title, mark_as_complete):
+def add_tracking_column(column_id, dashboard_id, team_id, title, mark_as_complete, stories):
     column = TrackingColumn.objects.get_or_create(id=column_id)[0]
     column.dashboard_id = dashboard_id
     column.team_id = team_id
     column.title = title
     column.mark_as_complete = mark_as_complete
+    column.stories.set(stories)
     column.save()
     print('populating columns :)')
     return column

@@ -13,7 +13,8 @@ class EditColumnForm extends Component {
         dashboard_id: this.props.column.dashboard_id,
         team_id: this.props.column.team_id,
         title: this.props.column.title,
-        mark_as_complete: this.props.column.mark_as_complete
+        mark_as_complete: this.props.column.mark_as_complete,
+        stories: this.props.column.stories
     };
 
     
