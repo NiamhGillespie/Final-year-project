@@ -227,3 +227,6 @@
 
 ### 19 Nov 2023
 * *0.5 hours* Updating tracking column model, serializer and population script to include a field for user stories
+
+### 10 Nov 2023
+* *0.5 hours* Creating designs for adding multiple stories to a backlog at once
