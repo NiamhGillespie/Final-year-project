@@ -228,5 +228,8 @@
 ### 19 Nov 2023
 * *0.5 hours* Updating tracking column model, serializer and population script to include a field for user stories
 
-### 10 Nov 2023
+### 20 Nov 2023
 * *0.5 hours* Creating designs for adding multiple stories to a backlog at once
+
+### 22 Nov 2023
+* *4.5 hours* User can add and delete stories to a tracking column throught the edit tracking column form. I've also chosen to only let users add/delete stories who's states are either undefined or are part of the column.
