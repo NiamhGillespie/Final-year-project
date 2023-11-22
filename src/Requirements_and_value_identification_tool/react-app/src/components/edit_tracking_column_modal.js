@@ -29,6 +29,8 @@ class EditColumnModal extends Component {
                         toggle={this.toggleModal}
                         resetState={this.props.resetState}
                         column={this.props.column}
+                        non_completed_stories={this.props.non_completed_stories}
+                        epics={this.props.epics}
                     />
                 </ModalBody>
             </Modal>

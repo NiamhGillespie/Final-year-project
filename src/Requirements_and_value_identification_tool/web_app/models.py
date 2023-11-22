@@ -65,7 +65,7 @@ class Story(models.Model):
     pairable = models.BooleanField(default = False)
     assigned_to = models.CharField(max_length=128) #this should be list of users in future
 
-    state = models.CharField(max_length=128, default='backlog')
+    state = models.CharField(max_length=128, default='undefined')
 
     last_edited_by = models.CharField(max_length=128)
     last_edited =  models.CharField(max_length=128)
