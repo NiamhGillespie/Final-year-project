@@ -240,3 +240,4 @@
 ### 24 Nov 2023
 * *1 hour* Decided on prospective issues for the sprint backlog, as the end of this sprint would fall during the christmas leave I added many more issues than I typically would
 * *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
+* *3 hours* Started working on drag and drop for tracking columns
