@@ -4,7 +4,7 @@ import AddEpicModal from './add_epic_modal';
 import AddStoryModal from './add_story_modal';
 import axios from "axios";
 import { API_URL } from "../constants";
-import { DragDropContext, Droppable, Draggable   } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable   } from '../constants/drag_and_drop';
 import ReactDOM from "react-dom";
 import EpicDetailsModal from './epic_details_modal';
 import StoryDetailsModal from './story_details_modal';
