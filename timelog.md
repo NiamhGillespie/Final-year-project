@@ -233,3 +233,10 @@
 
 ### 22 Nov 2023
 * *4.5 hours* User can add and delete stories to a tracking column throught the edit tracking column form. I've also chosen to only let users add/delete stories who's states are either undefined or are part of the column.
+
+### 23 Nov 2023
+* *2.5 hours* Displaying the stories assigned to a column on the column dashboard. Tried to get some drag and drop functionality working but decided to get the simple display working first.
+
+### 24 Nov 2023
+* *1 hour* Decided on prospective issues for the sprint backlog, as the end of this sprint would fall during the christmas leave I added many more issues than I typically would
+* *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
