@@ -241,3 +241,8 @@
 * *1 hour* Decided on prospective issues for the sprint backlog, as the end of this sprint would fall during the christmas leave I added many more issues than I typically would
 * *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
 * *3 hours* Started working on drag and drop for tracking columns
+
+## Week 10
+
+### 27 Nov 2023
+* *4.5 hours* Fixing bugs with the drag and drop stories for tracking columns - stories will now again display on columns without breaking the web app. Stories can drag vertically but still can't figure out how to also make them drag horizontally. 
