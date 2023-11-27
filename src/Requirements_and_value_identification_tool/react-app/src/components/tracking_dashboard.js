@@ -58,34 +58,38 @@ export class TrackingDashboard extends Component {
                 return_list.push(
                     <DragDropContext onDragEnd={result => {
                         if (!result.destination) {
+                            console.log("in funct col", result)
                           return;
+                          
                         }
                     
+                        console.log("outside funct col", result)
+                        return "boop"
                         //this.reorderStories(columns, result.source.index, result.destination.index);
                     }}>
-                    <Droppable droppableId={this.state.columns[i].id}>
-                    {console.log("COLUMN??????", columns[i])}
-                    {columns.map((column, index) => (
+    
+                    <Droppable droppableId={'column'}>
                     {(provided, snapshot) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef} style={getDraggingStyle(snapshot.isDraggingOver)}>
+                        <div {...provided.droppableProps} ref={provided.innerRef} className='d-flex'>
+                        
+                    
+                        {columns.map((column, index) => (
                     <div className='column-container'> 
-                        {console.log("PROVIDED", columns[i])}
-                        {/* <EditColumnModal className='pb-0 mb-0' resetState={this.resetState} column={this.state.columns[i]} non_completed_stories={non_completed_stories} */}
-                        {/* epics={this.state.epics}/> */}
-                        <p> { columns[i].title } </p>
+                        <EditColumnModal className='pb-0 mb-0' resetState={this.resetState} column={column} non_completed_stories={non_completed_stories}/>
+                        
                         <hr className='pt-0 mt-0'></hr>
 
-                        {/* {this.displayStories(this.state.columns[i])} */}
-                    </div>
+                        {this.displayStories(column)}
+                    </div>)
+
+                    )}
                     </div>
                     )}
                     </Droppable>
                     </DragDropContext>
                 )
             }
-        }
-        }
-
+        
         return_list.push(
             <AddColumnModal resetState={this.resetState}/>
         )
@@ -105,7 +109,6 @@ export class TrackingDashboard extends Component {
             borderRadius: 10,
           });
 
-        console.log("AHHHHH", column)
         var story_ids = column.stories
         var returnList = [];
         var stories = [];
@@ -127,51 +130,54 @@ export class TrackingDashboard extends Component {
                 }
             
 
-        // return (
-        //     <DragDropContext onDragEnd={result => {
-        //         if (!result.destination) {
-        //           return;
-        //         }
-            
-        //         this.reorderStories(stories, result.source.index, result.destination.index);
-        //     }}>
-        //         <Droppable droppableId="droppable">
-        //         {(provided, snapshot) => (
-        //             <div {...provided.droppableProps} ref={provided.innerRef} style={getDraggingStyle(snapshot.isDraggingOver)}>
+            return (
+                <DragDropContext onDragEnd={result => {
+                    if (!result.destination) {
+                        console.log("in funct", result)
+                    return;
+                    }
+                
+                    console.log("outsdie funct", result.destination)
+                    this.reorderStories(stories, result.source.index, result.destination.index);
+                }}>
+                    <Droppable key={column.is} droppableId={column.id.toString()}>
+                    {(provided, snapshot) => (
+                        <div {...provided.droppableProps} ref={provided.innerRef} style={getDraggingStyle(snapshot.isDraggingOver)}>
+                        
                     
-                   
-        //             {stories.map((story, index) => (
-                          
-        //                   <div>
-        //                   <Draggable key={story.id} draggableId={story.id.toString()} index={index} className="story-drag-and-drop"
-        //                       >
-        //                     {(provided, snapshot) => (
-        //                         <div ref={provided.innerRef} {...provided.draggableProps}>
-                                
-        //                         <div {...provided.dragHandleProps} style={{border: '2px solid ' + 'red'}} className="story-box">
-        //                         {/* <div > */}
-        //                             <p className='story-title'> {story.title} </p>
-        //                             <p style={{background: 'red'}} className='story-profile-photo'> icon </p>
-        //                             <p className='story-priority'> {(story.priority)} </p>
-        //                         {/* </div> */}
-        //                         </div>
-        //                         </div>
-        //                     )}
-        //                     </Draggable>
-        //                     </div>
-                         
-        //             ))}
-        //             {provided.placeholder}
-        //             </div>
-        //         )}
-        //         </Droppable>
-        //   </DragDropContext>
-        //);
-        }
+                        {stories.map((story, index) => (
+                            
+                            <div>
+                            <Draggable key={story.id} draggableId={story.id.toString()} index={index} className="story-drag-and-drop">
+                                {(provided, snapshot) => (
+                                    <div ref={provided.innerRef} {...provided.draggableProps}  {...provided.dragHandleProps}>
+                                    
+                                    <div {...provided.dragHandleProps} style={{border: '2px solid ' + 'red'}} className="story-box">
+                                    {/* <div > */}
+                                        <p className='story-title'> {story.title} </p>
+                                        <p style={{background: 'red'}} className='story-profile-photo'> icon </p>
+                                        <p className='story-priority'> {(story.priority)} </p>
+                                    {/* </div> */}
+                                    </div>
+                                    </div>
+                                )}
+                                </Draggable>
+                                </div>
+                            
+                        ))}
+                        {provided.placeholder}
+                        </div>
+                    )}
+                    </Droppable>
+            </DragDropContext>
+            );
+                            }
         
-        return returnList;
+        // return returnList;
+        
     }
 }
+
 
     render() {
         return (
