@@ -116,6 +116,7 @@ def StoryDetails(request, story_id):
             story_serializer.save()
             print(story_serializer.data)
             return Response(status=status.HTTP_204_NO_CONTENT)
+        print(story_serializer.error)
         return Response(story_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -123,8 +124,10 @@ def StoryDetails(request, story_id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'GET':
+        print("WTF us happening???")
         story_serializer = StorySerializer(story)
-        return Response(story_serializer.data, status=status.HTTP_204_NO_CONTENT)    
+        print(story_serializer.data)
+        return Response(story_serializer.data, status=status.HTTP_200_OK)    
 
 @api_view(['GET', 'POST'])
 def TeamTags(request):
@@ -176,7 +179,7 @@ def TagDetail(request, tag_id):
     elif request.method == 'GET':
         tag_serializer = TagSerializer(tag)
         print(tag_serializer.data)
-        return Response(tag_serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(tag_serializer.data, status=status.HTTP_200_OK)
     
 
 @api_view(['GET', 'POST'])
@@ -230,7 +233,7 @@ def ValueDetail(request, value_id):
     elif request.method == 'GET':
         value_serializer = ValueTagSerializer(value)
         print(value_serializer.data)
-        return Response(value_serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(value_serializer.data, status=status.HTTP_200_OK)
     
 @api_view(['GET', 'POST'])
 def TeamTrackingColumns(request):
@@ -283,4 +286,4 @@ def ColumnDetail(request, column_id):
     elif request.method == 'GET':
         column_serializer = TrackingColumnSerializer(column)
         print(column_serializer.data)
-        return Response(column_serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(column_serializer.data, status=status.HTTP_200_OK)
