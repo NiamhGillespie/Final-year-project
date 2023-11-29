@@ -36,4 +36,4 @@ class ValueTagSerializer(serializers.ModelSerializer):
 class TrackingColumnSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrackingColumn
-        fields = ('id', 'column_id', 'dashboard_id', 'team_id', 'title', 'mark_as_complete', 'stories')
+        fields = ('id', 'column_id', 'dashboard_id', 'team_id', 'title', 'mark_as_complete', 'stories', 'story_list')

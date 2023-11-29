@@ -1,6 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+from django import db
+import time
 
 from .models import Epic, Story, Task, Tag, ValueTag
 from .serializers import *
@@ -124,10 +126,12 @@ def StoryDetails(request, story_id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'GET':
-        print("WTF us happening???")
         story_serializer = StorySerializer(story)
         print(story_serializer.data)
-        return Response(story_serializer.data, status=status.HTTP_200_OK)    
+        try:
+            return Response(story_serializer.data, status=status.HTTP_200_OK)
+        finally:
+                db.connections.close_all()
 
 @api_view(['GET', 'POST'])
 def TeamTags(request):
@@ -273,10 +277,11 @@ def ColumnDetail(request, column_id):
     if request.method == 'PUT':
         print('putting...')
         column_serializer = TrackingColumnSerializer(column, data=request.data,context={'request': request})
-        if column_serializer.is_valid():
+        if column_serializer.is_valid():      
             column_serializer.save()
-            print(column_serializer.data)
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_200_OK)
+
+        print(column_serializer.errors)
         return Response(column_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -285,5 +290,7 @@ def ColumnDetail(request, column_id):
 
     elif request.method == 'GET':
         column_serializer = TrackingColumnSerializer(column)
-        print(column_serializer.data)
-        return Response(column_serializer.data, status=status.HTTP_200_OK)
+        try:
+            return Response(column_serializer.data, status=status.HTTP_200_OK)
+        finally:
+                db.connections.close_all()

@@ -15,7 +15,7 @@ class AddColumnModal extends Component {
 
     render() {
         var button = (
-            <Button className="stat-bar-btn btn-primary" onClick={this.toggleModal}>
+            <Button className="me-4 mt-0 mb-0 btn-primary add-col-btn-modal" onClick={this.toggleModal}>
                 +
             </Button>
         );

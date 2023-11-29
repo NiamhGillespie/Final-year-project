@@ -40,7 +40,6 @@ export class TrackingDashboard extends Component {
     };
 
     async updateStory(story_id, column_title) {
-       // var story = 
         var story = this.state.non_completed_stories.filter(story => story.id === parseInt(story_id))[0]
         story.state = column_title.toString()
         await axios.put(API_URL_STORY_DETAILS + story_id + '/details', story)
@@ -49,53 +48,95 @@ export class TrackingDashboard extends Component {
     async updateOldColumn(story_id, column_id) {
         var column = this.state.columns.filter(column => column.id === parseInt(column_id))[0]
 
-        var stories = column.stories
-        const index = stories.indexOf(parseInt(story_id));
-        
-        if (index > -1) {
-            stories.splice(index, 1);
+        var ordered = column.story_list.split(",")
+        var ordered_ids = [];
+        for (var i = 0; i < ordered.length; i++) {
+            ordered_ids.push(parseInt(ordered[i]))
         }
+
+        if (ordered_ids != []) {
+            const index = ordered_ids.indexOf(parseInt(story_id));
         
-        column.stories = stories;
+            if (index > -1) {
+                ordered_ids.splice(index, 1);
+            }
+        } else {
+            ordered_ids.push(parseInt(story_id))
+        }
+        column.stories = ordered_ids;
+        column.story_list = ordered_ids.toString()
         
         await axios.put(API_URL_TRACKING_COLUMN_DETAILS + column_id, column);
         return
         
     }
 
-    async updateNewColumn(story_id, column_id) {
+    async updateNewColumn(story_id, column_id, new_index) {  
         var column = this.state.columns.filter(column => column.id === parseInt(column_id))[0]
-        column.stories.push(parseInt(story_id));
 
+        var ordered_ids = [];
+        if (column.stories.length >= 1) {
+            var ordered = column.story_list.split(",")
+            for (var i = 0; i < ordered.length; i++) {
+                ordered_ids.push(parseInt(ordered[i]))
+            }
+            ordered_ids.splice(new_index, 0, parseInt(story_id));
+        } else {
+            ordered_ids.push(parseInt(story_id))
+        }
+
+        column.stories = ordered_ids;
+        column.story_list = ordered_ids.toString()
         await axios.put(API_URL_TRACKING_COLUMN_DETAILS + column_id, column);
         return column.title
     }
     
-    async reorderStories(result_destination, story_id, old_column_id) {
-        console.log(result_destination, story_id)
-        //need to remove story from current column
+    async updateColumStoryOrder(column_id, story_id, new_index, old_index) {
+        var column = this.state.columns.filter(column => column.id === parseInt(column_id))[0]
+
+        if (column.stories.length >= 1) {
+            var ordered = column.story_list.split(",")
+            var ordered_ids = [];
+            
+            for (var i = 0; i < ordered.length; i++) {
+                ordered_ids.push(parseInt(ordered[i]))
+            
+            }
+            ordered_ids.splice(old_index, 1);
+            ordered_ids.splice(new_index, 0, parseInt(story_id));
+        } else {
+            ordered_ids.push(parseInt(story_id))
+        }
+
+        column.stories = ordered_ids
+        column.story_list = ordered_ids.toString();
+
+        await axios.put(API_URL_TRACKING_COLUMN_DETAILS + column_id, column);
+    }
+    async reorderStories(result_destination, story_id, old_column_id, old_index) {
 
         if (old_column_id !== result_destination.droppableId) {
-            this.updateOldColumn(story_id, old_column_id)
+             //need to remove story from current column
+            await this.updateOldColumn(story_id, old_column_id)
 
-            //add story to new column at order
-            var column_title = await this.updateNewColumn(story_id, result_destination.droppableId)
+            //add story to new column at order - is adding to new column
+            var column_title = await this.updateNewColumn(story_id, result_destination.droppableId, result_destination.index)
 
             //need to update story to say what column it's in
-            this.updateStory(story_id, column_title)
+            await this.updateStory(story_id, column_title)
             
+        } else {
+            await this.updateColumStoryOrder(old_column_id, story_id, result_destination.index, old_index)
         }
-        this.resetState()
+        this.getColumns();
 
-    }
-    
-    delay(milliseconds){
-        return new Promise(resolve => {
-            setTimeout(resolve, milliseconds);
-        });
     }
     
     displayColumns() {
+        const getDraggingStyleColumn = isDraggingOver => ({
+            background: isDraggingOver ? "#58c1d620" : "#d3d7dc20",
+        });
+
         var return_list = [];
         const columns = this.state.columns;
         const non_completed_stories = this.state.non_completed_stories;
@@ -107,15 +148,15 @@ export class TrackingDashboard extends Component {
                       return;
                     }
                     
-                    this.reorderStories(result.destination, result.draggableId, result.source.droppableId)
+                    this.reorderStories(result.destination, result.draggableId, result.source.droppableId, result.source.index)
                 }}>
     
                     {columns.map((column, index) => (
                         <Droppable key={column.id} droppableId={column.id.toString()}>
                             {(provided, snapshot) => (
-                                <div {...provided.droppableProps} ref={provided.innerRef} className='d-flex'>
+                                <div {...provided.droppableProps} ref={provided.innerRef} className='d-flex' >
 
-                                    <div className='column-container'  droppableId={column}> 
+                                    <div className='column-container'  droppableId={column} style={getDraggingStyleColumn(snapshot.isDraggingOver)}> 
                                         <EditColumnModal className='pb-0 mb-0' resetState={this.resetState} column={column} non_completed_stories={non_completed_stories}/>
                                         
                                         <hr className='pt-0 mt-0'></hr>
@@ -133,29 +174,20 @@ export class TrackingDashboard extends Component {
             )
         }
         
-        return_list.push(
-            <AddColumnModal resetState={this.resetState}/>
-        )
-
         return return_list;
     }
 
     displayStories(column) {      
-        const getDraggingStyle = isDraggingOver => ({
-            background: isDraggingOver ? "#"  + "20" : "",
-            paddingTop: 2,
-            paddingBottom: 2,
-            borderRadius: 10,
-        });
-
-        var story_ids = column.stories
+        
+        var ordered_ids = column.story_list.split(",");
         var stories = [];
-        if (story_ids != undefined && story_ids != []) {
-            for (var i = 0; i < story_ids.length; i++) {
-                stories.push(this.state.non_completed_stories.filter(story => story.id == story_ids[i])[0])
+        var story_colours = [];
+        if (ordered_ids !== undefined && ordered_ids != [] && column.story_list.length > 0 && column.stories != [] && column.stories != undefined && this.state.epics !== undefined && this.state.epics.length !== 0) {
+            for (var i = 0; i < ordered_ids.length; i++) {
+                stories.push(this.state.non_completed_stories.filter(story => story.id == parseInt(ordered_ids[i]))[0])
+                story_colours.push((this.state.epics.filter(epic => epic.epic_id === stories[i].epic_id)[0].epic_colour))
             }
             if (stories[0] != undefined) {
-                
                 return (
                     <div>
                         {stories.map((story, index) => (
@@ -164,9 +196,9 @@ export class TrackingDashboard extends Component {
                                     {(provided, snapshot) => (
                                         <div ref={provided.innerRef} {...provided.draggableProps}  {...provided.dragHandleProps}>
                                     
-                                            <div {...provided.dragHandleProps} style={{border: '2px solid ' + 'red'}} className="story-box">
+                                            <div {...provided.dragHandleProps} style={{border: '2px solid ' + '#' + story_colours[index]}} className="story-box">
                                                 <p className='story-title'> {story.title} </p>
-                                                <p style={{background: 'red'}} className='story-profile-photo'> icon </p>
+                                                <p style={{background: '#' + story_colours[index]}} className='story-profile-photo'> icon </p>
                                                 <p className='story-priority'> {(story.priority)} </p>
                                             </div>
                                         </div>
@@ -186,7 +218,11 @@ export class TrackingDashboard extends Component {
         return (
             <>
 
-            <div className='d-flex flex-row overflow-y'>
+            <div className='d-flex flex-row flex-parent m-0'>
+            <AddColumnModal resetState={this.resetState}/>
+            </div>
+        
+            <div className='d-flex flex-row overflow-y mt-0'>
                 { this.displayColumns() }
             </div>
             </> 

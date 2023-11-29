@@ -16,13 +16,21 @@ class EditColumnForm extends Component {
         mark_as_complete: this.props.column.mark_as_complete,
         stories: this.props.column.stories,
         non_completed_stories: this.props.non_completed_stories,
-        epics: this.props.epics
+        epics: this.props.epics,
+        story_list: '',
+        original_stories: this.props.column.stories,
+        original_title: this.props.column.title
     };
 
 
     
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
+
+        if (e.target.name === "title") {
+            console.log(this.state.stories, "changing title")
+            this.redefine(this.state.stories,  e.target.value)
+        }
     };
 
     onChangeCheckbox = e => {
@@ -37,8 +45,28 @@ class EditColumnForm extends Component {
         return value === "" ? "" : value;
     };
 
+    redefine(stories, state) {
+        console.log("stories are", stories)
+        for (var i = 0; i < stories.length; i++) {
+            this.updateStoryState(stories[i], state)
+        }
+    }
+    
+    async updateStoryState(story_id, new_state) {
+        console.log("ID", story_id, "STATE", new_state)
+        var full_story = await axios.get(API_URL_STORY_DETAILS + story_id + '/details')
+        full_story.data.state = new_state;
+
+        await axios.put(API_URL_STORY_DETAILS + full_story.data.story_id + '/details', full_story.data).then(() => {
+             this.props.resetState();
+        });
+    };
+
     updateColumn = e => {
         e.preventDefault();
+        this.redefine(this.state.original_stories, 'undefined')
+        this.redefine(this.state.stories, this.state.title)
+        this.state.story_list = this.state.stories.toString();
         axios.put(API_URL_TRACKING_COLUMN_DETAILS + this.state.column_id, this.state).then(() => {
             this.props.resetState();
             this.props.toggle();
@@ -46,6 +74,8 @@ class EditColumnForm extends Component {
     };
 
     deleteColumn = () => {
+        //move stories to undefined
+        this.redefine(this.state.stories, 'undefined')
         axios.delete(API_URL_TRACKING_COLUMN_DETAILS + this.state.column_id).then(() => {
                 this.props.resetState();
                 this.props.toggle();
@@ -54,56 +84,24 @@ class EditColumnForm extends Component {
 
     onStoryAddition = e => {
 
+        console.log(e)
         var story_ids = [];
         for (var i = 0; i < e.length; i++) {
             story_ids.push(e[i].id)
-            this.updateStoryState(this.state.title, e[i].story);
         }
         this.setState({stories: story_ids});
-    
+        this.state.stories = story_ids;
+        this.setState({story_list: story_ids.toString()});
     }
 
     onStoryDeletion= e => {
-
-        var currently_defined = this.state.stories;
-        var still_defined = []
         var story_ids = [];
         for (var i = 0; i < e.length; i++) {
             story_ids.push(e[i].id)
-            still_defined.push(e[i].story)
         }
         this.setState({stories: story_ids});
-
-        var move_to_undefined = [];
-        for (var i = 0; i < currently_defined.length; i++) {
-            var defined = false;
-            for (var j = 0; j < still_defined.length; j++) {
-                if (still_defined[j].story_id == currently_defined[i]) {
-                    defined = true
-                }
-            }
-            if (defined === false) {
-                move_to_undefined.push(currently_defined[i])
-            }
-        }
-        console.log(move_to_undefined)
-
-        for (var i = 0; i < move_to_undefined.length; i++) {
-            var current_story = this.state.non_completed_stories.filter(story => story.story_id == move_to_undefined[i])
-            console.log(current_story)
-            this.updateStoryState("undefined", current_story[0]);
-        }
-        
+        this.setState({story_list: story_ids.toString()});
     }
-
-    async updateStoryState(new_state, story) {
-        story.state = new_state;
-        console.log("story update...", story)
-        await axios.put(API_URL_STORY_DETAILS + story.story_id + '/details', story).then(() => {
-             this.props.resetState(this.state);
-        });
-    };
-
 
     displayStories() {
         var non_completed_stories = this.state.non_completed_stories;
@@ -123,12 +121,11 @@ class EditColumnForm extends Component {
         var stories = this.state.stories;
         var non_completed_stories = this.state.non_completed_stories
         var returnList = [];
-        
-        var available_stories = non_completed_stories.filter(story => (story.state == this.state.title || story.state == 'undefined'))
+
+        var available_stories = non_completed_stories.filter(story => (story.state == 'undefined' || this.state.title))
 
         for (var i = 0; i < available_stories.length; i++) {
             for (var j = 0; j < stories.length; j++) {
-                //console.log("value title = ", teamValues[0].title )
                 if (available_stories[i].id == stories[j]) {
                     returnList.push(
                         {title: available_stories[i].title, id: available_stories[i].id, story: available_stories[i]}
@@ -136,7 +133,6 @@ class EditColumnForm extends Component {
                 }
             }
         }
-
         return returnList;
     }
 

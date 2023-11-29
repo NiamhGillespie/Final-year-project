@@ -111,6 +111,12 @@ class TrackingColumn(models.Model):
     title = models.CharField(max_length=30)
     mark_as_complete = models.BooleanField(default = False)
     stories = models.ManyToManyField(Story, blank=True, default=[])
+    story_list = models.CharField(max_length=128, blank=True)
+
+# class StoryOrdering(models.Model):
+#     column = models.ForeignKey(TrackingColumn, on_delete=models.CASCADE)
+#     story = models.ForeignKey(Story, on_delete=models.CASCADE)
+#     order = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
