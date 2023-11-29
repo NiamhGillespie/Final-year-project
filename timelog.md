@@ -248,4 +248,7 @@
 * *4.5 hours* Fixing bugs with the drag and drop stories for tracking columns - stories will now again display on columns without breaking the web app. Stories can drag vertically but still can't figure out how to also make them drag horizontally. 
 
 ### 28 Nov 2023
-* *4 hours* Stories can drag and drop horizontally, haven't sorted out ordering vertically yet but running into "database is locked" error which I will need to sort out before I progress with this. 
+* *4 hours* Stories can drag and drop horizontally, haven't sorted out ordering vertically yet but running into "database is locked" error which I will need to sort out before I progress with this.
+
+### 29 Nov 2023
+* *7 hours* "Database is locked" error fixed and drag and drop for stories on tracking dashboard complete. Also fixed the various update tracking column form bugs.
