@@ -15,7 +15,7 @@ class EditColumnModal extends Component {
 
     render() {
         var columnTitle = (
-            <p onClick={this.toggleModal}> { this.props.column.title } </p>
+            <p onClick={this.toggleModal} className="mb-1 column-title"> { this.props.column.title }</p>
        );
 
         return (

@@ -133,9 +133,15 @@ export class TrackingDashboard extends Component {
     }
     
     displayColumns() {
-        const getDraggingStyleColumn = isDraggingOver => ({
+        const getDraggingStyleColumn = (isDraggingOver, WIP, col_stories) => ({
             background: isDraggingOver ? "#58c1d620" : "#d3d7dc20",
+            boxShadow: col_stories.length > WIP && WIP > 0 ? 'inset 0 0 0em 0em #e3322960, 0 0 0.4em 1px #e3322960' : 'inset 0 0 0em 0em #58c1d6, 0 0 0.4em 1px #58c1d660'
         });
+
+        const WIPStyling = (WIP, col_stories) => ({
+            border: col_stories.length > WIP && WIP > 0 ? '2px solid #e3322960' : '2px solid #58c1d680'
+        });
+
 
         var return_list = [];
         const columns = this.state.columns;
@@ -156,10 +162,15 @@ export class TrackingDashboard extends Component {
                             {(provided, snapshot) => (
                                 <div {...provided.droppableProps} ref={provided.innerRef} className='d-flex' >
 
-                                    <div className='column-container'  droppableId={column} style={getDraggingStyleColumn(snapshot.isDraggingOver)}> 
-                                        <EditColumnModal className='pb-0 mb-0' resetState={this.resetState} column={column} non_completed_stories={non_completed_stories}/>
-                                        
-                                        <hr className='pt-0 mt-0'></hr>
+                                    <div className='column-container'  droppableId={column} style={getDraggingStyleColumn(snapshot.isDraggingOver, column.WIP, column.stories)}> 
+                                        <EditColumnModal className='pb-0 mb-1' resetState={this.resetState} column={column} non_completed_stories={non_completed_stories}/>
+                                        {column.WIP !== 0 ? (
+                                        <p className='wip-limit mt-0 mb-2 d-block' style={WIPStyling(column.WIP, column.stories)}> WIP: {column.WIP}</p>
+                                        ): (
+                                            <p className='no-wip-limit mt-0 mb-2 d-block'> </p>
+                                          )
+                                        }
+                                        <hr className='pt-0 mt-2 d-block w-100'></hr>
 
                                         {this.displayStories(column)}
                                         {provided.placeholder}

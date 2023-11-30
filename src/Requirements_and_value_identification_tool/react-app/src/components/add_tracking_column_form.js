@@ -15,7 +15,8 @@ class AddColumnForm extends Component {
         team_id: '0000',
         title: '',
         mark_as_complete: false,
-        stories: []
+        stories: [],
+        WIP: 0 //same as default in models
     };
 
     
@@ -54,6 +55,17 @@ class AddColumnForm extends Component {
                     name="title"
                     onChange={this.onChange}
                     value={this.returnDefaultIfFieldEmpty(this.state.title)}
+                />
+            </FormGroup>
+
+            
+            <FormGroup>
+                <Label for="WIP">WIP limit:</Label>
+                <Input
+                    type="text"
+                    name="WIP"
+                    onChange={this.onChange}
+                    value={this.returnDefaultIfFieldEmpty(this.state.WIP)}
                 />
             </FormGroup>
 

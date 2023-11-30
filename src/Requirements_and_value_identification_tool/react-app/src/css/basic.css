@@ -1,5 +1,6 @@
 :root {
     --blue-highlight: #58c1d6;
+    
 }
 
 .btn-primary{
@@ -338,6 +339,7 @@
     width: 20vw;
     display: inline;
 }
+
 .choice-button {
     color: white !important;
     background-color: var(--blue-highlight) !important;
@@ -423,7 +425,7 @@
     margin: 3vh;
     margin-right: 5px;
     padding: 1vw;
-    min-width: 200px;
+    width: 200px;
     min-height: 75vh;
 }
 
@@ -435,4 +437,25 @@
 
 .flex-parent {
     justify-content: flex-end;
+}
+
+.column-title {
+    display:block;
+    text-align: center;
+}
+
+.wip-limit {
+    border: 2px solid #58c1d680;
+    font-size: 12px;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    margin-top: 0px !important;
+    margin-bottom: 2px !important;
+    margin-right: 2px;
+    float: right;
+    height: 22px;
+}
+
+.no-wip-limit {
+    height: 22px;
 }

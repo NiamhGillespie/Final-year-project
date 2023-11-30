@@ -14,10 +14,11 @@ class EditColumnForm extends Component {
         team_id: this.props.column.team_id,
         title: this.props.column.title,
         mark_as_complete: this.props.column.mark_as_complete,
-        stories: this.props.column.stories,
+        stories: this.props.column.stories,story_list: '',
+        WIP: this.props.column.WIP,
+        
         non_completed_stories: this.props.non_completed_stories,
         epics: this.props.epics,
-        story_list: '',
         original_stories: this.props.column.stories,
         original_title: this.props.column.title
     };
@@ -147,6 +148,16 @@ class EditColumnForm extends Component {
                     name="title"
                     onChange={this.onChange}
                     value={this.returnDefaultIfFieldEmpty(this.state.title)}
+                />
+            </FormGroup>
+            
+            <FormGroup>
+                <Label for="WIP">WIP limit:</Label>
+                <Input
+                    type="text"
+                    name="WIP"
+                    onChange={this.onChange}
+                    value={this.returnDefaultIfFieldEmpty(this.state.WIP)}
                 />
             </FormGroup>
 

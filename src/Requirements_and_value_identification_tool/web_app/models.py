@@ -112,6 +112,7 @@ class TrackingColumn(models.Model):
     mark_as_complete = models.BooleanField(default = False)
     stories = models.ManyToManyField(Story, blank=True, default=[])
     story_list = models.CharField(max_length=128, blank=True)
+    WIP = models.IntegerField(blank = True, default=0)
 
 # class StoryOrdering(models.Model):
 #     column = models.ForeignKey(TrackingColumn, on_delete=models.CASCADE)
