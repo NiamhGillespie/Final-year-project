@@ -252,3 +252,6 @@
 
 ### 29 Nov 2023
 * *7 hours* "Database is locked" error fixed and drag and drop for stories on tracking dashboard complete. Also fixed the various update tracking column form bugs.
+
+### 30 Nov 2023
+* *1.5 hours* Added WIP option to column forms, if this is specified the column displays the WIP and its border will turn red if too many elements are in the column.
