@@ -135,7 +135,7 @@ export class TrackingDashboard extends Component {
     displayColumns() {
         const getDraggingStyleColumn = (isDraggingOver, WIP, col_stories) => ({
             background: isDraggingOver ? "#58c1d620" : "#d3d7dc20",
-            boxShadow: col_stories.length > WIP && WIP > 0 ? 'inset 0 0 0em 0em #e3322960, 0 0 0.4em 1px #e3322960' : 'inset 0 0 0em 0em #58c1d6, 0 0 0.4em 1px #58c1d660'
+            boxShadow: col_stories.length > WIP && WIP > 0 ? 'inset 0 0 0em 0em #e3322960, 0 0 0.4em 1px #e3322960' : 'inset 0 0 0em 0em #58c1d6, 0 0 0.4em 1px #58c1d680'
         });
 
         const WIPStyling = (WIP, col_stories) => ({

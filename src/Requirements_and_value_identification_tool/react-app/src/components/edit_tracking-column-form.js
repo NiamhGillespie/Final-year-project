@@ -16,7 +16,7 @@ class EditColumnForm extends Component {
         mark_as_complete: this.props.column.mark_as_complete,
         stories: this.props.column.stories,story_list: '',
         WIP: this.props.column.WIP,
-        
+
         non_completed_stories: this.props.non_completed_stories,
         epics: this.props.epics,
         original_stories: this.props.column.stories,
@@ -111,7 +111,7 @@ class EditColumnForm extends Component {
         var available_stories = non_completed_stories.filter(story => (story.state == this.state.title || story.state == 'undefined'))
         for (var i = 0; i < available_stories.length; i++) {
             returnList.push(
-                {title: available_stories[i].title, id: available_stories[i].id, story: available_stories[i]}
+                {title: available_stories[i].title + " - #" + available_stories[i].id, id: available_stories[i].id, story: available_stories[i]}
             )
         }
 
@@ -129,7 +129,7 @@ class EditColumnForm extends Component {
             for (var j = 0; j < stories.length; j++) {
                 if (available_stories[i].id == stories[j]) {
                     returnList.push(
-                        {title: available_stories[i].title, id: available_stories[i].id, story: available_stories[i]}
+                        {title: available_stories[i].title + " - #" + available_stories[i].id, id: available_stories[i].id, story: available_stories[i]}
                     )
                 }
             }
