@@ -256,3 +256,6 @@
 ### 30 Nov 2023
 * *1.5 hours* Added WIP option to column forms, if this is specified the column displays the WIP and its border will turn red if too many elements are in the column.
 * *0.5 hours* Adding IDs to the story selection menu for tracking columns so if stories have the same name they are still distinguishable
+
+### 1 Dec 2023
+* *1 hour* Supervisor meeting with Peggy and meeting minutes write up

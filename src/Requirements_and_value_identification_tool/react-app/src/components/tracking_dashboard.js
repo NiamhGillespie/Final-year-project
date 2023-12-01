@@ -229,7 +229,8 @@ export class TrackingDashboard extends Component {
         return (
             <>
 
-            <div className='d-flex flex-row flex-parent m-0'>
+            <div className='d-flex flex-row flex-parent m-0 justify-content-between'>
+            <h4 className='mt-0 mb-0 p-2 ml-5 pl-5'> Tracking Dashboard </h4>
             <AddColumnModal resetState={this.resetState}/>
             </div>
         
