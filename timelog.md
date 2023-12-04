@@ -259,3 +259,8 @@
 
 ### 1 Dec 2023
 * *1 hour* Supervisor meeting with Peggy and meeting minutes write up
+
+## Week 11
+
+### 4 Dec 2023
+* *0.5 hours* Creating user stories and definition of dones for all remaining items in the sprint backlog.
