@@ -264,3 +264,6 @@
 
 ### 4 Dec 2023
 * *0.5 hours* Creating user stories and definition of dones for all remaining items in the sprint backlog.
+
+### 5 Dec 2023
+* *2 hours* Creating tracking column settings modal and form blueprint and created figma design for the sprint section of the tracking dashboard settings
