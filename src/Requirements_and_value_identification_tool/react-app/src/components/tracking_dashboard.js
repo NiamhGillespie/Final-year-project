@@ -5,6 +5,7 @@ import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL, API_URL_STORY_DETAILS, API
 import AddColumnModal from './add_tracking_column_modal';
 import EditColumnModal from './edit_tracking_column_modal';
 import { DragDropContext, Droppable, Draggable   } from '../constants/drag_and_drop';
+import TrackingSettingsModal from './tracking_settings_modal';
 
 
 export class TrackingDashboard extends Component {
@@ -232,6 +233,7 @@ export class TrackingDashboard extends Component {
             <div className='d-flex flex-row flex-parent m-0 justify-content-between'>
             <h4 className='mt-0 mb-0 p-2 ml-5 pl-5'> Tracking Dashboard </h4>
             <AddColumnModal resetState={this.resetState}/>
+            <TrackingSettingsModal resetState={this.resetState}/>
             </div>
         
             <div className='d-flex flex-row overflow-y mt-0'>
