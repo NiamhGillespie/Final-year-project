@@ -267,3 +267,6 @@
 
 ### 5 Dec 2023
 * *2 hours* Creating tracking column settings modal and form blueprint and created figma design for the sprint section of the tracking dashboard settings
+
+### 6 Dec 2023
+* *2 hours* Creating Sprint model, serializer and views
