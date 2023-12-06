@@ -294,3 +294,57 @@ def ColumnDetail(request, column_id):
             return Response(column_serializer.data, status=status.HTTP_200_OK)
         finally:
                 db.connections.close_all()
+
+@api_view(['GET', 'POST'])
+def TeamSprints(request):
+    if request.method == 'GET':
+        print("GETTING SPRINTS...")
+
+        sprints = Sprint.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
+        print(sprints)
+        sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
+        
+        return Response(sprint_serializer.data)
+    
+    if request.method == 'POST':
+        sprint_serializer = SprintSerializer(data=request.data)
+            
+        if sprint_serializer.is_valid():
+            print("adding sprint...")
+            sprint_serializer.save()
+            sprint_id = sprint_serializer.data['id']
+                
+            SprintSerializer.objects.filter(id=sprint_id).update(column_id = sprint_id)
+            
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(sprint_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+@api_view(['PUT', 'DELETE', 'GET'])
+def SprintDetails(request, sprint_id):
+    try:
+        sprint = Sprint.objects.get(id = sprint_id)
+        print(sprint)
+    except Sprint.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        print('putting...')
+        sprint_serializer = SprintSerializer(sprint, data=request.data,context={'request': request})
+        if sprint_serializer.is_valid():      
+            sprint_serializer.save()
+            return Response(status=status.HTTP_200_OK)
+
+        print(sprint_serializer.errors)
+        return Response(sprint_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        sprint.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'GET':
+        sprint_serializer = SprintSerializer(sprint)
+        try:
+            return Response(sprint_serializer.data, status=status.HTTP_200_OK)
+        finally:
+                db.connections.close_all()

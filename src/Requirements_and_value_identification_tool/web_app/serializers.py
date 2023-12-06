@@ -37,3 +37,8 @@ class TrackingColumnSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrackingColumn
         fields = ('id', 'column_id', 'dashboard_id', 'team_id', 'title', 'mark_as_complete', 'stories', 'story_list', 'WIP')
+
+class SprintSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrackingColumn
+        fields = ('id', 'sprint_id', 'dashboard_id', 'start_date', 'end_date', 'stories', 'story_list')
