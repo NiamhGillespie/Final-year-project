@@ -271,5 +271,7 @@
 ### 6 Dec 2023
 * *2 hours* Creating Sprint model, serializer and views
 
+## Week 12
+
 ### 13 Dec 2023
 * *3 hours* Planning approach to adding sprints to the tracking dashboard
