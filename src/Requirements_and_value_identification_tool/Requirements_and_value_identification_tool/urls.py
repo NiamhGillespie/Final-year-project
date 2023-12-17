@@ -36,7 +36,9 @@ urlpatterns = [
     re_path(r'^api/teamName/tag-details/([0-9]*)$', views.TagDetail, name='tagDetails'),
     re_path(r'^api/teamName/value-details/([0-9]*)$', views.ValueDetail, name='valueDetails'),
     re_path(r'^api/teamName/column-details/([0-9]*)$', views.ColumnDetail, name='columnDetails'),
-    re_path(r'^api/teamName/sprint-details/([0-9]*)$', views.SprintDetails, name='sprintDetails')
+    re_path(r'^api/teamName/sprint-details/([0-9]*)$', views.SprintDetails, name='sprintDetails'),
+
+    re_path(r'^api/teamName/current-sprint', views.getCurrentTeamSprint, name='getCurrentTeamSprint')
 
     #signup
     #profile

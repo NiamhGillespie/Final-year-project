@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import '../css/basic.css';
 import axios from "axios";
-import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL, API_URL_STORY_DETAILS, API_URL_TRACKING_COLUMN_DETAILS } from "../constants";
+import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL, API_URL_STORY_DETAILS, API_URL_TRACKING_COLUMN_DETAILS, API_URL_CURRENT_SPRINT } from "../constants";
 import AddColumnModal from './add_tracking_column_modal';
 import EditColumnModal from './edit_tracking_column_modal';
 import { DragDropContext, Droppable, Draggable   } from '../constants/drag_and_drop';
 import TrackingSettingsModal from './tracking_settings_modal';
+import EditSprintModal from './sprint_settings/edit-sprint-settings-modal';
 
 
 export class TrackingDashboard extends Component {
@@ -14,13 +15,18 @@ export class TrackingDashboard extends Component {
         boards: [],
         columns: [],
         non_completed_stories: [],
-        epics: []
+        epics: [],
+        sprint: {}
     };
 
     async componentDidMount() {
         this.resetState();
     }
     
+    async getCurrentSprint() {
+        await axios.get(API_URL_CURRENT_SPRINT).then(response => this.setState({ sprint: response.data[0]}));
+    };
+
     async getColumns() {
         await axios.get(API_URL_DASHBOARD_TRACKING_COLUMNS).then(response => this.setState({ columns: response.data }));
     };
@@ -34,10 +40,10 @@ export class TrackingDashboard extends Component {
     }
    
     resetState= () => {
+        this.getCurrentSprint()
         this.getColumns();
         this.getNonCompletedStories();
         this.getEpics();
-        
     };
 
     async updateStory(story_id, column_title) {
@@ -225,6 +231,20 @@ export class TrackingDashboard extends Component {
         }
     }
 
+    displaySprintSettings() {
+
+        console.log("thsi sprint = ", this.state.sprint)
+        if (this.state.sprint != undefined) {
+            return(
+                <EditSprintModal resetState={this.resetState} sprint={this.state.sprint}/>
+            )
+        }
+
+        return(
+            <TrackingSettingsModal resetState={this.resetState}/>
+        )
+    }
+
 
     render() {
         return (
@@ -233,7 +253,7 @@ export class TrackingDashboard extends Component {
             <div className='d-flex flex-row flex-parent m-0 justify-content-between'>
             <h4 className='mt-0 mb-0 p-2 ml-5 pl-5'> Tracking Dashboard </h4>
             <AddColumnModal resetState={this.resetState}/>
-            <TrackingSettingsModal resetState={this.resetState}/>
+            { this.displaySprintSettings() }
             </div>
         
             <div className='d-flex flex-row overflow-y mt-0'>

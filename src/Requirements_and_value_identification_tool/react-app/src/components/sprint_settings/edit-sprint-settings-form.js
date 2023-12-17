@@ -3,20 +3,19 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
 import Multiselect from 'multiselect-react-dropdown';
 import Calendar from 'react-calendar';
-import '../css/calender.css';
-import { API_URL_SPRINTS } from '../constants';
+import '../../css/calender.css';
+import { API_URL_SPRINT_DETAILS } from '../../constants';
 
 //need to add error handeling to this :)
-class TrackingSettingsForm extends Component {
+class EditSprintForm extends Component {
 
     state = {
-        sprint_id:'01', 
-        dashboard_id: '0000', 
-        start_date: '', 
-        end_date: '', 
-        stories: [], 
-        story_list: ''
-    
+        sprint_id: this.props.sprint.sprint_id, 
+        dashboard_id: this.props.sprint.dashboard_id, 
+        start_date: this.props.sprint.start_date, 
+        end_date: this.props.sprint.end_date, 
+        stories: this.props.sprint.stories, 
+        story_list: this.props.sprint.story_list
     };
     
     onChange = e => {
@@ -42,7 +41,7 @@ class TrackingSettingsForm extends Component {
 
     updateSettings = e => {
         e.preventDefault();
-        axios.post(API_URL_SPRINTS, this.state).then(() => {
+        axios.put(API_URL_SPRINT_DETAILS + this.state.sprint_id, this.state).then(() => {
             this.props.resetState();
             this.props.toggle();
         });
@@ -57,7 +56,7 @@ class TrackingSettingsForm extends Component {
                     <Calendar
                         name="start_date"
                         onChange={this.onChangeStartDate}
-                        value={this.returnDefaultIfFieldEmpty()}
+                        value={this.returnDefaultIfFieldEmpty(this.state.start_date)}
                     />
                 </FormGroup>
 
@@ -66,7 +65,7 @@ class TrackingSettingsForm extends Component {
                     <Calendar
                         name="end_date"
                         onChange={this.onChangeEndDate}
-                        value={this.returnDefaultIfFieldEmpty()}
+                        value={this.returnDefaultIfFieldEmpty(this.state.end_date)}
                     />
                 </FormGroup>
 
@@ -83,10 +82,10 @@ class TrackingSettingsForm extends Component {
             </FormGroup>
 
           
-            <Button className="btn-primary">Create Sprint</Button>
+            <Button className="btn-primary">Update Sprint</Button>
         </Form>
         );
     }
 }
 
-export default TrackingSettingsForm;
+export default EditSprintForm;

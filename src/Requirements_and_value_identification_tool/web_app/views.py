@@ -301,23 +301,24 @@ def TeamSprints(request):
         print("GETTING SPRINTS...")
 
         sprints = Sprint.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
-        print(sprints)
         sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
         
         return Response(sprint_serializer.data)
     
     if request.method == 'POST':
+        print("hey gurl")
         sprint_serializer = SprintSerializer(data=request.data)
-            
+        
         if sprint_serializer.is_valid():
             print("adding sprint...")
             sprint_serializer.save()
             sprint_id = sprint_serializer.data['id']
                 
-            SprintSerializer.objects.filter(id=sprint_id).update(column_id = sprint_id)
+            Sprint.objects.filter(id=sprint_id).update(sprint_id = sprint_id)
             
             return Response(status=status.HTTP_201_CREATED)
         else:
+            print('ERRORS', sprint_serializer.errors)
             return Response(sprint_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 @api_view(['PUT', 'DELETE', 'GET'])
@@ -348,3 +349,19 @@ def SprintDetails(request, sprint_id):
             return Response(sprint_serializer.data, status=status.HTTP_200_OK)
         finally:
                 db.connections.close_all()
+
+@api_view(['GET'])
+def getCurrentTeamSprint(request):
+    if request.method == 'GET':
+        sprints = Sprint.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
+
+        current_found = False
+        for sprint in sprints:
+            if sprint.is_current():
+                sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
+                current_found = True
+                print("current sprint exists")
+                return Response(sprint_serializer.data)
+        
+        if current_found == False:
+            return Response({}, status=status.HTTP_200_OK)

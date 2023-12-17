@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import TrackingSettingsForm from "./tracking_settings_form";
+import EditSprintForm from "./edit-sprint-settings-form";
 
-class TrackingSettingsModal extends Component {
+class EditSprintModal extends Component {
     state = {
         modal: false
     };
@@ -16,7 +16,7 @@ class TrackingSettingsModal extends Component {
     render() {
         var settingsIcon = (
             <Button className="me-4 mt-0 mb-0 btn-primary add-col-btn-modal" onClick={this.toggleModal}>
-                Create Sprint
+                Edit Sprint
             </Button>
        );
 
@@ -24,12 +24,13 @@ class TrackingSettingsModal extends Component {
         <Fragment>
             {settingsIcon}
             <Modal isOpen={this.state.modal} toggle={this.toggleModal} style={{minWidth: '33vw', minHeight: '50vh'}}>
-                <ModalHeader toggle={this.toggleModal}> Create Sprint </ModalHeader>
+                <ModalHeader toggle={this.toggleModal}> Edit Sprint </ModalHeader>
 
                 <ModalBody>
-                    <TrackingSettingsForm
+                    <EditSprintForm
                         toggle={this.toggleModal}
                         resetState={this.props.resetState}
+                        sprint={this.props.sprint}
                     />
                 </ModalBody>
             </Modal>
@@ -38,4 +39,4 @@ class TrackingSettingsModal extends Component {
     }
 }
 
-export default TrackingSettingsModal;
+export default EditSprintModal;
