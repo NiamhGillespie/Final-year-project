@@ -275,3 +275,6 @@
 
 ### 13 Dec 2023
 * *3 hours* Planning approach to adding sprints to the tracking dashboard
+
+### 17 Dec 2023
+* *6 hours* User can add a sprint and change the length of the current sprint, used a calender component for this so styled it to match the rest of my webapp.
