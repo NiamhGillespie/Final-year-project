@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { API_URL_TAG_DETAILS } from "../constants";
+import { API_URL_VALUE_DETAILS } from "../../constants";
 import axios from "axios";
 
-class DeleteTagModal extends Component {
+class DeleteValueModal extends Component {
     state = {
         modal: false
     };
@@ -14,34 +14,34 @@ class DeleteTagModal extends Component {
         }));
     };
 
-    deleteTag = () => {
+    deleteValue = () => {
         if (this.state.modal) {
-            axios.delete(API_URL_TAG_DETAILS + this.props.tag.tag_id).then(() => {
+            axios.delete(API_URL_VALUE_DETAILS + this.props.value.tag_id).then(() => {
                 this.props.resetState();
                 this.toggleModal();
             });
         }
        
-    }
+    } 
 
     render() {
         var deleteButton = (
-             <p className="tag-edit-button" style={{border: '2px solid #' + this.props.tag.colour, color: '#' + this.props.tag.colour}}  onClick={this.toggleModal}> Delete </p>
+             <p className="tag-edit-button" style={{border: '2px solid #' + this.props.value.colour, color: '#' + this.props.value.colour}}  onClick={this.toggleModal}> Delete </p>
         );
 
         return (
         <div style={{display: 'inline'}}>
             {deleteButton}
             <Modal isOpen={this.state.modal} toggle={this.toggleModal} className="center">
-                <ModalHeader toggle={this.toggleModal}>Delete Tag</ModalHeader>
+                <ModalHeader toggle={this.toggleModal}>Delete Value</ModalHeader>
 
                 <ModalBody>
-                    Are you sure you want to permenantly delete this tag?
+                    Are you sure you want to permenantly delete this value?
                 </ModalBody>
 
 
                 <ModalFooter>
-                    <Button type="button" className="btn-danger" onClick={this.deleteTag}>Delete Tag</Button>
+                    <Button type="button" className="btn-danger" onClick={this.deleteValue}>Delete Value</Button>
                 </ModalFooter>
             </Modal>
         </div>
@@ -49,4 +49,4 @@ class DeleteTagModal extends Component {
     }
 }
 
-export default DeleteTagModal;
+export default DeleteValueModal;

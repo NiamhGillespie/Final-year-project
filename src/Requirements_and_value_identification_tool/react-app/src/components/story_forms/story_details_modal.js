@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import '../css/basic.css';
+import '../../css/basic.css';
 import axios from "axios";
 import UpdateStoryForm from "./edit_story_form";
 

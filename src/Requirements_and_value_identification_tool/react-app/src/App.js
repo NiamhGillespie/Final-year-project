@@ -2,12 +2,12 @@ import './App.css';
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReactDOM from "react-dom/client";
-import Home from "./components/home";
 import BaseTemplate from './components/base_template';
-import EpicsDashboard from './components/epic_dashboard';
-import TeamDashboard from './components/team_dashboard';
-import TagDashboard from './components/tag_dashboard';
-import TrackingDashboard from './components/tracking_dashboard';
+import Home from './components/dashboards/home';
+import TrackingDashboard from './components/dashboards/tracking_dashboard';
+import EpicsDashboard from './components/dashboards/epic_dashboard';
+import TagDashboard from './components/dashboards/tag_dashboard';
+import TeamDashboard from './components/dashboards/team_dashboard';
 
 export default function App() {
   return (

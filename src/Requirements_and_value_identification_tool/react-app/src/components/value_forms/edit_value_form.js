@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
-import { API_URL_VALUE_DETAILS } from "../constants";
+import { API_URL_VALUE_DETAILS } from "../../constants";
 import { ColorPicker } from 'primereact/colorpicker';
 
 //need to add error handeling to this :)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
-import { API_URL_DASHBOARD_TRACKING_COLUMNS } from "../constants";
+import { API_URL_DASHBOARD_TRACKING_COLUMNS } from "../../constants";
 import { ColorPicker } from 'primereact/colorpicker';
 import Multiselect from 'multiselect-react-dropdown';
 

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import AddEpicModal from './add_epic_modal';
 import axios from "axios";
-import { API_URL } from "../constants";
-import EpicsDashboard from './epic_dashboard';
+import { API_URL } from "../../constants";
 
 
 

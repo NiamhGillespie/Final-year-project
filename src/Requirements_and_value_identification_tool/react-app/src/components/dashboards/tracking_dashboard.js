@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import '../css/basic.css';
+import '../../css/basic.css';
 import axios from "axios";
-import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL, API_URL_STORY_DETAILS, API_URL_TRACKING_COLUMN_DETAILS, API_URL_CURRENT_SPRINT } from "../constants";
-import AddColumnModal from './add_tracking_column_modal';
-import EditColumnModal from './edit_tracking_column_modal';
-import { DragDropContext, Droppable, Draggable   } from '../constants/drag_and_drop';
-import TrackingSettingsModal from './tracking_settings_modal';
-import EditSprintModal from './sprint_settings/edit-sprint-settings-modal';
+import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL, API_URL_STORY_DETAILS, API_URL_TRACKING_COLUMN_DETAILS, API_URL_CURRENT_SPRINT } from "../../constants";
+import { DragDropContext, Droppable, Draggable   } from '../../constants/drag_and_drop';
+import EditColumnModal from '../tracking_column_forms/edit_tracking_column_modal';
+import EditSprintModal from '../sprint_settings/edit-sprint-settings-modal';
+import TrackingSettingsModal from '../tracking_settings_forms/tracking_settings_modal';
+import AddColumnModal from '../tracking_column_forms/add_tracking_column_modal';
 
 
 export class TrackingDashboard extends Component {

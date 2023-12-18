@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import AddStoryForm from "./add_story_form";
-import '../css/basic.css';
+import '../../css/basic.css';
 
 class AddStoryModal extends Component {
     state = {

@@ -32,7 +32,7 @@ class EditValueModal extends Component {
                     />
                 </ModalBody>
             </Modal>
-        </div>
+        </div> 
         );
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
-import { API_URL, API_URL_TRACKING_COLUMN_DETAILS, API_URL_STORY_DETAILS } from "../constants";
+import { API_URL, API_URL_TRACKING_COLUMN_DETAILS, API_URL_STORY_DETAILS } from "../../constants";
 import { ColorPicker } from 'primereact/colorpicker';
 import Multiselect from 'multiselect-react-dropdown';
 
@@ -22,7 +22,7 @@ class EditColumnForm extends Component {
         original_stories: this.props.column.stories,
         original_title: this.props.column.title
     };
-
+ 
 
     
     onChange = e => {

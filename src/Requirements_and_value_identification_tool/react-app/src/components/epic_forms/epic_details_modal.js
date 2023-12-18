@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody, Button } from "reactstrap";
-import '../css/basic.css';
+import '../../css/basic.css';
 import { ColorPicker } from 'primereact/colorpicker';
 import axios from "axios";
 import UpdateEpicForm from "./edit_epic_form";

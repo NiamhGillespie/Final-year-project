@@ -1,9 +1,9 @@
 import React, { Component, useEffect } from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
-import { API_URL } from "../constants";
+import { API_URL } from "../../constants";
 import Multiselect from 'multiselect-react-dropdown';
-import '../css/basic.css';
+import '../../css/basic.css';
 
 //need to add error handeling to this :)
 class AddStoryForm extends Component {

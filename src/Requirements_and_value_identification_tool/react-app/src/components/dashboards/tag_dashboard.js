@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import '../css/basic.css';
+import '../../css/basic.css';
 import axios from "axios";
-import { API_URL_TAGS, API_URL_STORIES, API_URL_VALUE_DETAILS } from "../constants";
+import { API_URL_TAGS, API_URL_STORIES, API_URL_VALUE_DETAILS } from "../../constants";
 import ReactDOM from "react-dom";
-import AddTagModal from './add_tag_modal';
-import AddValueModal from './add_value_modal';
-import EditTagModal from './edit_tag_modal';
-import EditValueModal from './edit_value_modal';
-import DeleteTagModal from './delete_tag_modal';
-import DeleteValueModal from './delete_value_modal';
+import DeleteTagModal from '../tag_forms/delete_tag_modal';
+import EditTagModal from '../tag_forms/edit_tag_modal';
+import AddTagModal from '../tag_forms/add_tag_modal';
+import AddValueModal from '../value_forms/add_value_modal';
+import DeleteValueModal from '../value_forms/delete_value_modal';
+import EditValueModal from '../value_forms/edit_value_modal';
 
 
 export class TagDashboard extends Component {

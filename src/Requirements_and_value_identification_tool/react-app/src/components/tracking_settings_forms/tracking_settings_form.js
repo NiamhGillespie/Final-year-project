@@ -3,8 +3,8 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
 import Multiselect from 'multiselect-react-dropdown';
 import Calendar from 'react-calendar';
-import '../css/calender.css';
-import { API_URL_SPRINTS } from '../constants';
+import '../../css/calender.css';
+import { API_URL_SPRINTS } from '../../constants';
 
 //need to add error handeling to this :)
 class TrackingSettingsForm extends Component {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
-import { API_URL_TEAMVALUES } from "../constants";
+import { API_URL_TEAMTAGS } from "../../constants";
 import { ColorPicker } from 'primereact/colorpicker';
 
 //need to add error handeling to this :)
-class AddValueForm extends Component {
+class AddTagForm extends Component {
     ID = 0;
 
     state = {
@@ -14,7 +14,6 @@ class AddValueForm extends Component {
         title: "",
         description: "",
         colour: "ff0000",
-        sub_values: []
     };
 
     onTitleChange = e => {
@@ -33,7 +32,7 @@ class AddValueForm extends Component {
 
     createTag = e => {
         e.preventDefault();
-        axios.post(API_URL_TEAMVALUES, this.state).then(() => {
+        axios.post(API_URL_TEAMTAGS, this.state).then(() => {
             this.props.resetState();
             this.props.toggle();
         });
@@ -48,7 +47,7 @@ class AddValueForm extends Component {
         return (
         <Form onSubmit={ this.createTag }>
             <FormGroup>
-                <Label for="title">Value title:</Label>
+                <Label for="title">Tag title:</Label>
                 <Input
                     type="text"
                     title="title"
@@ -58,7 +57,7 @@ class AddValueForm extends Component {
             </FormGroup>
 
             <FormGroup>
-                <Label for="description">Value description:</Label>
+                <Label for="description">Tag description:</Label>
                 <Input
                     type="text"
                     onChange={this.onDescriptionChange}
@@ -71,10 +70,10 @@ class AddValueForm extends Component {
             <p style={{background: '#' + this.state.colour, color: 'white'}} className="d-inline-block float-right colour-example w-1 h-1" > Colour example </p>
             <br/>
 
-            <Button className="btn-primary d-block">Create Value</Button>
+            <Button className="btn-primary d-block">Create Tag</Button>
         </Form>
         );
     }
 }
 
-export default AddValueForm;
+export default AddTagForm;

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import '../css/basic.css';
-import AddEpicModal from './add_epic_modal';
-import AddStoryModal from './add_story_modal';
+import '../../css/basic.css';
 import axios from "axios";
-import { API_URL } from "../constants";
-import { DragDropContext, Droppable, Draggable   } from '../constants/drag_and_drop';
+import { API_URL } from "../../constants";
+import { DragDropContext, Droppable, Draggable   } from '../../constants/drag_and_drop';
 import ReactDOM from "react-dom";
-import EpicDetailsModal from './epic_details_modal';
-import StoryDetailsModal from './story_details_modal';
+import StoryDetailsModal from '../story_forms/story_details_modal';
+import EpicDetailsModal from '../epic_forms/epic_details_modal';
+import AddStoryModal from '../story_forms/add_story_modal';
+import AddEpicModal from '../epic_forms/add_epic_modal';
 
 
 export class EpicsDashboard extends Component {
