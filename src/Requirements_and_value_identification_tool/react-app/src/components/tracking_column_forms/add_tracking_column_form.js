@@ -16,7 +16,7 @@ class AddColumnForm extends Component {
         title: '',
         mark_as_complete: false,
         stories: [],
-        WIP: 0 //same as default in models
+        WIP: 0 //same as default in models 
     };
 
     

@@ -35,7 +35,7 @@ class AddValueModal extends Component {
             </Modal>
         </div>
         );
-    }
+    } 
 }
 
 export default AddValueModal;

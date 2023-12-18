@@ -283,3 +283,4 @@
 
 ### 18 Dec 2023
 * *4 hours* Wrote status report.
+* *1.5 hours* Refactored file structure of react app files.
