@@ -5,7 +5,6 @@
 
 ## Proposal
 ### Motivation
-*[Clearly motivate the purpose of your project; why someone would care about what you are doing]*
 
 Project management and task prioritisation is a key element of software development. This project incorporates agile methodology to create a light-weight web application which supports the tracking and prioritisation of epics and stories.
 

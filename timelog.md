@@ -278,3 +278,8 @@
 
 ### 17 Dec 2023
 * *6 hours* User can add a sprint and change the length of the current sprint, used a calender component for this so styled it to match the rest of my webapp.
+
+## Week 13
+
+### 18 Dec 2023
+* *4 hours* Wrote status report.
