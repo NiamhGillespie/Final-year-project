@@ -287,3 +287,4 @@
 
 ### 19 Dec 2023
 * *3.5 hours* Added eslint and prettier linting tools to project for static code analysis of javascript, fixed the issues eslint highlighted and formatted my files according to the prettier rules I added.
+* *2 hours* Refactoring css files so elements are easier to find, also updated the tag dashboard page so its more obvious whether the user is on the tags or values section.
