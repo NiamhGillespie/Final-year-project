@@ -284,3 +284,6 @@
 ### 18 Dec 2023
 * *4 hours* Wrote status report.
 * *1.5 hours* Refactored file structure of react app files.
+
+### 19 Dec 2023
+* *3.5 hours* Added eslint and prettier linting tools to project for static code analysis of javascript, fixed the issues eslint highlighted and formatted my files according to the prettier rules I added.
