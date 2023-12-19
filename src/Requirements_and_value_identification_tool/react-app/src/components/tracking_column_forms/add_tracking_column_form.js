@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import axios from "axios";
-import { API_URL_DASHBOARD_TRACKING_COLUMNS } from "../../constants";
-import { ColorPicker } from 'primereact/colorpicker';
-import Multiselect from 'multiselect-react-dropdown';
+import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import axios from 'axios';
+import { API_URL_DASHBOARD_TRACKING_COLUMNS } from '../../constants';
 
 //need to add error handeling to this :)
 class AddColumnForm extends Component {
@@ -16,15 +14,14 @@ class AddColumnForm extends Component {
         title: '',
         mark_as_complete: false,
         stories: [],
-        WIP: 0 //same as default in models 
+        WIP: 0 //same as default in models
     };
 
-    
-    onChange = e => {
+    onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     };
 
-    onChangeCheckbox= e => {
+    onChangeCheckbox = (e) => {
         if (this.state.mark_as_complete === false) {
             this.setState({ [e.target.name]: true });
         } else {
@@ -32,11 +29,11 @@ class AddColumnForm extends Component {
         }
     };
 
-    returnDefaultIfFieldEmpty = value => {
-        return value === "" ? "" : value;
+    returnDefaultIfFieldEmpty = (value) => {
+        return value === '' ? '' : value;
     };
 
-    createColumn = e => {
+    createColumn = (e) => {
         e.preventDefault();
         axios.post(API_URL_DASHBOARD_TRACKING_COLUMNS, this.state).then(() => {
             this.props.resetState();
@@ -44,43 +41,31 @@ class AddColumnForm extends Component {
         });
     };
 
-
     render() {
         return (
-        <Form onSubmit={ this.createColumn }>
-            <FormGroup>
-                <Label for="title">Column title:</Label>
-                <Input
-                    type="text"
-                    name="title"
-                    onChange={this.onChange}
-                    value={this.returnDefaultIfFieldEmpty(this.state.title)}
-                />
-            </FormGroup>
+            <Form onSubmit={this.createColumn}>
+                <FormGroup>
+                    <Label for="title">Column title:</Label>
+                    <Input type="text" name="title" onChange={this.onChange} value={this.returnDefaultIfFieldEmpty(this.state.title)} />
+                </FormGroup>
 
-            
-            <FormGroup>
-                <Label for="WIP">WIP limit:</Label>
-                <Input
-                    type="text"
-                    name="WIP"
-                    onChange={this.onChange}
-                    value={this.returnDefaultIfFieldEmpty(this.state.WIP)}
-                />
-            </FormGroup>
+                <FormGroup>
+                    <Label for="WIP">WIP limit:</Label>
+                    <Input type="text" name="WIP" onChange={this.onChange} value={this.returnDefaultIfFieldEmpty(this.state.WIP)} />
+                </FormGroup>
 
-            <FormGroup className='checkbox-styling'>
-                <Label for="mark_as_complete">Mark stories that are in this column as complete: </Label>
-                <Input
-                    type="checkbox"
-                    name="mark_as_complete"
-                    onChange={this.onChangeCheckbox}
-                    value={this.returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
-                />
-            </FormGroup>
+                <FormGroup className="checkbox-styling">
+                    <Label for="mark_as_complete">Mark stories that are in this column as complete: </Label>
+                    <Input
+                        type="checkbox"
+                        name="mark_as_complete"
+                        onChange={this.onChangeCheckbox}
+                        value={this.returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
+                    />
+                </FormGroup>
 
-            <Button className="btn-primary">Create Column</Button>
-        </Form>
+                <Button className="btn-primary">Create Column</Button>
+            </Form>
         );
     }
 }

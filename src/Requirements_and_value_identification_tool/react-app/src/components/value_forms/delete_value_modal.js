@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { API_URL_VALUE_DETAILS } from "../../constants";
-import axios from "axios";
+import React, { Component } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { API_URL_VALUE_DETAILS } from '../../constants';
+import axios from 'axios';
 
 class DeleteValueModal extends Component {
     state = {
@@ -9,8 +9,8 @@ class DeleteValueModal extends Component {
     };
 
     toggleModal = () => {
-        this.setState(previous => ({
-        modal: !previous.modal
+        this.setState((previous) => ({
+            modal: !previous.modal
         }));
     };
 
@@ -21,30 +21,34 @@ class DeleteValueModal extends Component {
                 this.toggleModal();
             });
         }
-       
-    } 
+    };
 
     render() {
         var deleteButton = (
-             <p className="tag-edit-button" style={{border: '2px solid #' + this.props.value.colour, color: '#' + this.props.value.colour}}  onClick={this.toggleModal}> Delete </p>
+            <p
+                className="tag-edit-button"
+                style={{ border: '2px solid #' + this.props.value.colour, color: '#' + this.props.value.colour }}
+                onClick={this.toggleModal}>
+                {' '}
+                Delete{' '}
+            </p>
         );
 
         return (
-        <div style={{display: 'inline'}}>
-            {deleteButton}
-            <Modal isOpen={this.state.modal} toggle={this.toggleModal} className="center">
-                <ModalHeader toggle={this.toggleModal}>Delete Value</ModalHeader>
+            <div style={{ display: 'inline' }}>
+                {deleteButton}
+                <Modal isOpen={this.state.modal} toggle={this.toggleModal} className="center">
+                    <ModalHeader toggle={this.toggleModal}>Delete Value</ModalHeader>
 
-                <ModalBody>
-                    Are you sure you want to permenantly delete this value?
-                </ModalBody>
+                    <ModalBody>Are you sure you want to permenantly delete this value?</ModalBody>
 
-
-                <ModalFooter>
-                    <Button type="button" className="btn-danger" onClick={this.deleteValue}>Delete Value</Button>
-                </ModalFooter>
-            </Modal>
-        </div>
+                    <ModalFooter>
+                        <Button type="button" className="btn-danger" onClick={this.deleteValue}>
+                            Delete Value
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
         );
     }
 }

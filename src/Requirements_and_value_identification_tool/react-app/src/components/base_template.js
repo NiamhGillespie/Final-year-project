@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
-import { Container } from 'reactstrap';
+import React from 'react';
 import { NavigationBar } from './navigation_bar';
-
-import { Outlet, Link } from "react-router-dom";
+import { Outlet} from 'react-router-dom';
 
 const BaseTemplate = () => {
-  return (
-    <>
-        <NavigationBar />
+    return (
+        <>
+            <NavigationBar />
 
-        <Outlet />
-    </>
-  )
+            <Outlet />
+        </>
+    );
 };
 
 export default BaseTemplate;

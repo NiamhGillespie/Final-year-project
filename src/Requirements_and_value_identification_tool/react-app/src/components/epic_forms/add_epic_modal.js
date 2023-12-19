@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import AddEpicForm from "./add_epic_form";
+import React, { Component, Fragment } from 'react';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import AddEpicForm from './add_epic_form';
 
 class AddEpicModal extends Component {
     state = {
@@ -8,8 +8,8 @@ class AddEpicModal extends Component {
     };
 
     toggleModal = () => {
-        this.setState(previous => ({
-        modal: !previous.modal
+        this.setState((previous) => ({
+            modal: !previous.modal
         }));
     };
 
@@ -21,20 +21,16 @@ class AddEpicModal extends Component {
         );
 
         return (
-        <Fragment>
-            {button}
-            <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
-                <ModalHeader toggle={this.toggleModal}>Add Epic</ModalHeader>
+            <Fragment>
+                {button}
+                <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>Add Epic</ModalHeader>
 
-                <ModalBody>
-                    <AddEpicForm
-                        toggle={this.toggleModal}
-                        epic={this.props.epics}
-                        resetState={this.props.resetState}
-                    />
-                </ModalBody>
-            </Modal>
-        </Fragment>
+                    <ModalBody>
+                        <AddEpicForm toggle={this.toggleModal} epic={this.props.epics} resetState={this.props.resetState} />
+                    </ModalBody>
+                </Modal>
+            </Fragment>
         );
     }
 }
