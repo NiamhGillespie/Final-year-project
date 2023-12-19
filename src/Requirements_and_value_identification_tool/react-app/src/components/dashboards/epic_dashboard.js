@@ -7,6 +7,7 @@ import StoryDetailsModal from '../story_forms/story_details_modal';
 import EpicDetailsModal from '../epic_forms/epic_details_modal';
 import AddStoryModal from '../story_forms/add_story_modal';
 import AddEpicModal from '../epic_forms/add_epic_modal';
+import { epicsAddedThisWeek, highPriorityStories, storiesAddedThisWeek } from '../helper-methods/stats_bar_methods';
 
 export class EpicsDashboard extends Component {
     state = {
@@ -18,7 +19,7 @@ export class EpicsDashboard extends Component {
     };
 
     async componentDidMount() {
-        await this.resetState();
+        this.resetState();
     }
 
     async getEpics() {
@@ -34,11 +35,63 @@ export class EpicsDashboard extends Component {
         this.getStories();
     };
 
+    epics_drag_and_drop(epics) {
+        if (epics.length !== 0) {
+            return (
+                <DragDropContext
+                    onDragEnd={(result) => {
+                        if (!result.destination) {
+                            return;
+                        }
+                        this.reorderEpics(epics, result.source.index, result.destination.index);
+                    }}>
+                    <Droppable droppableId="droppable" direction="horizontal">
+                        {(provided) => (
+                            <div {...provided.droppableProps} ref={provided.innerRef} style={{ display: 'flex' }}>
+                                {epics.map((epic, index) => (
+                                    <Draggable key={epic.id} draggableId={epic.id.toString()} index={index}>
+                                        {(provided, snapshot) => (
+                                            <div ref={provided.innerRef} {...provided.draggableProps}>
+                                                <div
+                                                    className="epic-container"
+                                                    style={{ border: snapshot.draggingOver ? '3px solid #' + epic.epic_colour + '60' : '' }}
+                                                >
+                                                    <div {...provided.dragHandleProps}>
+                                                        <EpicDetailsModal resetState={this.resetState} epic={epic} stories={this.state.stories} />
+                                                    </div>
+
+                                                    <div className="d-flex flex-column">
+                                                        {this.displayStories(epic.id, epic.epic_colour)}
+
+                                                        <div style={{ border: '2px dashed #' + epic.epic_colour }} className="add-story-box">
+                                                            <AddStoryModal
+                                                                resetState={this.resetState}
+                                                                epic_id={epic.epic_id}
+                                                                epic_colour={epic.epic_colour}
+                                                            />
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            );
+        }
+    }
+
     story_drag_and_drop(stories, epic_colour) {
         const getDraggingStyle = (isDraggingOver) => ({
             background: isDraggingOver ? '#' + epic_colour + '20' : '',
-            paddingTop: 2,
-            paddingBottom: 2,
+            padding: 5,
+            paddingBottom: 10,
+            marginBottom: 2,
             borderRadius: 10
         });
 
@@ -58,7 +111,7 @@ export class EpicsDashboard extends Component {
                                 {stories.map((story, index) => (
                                     <div>
                                         <Draggable key={story.id} draggableId={story.id.toString()} index={index} className="story-drag-and-drop">
-                                            {(provided, snapshot) => (
+                                            {(provided) => (
                                                 <div ref={provided.innerRef} {...provided.draggableProps}>
                                                     <div {...provided.dragHandleProps}>
                                                         <StoryDetailsModal resetState={this.resetState} story={story} epic_colour={epic_colour} />
@@ -67,79 +120,6 @@ export class EpicsDashboard extends Component {
                                             )}
                                         </Draggable>
                                     </div>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
-            );
-        }
-    }
-
-    reorderStories(stories, startIndex, endIndex) {
-        const [removed] = stories.splice(startIndex, 1);
-        stories.splice(endIndex, 0, removed);
-
-        for (var i = 0; i < stories.length; i++) {
-            stories[i].order = i + 1;
-
-            axios.put('http://localhost:8000/api/teamName/stories/' + stories[i].story_id + '/details', stories[i]);
-        }
-
-        this.getStories();
-    }
-
-    epics_drag_and_drop(epics) {
-        const getDraggingStyleEpicList = (isDraggingOver) => ({
-            // background: isDraggingOver ? "#58c1d620" : "",
-            paddingTop: 2,
-            paddingBottom: 2,
-            borderRadius: 10,
-            display: 'flex'
-        });
-
-        if (epics.length !== 0) {
-            return (
-                <DragDropContext
-                    onDragEnd={(result) => {
-                        if (!result.destination) {
-                            return;
-                        }
-
-                        this.reorderEpics(epics, result.source.index, result.destination.index);
-                    }}>
-                    <Droppable droppableId="droppable" direction="horizontal">
-                        {(provided, snapshot) => (
-                            <div {...provided.droppableProps} ref={provided.innerRef} style={getDraggingStyleEpicList(snapshot.isDraggingOver)}>
-                                {epics.map((epic, index) => (
-                                    <Draggable key={epic.id} draggableId={epic.id.toString()} index={index}>
-                                        {(provided, snapshot) => (
-                                            <div ref={provided.innerRef} {...provided.draggableProps}>
-                                                <div
-                                                    className="epic-container"
-                                                    style={{
-                                                        border: snapshot.draggingOver ? '3px solid #' + epic.epic_colour + '60' : ''
-                                                    }}>
-                                                    <div {...provided.dragHandleProps}>
-                                                        <EpicDetailsModal resetState={this.resetState} epic={epic} stories={this.state.stories} />
-                                                    </div>
-
-                                                    <div className="d-flex flex-column">
-                                                        {this.displayStories(epic.id, epic.epic_colour)}
-
-                                                        <div style={{ border: '2px dashed #' + epic.epic_colour }} className="add-story-box">
-                                                            <AddStoryModal
-                                                                resetState={this.resetState}
-                                                                epic_id={epic.epic_id}
-                                                                epic_colour={epic.epic_colour}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </Draggable>
                                 ))}
                                 {provided.placeholder}
                             </div>
@@ -159,15 +139,23 @@ export class EpicsDashboard extends Component {
 
             axios.put('http://localhost:8000/api/teamName/epics/' + epics[i].epic_id + '/details', epics[i]);
         }
-        
+
         this.setState({ epics: epics });
     }
 
-    displayEpics() {
-        var epics = this.state.epics;
+        reorderStories(stories, startIndex, endIndex) {
+        const [removed] = stories.splice(startIndex, 1);
+        stories.splice(endIndex, 0, removed);
 
-        return this.epics_drag_and_drop(epics);
+        for (var i = 0; i < stories.length; i++) {
+            stories[i].order = i + 1;
+
+            axios.put('http://localhost:8000/api/teamName/stories/' + stories[i].story_id + '/details', stories[i]);
+        }
+
+        this.getStories();
     }
+
 
     displayStories(epic_id, epic_colour) {
         var stories = this.state.stories;
@@ -186,58 +174,9 @@ export class EpicsDashboard extends Component {
         return return_list;
     }
 
-    dateInWeek(createdDate) {
-        var weekAgo = new Date();
-        weekAgo.setDate(weekAgo.getDate() - 7);
-
-        createdDate = Date.parse(createdDate);
-
-        console.log(weekAgo <= createdDate);
-        return weekAgo <= createdDate;
-    }
-
     displayStatsBar() {
         var returnList = [];
-        returnList.push(
-            <div style={{ display: 'inline-block' }}>
-                <p style={{ clear: 'both' }} className="epic-stat">
-                    {' '}
-                    {this.state.epics.filter((epic) => this.dateInWeek(epic.time_created)).length}{' '}
-                </p>
-
-                <p style={{ fontSize: '2vh' }} className="epic-stat">
-                    {' '}
-                    Epics added this week{' '}
-                </p>
-            </div>
-        );
-
-        returnList.push(
-            <div style={{ display: 'inline-block' }}>
-                <p style={{ clear: 'both' }} className="epic-stat">
-                    {' '}
-                    {this.state.stories.filter((story) => this.dateInWeek(story.time_created)).length}{' '}
-                </p>
-
-                <p style={{ fontSize: '2vh' }} className="epic-stat">
-                    {' '}
-                    Stories added this week{' '}
-                </p>
-            </div>
-        );
-
-        returnList.push(
-            <div style={{ display: 'inline-block' }}>
-                <p style={{ clear: 'both' }} className="epic-stat">
-                    {' '}
-                    {this.state.stories.filter((story) => story.priority === 'HIGH').length}{' '}
-                </p>
-                <p style={{ fontSize: '2vh' }} className="epic-stat">
-                    {' '}
-                    High priority stories{' '}
-                </p>
-            </div>
-        );
+        returnList.push(epicsAddedThisWeek(this.state.epics), storiesAddedThisWeek(this.state.stories), highPriorityStories(this.state.stories));
         return returnList;
     }
 
@@ -251,7 +190,7 @@ export class EpicsDashboard extends Component {
                     </div>
 
                     <div>
-                        <div className="d-flex flex-row w-30 h-100 overflow-y">{this.displayEpics()}</div>
+                        <div className="d-flex flex-row w-30 h-100 overflow-y">{this.epics_drag_and_drop(this.state.epics)}</div>
                     </div>
                 </div>
             </>

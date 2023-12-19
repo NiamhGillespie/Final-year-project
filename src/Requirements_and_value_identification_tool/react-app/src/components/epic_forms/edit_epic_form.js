@@ -5,6 +5,7 @@ import { API_URL_EPIC_DETAILS } from '../../constants';
 import { ColorPicker } from 'primereact/colorpicker';
 import { ModalHeader, ModalBody } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
+import { displayValues, getDate, preselectedValues, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
 class UpdateEpicForm extends Component {
@@ -21,15 +22,10 @@ class UpdateEpicForm extends Component {
         order: this.props.epic.order,
 
         last_edited_by: 'Niamh Gillespie',
-        last_edited: this.getDate(),
+        last_edited: getDate(),
         created_by: this.props.epic.created_by,
         time_created: this.props.epic.time_created
     };
-
-    getDate() {
-        const date = new Date();
-        return date.toDateString();
-    }
 
     async getTeamValues() {
         await axios.get('http://localhost:8000/api/teamName/values').then((response) => this.setState({ team_values: response.data }));
@@ -37,10 +33,6 @@ class UpdateEpicForm extends Component {
 
     onTitleChange = (e) => {
         this.setState({ [e.target.title]: e.target.value });
-    };
-
-    returnDefaultIfFieldEmpty = (value) => {
-        return value === '' ? '' : value;
     };
 
     updateEpic = (e) => {
@@ -54,33 +46,6 @@ class UpdateEpicForm extends Component {
     setColour(colour) {
         this.setState({ epic_colour: colour });
         this.props.resetState(this.state);
-    }
-
-    displayValues() {
-        var teamValues = this.state.team_values;
-        var returnList = [];
-
-        for (var i = 0; i < teamValues.length; i++) {
-            returnList.push({ title: teamValues[i].title + ' - ' + teamValues[i].description, id: teamValues[i].id });
-        }
-
-        return returnList;
-    }
-
-    preselectedValues() {
-        var values = this.state.values;
-        var teamValues = this.state.team_values;
-        var returnList = [];
-
-        for (var i = 0; i < teamValues.length; i++) {
-            for (var j = 0; j < values.length; j++) {
-                if (teamValues[i].id === values[j]) {
-                    returnList.push({ title: teamValues[i].title + ' - ' + teamValues[i].description, id: teamValues[i].id });
-                }
-            }
-        }
-
-        return returnList;
     }
 
     onValueAddition = (e) => {
@@ -105,7 +70,7 @@ class UpdateEpicForm extends Component {
                 <div className="details-modal">
                     <ModalHeader className="coloured-header" style={{ background: '#' + this.state.epic_colour }}>
                         <FormGroup className="details-form-title">
-                            <Input type="text" title="title" onChange={this.onTitleChange} value={this.returnDefaultIfFieldEmpty(this.state.title)} />
+                            <Input type="text" title="title" onChange={this.onTitleChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
                         </FormGroup>
 
                         <p className="details-id float-end"> #{this.state.id} </p>
@@ -115,12 +80,11 @@ class UpdateEpicForm extends Component {
                         <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.state.epic_colour + '60' }}>
                             <div className="story-details-values-box h-100 mt-0 mb-0">
                                 <p className="details-stories-header" style={{ color: '#' + this.state.epic_colour }}>
-                                    {' '}
-                                    Values:{' '}
+                                    Values:
                                 </p>
                                 <FormGroup>
                                     <Multiselect
-                                        options={this.displayValues()}
+                                        options={displayValues(this.state.team_values)}
                                         onSelect={this.onValueAddition}
                                         onRemove={this.onValueDeletion}
                                         name="tags"
@@ -131,15 +95,14 @@ class UpdateEpicForm extends Component {
                                         }}
                                         placeholder="Choose Values"
                                         displayValue="title"
-                                        selectedValues={this.preselectedValues()}
+                                        selectedValues={preselectedValues(this.state.values, this.state.team_values)}
                                     />
                                 </FormGroup>
                             </div>
 
                             <div>
                                 <p className="details-stories-header" style={{ color: '#' + this.state.epic_colour }}>
-                                    {' '}
-                                    Stories:{' '}
+                                    Stories:
                                 </p>
                                 <div class="overflow-auto epic-stories-scrollable">{this.props.getStories}</div>
                             </div>
@@ -149,13 +112,11 @@ class UpdateEpicForm extends Component {
                             <Button
                                 className="details-edit-button"
                                 style={{ border: '2px solid #' + this.state.epic_colour, color: '#' + this.state.epic_colour }}>
-                                {' '}
-                                update{' '}
+                                update
                             </Button>
                             <div>
                                 <p style={{ color: '#' + this.state.epic_colour }} className="details-heading mb-2">
-                                    {' '}
-                                    Last edited:{' '}
+                                    Last edited:
                                 </p>
                                 <p className="p-0 mb-1 mt-1"> {this.state.last_edited_by} </p>
                                 <p className="p-0 mt-1"> {this.state.last_edited} </p>
@@ -163,8 +124,7 @@ class UpdateEpicForm extends Component {
 
                             <div className="mt-5">
                                 <p style={{ color: '#' + this.state.epic_colour }} className="details-heading mb-2">
-                                    {' '}
-                                    Created by:{' '}
+                                    Created by:
                                 </p>
                                 <p className="p-0 mb-1 mt-1"> {this.state.created_by} </p>
                                 <p className="p-0 mt-1">{this.state.time_created} </p>
@@ -172,8 +132,7 @@ class UpdateEpicForm extends Component {
 
                             <div className="mt-5">
                                 <p style={{ color: '#' + this.state.epic_colour }} className="details-heading">
-                                    {' '}
-                                    Epic colour:{' '}
+                                    Epic colour:
                                 </p>
                                 <ColorPicker
                                     className="colour-picker d-inline h-100 w-100"

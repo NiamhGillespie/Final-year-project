@@ -18,7 +18,7 @@ export class TagDashboard extends Component {
     };
 
     async componentDidMount() {
-        await this.resetState();
+        this.resetState();
     }
 
     async getTags() {

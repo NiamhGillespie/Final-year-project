@@ -5,8 +5,6 @@ import axios from 'axios';
 import {
     API_URL_DASHBOARD_TRACKING_COLUMNS,
     API_URL,
-    API_URL_STORY_DETAILS,
-    API_URL_TRACKING_COLUMN_DETAILS,
     API_URL_CURRENT_SPRINT
 } from '../../constants';
 import { DragDropContext, Droppable, Draggable } from '../../constants/drag_and_drop';
@@ -14,6 +12,7 @@ import EditColumnModal from '../tracking_column_forms/edit_tracking_column_modal
 import EditSprintModal from '../sprint_settings/edit-sprint-settings-modal';
 import TrackingSettingsModal from '../tracking_settings_forms/tracking_settings_modal';
 import AddColumnModal from '../tracking_column_forms/add_tracking_column_modal';
+import { updateColumStoryOrder, updateNewColumn, updateOldColumn, updateStory } from '../helper-methods/column_update_methods';
 
 export class TrackingDashboard extends Component {
     state = {
@@ -53,90 +52,18 @@ export class TrackingDashboard extends Component {
         this.getEpics();
     };
 
-    async updateStory(story_id, column_title) {
-        var story = this.state.non_completed_stories.filter((story) => story.id === parseInt(story_id))[0];
-        story.state = column_title.toString();
-        await axios.put(API_URL_STORY_DETAILS + story_id + '/details', story);
-    }
-
-    async updateOldColumn(story_id, column_id) {
-        var column = this.state.columns.filter((column) => column.id === parseInt(column_id))[0];
-
-        var ordered = column.story_list.split(',');
-        var ordered_ids = [];
-        for (var i = 0; i < ordered.length; i++) {
-            ordered_ids.push(parseInt(ordered[i]));
-        }
-
-        if (ordered_ids.length !== 0) {
-            const index = ordered_ids.indexOf(parseInt(story_id));
-
-            if (index > -1) {
-                ordered_ids.splice(index, 1);
-            }
-        } else {
-            ordered_ids.push(parseInt(story_id));
-        }
-        column.stories = ordered_ids;
-        column.story_list = ordered_ids.toString();
-
-        await axios.put(API_URL_TRACKING_COLUMN_DETAILS + column_id, column);
-        return;
-    }
-
-    async updateNewColumn(story_id, column_id, new_index) {
-        var column = this.state.columns.filter((column) => column.id === parseInt(column_id))[0];
-
-        var ordered_ids = [];
-        if (column.stories.length >= 1) {
-            var ordered = column.story_list.split(',');
-            for (var i = 0; i < ordered.length; i++) {
-                ordered_ids.push(parseInt(ordered[i]));
-            }
-            ordered_ids.splice(new_index, 0, parseInt(story_id));
-        } else {
-            ordered_ids.push(parseInt(story_id));
-        }
-
-        column.stories = ordered_ids;
-        column.story_list = ordered_ids.toString();
-        await axios.put(API_URL_TRACKING_COLUMN_DETAILS + column_id, column);
-        return column.title;
-    }
-
-    async updateColumStoryOrder(column_id, story_id, new_index, old_index) {
-        var column = this.state.columns.filter((column) => column.id === parseInt(column_id))[0];
-
-        if (column.stories.length >= 1) {
-            var ordered = column.story_list.split(',');
-            var ordered_ids = [];
-
-            for (var i = 0; i < ordered.length; i++) {
-                ordered_ids.push(parseInt(ordered[i]));
-            }
-            ordered_ids.splice(old_index, 1);
-            ordered_ids.splice(new_index, 0, parseInt(story_id));
-        } else {
-            ordered_ids.push(parseInt(story_id));
-        }
-
-        column.stories = ordered_ids;
-        column.story_list = ordered_ids.toString();
-
-        await axios.put(API_URL_TRACKING_COLUMN_DETAILS + column_id, column);
-    }
     async reorderStories(result_destination, story_id, old_column_id, old_index) {
         if (old_column_id !== result_destination.droppableId) {
             //need to remove story from current column
-            await this.updateOldColumn(story_id, old_column_id);
+            await updateOldColumn(story_id, old_column_id, this.state.columns);
 
             //add story to new column at order - is adding to new column
-            var column_title = await this.updateNewColumn(story_id, result_destination.droppableId, result_destination.index);
+            var column_title = await updateNewColumn(story_id, result_destination.droppableId, result_destination.index, this.state.columns);
 
             //need to update story to say what column it's in
-            await this.updateStory(story_id, column_title);
+            await updateStory(story_id, column_title, this.state.non_completed_stories);
         } else {
-            await this.updateColumStoryOrder(old_column_id, story_id, result_destination.index, old_index);
+            await updateColumStoryOrder(old_column_id, story_id, result_destination.index, old_index, this.state.columns);
         }
         this.getColumns();
     }

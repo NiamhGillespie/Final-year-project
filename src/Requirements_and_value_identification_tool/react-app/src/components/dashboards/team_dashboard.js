@@ -3,8 +3,7 @@ import { NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export class TeamDashboard extends Component {
-    static displayName = TeamDashboard.name;
-
+    
     render() {
         return (
             <>
