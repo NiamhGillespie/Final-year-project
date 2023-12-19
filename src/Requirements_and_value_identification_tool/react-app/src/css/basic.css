@@ -1,6 +1,6 @@
 :root {
     --blue-highlight: #58c1d6;
-    
+    --transparent-grey: #d3d7dc20;
 }
 
 .btn-primary{
@@ -12,13 +12,56 @@
         padding: 5vh 10vh;
 }
 
+/* Story box styling */
+.story-box {
+    color: black;
+    text-align: left;
+    padding: 10px 10px 10px 10px;
+    background: white;
+    border-radius: 15px;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 180px;
+    height: 90px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.story-title {
+    font-size: 100%;
+    width: 80%;
+    float: left;
+    display: inline;
+    margin-bottom: 0px;
+}
+
+.story-profile-photo {
+    border-radius: 200%;
+    padding: 2%;
+    width: 20%;
+    float: right;
+    display: inline;
+    color: white;
+}
+
+.story-priority {
+    font-size: 80%;
+    float: left;
+    display: block;
+}
+
+
+/* Epic dashboard styling*/
 .epic-time {
     overflow-x: scroll;
 }
+
 .epic-container {
     color: white;
     text-align: center;
-    background: #d3d7dc20;
+    background: var(--transparent-grey);
     border-radius: 10px;
     margin: 10%;
     margin-right: 5px;
@@ -36,22 +79,6 @@
     margin-bottom: 5px;
     width: 180px;
     height: 90px;
-    overflow: hidden;
-    text-overflow: ellipsis; 
-}
-
-.story-box {
-    color: black;
-    text-align: left;
-    padding: 10px 10px 10px 10px;
-    background: white;
-    border-radius: 15px;
-    margin: auto;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    width: 180px;
-    height: 90px;
-    font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis; 
 }
@@ -86,40 +113,6 @@
     float: right !important;
 }
 
-.colour-picker {
-    float: left
-}
-
-.colour-example {
-    border-radius: 10px;
-    padding: 1% 2%;
-    margin-bottom: 2%;
-    margin-top: 2%;
-}
-
-.story-title {
-    font-size: 100%;
-    width: 80%;
-    float: left;
-    display: inline;
-    margin-bottom: 0px;
-}
-
-.story-profile-photo {
-    border-radius: 200%;
-    padding: 2%;
-    width: 20%;
-    float: right;
-    display: inline;
-    color: white;
-}
-
-.story-priority {
-    font-size: 80%;
-    float: left;
-    display: block;
-}
-
 .checkbox-styling label {
     margin-right: 10px;
 }
@@ -128,6 +121,8 @@
     margin: 30px;
 }
 
+
+/* Epic and story details styling */
 .right-modal {
     float: right;
     border-radius: 0px;
@@ -136,6 +131,18 @@
 .details-modal {
     height: 100vh;
     width: 100vw;
+}
+
+.details-left-col {
+    width: 35vw !important;
+    float: left !important;
+}
+
+.details-right-col {
+    margin-left: 20px !important;
+    padding-left: 10px !important;
+    width: 25vw !important;
+    float: left !important;
 }
 
 .coloured-header {
@@ -220,18 +227,6 @@
     padding-left: 10px;
     padding-right: 0px;
     display: block;
-}
-
-.details-left-col {
-    width: 35vw !important;
-    float: left !important;
-}
-
-.details-right-col {
-    margin-left: 20px !important;
-    padding-left: 10px !important;
-    width: 25vw !important;
-    float: left !important;
 }
 
 .details-heading {
@@ -334,66 +329,6 @@
     margin-bottom: 1vh;
 }
 
-.choice-section {
-    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.25);
-    width: 20vw;
-    display: inline;
-}
-
-.choice-button {
-    color: white !important;
-    background-color: var(--blue-highlight) !important;
-    padding: 1vh;
-    width: 10vw;
-    display: inline;
-    border-width: 0px;
-}
-
-.display-box{
-    width: 90vw;
-    height: 100%;
-    background-color:#e8e8e820;
-    padding-top: 2vh;
-    overflow-y: scroll;
-}
-
-.centered {
-    margin: auto;
-    margin-top: 5vh;
-    width:90vw;
-    height:80vh;
-}
-
-.tag-list {
-    border-radius: 15px;
-    margin: 2vh;
-    padding: 2vh;
-}
-
-.tag-title {
-    margin-bottom: 0px;
-    font-size: 2.7vh;
-}
-
-.tag-description {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 2vh;
-}
-
-.right-button {
-    float: right !important;
-    display: inline;
-}
-
-.tag-edit-button {
-    float: right;
-    display: inline;
-    margin: 0px;
-    padding: 0vh 2vh;
-    border-radius: 15px;
-    color: white;
-}
 
 /* Epic details form  */
 .details-form-title {
@@ -416,46 +351,15 @@
     background-color: white !important;
 }
 
-/* tracking dashboard */
 
-.column-container{
-    text-align: center;
-    background: #d3d7dc20;
+/* Colour picker */
+.colour-picker {
+    float: left
+}
+
+.colour-example {
     border-radius: 10px;
-    margin: 3vh;
-    margin-right: 5px;
-    padding: 1vw;
-    width: 200px;
-    min-height: 75vh;
-}
-
-.column-story-selection {
-    min-height: 20vh;
-    max-height: 40vh;
-    width: 100%;
-}
-
-.flex-parent {
-    justify-content: flex-end;
-}
-
-.column-title {
-    display:block;
-    text-align: center;
-}
-
-.wip-limit {
-    border: 2px solid #58c1d680;
-    font-size: 12px;
-    padding-left: 6px !important;
-    padding-right: 6px !important;
-    margin-top: 0px !important;
-    margin-bottom: 2px !important;
-    margin-right: 2px;
-    float: right;
-    height: 22px;
-}
-
-.no-wip-limit {
-    height: 22px;
+    padding: 1% 2%;
+    margin-bottom: 2%;
+    margin-top: 2%;
 }

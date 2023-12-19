@@ -1,0 +1,80 @@
+:root {
+    --blue-highlight: #58c1d6;
+    --transparent-grey: #d3d7dc20;
+    --inactive-button: #58c1d660;
+}
+
+/* Tag dashboard styling */
+.choice-section {
+    width: 20vw;
+    display: inline;
+}
+
+.active-choice-button {
+    color: white !important;
+    background-color: var(--blue-highlight) !important;
+    padding: 1vh;
+    width: 10vw;
+    display: inline;
+    border-width: 0px;
+  }
+  
+  .inactive-choice-button {
+    color: white !important;
+    background-color: var(--inactive-button) !important;
+    padding: 1vh;
+    width: 10vw;
+    display: inline;
+    border-width: 0px;
+  }
+
+.display-box{
+    width: 90vw;
+    height: 100%;
+    background-color: var(--transparent-grey);
+    padding-top: 2vh;
+    overflow-y: scroll;
+}
+
+.centered {
+    margin: auto;
+    margin-top: 5vh;
+    width:90vw;
+    height:80vh;
+}
+
+.tag-list {
+    border-radius: 15px;
+    margin: 2vh;
+    padding: 2vh;
+    background-color: white;
+}
+
+.tag-title {
+    margin-bottom: 0px;
+    font-size: 2.7vh;
+}
+
+.tag-description {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 2vh;
+}
+
+.right-button {
+    float: right !important;
+    display: inline;
+    padding: 0.5vh 5vh !important;
+    width: 10vw !important;
+    margin-right: 1vh !important;
+    background-color: var(--blue-highlight) !important;
+}
+
+.tag-edit-button {
+    float: right;
+    display: inline;
+    margin: 0px;
+    padding: 0vh 2vh;
+    border-radius: 15px;
+    color: white;
+}

@@ -1,0 +1,47 @@
+:root {
+    --blue-highlight: #58c1d6;
+    --transparent-grey: #d3d7dc20;
+}
+
+/* Tracking dashboard styling */
+.column-container{
+    text-align: center;
+    background: --transparent-grey;
+    border-radius: 10px;
+    margin: 3vh;
+    margin-right: 5px;
+    padding: 1vw;
+    width: 200px;
+    min-height: 75vh;
+}
+
+.column-story-selection {
+    min-height: 20vh;
+    max-height: 40vh;
+    width: 100%;
+}
+
+.flex-parent {
+    justify-content: flex-end;
+}
+
+.column-title {
+    display:block;
+    text-align: center;
+}
+
+.wip-limit {
+    border: 2px solid var(--blue-highlight);
+    font-size: 12px;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    margin-top: 0px !important;
+    margin-bottom: 2px !important;
+    margin-right: 2px;
+    float: right;
+    height: 22px;
+}
+
+.no-wip-limit {
+    height: 22px;
+}

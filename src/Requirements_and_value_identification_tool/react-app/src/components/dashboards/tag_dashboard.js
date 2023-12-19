@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/basic.css';
+import '../../css/tag_dashboard.css';
 import axios from 'axios';
 import { API_URL_TAGS, API_URL_STORIES } from '../../constants';
 import DeleteTagModal from '../tag_forms/delete_tag_modal';
@@ -96,10 +97,16 @@ export class TagDashboard extends Component {
             <>
                 <div className="centered" div key="tag-dashboard">
                     <div className="choice-section">
-                        <button className="choice-button" style={{ borderRight: '2px solid white' }} onClick={this.switchToTags}>
+                        <button
+                            className={this.state.tagsDisplayed ? 'active-choice-button' : 'inactive-choice-button'}
+                            style={{ borderRight: '2px solid white' }}
+                            onClick={this.switchToTags}>
                             Tags
                         </button>
-                        <button className="choice-button" onClick={this.switchToValues}>
+                        
+                        <button
+                            className={this.state.tagsDisplayed ? 'inactive-choice-button' : 'active-choice-button'}
+                            onClick={this.switchToValues}>
                             Values
                         </button>
 

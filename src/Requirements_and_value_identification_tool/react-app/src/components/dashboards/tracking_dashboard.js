@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/basic.css';
+import '../../css/tracking_dashboard.css';
 import axios from 'axios';
 import {
     API_URL_DASHBOARD_TRACKING_COLUMNS,
