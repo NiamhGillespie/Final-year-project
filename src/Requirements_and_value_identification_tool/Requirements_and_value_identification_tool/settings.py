@@ -44,8 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web_app',
     'bootstrap5',
-    'rest_framework',
-    'django_nose',
+    'rest_framework'
 ]
 
 # TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
