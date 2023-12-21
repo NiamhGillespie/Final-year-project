@@ -289,3 +289,6 @@
 * *3.5 hours* Added eslint and prettier linting tools to project for static code analysis of javascript, fixed the issues eslint highlighted and formatted my files according to the prettier rules I added.
 * *2 hours* Refactoring css files so elements are easier to find, also updated the tag dashboard page so its more obvious whether the user is on the tags or values section.
 * *1.5 hours* Began refactoring repetative code into helper methods so they can be shared across classes
+
+### 21 Dec 2023
+* *6.5 hours* FInished refactoring the repatative code into helper methods then used the `coverage` package to check how much code coverage I had on my unit tests. Started improving my test coverage - at time of writing up to 93%
