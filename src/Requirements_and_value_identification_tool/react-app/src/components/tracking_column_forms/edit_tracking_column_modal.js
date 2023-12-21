@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import EditColumnForm from './edit_tracking-column-form';
+import EditColumnForm from './edit_tracking_column_form';
 
 class EditColumnModal extends Component {
     state = {
@@ -16,7 +16,6 @@ class EditColumnModal extends Component {
     render() {
         var columnTitle = (
             <p onClick={this.toggleModal} className="mb-1 column-title">
-                {' '}
                 {this.props.column.title}
             </p>
         );

@@ -13,6 +13,7 @@ import EditSprintModal from '../sprint_settings/edit-sprint-settings-modal';
 import TrackingSettingsModal from '../tracking_settings_forms/tracking_settings_modal';
 import AddColumnModal from '../tracking_column_forms/add_tracking_column_modal';
 import { updateColumStoryOrder, updateNewColumn, updateOldColumn, updateStory } from '../helper-methods/column_update_methods';
+import { displayPriority } from '../helper-methods/story_display_methods';
 
 export class TrackingDashboard extends Component {
     state = {
@@ -169,7 +170,7 @@ export class TrackingDashboard extends Component {
                                                     {' '}
                                                     icon{' '}
                                                 </p>
-                                                <p className="story-priority"> {story.priority} </p>
+                                                <p className="story-priority"> { displayPriority(story.priority) } </p>
                                             </div>
                                         </div>
                                     )}

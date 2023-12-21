@@ -12,17 +12,6 @@ class StorySerializer(serializers.ModelSerializer):
         fields = ('id', 'story_id', 'epic_id', 'title', 'order', 'tags', 'user_story', 'definition_of_done', 'values', 'story_points', 'priority', 
                   'pairable', 'assigned_to', 'state', 'last_edited_by', 'last_edited', 'created_by', 'time_created')
         
-        @property 
-        def order(self, obj):
-            print("?")
-            return Story.objects.count()
-
-class TaskSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Task
-        fields = ('task_id', 'story_id', 'title', 'description', 'priority', 'pairable', 'assigned_to',
-                  'last_edited_by', 'last_edited', 'created_by', 'time_created')
-        
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag

@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 import { API_URL_TRACKING_COLUMN_DETAILS, API_URL_STORY_DETAILS } from '../../constants';
 import Multiselect from 'multiselect-react-dropdown';
+import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
 class EditColumnForm extends Component {
@@ -39,19 +40,13 @@ class EditColumnForm extends Component {
         }
     };
 
-    returnDefaultIfFieldEmpty = (value) => {
-        return value === '' ? '' : value;
-    };
-
     redefine(stories, state) {
-        console.log('stories are', stories);
         for (var i = 0; i < stories.length; i++) {
             this.updateStoryState(stories[i], state);
         }
     }
 
     async updateStoryState(story_id, new_state) {
-        console.log('ID', story_id, 'STATE', new_state);
         var full_story = await axios.get(API_URL_STORY_DETAILS + story_id + '/details');
         full_story.data.state = new_state;
 
@@ -141,12 +136,12 @@ class EditColumnForm extends Component {
             <Form onSubmit={this.updateColumn}>
                 <FormGroup>
                     <Label for="title">Column title:</Label>
-                    <Input type="text" name="title" onChange={this.onChange} value={this.returnDefaultIfFieldEmpty(this.state.title)} />
+                    <Input type="text" name="title" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
                 </FormGroup>
 
                 <FormGroup>
                     <Label for="WIP">WIP limit:</Label>
-                    <Input type="text" name="WIP" onChange={this.onChange} value={this.returnDefaultIfFieldEmpty(this.state.WIP)} />
+                    <Input type="text" name="WIP" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.WIP)} />
                 </FormGroup>
 
                 <div>
@@ -175,7 +170,7 @@ class EditColumnForm extends Component {
                         type="checkbox"
                         name="mark_as_complete"
                         onChange={this.onChangeCheckbox}
-                        value={this.returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
+                        value={returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
                         defaultChecked={this.state.mark_as_complete}
                     />
                 </FormGroup>

@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 import { API_URL_VALUE_DETAILS } from '../../constants';
 import { ColorPicker } from 'primereact/colorpicker';
+import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
 class EditValueForm extends Component {
@@ -24,10 +25,6 @@ class EditValueForm extends Component {
         
     };
 
-    returnDefaultIfFieldEmpty = (value) => {
-        return value === '' ? '' : value;
-    };
-
     createTag = (e) => {
         e.preventDefault();
         axios.put(API_URL_VALUE_DETAILS + this.state.tag_id, this.state).then(() => {
@@ -36,8 +33,8 @@ class EditValueForm extends Component {
         });
     };
 
-    setColour(colour2) {
-        this.setState({ colour: colour2 });
+    setColour(colour) {
+        this.setState({ colour: colour });
     }
 
     render() {
@@ -45,7 +42,7 @@ class EditValueForm extends Component {
             <Form onSubmit={this.createTag}>
                 <FormGroup>
                     <Label for="title">Value title:</Label>
-                    <Input type="text" name="title" onChange={this.onTitleChange} value={this.returnDefaultIfFieldEmpty(this.state.title)} />
+                    <Input type="text" name="title" onChange={this.onTitleChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
                 </FormGroup>
 
                 <FormGroup>
@@ -54,7 +51,7 @@ class EditValueForm extends Component {
                         type="text"
                         name="description"
                         onChange={this.onDescriptionChange}
-                        value={this.returnDefaultIfFieldEmpty(this.state.description)}
+                        value={returnDefaultIfFieldEmpty(this.state.description)}
                     />
                 </FormGroup>
 
@@ -66,8 +63,7 @@ class EditValueForm extends Component {
                 />
                 <br />
                 <p style={{ background: '#' + this.state.colour, color: 'white' }} className="d-inline-block float-right colour-example w-1 h-1">
-                    {' '}
-                    Colour example{' '}
+                    Colour example
                 </p>
                 <br />
 

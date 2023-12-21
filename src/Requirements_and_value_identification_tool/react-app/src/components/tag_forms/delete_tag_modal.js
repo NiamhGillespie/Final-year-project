@@ -28,8 +28,7 @@ class DeleteTagModal extends Component {
                 className="tag-edit-button"
                 style={{ border: '2px solid #' + this.props.tag.colour, color: '#' + this.props.tag.colour }}
                 onClick={this.toggleModal}>
-                {' '}
-                Delete{' '}
+                Delete
             </p>
         );
 

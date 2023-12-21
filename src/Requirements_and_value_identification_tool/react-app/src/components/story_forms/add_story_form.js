@@ -4,6 +4,7 @@ import axios from 'axios';
 import { API_URL } from '../../constants';
 import Multiselect from 'multiselect-react-dropdown';
 import '../../css/basic.css';
+import { displayValues, getDate, returnDefaultIfFieldEmpty, displayTeamTags } from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
 class AddStoryForm extends Component {
@@ -26,15 +27,10 @@ class AddStoryForm extends Component {
         assigned_to: '',
 
         last_edited_by: 'Niamh Gillespie',
-        last_edited: this.getDate(),
+        last_edited: getDate(),
         created_by: 'Niamh Gillespie',
-        time_created: this.getDate()
+        time_created: getDate()
     };
-
-    getDate() {
-        const date = new Date();
-        return date.toDateString();
-    }
 
     async getTeamValues() {
         await axios.get('http://localhost:8000/api/teamName/values').then((response) => this.setState({ team_values: response.data }));
@@ -56,10 +52,6 @@ class AddStoryForm extends Component {
         }
     };
 
-    returnDefaultIfFieldEmpty = (value) => {
-        return value === '' ? '' : value;
-    };
-
     createStory = (e) => {
         e.preventDefault();
         axios.post(API_URL, this.state).then(() => {
@@ -67,17 +59,6 @@ class AddStoryForm extends Component {
             this.props.toggle();
         });
     };
-
-    displayValues() {
-        var teamValues = this.state.team_values;
-        var returnList = [];
-
-        for (var i = 0; i < teamValues.length; i++) {
-            returnList.push({ title: teamValues[i].title + ' - ' + teamValues[i].description, id: teamValues[i].id });
-        }
-
-        return returnList;
-    }
 
     onValueAddition = (e) => {
         var value_ids = [];
@@ -94,17 +75,6 @@ class AddStoryForm extends Component {
         }
         this.setState({ values: value_ids });
     };
-
-    displayTeamTags() {
-        var teamTags = this.state.team_tags;
-        var returnList = [];
-
-        for (var i = 0; i < teamTags.length; i++) {
-            returnList.push({ title: teamTags[i].title + ' - ' + teamTags[i].description, id: teamTags[i].id });
-        }
-
-        return returnList;
-    }
 
     onTagAddition = (e) => {
         var tag_ids = [];
@@ -132,7 +102,7 @@ class AddStoryForm extends Component {
                             type="text-long"
                             name="title"
                             onChange={this.onChange}
-                            value={this.returnDefaultIfFieldEmpty(this.state.title)}
+                            value={returnDefaultIfFieldEmpty(this.state.title)}
                             className="w-40"
                         />
                     </FormGroup>
@@ -144,7 +114,7 @@ class AddStoryForm extends Component {
                             rows={5}
                             name="user_story"
                             onChange={this.onChange}
-                            value={this.returnDefaultIfFieldEmpty(this.state.user_story)}
+                            value={returnDefaultIfFieldEmpty(this.state.user_story)}
                         />
                     </FormGroup>
 
@@ -155,7 +125,7 @@ class AddStoryForm extends Component {
                             rows={4}
                             name="definition_of_done"
                             onChange={this.onChange}
-                            value={this.returnDefaultIfFieldEmpty(this.state.definition_of_done)}
+                            value={returnDefaultIfFieldEmpty(this.state.definition_of_done)}
                         />
                     </FormGroup>
                 </div>
@@ -165,7 +135,7 @@ class AddStoryForm extends Component {
                         <Label for="values">Value statement:</Label>
 
                         <Multiselect
-                            options={this.displayValues()}
+                            options={displayValues(this.state.team_values)}
                             onSelect={this.onValueAddition}
                             onRemove={this.onValueDeletion}
                             name="tags"
@@ -182,7 +152,7 @@ class AddStoryForm extends Component {
                     <FormGroup>
                         <Label for="tags">Tags: </Label>
                         <Multiselect
-                            options={this.displayTeamTags()}
+                            options={displayTeamTags(this.state.team_tags)}
                             onSelect={this.onTagAddition}
                             onRemove={this.onTagDeletion}
                             name="tags"
@@ -211,7 +181,7 @@ class AddStoryForm extends Component {
                             type="checkbox"
                             name="pairable"
                             onChange={this.onChangeCheckbox}
-                            value={this.returnDefaultIfFieldEmpty(this.state.pairable)}
+                            value={returnDefaultIfFieldEmpty(this.state.pairable)}
                         />
                     </FormGroup>
 
@@ -221,7 +191,7 @@ class AddStoryForm extends Component {
                             type="text"
                             name="assigned_to"
                             onChange={this.onChange}
-                            value={this.returnDefaultIfFieldEmpty(this.state.assigned_to)}
+                            value={returnDefaultIfFieldEmpty(this.state.assigned_to)}
                         />
                     </FormGroup>
                 </div>

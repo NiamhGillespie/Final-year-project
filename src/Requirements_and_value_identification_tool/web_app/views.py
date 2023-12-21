@@ -4,15 +4,13 @@ from rest_framework import status
 from django import db
 import time
 
-from .models import Epic, Story, Task, Tag, ValueTag
+from .models import Epic, Story, Tag, ValueTag
 from .serializers import *
 
 
 @api_view(['GET', 'POST'])
 def EpicDashboardInfo(request):
     if request.method == 'GET':
-        print("getting data...")
-
         epic_data =  Epic.objects.all().order_by('order')
         epic_serializer = EpicSerializer(epic_data, context={'request': request}, many=True)
 
@@ -29,7 +27,6 @@ def EpicDashboardInfo(request):
             epic_serializer = EpicSerializer(data=request.data)
             
             if epic_serializer.is_valid():
-                print("adding epic...")
                 epic_serializer.save()
                 epic_id = epic_serializer.data['id']
                 dashboard_id = epic_serializer.data['dashboard_id']
@@ -55,7 +52,6 @@ def EpicDashboardInfo(request):
             story_serializer = StorySerializer(data=request.data)
             
             if story_serializer.is_valid():
-                print("adding story...")
                 story_serializer.save()
                 print(story_serializer.data)
                 story_id = story_serializer.data['id']
@@ -87,11 +83,10 @@ def EpicDetails(request, epic_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        print("editing epic...")
         epic_serializer = EpicSerializer(epic, data=request.data,context={'request': request})
         if epic_serializer.is_valid():
             epic_serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_201_CREATED)
         return Response(epic_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -99,9 +94,9 @@ def EpicDetails(request, epic_id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     elif request.method == 'GET':
-        print("getting epic...")
         epic_serializer = EpicSerializer(epic)
-        return Response(epic_serializer.data, status=status.HTTP_204_NO_CONTENT)
+        print("epic:", epic_serializer.data)
+        return Response(epic_serializer.data, status=status.HTTP_200_OK)
     
 
 @api_view(['PUT', 'DELETE', 'GET'])
@@ -112,13 +107,11 @@ def StoryDetails(request, story_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        print('putting...')
         story_serializer = StorySerializer(story, data=request.data,context={'request': request})
         if story_serializer.is_valid():
             story_serializer.save()
-            print(story_serializer.data)
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        print(story_serializer.error)
+            return Response(status=status.HTTP_201_CREATED)
+        
         return Response(story_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -136,19 +129,15 @@ def StoryDetails(request, story_id):
 @api_view(['GET', 'POST'])
 def TeamTags(request):
     if request.method == 'GET':
-        print("GETTING DATA...")
-
         tags = Tag.objects.filter(team_id='0000') #implement teams later
-        print(tags)
-        tag_serializer = TagSerializer(tags, context={'request': request}, many=True)
         
+        tag_serializer = TagSerializer(tags, context={'request': request}, many=True)
         return Response(tag_serializer.data)
     
     if request.method == 'POST':
         tag_serializer = TagSerializer(data=request.data)
             
         if tag_serializer.is_valid():
-            print("adding tag...")
             tag_serializer.save()
             tag_id = tag_serializer.data['id']
                 
@@ -156,7 +145,6 @@ def TeamTags(request):
             
             return Response(status=status.HTTP_201_CREATED)
         else:
-            print('NOT WORKING')
             return Response(tag_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['PUT', 'DELETE', 'GET'])
@@ -168,12 +156,10 @@ def TagDetail(request, tag_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        print('putting...')
         tag_serializer = TagSerializer(tag, data=request.data,context={'request': request})
         if tag_serializer.is_valid():
             tag_serializer.save()
-            print(tag_serializer.data)
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_201_CREATED)
         return Response(tag_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -189,20 +175,14 @@ def TagDetail(request, tag_id):
 @api_view(['GET', 'POST'])
 def TeamValues(request):
     if request.method == 'GET':
-        print("GETTING DATA...")
-
-    #tags = Tag.objects.all() 
         values = ValueTag.objects.filter(team_id='0000') #implement teams later
-        print(values)
         value_serializer = ValueTagSerializer(values, context={'request': request}, many=True)
-        
         return Response(value_serializer.data)
     
     if request.method == 'POST':
         value_serializer = ValueTagSerializer(data=request.data)
             
         if value_serializer.is_valid():
-            print("adding tag...")
             value_serializer.save()
             tag_id = value_serializer.data['id']
                 
@@ -217,17 +197,14 @@ def TeamValues(request):
 def ValueDetail(request, value_id):
     try:
         value = ValueTag.objects.get(id = value_id, team_id = '0000') #chnge this when implementing teams
-        print(value)
     except ValueTag.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        print('putting...')
         value_serializer = ValueTagSerializer(value, data=request.data,context={'request': request})
         if value_serializer.is_valid():
             value_serializer.save()
-            print(value_serializer.data)
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_201_CREATED)
         return Response(value_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -242,20 +219,14 @@ def ValueDetail(request, value_id):
 @api_view(['GET', 'POST'])
 def TeamTrackingColumns(request):
     if request.method == 'GET':
-        print("GETTING DATA...")
-
-    #tags = Tag.objects.all() 
         columns = TrackingColumn.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
-        print(columns)
         column_serializer = TrackingColumnSerializer(columns, context={'request': request}, many=True)
-        
         return Response(column_serializer.data)
     
     if request.method == 'POST':
         column_serializer = TrackingColumnSerializer(data=request.data)
             
         if column_serializer.is_valid():
-            print("adding tag...")
             column_serializer.save()
             column_id = column_serializer.data['id']
                 
@@ -302,15 +273,13 @@ def TeamSprints(request):
 
         sprints = Sprint.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
         sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
-        
+        print(sprint_serializer.data)
         return Response(sprint_serializer.data)
     
     if request.method == 'POST':
-        print("hey gurl")
         sprint_serializer = SprintSerializer(data=request.data)
         
         if sprint_serializer.is_valid():
-            print("adding sprint...")
             sprint_serializer.save()
             sprint_id = sprint_serializer.data['id']
                 
@@ -318,7 +287,6 @@ def TeamSprints(request):
             
             return Response(status=status.HTTP_201_CREATED)
         else:
-            print('ERRORS', sprint_serializer.errors)
             return Response(sprint_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 @api_view(['PUT', 'DELETE', 'GET'])

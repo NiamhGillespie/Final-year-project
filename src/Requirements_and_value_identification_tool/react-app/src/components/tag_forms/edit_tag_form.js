@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 import { API_URL_TAG_DETAILS } from '../../constants';
 import { ColorPicker } from 'primereact/colorpicker';
+import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
 class EditTagForm extends Component {
@@ -23,10 +24,6 @@ class EditTagForm extends Component {
         console.log(this.state.description);
     };
 
-    returnDefaultIfFieldEmpty = (value) => {
-        return value === '' ? '' : value;
-    };
-
     updateTag = (e) => {
         e.preventDefault();
         axios.put(API_URL_TAG_DETAILS + this.state.tag_id, this.state).then(() => {
@@ -45,12 +42,12 @@ class EditTagForm extends Component {
                 <Form onSubmit={this.updateTag}>
                     <FormGroup>
                         <Label for="title">Tag title:</Label>
-                        <Input type="text" title="title" onChange={this.onTitleChange} value={this.returnDefaultIfFieldEmpty(this.state.title)} />
+                        <Input type="text" title="title" onChange={this.onTitleChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
                     </FormGroup>
 
                     <FormGroup>
                         <Label for="description">Tag description:</Label>
-                        <Input type="text" onChange={this.onDescriptionChange} value={this.returnDefaultIfFieldEmpty(this.state.description)} />
+                        <Input type="text" onChange={this.onDescriptionChange} value={returnDefaultIfFieldEmpty(this.state.description)} />
                     </FormGroup>
 
                     <ColorPicker
@@ -61,8 +58,7 @@ class EditTagForm extends Component {
                     />
                     <br />
                     <p style={{ background: '#' + this.state.colour, color: 'white' }} className="d-inline-block float-right colour-example w-1 h-1">
-                        {' '}
-                        Colour example{' '}
+                        Colour example
                     </p>
                     <br />
 

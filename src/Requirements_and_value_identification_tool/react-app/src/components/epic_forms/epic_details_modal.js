@@ -55,8 +55,7 @@ class EpicDetailsModal extends Component {
                     return_list.push(
                         <div className="d-block">
                             <p className="details-stories" style={{ border: '2px solid #' + this.state.epic.epic_colour }}>
-                                {' '}
-                                {stories[i].title}{' '}
+                                {stories[i].title}
                             </p>
                         </div>
                     );
@@ -68,8 +67,7 @@ class EpicDetailsModal extends Component {
             return_list.push(
                 <div className="d-block">
                     <p className="details-stories" style={{ border: '2px solid #' + this.state.epic.epic_colour }}>
-                        {' '}
-                        No stories added yet!{' '}
+                        No stories added yet!
                     </p>
                 </div>
             );
@@ -114,8 +112,7 @@ class EpicDetailsModal extends Component {
                     <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.state.epic.epic_colour + '60' }}>
                         <div className="story-details-values-box h-100 mt-0 mb-0">
                             <p className="details-stories-header" style={{ color: '#' + this.state.epic.epic_colour }}>
-                                {' '}
-                                Values{' '}
+                                Values
                             </p>
                             <p
                                 className="overflow-auto values-scrollable-epic"
@@ -126,8 +123,7 @@ class EpicDetailsModal extends Component {
 
                         <div>
                             <p className="details-stories-header" style={{ color: '#' + this.state.epic.epic_colour }}>
-                                {' '}
-                                Stories:{' '}
+                                Stories:
                             </p>
                             <div class="overflow-auto epic-stories-scrollable">{this.getStories()}</div>
                         </div>
@@ -142,14 +138,12 @@ class EpicDetailsModal extends Component {
                                 marginRight: '5vw'
                             }}
                             onClick={this.toggleEditing}>
-                            {' '}
-                            edit{' '}
+                            Edit
                         </Button>
 
                         <div>
                             <p style={{ color: '#' + this.state.epic.epic_colour }} className="details-heading mb-2">
-                                {' '}
-                                Last edited:{' '}
+                                Last edited:
                             </p>
                             <p className="p-0 mb-1 mt-1"> {this.state.epic.last_edited_by} </p>
                             <p className="p-0 mt-1"> {this.state.epic.last_edited} </p>
@@ -157,8 +151,7 @@ class EpicDetailsModal extends Component {
 
                         <div className="mt-5">
                             <p style={{ color: '#' + this.state.epic.epic_colour }} className="details-heading mb-2">
-                                {' '}
-                                Created by:{' '}
+                                Created by:
                             </p>
                             <p className="p-0 mb-1 mt-1"> {this.state.epic.created_by} </p>
                             <p className="p-0 mt-1">{this.state.epic.time_created} </p>
@@ -166,8 +159,7 @@ class EpicDetailsModal extends Component {
 
                         <div className="mt-5">
                             <p style={{ color: '#' + this.state.epic.epic_colour }} className="details-heading">
-                                {' '}
-                                Epic colour:{' '}
+                                Epic colour:
                             </p>
                             <ColorPicker
                                 className="colour-picker d-inline  w-120 h-120"

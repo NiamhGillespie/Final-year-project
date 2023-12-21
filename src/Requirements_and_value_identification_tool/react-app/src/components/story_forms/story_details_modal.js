@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import '../../css/basic.css';
 import axios from 'axios';
 import UpdateStoryForm from './edit_story_form';
+import { displayPriority, displayTags } from '../helper-methods/story_display_methods';
 
 class StoryDetailsModal extends Component {
     state = {
@@ -40,59 +41,6 @@ class StoryDetailsModal extends Component {
         }));
     };
 
-    displayPriority(priority) {
-        var priorityText = '';
-        var priorityIcon;
-        var priorityColour;
-
-        if (priority === 'LOW') {
-            priorityText = 'low';
-            priorityIcon = '!';
-            priorityColour = 'green';
-        } else if (priority === 'MEDIUM') {
-            priorityText = 'medium';
-            priorityIcon = '!!';
-            priorityColour = 'orange';
-        } else {
-            priorityText = 'high';
-            priorityIcon = '!!!';
-            priorityColour = 'red';
-        }
-
-        return (
-            <div>
-                <p style={{ color: priorityColour }}>
-                    {' '}
-                    {priorityText} {priorityIcon}{' '}
-                </p>
-            </div>
-        );
-    }
-
-    displayTags() {
-        var returnList = [];
-        for (var i = 0; i < this.state.story.tags.length; i++) {
-            var tag = this.getTagTitleFromId(this.state.story.tags[i]);
-            if (tag !== undefined) {
-                returnList.push(
-                    <p className="details-tag" style={{ backgroundColor: '#' + tag.colour }}>
-                        {' '}
-                        {tag.title}{' '}
-                    </p>
-                );
-            }
-        }
-        return returnList;
-    }
-
-    getTagTitleFromId(id) {
-        for (var i = 0; i < this.state.teamTags.length; i++) {
-            if (this.state.teamTags[i].id === id) {
-                return this.state.teamTags[i];
-            }
-        }
-    }
-
     displayValues() {
         var returnList = [];
         for (var i = 0; i < this.state.story.values.length; i++) {
@@ -127,24 +75,22 @@ class StoryDetailsModal extends Component {
                 </ModalHeader>
 
                 <ModalBody className="mt-0 mb-0">
-                    <div className="mt-0 mb-0">{this.displayTags()}</div>
+                    <div className="mt-0 mb-0">{displayTags(this.state.story.tags, this.state.teamTags)}</div>
 
                     <Button
                         className="details-edit-button"
                         style={{ border: '2px solid #' + this.props.epic_colour, color: '#' + this.props.epic_colour, marginRight: '42vw' }}
                         onClick={this.toggleEditing}>
-                        {' '}
-                        edit{' '}
+                        Edit
                     </Button>
 
                     <p className="mt-0 mb-0 details-state"> {this.state.story.state}</p>
-                    <p className="mt-0 mb-0 details-priority"> {this.displayPriority(this.state.story.priority)} </p>
+                    <p className="mt-0 mb-0 details-priority"> {displayPriority(this.state.story.priority)} </p>
 
                     <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.props.epic_colour + '60' }}>
                         <div className="story-details-user-story-box h-100">
                             <p className="details-box-header" style={{ backgroundColor: '#' + this.props.epic_colour }}>
-                                {' '}
-                                User story{' '}
+                                User story
                             </p>
                             <p
                                 className="details-box-large"
@@ -158,8 +104,7 @@ class StoryDetailsModal extends Component {
 
                         <div className="story-details-dod-box h-100 mt-0 mb-0">
                             <p className="details-box-header" style={{ backgroundColor: '#' + this.props.epic_colour }}>
-                                {' '}
-                                Definition of done{' '}
+                                Definition of done
                             </p>
                             <p
                                 className="details-box-small"
@@ -173,8 +118,7 @@ class StoryDetailsModal extends Component {
 
                         <div className="story-details-values-box h-100 mt-0 mb-0">
                             <p className="details-stories-header" style={{ color: '#' + this.props.epic_colour }}>
-                                {' '}
-                                Values:{' '}
+                                Values:
                             </p>
                             <p
                                 className="overflow-auto values-scrollable"
@@ -187,23 +131,21 @@ class StoryDetailsModal extends Component {
                     <div className="details-right-col float-right">
                         <div>
                             <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
-                                {' '}
-                                Epic:{' '}
+                                Epic:
                             </p>
                             <p className="p-0 mb-1 mt-1"> #{this.state.story.epic_id} </p>
                         </div>
 
                         <div className="mt-3">
                             <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
-                                Assigned to:{' '}
+                                Assigned to:
                             </p>
                             <p className="p-0 mb-1 mt-1"> {this.state.story.assigned_to} </p>
                         </div>
 
                         <div className="mt-3">
                             <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
-                                {' '}
-                                Last edited:{' '}
+                                Last edited:
                             </p>
                             <p className="p-0 mb-1 mt-1"> {this.state.story.last_edited_by} </p>
                             <p className="p-0 mt-1"> {this.state.story.last_edited} </p>
@@ -211,8 +153,7 @@ class StoryDetailsModal extends Component {
 
                         <div className="mt-3 mb-0">
                             <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
-                                {' '}
-                                Created by:{' '}
+                                Created by:
                             </p>
                             <p className="p-0 mb-1 mt-1"> {this.state.story.created_by} </p>
                             <p className="p-0 mt-1">{this.state.story.time_created} </p>
@@ -220,8 +161,7 @@ class StoryDetailsModal extends Component {
 
                         <div className="mt-3 mb-0">
                             <p className="details-story-points" style={{ background: '#' + this.props.epic_colour }}>
-                                {' '}
-                                {this.state.story.story_points}{' '}
+                                {this.state.story.story_points}
                             </p>
                         </div>
                     </div>
@@ -252,10 +192,9 @@ class StoryDetailsModal extends Component {
             <div style={{ border: '2px solid #' + this.props.epic_colour }} className="story-box" onClick={this.toggleModal}>
                 <p className="story-title"> {this.state.story.title} </p>
                 <p style={{ background: '#' + this.props.epic_colour }} className="story-profile-photo">
-                    {' '}
-                    icon{' '}
+                    icon
                 </p>
-                <p className="story-priority"> {this.displayPriority(this.state.story.priority)} </p>
+                <p className="story-priority"> {displayPriority(this.state.story.priority)} </p>
             </div>
         );
 

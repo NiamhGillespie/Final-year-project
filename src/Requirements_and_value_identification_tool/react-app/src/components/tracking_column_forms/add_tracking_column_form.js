@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 import { API_URL_DASHBOARD_TRACKING_COLUMNS } from '../../constants';
+import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
 class AddColumnForm extends Component {
@@ -29,10 +30,6 @@ class AddColumnForm extends Component {
         }
     };
 
-    returnDefaultIfFieldEmpty = (value) => {
-        return value === '' ? '' : value;
-    };
-
     createColumn = (e) => {
         e.preventDefault();
         axios.post(API_URL_DASHBOARD_TRACKING_COLUMNS, this.state).then(() => {
@@ -46,12 +43,12 @@ class AddColumnForm extends Component {
             <Form onSubmit={this.createColumn}>
                 <FormGroup>
                     <Label for="title">Column title:</Label>
-                    <Input type="text" name="title" onChange={this.onChange} value={this.returnDefaultIfFieldEmpty(this.state.title)} />
+                    <Input type="text" name="title" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
                 </FormGroup>
 
                 <FormGroup>
                     <Label for="WIP">WIP limit:</Label>
-                    <Input type="text" name="WIP" onChange={this.onChange} value={this.returnDefaultIfFieldEmpty(this.state.WIP)} />
+                    <Input type="text" name="WIP" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.WIP)} />
                 </FormGroup>
 
                 <FormGroup className="checkbox-styling">
@@ -60,7 +57,7 @@ class AddColumnForm extends Component {
                         type="checkbox"
                         name="mark_as_complete"
                         onChange={this.onChangeCheckbox}
-                        value={this.returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
+                        value={returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
                     />
                 </FormGroup>
 

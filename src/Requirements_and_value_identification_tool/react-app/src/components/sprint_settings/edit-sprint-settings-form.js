@@ -4,6 +4,7 @@ import axios from 'axios';
 import Calendar from 'react-calendar';
 import '../../css/calender.css';
 import { API_URL_SPRINT_DETAILS } from '../../constants';
+import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
 class EditSprintForm extends Component {
@@ -31,10 +32,6 @@ class EditSprintForm extends Component {
         this.setState({ end_date: e });
     };
 
-    returnDefaultIfFieldEmpty = (value) => {
-        return value === '' ? '' : value;
-    };
-
     updateSettings = (e) => {
         e.preventDefault();
         axios.put(API_URL_SPRINT_DETAILS + this.state.sprint_id, this.state).then(() => {
@@ -49,18 +46,18 @@ class EditSprintForm extends Component {
                 <div className="d-flex">
                     <FormGroup style={{ paddingRight: '1vw' }}>
                         <Label for="start_date">Start Date:</Label>
-                        <Calendar name="start_date" onChange={this.onChangeStartDate} value={this.returnDefaultIfFieldEmpty(this.state.start_date)} />
+                        <Calendar name="start_date" onChange={this.onChangeStartDate} value={returnDefaultIfFieldEmpty(this.state.start_date)} />
                     </FormGroup>
 
                     <FormGroup>
                         <Label for="end_date">End Date:</Label>
-                        <Calendar name="end_date" onChange={this.onChangeEndDate} value={this.returnDefaultIfFieldEmpty(this.state.end_date)} />
+                        <Calendar name="end_date" onChange={this.onChangeEndDate} value={returnDefaultIfFieldEmpty(this.state.end_date)} />
                     </FormGroup>
                 </div>
 
                 <FormGroup>
                     <Label for="2">Setting Two:</Label>
-                    <Input type="text" name="2" onChange={this.onChange} value={this.returnDefaultIfFieldEmpty(this.state)} />
+                    <Input type="text" name="2" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state)} />
                 </FormGroup>
 
                 <Button className="btn-primary">Update Sprint</Button>

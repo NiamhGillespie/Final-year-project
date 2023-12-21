@@ -1,73 +1,6 @@
 from django.test import TestCase, Client
-from web_app.models import Epic, Story, Tag, ValueTag
-from datetime import date
-from django.urls import reverse
-from collections import OrderedDict
-from population_script import populate
-
-client = Client()
-class EpicDashboardTests(TestCase):
-    def test_GET_request_returns_200(self):
-        """
-        Check if the GET request on /api/teamName/epicsDashboard returns status code 200
-        """
-        populate()
-        response = client.get('/api/teamName/epicsDashboard')
-        self.assertEqual(response.status_code, 200)
-
-    def test_GET_request_expected_data(self):
-        populate()
-        response = client.get('/api/teamName/epicsDashboard')
-        
-        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('order', 1), ('tags', []), ('values', [0, 1]), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])], 
-                         [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('order', 1), ('tags', [0]), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('values', [0]), ('story_points', '3'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('state', 'In progress'), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
-        self.assertEqual(response.data, expected_data)
-
-    def test_add_epic_POST_request_returns_201(self):
-        """
-        Check if the POST request on /api/teamName/epicsDashboard returns status code 201
-        """
-        epic = {
-            "id": 0,
-            "epic_id": "0",
-            "epic_colour": "ffffff",
-            "dashboard_id": "0",
-            "title": "Test Epic Title",
-            "order": 1,
-            "values": [],
-            "last_edited_by": "Niamh Gillespie",
-            "last_edited": "Fri Oct 13 2023",
-            "created_by": "Niamh Gillespie",
-            "time_created": "Fri Oct 13 2023"
-        }
-                
-        response = client.post('/api/teamName/epicsDashboard', epic)
-        self.assertEqual(response.status_code, 201)
-
-    def test_add_story_POST_request_returns_201(self):
-        """
-        Check if the POST request on /api/teamName/epicsDashboard returns status code 201
-        """
-        story = {
-            "id": 0,
-            "story_id": "0",
-            "epic_id": "0",
-            "title": "Create unit tests for Epic Model",
-            "order": 1,
-            "user_story": "As a \nI would like to \nSo that I can",
-            "definition_of_done": "dod",
-            "values": [],
-            "priority": "LOW",
-            "pairable": True,
-            "assigned_to": "Niamh Gillespie",
-            "last_edited_by": "Niamh Gillespie",
-            "last_edited": "Fri Oct 13 2023",
-            "created_by": "Niamh Gillespie",
-            "time_created": "Fri Oct 13 2023"
-        }
-                
-        response = client.post('/api/teamName/epicsDashboard', story)
-        self.assertEqual(response.status_code, 201)
+from web_app.models import Epic, Sprint, Story, Tag, TrackingColumn, ValueTag
+from datetime import date, timedelta
 
 class EpicCreationTests(TestCase):
     def test_epic_id_created(self):
@@ -119,6 +52,8 @@ class EpicCreationTests(TestCase):
                 time_created = date.today()
             )
         epic.save()
+        self.assertEqual(str(epic), 'Test Epic Title')
+
         self.assertEqual(epic.title, 'Test Epic Title')
 
     def test_epic_order_created(self):
@@ -493,6 +428,8 @@ class StoryCreationTests(TestCase):
                 time_created = date.today()
             )
         story.save()
+        self.assertEqual(str(story), 'Test Story Title')
+
         self.assertEqual(story.time_created, date.today())
 
 class TagCreationTests(TestCase):
@@ -508,6 +445,8 @@ class TagCreationTests(TestCase):
                 colour = 'ffffff'
             )
         tag.save()
+        self.assertEqual(str(tag), 'Test Tag Title')
+
         self.assertEqual(tag.tag_id, '0')
         self.assertEqual(tag.team_id, '0000')
         self.assertEqual(tag.title, 'Test Tag Title')
@@ -527,8 +466,96 @@ class ValueTagCreationTests(TestCase):
                 colour = 'ffffff'
             )
         value.save()
+        self.assertEqual(str(value), 'Test Tag Title')
+
         self.assertEqual(value.tag_id, '0')
         self.assertEqual(value.team_id, '0000')
         self.assertEqual(value.title, 'Test Tag Title')
         self.assertEqual(value.description, 'description...')
         self.assertEqual(value.colour, 'ffffff')
+
+
+class TrackingColumnCreationTests(TestCase):
+    def test__tracking_column_created(self):
+        """
+        Checks to make sure that when a TrackingColumn is created, the correct information is added.
+        """
+        column = TrackingColumn(
+                id = 0,
+                column_id = '0',
+                dashboard_id = '0000',
+                team_id = '0001',
+                title = 'Test Tracking Column',
+                mark_as_complete = False,
+                story_list = '',
+                WIP = 5,
+            )
+        column.stories.set([])
+        column.save()
+        self.assertEqual(str(column), 'Test Tracking Column')
+
+        self.assertEqual(column.column_id, '0')
+        self.assertEqual(column.dashboard_id, '0000')
+        self.assertEqual(column.team_id, '0001')
+        self.assertEqual(column.title, 'Test Tracking Column')
+        self.assertEqual(column.mark_as_complete, False)
+        self.assertEqual(str(column.stories), 'web_app.Story.None')
+        self.assertEqual(column.story_list, '')
+        self.assertEqual(column.WIP, 5)
+
+class SprintCreationTests(TestCase):
+    def test__sprint_created(self):
+        """
+        Checks to make sure that when a Sprint is created, the correct information is added.
+        """
+        sprint = Sprint(
+            id = 0,
+            sprint_id = '0',
+            dashboard_id = '0000',
+            start_date = date.today(),
+            end_date = date.today(),
+            story_list = ''
+            )
+        sprint.stories.set([])
+        sprint.save()
+        self.assertEqual(str(sprint), '0')
+
+        self.assertEqual(sprint.id, 0)
+        self.assertEqual(sprint.sprint_id, '0')
+        self.assertEqual(sprint.dashboard_id, '0000')
+        self.assertEqual(sprint.start_date, date.today())
+        self.assertEqual(sprint.end_date, date.today())
+        self.assertEqual(str(sprint.stories), 'web_app.Story.None')
+        self.assertEqual(sprint.story_list, '')
+
+    def test__sprint_current(self):
+        """
+        Checks to make sure that a current sprint is correctly defined as current.
+        """
+        sprint = Sprint(
+            id = 0,
+            sprint_id = '0',
+            dashboard_id = '0000',
+            start_date = str(date.today()),
+            end_date = str(date.today() + timedelta(2)),
+            story_list = ''
+            )
+        sprint.stories.set([])
+        sprint.save()
+        self.assertEqual(sprint.is_current(), True)
+
+    def test__sprint_not_current(self):
+        """
+        Checks to make sure that a non current sprint is correctly defined as not being current.
+        """
+        sprint = Sprint(
+            id = 0,
+            sprint_id = '0',
+            dashboard_id = '0000',
+            start_date = str(date.today() - timedelta(10)),
+            end_date = str(date.today() - timedelta(2)),
+            story_list = ''
+            )
+        sprint.stories.set([])
+        sprint.save()
+        self.assertEqual(sprint.is_current(), False)

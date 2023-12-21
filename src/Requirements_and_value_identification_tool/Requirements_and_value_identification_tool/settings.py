@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+import collections
+collections.Callable = collections.abc.Callable
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,8 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web_app',
     'bootstrap5',
-    'rest_framework'
+    'rest_framework',
+    'django_nose',
 ]
+
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# NOSE_ARGS = [
+#     '--with-coverage',
+#     '--cover-package= web_app, tests.py'
+# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
