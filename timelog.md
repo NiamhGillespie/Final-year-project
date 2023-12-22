@@ -292,3 +292,7 @@
 
 ### 21 Dec 2023
 * *6.5 hours* FInished refactoring the repatative code into helper methods then used the `coverage` package to check how much code coverage I had on my unit tests. Started improving my test coverage - at time of writing up to 93%
+
+### 22 Dec 2023
+* *2 hours* Looked into the navigation issue that I've been having with react - didn't find any concrete ansers yet
+* *3.5 hours* Completed improving test coverage, overall python test coverage at 99% with both my views.py and models.py files at 100% code coverage.
