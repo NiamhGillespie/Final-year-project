@@ -7,6 +7,22 @@ django.setup()
 from web_app.models import *
 
 def populate():
+
+    sprints = [
+        {
+            'sprint_id': '0',
+            'dashboard_id': '0000',
+            'start_date': date.today(),
+            'end_date': date.today(),
+            'stories': [],
+            'story_list': ''
+        }
+    ]
+
+    for sprint in sprints:
+        add_sprint(sprint['sprint_id'], sprint['dashboard_id'], sprint['start_date'], sprint['end_date'], sprint['stories'], sprint['story_list'])
+
+        
     tracking_columns = [
         {
             'column_id': '0',
@@ -105,7 +121,16 @@ def populate():
                 story['definition_of_done'], story['values'], story['story_points'], story['priority'], 
                 story['pairable'], story['assigned_to'], story['state'], story['last_edited_by'],
                 story['last_edited'], story['created_by'], story['time_created'])
-        
+
+def add_sprint(sprint_id, dashboard_id, start_date, end_date, stories, story_list):
+    sprint = Sprint.objects.get_or_create(id=sprint_id)[0]
+    sprint.dashboard_id = dashboard_id
+    sprint.start_date = start_date
+    sprint.end_date = end_date
+    sprint.stories.set(stories)
+    sprint.story_list = story_list 
+    sprint.save()
+    return sprint      
 
 def add_tracking_column(column_id, dashboard_id, team_id, title, mark_as_complete, stories, WIP):
     column = TrackingColumn.objects.get_or_create(id=column_id)[0]
@@ -117,7 +142,6 @@ def add_tracking_column(column_id, dashboard_id, team_id, title, mark_as_complet
     column.stories_list = str(stories)
     column.WIP = 10
     column.save()
-    print('populating columns :)')
     return column
 
 def add_tag(title, description, colour, tag_id, team_id):

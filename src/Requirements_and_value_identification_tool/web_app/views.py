@@ -45,7 +45,6 @@ def EpicDashboardInfo(request):
 
                 return Response(status=status.HTTP_201_CREATED)
             else:
-                print(epic_serializer.data['tags'], epic_serializer.errors)
                 return Response(epic_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         if (request.data.get('story_id')):
@@ -53,7 +52,6 @@ def EpicDashboardInfo(request):
             
             if story_serializer.is_valid():
                 story_serializer.save()
-                print(story_serializer.data)
                 story_id = story_serializer.data['id']
                 epic_id = story_serializer.data['epic_id']
 
@@ -70,7 +68,6 @@ def EpicDashboardInfo(request):
 
                 return Response(status=status.HTTP_201_CREATED)
             else: 
-                print(story_serializer.data['tags'], story_serializer.errors)
                 return Response(story_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -95,7 +92,6 @@ def EpicDetails(request, epic_id):
     
     elif request.method == 'GET':
         epic_serializer = EpicSerializer(epic)
-        print("epic:", epic_serializer.data)
         return Response(epic_serializer.data, status=status.HTTP_200_OK)
     
 
@@ -120,7 +116,6 @@ def StoryDetails(request, story_id):
 
     elif request.method == 'GET':
         story_serializer = StorySerializer(story)
-        print(story_serializer.data)
         try:
             return Response(story_serializer.data, status=status.HTTP_200_OK)
         finally:
@@ -132,7 +127,7 @@ def TeamTags(request):
         tags = Tag.objects.filter(team_id='0000') #implement teams later
         
         tag_serializer = TagSerializer(tags, context={'request': request}, many=True)
-        return Response(tag_serializer.data)
+        return Response(tag_serializer.data, status=status.HTTP_200_OK)
     
     if request.method == 'POST':
         tag_serializer = TagSerializer(data=request.data)
@@ -151,7 +146,7 @@ def TeamTags(request):
 def TagDetail(request, tag_id):
     try:
         tag = Tag.objects.get(id = tag_id, team_id = '0000') #chnge this when implementing teams
-        print(tag.title)
+
     except Tag.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -168,7 +163,7 @@ def TagDetail(request, tag_id):
 
     elif request.method == 'GET':
         tag_serializer = TagSerializer(tag)
-        print(tag_serializer.data)
+
         return Response(tag_serializer.data, status=status.HTTP_200_OK)
     
 
@@ -177,7 +172,7 @@ def TeamValues(request):
     if request.method == 'GET':
         values = ValueTag.objects.filter(team_id='0000') #implement teams later
         value_serializer = ValueTagSerializer(values, context={'request': request}, many=True)
-        return Response(value_serializer.data)
+        return Response(value_serializer.data, status=status.HTTP_200_OK)
     
     if request.method == 'POST':
         value_serializer = ValueTagSerializer(data=request.data)
@@ -190,7 +185,6 @@ def TeamValues(request):
             
             return Response(status=status.HTTP_201_CREATED)
         else:
-            print(value_serializer.data, value_serializer.errors)
             return Response(value_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['PUT', 'DELETE', 'GET'])
@@ -213,7 +207,6 @@ def ValueDetail(request, value_id):
 
     elif request.method == 'GET':
         value_serializer = ValueTagSerializer(value)
-        print(value_serializer.data)
         return Response(value_serializer.data, status=status.HTTP_200_OK)
     
 @api_view(['GET', 'POST'])
@@ -221,7 +214,7 @@ def TeamTrackingColumns(request):
     if request.method == 'GET':
         columns = TrackingColumn.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
         column_serializer = TrackingColumnSerializer(columns, context={'request': request}, many=True)
-        return Response(column_serializer.data)
+        return Response(column_serializer.data, status=status.HTTP_200_OK)
     
     if request.method == 'POST':
         column_serializer = TrackingColumnSerializer(data=request.data)
@@ -234,25 +227,21 @@ def TeamTrackingColumns(request):
             
             return Response(status=status.HTTP_201_CREATED)
         else:
-            print(column_serializer.data, column_serializer.errors)
             return Response(column_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['PUT', 'DELETE', 'GET'])
 def ColumnDetail(request, column_id):
     try:
         column = TrackingColumn.objects.get(id = column_id, team_id = '0000') #chnge this when implementing teams
-        print(column)
     except TrackingColumn.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        print('putting...')
         column_serializer = TrackingColumnSerializer(column, data=request.data,context={'request': request})
         if column_serializer.is_valid():      
             column_serializer.save()
-            return Response(status=status.HTTP_200_OK)
-
-        print(column_serializer.errors)
+            return Response(status=status.HTTP_201_CREATED)
+        
         return Response(column_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -269,12 +258,11 @@ def ColumnDetail(request, column_id):
 @api_view(['GET', 'POST'])
 def TeamSprints(request):
     if request.method == 'GET':
-        print("GETTING SPRINTS...")
 
         sprints = Sprint.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
         sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
-        print(sprint_serializer.data)
-        return Response(sprint_serializer.data)
+
+        return Response(sprint_serializer.data, status=status.HTTP_200_OK)
     
     if request.method == 'POST':
         sprint_serializer = SprintSerializer(data=request.data)
@@ -293,18 +281,16 @@ def TeamSprints(request):
 def SprintDetails(request, sprint_id):
     try:
         sprint = Sprint.objects.get(id = sprint_id)
-        print(sprint)
+    
     except Sprint.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        print('putting...')
         sprint_serializer = SprintSerializer(sprint, data=request.data,context={'request': request})
         if sprint_serializer.is_valid():      
             sprint_serializer.save()
-            return Response(status=status.HTTP_200_OK)
-
-        print(sprint_serializer.errors)
+            return Response(status=status.HTTP_201_CREATED)
+        
         return Response(sprint_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -313,10 +299,7 @@ def SprintDetails(request, sprint_id):
 
     elif request.method == 'GET':
         sprint_serializer = SprintSerializer(sprint)
-        try:
-            return Response(sprint_serializer.data, status=status.HTTP_200_OK)
-        finally:
-                db.connections.close_all()
+        return Response(sprint_serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def getCurrentTeamSprint(request):
@@ -328,8 +311,7 @@ def getCurrentTeamSprint(request):
             if sprint.is_current():
                 sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
                 current_found = True
-                print("current sprint exists")
-                return Response(sprint_serializer.data)
+                return Response(sprint_serializer.data, status=status.HTTP_200_OK)
         
         if current_found == False:
             return Response({}, status=status.HTTP_200_OK)

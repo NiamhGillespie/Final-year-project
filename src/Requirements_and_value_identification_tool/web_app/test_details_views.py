@@ -1,7 +1,5 @@
 from datetime import date
-import datetime
 from django.test import TestCase, Client
-from collections import OrderedDict
 from population_script import populate
 
 client = Client()
@@ -278,4 +276,135 @@ class ValueDetailsTests(TestCase):
 
         populate()       
         response = client.delete('/api/teamName/value-details/0')
+        self.assertEqual(response.status_code, 204)
+
+
+class ColumnDetailsTests(TestCase):    
+    def test_GET_request_returns_200(self):
+        """
+        Check if the GET request on /api/teamName/column-details/([0-9]*)$ returns status code 200
+        """
+        populate()
+        response = client.get('/api/teamName/column-details/0')
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_GET_request_expected_data(self):
+        populate()
+        response = client.get('/api/teamName/column-details/0')
+        
+        expected_data = {'id': 0, 'column_id': 'error', 'dashboard_id': '0000', 'team_id': '0000', 'title': 'Backlog', 'mark_as_complete': False, 'stories': [], 'story_list': '', 'WIP': 10}
+        self.assertEqual(response.data, expected_data)
+
+    def test_bad_GET_request(self):
+        populate()
+        response = client.get('/api/teamName/column-details/101')
+        
+        self.assertEqual(response.status_code, 404)
+
+    def test_add_column_PUT_request_returns_201(self):
+        """
+        Check if the PUT request on /api/teamName/column-details/1 returns status code 201
+        """
+        column = {
+            'column_id': '0',
+            'dashboard_id': '0000',
+            'team_id': '0000',
+            'title': 'Backlog',
+            'mark_as_complete': False,
+            'stories': [],
+            'WIP': 10
+        }
+        
+
+        populate()       
+        response = client.put('/api/teamName/column-details/0', data=column,  content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
+    def test_bad_add_column_PUT_request_returns_400(self):
+        """
+        Check if the bad PUT request on /api/teamName/column-details/0 returns status code 400
+        """
+        column = {
+            'column_id': '0',
+            'dashboard_id': '0000',
+            'team_id': '0000',
+        }
+        
+        populate()       
+        response = client.put('/api/teamName/column-details/0', data=column,  content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+    def test_add_column_DELETE_request_returns_204(self):
+        """
+        Check if the DELETE request on /api/teamName/column-details/0 returns status code 204
+        """
+
+        populate()       
+        response = client.delete('/api/teamName/column-details/0')
+        self.assertEqual(response.status_code, 204)
+
+class SprintDetailsTests(TestCase):    
+    def test_GET_request_returns_200(self):
+        """
+        Check if the GET request on /api/teamName/sprint-details/([0-9]*)$ returns status code 200
+        """
+        populate()
+        response = client.get('/api/teamName/sprint-details/0')
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_GET_request_expected_data(self):
+        populate()
+        response = client.get('/api/teamName/sprint-details/0')
+        
+        expected_data = {'id': 0, 'sprint_id': 'error', 'dashboard_id': '0000', 'start_date': '2023-12-22', 'end_date': '2023-12-22', 'stories': [], 'story_list': ''}
+        self.assertEqual(response.data, expected_data)
+
+    def test_bad_GET_request(self):
+        populate()
+        response = client.get('/api/teamName/sprint-details/101')
+        
+        self.assertEqual(response.status_code, 404)
+
+    def test_add_sprint_PUT_request_returns_201(self):
+        """
+        Check if the PUT request on /api/teamName/sprint-details/1 returns status code 201
+        """
+        sprint = {
+            'sprint_id': '0',
+            'dashboard_id': '0000',
+            'start_date': date.today(),
+            'end_date': date.today(),
+            'stories': [],
+            'story_list': ''
+        }
+        
+
+        populate()       
+        response = client.put('/api/teamName/sprint-details/0', data=sprint,  content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
+    def test_bad_add_sprint_PUT_request_returns_400(self):
+        """
+        Check if the bad PUT request on /api/teamName/sprint-details/0 returns status code 400
+        """
+        sprint = {
+            'sprint_id': '0000000000000000000',
+            'dashboard_id': '0000',
+            'start_date': date.today(),
+            'end_date': date.today(),
+        }
+        
+        populate()       
+        response = client.put('/api/teamName/sprint-details/0', data=sprint,  content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+    def test_add_sprint_DELETE_request_returns_204(self):
+        """
+        Check if the DELETE request on /api/teamName/sprint-details/0 returns status code 204
+        """
+
+        populate()       
+        response = client.delete('/api/teamName/sprint-details/0')
         self.assertEqual(response.status_code, 204)

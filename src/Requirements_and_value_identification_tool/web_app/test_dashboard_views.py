@@ -44,6 +44,29 @@ class EpicDashboardTests(TestCase):
         response = client.post('/api/teamName/epicsDashboard', epic)
         self.assertEqual(response.status_code, 201)
 
+    def test_add_epic_POST_request_returns_201_with_multiple_epics(self):
+        """
+        Check if the POST request on /api/teamName/epicsDashboard returns status code 201 with multiple epics
+        """
+        epic = {
+            "id": 0,
+            "epic_id": "0",
+            "epic_colour": "ffffff",
+            "dashboard_id": "0",
+            "title": "Test Epic Title",
+            "order": 1,
+            "values": [],
+            "last_edited_by": "Niamh Gillespie",
+            "last_edited": "Fri Oct 13 2023",
+            "created_by": "Niamh Gillespie",
+            "time_created": "Fri Oct 13 2023"
+        }
+                
+        response = client.post('/api/teamName/epicsDashboard', epic)
+        response2 = client.post('/api/teamName/epicsDashboard', epic)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response2.status_code, 201)
+
     def test_bad_add_epic_POST_request_returns_400(self):
         """
         Check if the bad POST request on /api/teamName/epicsDashboard returns status code 400
@@ -84,6 +107,32 @@ class EpicDashboardTests(TestCase):
         response = client.post('/api/teamName/epicsDashboard', story)
         self.assertEqual(response.status_code, 201)
 
+    def test_add_story_POST_request_returns_201_with_more_than_one_story(self):
+        """
+        Check if the POST request on /api/teamName/epicsDashboard returns status code 201 with more than 1 story
+        """
+        story = {
+            "story_id": "0",
+            "epic_id": "0",
+            "title": "Create unit tests for Epic Model",
+            "order": 1,
+            "user_story": "As a \nI would like to \nSo that I can",
+            "definition_of_done": "dod",
+            "values": [],
+            "priority": "LOW",
+            "pairable": True,
+            "assigned_to": "Niamh Gillespie",
+            "last_edited_by": "Niamh Gillespie",
+            "last_edited": "Fri Oct 13 2023",
+            "created_by": "Niamh Gillespie",
+            "time_created": "Fri Oct 13 2023"
+        }
+                
+        response = client.post('/api/teamName/epicsDashboard', story)
+        response2 = client.post('/api/teamName/epicsDashboard', story)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response2.status_code, 201)
+
     def test_bad_add_story_POST_request_returns_400(self):
         """
         Check if the bad POST request on /api/teamName/epicsDashboard returns status code 400
@@ -96,6 +145,17 @@ class EpicDashboardTests(TestCase):
         }
                 
         response = client.post('/api/teamName/epicsDashboard', story)
+        self.assertEqual(response.status_code, 400)
+
+    def test_bad_add_other_POST_request_returns_400(self):
+        """
+        Check if the bad POST request on /api/teamName/epicsDashboard returns status code 400
+        """
+        not_story_or_epic = {
+            "title": "I should return a 400"
+        }
+                
+        response = client.post('/api/teamName/epicsDashboard', not_story_or_epic)
         self.assertEqual(response.status_code, 400)
 
 
@@ -252,7 +312,7 @@ class SprintTests(TestCase):
         populate()
         response = client.get('/api/teamName/sprints')
         
-        expected_data = []
+        expected_data = [OrderedDict([('id', 0), ('sprint_id', 'error'), ('dashboard_id', '0000'), ('start_date', '2023-12-22'), ('end_date', '2023-12-22'), ('stories', []), ('story_list', '')])]
         self.assertEqual(response.data, expected_data)
 
     def test_add_value_POST_request_returns_201(self):
