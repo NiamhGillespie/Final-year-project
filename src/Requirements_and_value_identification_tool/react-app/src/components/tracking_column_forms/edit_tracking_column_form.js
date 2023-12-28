@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
 import { API_URL_TRACKING_COLUMN_DETAILS, API_URL_STORY_DETAILS } from '../../constants';
 import Multiselect from 'multiselect-react-dropdown';
@@ -14,21 +14,26 @@ class EditColumnForm extends Component {
         title: this.props.column.title,
         mark_as_complete: this.props.column.mark_as_complete,
         stories: this.props.column.stories,
-        story_list: '',
+        story_list: this.props.column.story_list,
         WIP: this.props.column.WIP,
 
         non_completed_stories: this.props.non_completed_stories,
         epics: this.props.epics,
         original_stories: this.props.column.stories,
-        original_title: this.props.column.title
+        original_title: this.props.column.title,
+
+        validate: {
+            WIP: '',
+            title: 'too_short'
+        }
     };
 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
 
         if (e.target.name === 'title') {
-            console.log(this.state.stories, 'changing title');
-            this.redefine(this.state.stories, e.target.value);
+            this.setState({ story_list: this.state.story_list });
+            this.setState({ stories: this.state.stories });
         }
     };
 
@@ -59,11 +64,17 @@ class EditColumnForm extends Component {
         e.preventDefault();
         this.redefine(this.state.original_stories, 'undefined');
         this.redefine(this.state.stories, this.state.title);
-        this.setState({story_list: this.state.stories.toString()})
-        axios.put(API_URL_TRACKING_COLUMN_DETAILS + this.state.column_id, this.state).then(() => {
-            this.props.resetState();
-            this.props.toggle();
-        });
+        this.setState({ story_list: this.state.stories.toString() });
+        this.setState({ stories: this.state.stories });
+
+        if (this.state.validate.WIP !== 'valid' || this.state.validate.title !== 'valid') {
+            alert('The form is invalid, please try again');
+        } else {
+            axios.put(API_URL_TRACKING_COLUMN_DETAILS + this.state.column_id, this.state).then(() => {
+                this.props.resetState();
+                this.props.toggle();
+            });
+        }
     };
 
     deleteColumn = () => {
@@ -81,8 +92,8 @@ class EditColumnForm extends Component {
         for (var i = 0; i < e.length; i++) {
             story_ids.push(e[i].id);
         }
-        this.setState({ stories: story_ids });
         this.setState({ story_list: story_ids.toString() });
+        this.setState({ stories: story_ids });
     };
 
     onStoryDeletion = (e) => {
@@ -90,8 +101,8 @@ class EditColumnForm extends Component {
         for (var i = 0; i < e.length; i++) {
             story_ids.push(e[i].id);
         }
-        this.setState({ stories: story_ids });
         this.setState({ story_list: story_ids.toString() });
+        this.setState({ stories: story_ids });
     };
 
     displayStories() {
@@ -131,17 +142,68 @@ class EditColumnForm extends Component {
         return returnList;
     }
 
+    validateTitle(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length === 0) {
+            validate.title = 'too_short';
+        } else if (e.target.value.length > 30) {
+            validate.title = 'too_long';
+        } else {
+            validate.title = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
+    validateWIP(e) {
+        const validate = this.state.validate;
+
+        if (/^[0-9]+$/.test(e.target.value) && e.target.value.length !== 0) {
+            validate.WIP = 'valid';
+        } else {
+            validate.WIP = 'invalid';
+        }
+
+        this.setState({ validate });
+    }
+
     render() {
         return (
             <Form onSubmit={this.updateColumn}>
                 <FormGroup>
                     <Label for="title">Column title:</Label>
-                    <Input type="text" name="title" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
+                    <Input
+                        type="text"
+                        name="title"
+                        onChange={(e) => {
+                            this.onChange(e);
+                            this.validateTitle(e);
+                        }}
+                        onTouched={this.validateTitle}
+                        value={returnDefaultIfFieldEmpty(this.state.title)}
+                        invalid={this.state.validate.title === 'too_short' || this.state.validate.title === 'too_long'}
+                    />
+                    <FormFeedback invalid>
+                        {this.state.validate.title === 'too_short' && <p> Please enter a title </p>}
+                        {this.state.validate.title === 'too_long' && <p> A title can't be longer than 30 characters </p>}
+                    </FormFeedback>
                 </FormGroup>
 
                 <FormGroup>
                     <Label for="WIP">WIP limit:</Label>
-                    <Input type="text" name="WIP" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.WIP)} />
+                    <Input
+                        type="text"
+                        name="WIP"
+                        onChange={(e) => {
+                            this.onChange(e);
+                            this.validateWIP(e);
+                        }}
+                        value={returnDefaultIfFieldEmpty(this.state.WIP)}
+                        pattern="[0-9]"
+                        invalid={this.state.validate.WIP === 'invalid'}
+                    />
+                    <FormFeedback invalid>Please enter a positive integer, 0 means that no WIP limit will be applied</FormFeedback>
                 </FormGroup>
 
                 <div>
@@ -154,7 +216,7 @@ class EditColumnForm extends Component {
                             className="column-story-selection"
                             style={{
                                 chips: { background: '#58c1d6' },
-                                searchBox: { border: 'none', 'border-bottom': '1px solid blue', 'border-radius': '0px' }
+                                searchBox: { border: 'none', borderBottom: '1px solid blue', borderRadius: '0px' }
                             }}
                             placeholder="Choose Stories"
                             displayValue="title"

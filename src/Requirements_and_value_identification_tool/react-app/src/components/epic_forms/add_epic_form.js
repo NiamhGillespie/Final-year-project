@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { ColorPicker } from 'primereact/colorpicker';
@@ -24,7 +24,11 @@ class AddEpicForm extends Component {
         last_edited_by: 'Niamh Gillespie',
         last_edited: getDate(),
         created_by: 'Niamh Gillespie',
-        time_created: getDate()
+        time_created: getDate(),
+
+        validate: {
+            title: 'too_short'
+        }
     };
 
     async getTeamValues() {
@@ -37,10 +41,15 @@ class AddEpicForm extends Component {
 
     createEpic = (e) => {
         e.preventDefault();
-        axios.post(API_URL, this.state).then(() => {
-            this.props.resetState();
-            this.props.toggle();
-        });
+
+        if (this.state.validate.title !== 'valid') {
+            alert('The form is invalid, please try again');
+        } else {
+            axios.post(API_URL, this.state).then(() => {
+                this.props.resetState();
+                this.props.toggle();
+            });
+        }
     };
 
     setColour(colour) {
@@ -63,12 +72,40 @@ class AddEpicForm extends Component {
         this.setState({ values: value_ids });
     };
 
+    validateTitle(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length === 0) {
+            validate.title = 'too_short';
+        } else if (e.target.value.length > 128) {
+            validate.title = 'too_long';
+        } else {
+            validate.title = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
     render() {
         return (
             <Form onSubmit={this.createEpic}>
                 <FormGroup>
                     <Label for="title">Epic title:</Label>
-                    <Input type="text" title="title" onChange={this.onTitleChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
+                    <Input
+                        type="text"
+                        title="title"
+                        onChange={(e) => {
+                            this.onTitleChange(e);
+                            this.validateTitle(e);
+                        }}
+                        onTouched={this.validateTitle}
+                        value={returnDefaultIfFieldEmpty(this.state.title)}
+                        invalid={this.state.validate.title === 'too_short' || this.state.validate.title === 'too_long'}
+                    />
+                    <FormFeedback invalid>
+                        {this.state.validate.title === 'too_short' && <p> Please enter a title </p>}
+                        {this.state.validate.title === 'too_long' && <p> A title can't be longer than 128 characters </p>}
+                    </FormFeedback>
                 </FormGroup>
 
                 <FormGroup>
@@ -82,7 +119,7 @@ class AddEpicForm extends Component {
                         className="ms-2"
                         style={{
                             chips: { background: 'green' },
-                            searchBox: { border: 'none', 'border-bottom': '1px solid blue', 'border-radius': '0px' }
+                            searchBox: { border: 'none', 'border-bottom': '1px solid blue', borderRadius: '0px' }
                         }}
                         placeholder="Choose Tags"
                         displayValue="title"

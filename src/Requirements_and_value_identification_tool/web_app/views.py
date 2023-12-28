@@ -242,6 +242,7 @@ def ColumnDetail(request, column_id):
             column_serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         
+        print(column_serializer.errors, request.data)
         return Response(column_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':

@@ -21,7 +21,7 @@ class AddEpicModal extends Component {
         );
 
         return (
-            <Fragment>
+            <div>
                 {button}
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Add Epic</ModalHeader>
@@ -30,7 +30,7 @@ class AddEpicModal extends Component {
                         <AddEpicForm toggle={this.toggleModal} epic={this.props.epics} resetState={this.props.resetState} />
                     </ModalBody>
                 </Modal>
-            </Fragment>
+            </div>
         );
     }
 }

@@ -17,12 +17,11 @@ class EditValueForm extends Component {
     };
 
     onTitleChange = (e) => {
-        this.setState({ [e.target.title]: e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
     };
 
     onDescriptionChange = (e) => {
         this.setState({ description: e.target.value });
-        
     };
 
     createTag = (e) => {
@@ -42,7 +41,14 @@ class EditValueForm extends Component {
             <Form onSubmit={this.createTag}>
                 <FormGroup>
                     <Label for="title">Value title:</Label>
-                    <Input type="text" name="title" onChange={this.onTitleChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
+                    <Input
+                        type="text"
+                        name="title"
+                        onChange={this.onTitleChange}
+                        value={returnDefaultIfFieldEmpty(this.state.title)}
+                        required
+                        maxlength="30"
+                    />
                 </FormGroup>
 
                 <FormGroup>
@@ -52,6 +58,7 @@ class EditValueForm extends Component {
                         name="description"
                         onChange={this.onDescriptionChange}
                         value={returnDefaultIfFieldEmpty(this.state.description)}
+                        maxlength="200"
                     />
                 </FormGroup>
 

@@ -42,12 +42,24 @@ class EditTagForm extends Component {
                 <Form onSubmit={this.updateTag}>
                     <FormGroup>
                         <Label for="title">Tag title:</Label>
-                        <Input type="text" title="title" onChange={this.onTitleChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
+                        <Input
+                            type="text"
+                            title="title"
+                            onChange={this.onTitleChange}
+                            value={returnDefaultIfFieldEmpty(this.state.title)}
+                            required
+                            maxlength="30"
+                        />
                     </FormGroup>
 
                     <FormGroup>
                         <Label for="description">Tag description:</Label>
-                        <Input type="text" onChange={this.onDescriptionChange} value={returnDefaultIfFieldEmpty(this.state.description)} />
+                        <Input
+                            type="text"
+                            onChange={this.onDescriptionChange}
+                            value={returnDefaultIfFieldEmpty(this.state.description)}
+                            maxlength="200"
+                        />
                     </FormGroup>
 
                     <ColorPicker

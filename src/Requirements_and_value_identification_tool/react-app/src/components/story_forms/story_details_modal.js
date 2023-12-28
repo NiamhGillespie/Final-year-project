@@ -4,6 +4,7 @@ import '../../css/basic.css';
 import axios from 'axios';
 import UpdateStoryForm from './edit_story_form';
 import { displayPriority, displayTags } from '../helper-methods/story_display_methods';
+import { displayTeamTags } from '../helper-methods/form_helper_methods';
 
 class StoryDetailsModal extends Component {
     state = {
@@ -178,7 +179,7 @@ class StoryDetailsModal extends Component {
                     toggle={this.toggleEditing}
                     resetState={this.resetState}
                     epic_colour={this.props.epic_colour}
-                    getTags={this.displayTags()}
+                    getTags={displayTeamTags(this.state.teamTags)}
                     getValues={this.displayValues()}
                 />
             );
@@ -199,7 +200,7 @@ class StoryDetailsModal extends Component {
         );
 
         return (
-            <div>
+            <div  key={this.state.story.id}>
                 {story_box}
                 <Modal
                     className="right-modal float-right"

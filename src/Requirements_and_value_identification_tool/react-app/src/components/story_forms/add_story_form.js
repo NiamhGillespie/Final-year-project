@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import Multiselect from 'multiselect-react-dropdown';
@@ -29,7 +29,13 @@ class AddStoryForm extends Component {
         last_edited_by: 'Niamh Gillespie',
         last_edited: getDate(),
         created_by: 'Niamh Gillespie',
-        time_created: getDate()
+        time_created: getDate(),
+
+        validate: {
+            title: 'too_short',
+            user_story: 'valid',
+            definition_of_done: 'valid'
+        }
     };
 
     async getTeamValues() {
@@ -54,10 +60,15 @@ class AddStoryForm extends Component {
 
     createStory = (e) => {
         e.preventDefault();
-        axios.post(API_URL, this.state).then(() => {
-            this.props.resetState();
-            this.props.toggle();
-        });
+
+        if (this.state.validate.title !== 'valid' || this.state.validate.user_story !== 'valid' || this.state.validate.definition_of_done !== 'valid') {
+            alert('The form is invalid, please try again');
+        } else {
+            axios.post(API_URL, this.state).then(() => {
+                this.props.resetState();
+                this.props.toggle();
+            });
+        }
     };
 
     onValueAddition = (e) => {
@@ -92,6 +103,44 @@ class AddStoryForm extends Component {
         this.setState({ tags: tag_ids });
     };
 
+    validateTitle(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length === 0) {
+            validate.title = 'too_short';
+        } else if (e.target.value.length > 128) {
+            validate.title = 'too_long';
+        } else {
+            validate.title = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
+    validateUserStory(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length > 1028) {
+            validate.user_story = 'too_long';
+        } else {
+            validate.user_story = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
+    validateDoD(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length > 1028) {
+            validate.definition_of_done = 'too_long';
+        } else {
+            validate.definition_of_done = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
     render() {
         return (
             <Form onSubmit={this.createStory}>
@@ -99,12 +148,20 @@ class AddStoryForm extends Component {
                     <FormGroup>
                         <Label for="title">Story title:</Label>
                         <Input
-                            type="text-long"
+                            type="text"
                             name="title"
-                            onChange={this.onChange}
+                            onChange={(e) => {
+                                this.onChange(e);
+                                this.validateTitle(e);
+                            }}
+                            onTouched={this.validateTitle}
                             value={returnDefaultIfFieldEmpty(this.state.title)}
-                            className="w-40"
+                            invalid={this.state.validate.title === 'too_short' || this.state.validate.title === 'too_long'}
                         />
+                        <FormFeedback invalid>
+                            {this.state.validate.title === 'too_short' && <p> Please enter a title </p>}
+                            {this.state.validate.title === 'too_long' && <p> A title can't be longer than 128 characters </p>}
+                        </FormFeedback>
                     </FormGroup>
 
                     <FormGroup>
@@ -113,9 +170,15 @@ class AddStoryForm extends Component {
                             type="textarea"
                             rows={5}
                             name="user_story"
-                            onChange={this.onChange}
+                            onChange={(e) => {
+                                this.onChange(e);
+                                this.validateUserStory(e);
+                            }}
+                            onTouched={this.validateTitle}
                             value={returnDefaultIfFieldEmpty(this.state.user_story)}
+                            invalid={this.state.validate.user_story === 'too_long'}
                         />
+                        <FormFeedback invalid>The user story can't be longer than 1028 characters</FormFeedback>
                     </FormGroup>
 
                     <FormGroup>
@@ -124,9 +187,15 @@ class AddStoryForm extends Component {
                             type="textarea"
                             rows={4}
                             name="definition_of_done"
-                            onChange={this.onChange}
+                            onChange={(e) => {
+                                this.onChange(e);
+                                this.validateDoD(e);
+                            }}
+                            onTouched={this.validateDoD}
                             value={returnDefaultIfFieldEmpty(this.state.definition_of_done)}
+                            invalid={this.state.validate.definition_of_done === 'too_long'}
                         />
+                        <FormFeedback invalid>The definition of done can't be longer than 1028 characters</FormFeedback>
                     </FormGroup>
                 </div>
 
@@ -187,12 +256,7 @@ class AddStoryForm extends Component {
 
                     <FormGroup>
                         <Label for="assigned_to">Assigned to:</Label>
-                        <Input
-                            type="text"
-                            name="assigned_to"
-                            onChange={this.onChange}
-                            value={returnDefaultIfFieldEmpty(this.state.assigned_to)}
-                        />
+                        <Input type="text" name="assigned_to" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.assigned_to)} />
                     </FormGroup>
                 </div>
 

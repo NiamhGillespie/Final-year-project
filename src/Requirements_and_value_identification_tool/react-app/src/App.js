@@ -11,17 +11,21 @@ import TeamDashboard from './components/dashboards/team_dashboard';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<BaseTemplate />}>
-          <Route index element={<Home />} />
-          <Route path="teamTags" element={<TagDashboard />} />
-          <Route path="teamName"  index element={<TeamDashboard />} />
-          <Route path="teamName/epics-dashboard" element={<EpicsDashboard />} />
-          <Route path="teamName/tracking-dashboard" element={<TrackingDashboard />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Fragment>
+
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<BaseTemplate />}>
+            <Route index element={<Home />} />
+            <Route path="teamTags" element={<TagDashboard />} />
+            <Route path="teamName"  index element={<TeamDashboard />} />
+            <Route path="teamName/epics-dashboard" element={<EpicsDashboard />} />
+            <Route path="teamName/tracking-dashboard" element={<TrackingDashboard />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+
+    </Fragment>
   );
 }
 

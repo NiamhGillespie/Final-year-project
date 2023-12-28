@@ -7,7 +7,7 @@ class Tag(models.Model):
     tag_id = models.CharField(max_length=8, default='error')
     team_id = models.CharField(max_length=8, default='error')
     title = models.CharField(max_length=30)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, blank=True)
     colour = models.CharField(max_length=6)
 
     def __str__(self):
@@ -17,7 +17,7 @@ class ValueTag(models.Model):
     tag_id = models.CharField(max_length=8, default='error')
     team_id = models.CharField(max_length=8, default='error')
     title = models.CharField(max_length=30)
-    description = models.CharField(max_length=128)
+    description = models.CharField(max_length=128, blank=True)
     sub_values = models.ManyToManyField("self", blank=True, default=[])
     colour = models.CharField(max_length=6)
 
@@ -51,8 +51,8 @@ class Story(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     
 
-    user_story = models.CharField(max_length=1028) #Trefine this number at later date
-    definition_of_done = models.CharField(max_length=1028)
+    user_story = models.CharField(max_length=1028, blank=True) #Trefine this number at later date
+    definition_of_done = models.CharField(max_length=1028, blank=True)
     values = models.ManyToManyField(ValueTag, blank=True)
 
     story_points = models.CharField(max_length=10, default='N/A')
@@ -62,8 +62,8 @@ class Story(models.Model):
     HIGH = "HIGH"
     priority = models.CharField(max_length=6, choices = [(LOW, "low priority"), (MEDIUM, "medium priority"), (HIGH, "high priority")])
 
-    pairable = models.BooleanField(default = False)
-    assigned_to = models.CharField(max_length=128) #this should be list of users in future
+    pairable = models.BooleanField(default = False, blank=True)
+    assigned_to = models.CharField(max_length=128, blank=True) #this should be list of users in future
 
     state = models.CharField(max_length=128, default='undefined')
 
@@ -84,7 +84,7 @@ class TrackingColumn(models.Model):
     mark_as_complete = models.BooleanField(default = False)
     stories = models.ManyToManyField(Story, blank=True, default=[])
     story_list = models.CharField(max_length=128, blank=True)
-    WIP = models.IntegerField(blank = True, default=0)
+    WIP = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title

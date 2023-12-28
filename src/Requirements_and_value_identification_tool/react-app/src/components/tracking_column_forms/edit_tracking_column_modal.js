@@ -21,7 +21,7 @@ class EditColumnModal extends Component {
         );
 
         return (
-            <Fragment>
+            <div>
                 {columnTitle}
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}> Edit Tracking Column </ModalHeader>
@@ -36,7 +36,7 @@ class EditColumnModal extends Component {
                         />
                     </ModalBody>
                 </Modal>
-            </Fragment>
+            </div>
         );
     }
 }

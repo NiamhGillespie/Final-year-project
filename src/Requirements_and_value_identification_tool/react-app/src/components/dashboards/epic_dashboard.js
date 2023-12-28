@@ -55,6 +55,7 @@ export class EpicsDashboard extends Component {
                                                 <div
                                                     className="epic-container"
                                                     style={{ border: snapshot.draggingOver ? '3px solid #' + epic.epic_colour + '60' : '' }}
+                                                    key={epic.id}
                                                 >
                                                     <div {...provided.dragHandleProps}>
                                                         <EpicDetailsModal resetState={this.resetState} epic={epic} stories={this.state.stories} />
@@ -184,9 +185,9 @@ export class EpicsDashboard extends Component {
         return (
             <>
                 <div key="epic-dashboard">
-                    <div className="border-bottom d-flex flex-row">
+                    <div className="border-bottom d-flex flex-row flex-nowrap">
                         <p className="text-center"> {this.displayStatsBar()} </p>
-                        <AddEpicModal create={true} resetState={this.resetState} />
+                        <AddEpicModal create={true} resetState={this.resetState} className="align-self-stretch" />
                     </div>
 
                     <div>

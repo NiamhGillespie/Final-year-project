@@ -21,7 +21,7 @@ class AddColumnModal extends Component {
         );
 
         return (
-            <Fragment>
+            <div>
                 {button}
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}> Add Tracking Column </ModalHeader>
@@ -30,7 +30,7 @@ class AddColumnModal extends Component {
                         <AddColumnForm toggle={this.toggleModal} resetState={this.props.resetState} />
                     </ModalBody>
                 </Modal>
-            </Fragment>
+            </div>
         );
     }
 }

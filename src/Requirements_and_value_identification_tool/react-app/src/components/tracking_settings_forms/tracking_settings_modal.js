@@ -21,7 +21,7 @@ class TrackingSettingsModal extends Component {
         );
 
         return (
-            <Fragment>
+            <div>
                 {settingsIcon}
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal} style={{ minWidth: '33vw', minHeight: '50vh' }}>
                     <ModalHeader toggle={this.toggleModal}> Create Sprint </ModalHeader>
@@ -30,7 +30,7 @@ class TrackingSettingsModal extends Component {
                         <TrackingSettingsForm toggle={this.toggleModal} resetState={this.props.resetState} />
                     </ModalBody>
                 </Modal>
-            </Fragment>
+            </div>
         );
     }
 }

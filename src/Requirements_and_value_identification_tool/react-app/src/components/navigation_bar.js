@@ -23,7 +23,7 @@ export class NavigationBar extends Component {
 
     render() {
         return (
-            <header>
+            <>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
                     <NavbarBrand>{/* image goes here */}</NavbarBrand>
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
@@ -67,7 +67,7 @@ export class NavigationBar extends Component {
                         </ul>
                     </Collapse>
                 </Navbar>
-            </header>
+            </>
         );
     }
 }

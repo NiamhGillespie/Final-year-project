@@ -112,7 +112,6 @@ export class TrackingDashboard extends Component {
                                         />
                                         {column.WIP !== 0 ? (
                                             <p className="wip-limit mt-0 mb-2 d-block" style={WIPStyling(column.WIP, column.stories)}>
-                                                {' '}
                                                 WIP: {column.WIP}
                                             </p>
                                         ) : (
@@ -167,8 +166,7 @@ export class TrackingDashboard extends Component {
                                                 className="story-box">
                                                 <p className="story-title"> {story.title} </p>
                                                 <p style={{ background: '#' + story_colours[index] }} className="story-profile-photo">
-                                                    {' '}
-                                                    icon{' '}
+                                                    icon
                                                 </p>
                                                 <p className="story-priority"> { displayPriority(story.priority) } </p>
                                             </div>

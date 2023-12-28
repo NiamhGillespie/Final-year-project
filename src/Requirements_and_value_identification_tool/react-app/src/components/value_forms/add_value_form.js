@@ -26,7 +26,6 @@ class AddValueForm extends Component {
         this.setState({ description: e.target.value });
     };
 
-
     createTag = (e) => {
         e.preventDefault();
         axios.post(API_URL_TEAMVALUES, this.state).then(() => {
@@ -44,12 +43,24 @@ class AddValueForm extends Component {
             <Form onSubmit={this.createTag}>
                 <FormGroup>
                     <Label for="title">Value title:</Label>
-                    <Input type="text" title="title" onChange={this.onTitleChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
+                    <Input
+                        type="text"
+                        title="title"
+                        onChange={this.onTitleChange}
+                        value={returnDefaultIfFieldEmpty(this.state.title)}
+                        required
+                        maxlength="30"
+                    />
                 </FormGroup>
 
                 <FormGroup>
                     <Label for="description">Value description:</Label>
-                    <Input type="text" onChange={this.onDescriptionChange} value={returnDefaultIfFieldEmpty(this.state.description)} />
+                    <Input
+                        type="text"
+                        onChange={this.onDescriptionChange}
+                        value={returnDefaultIfFieldEmpty(this.state.description)}
+                        maxlength="200"
+                    />
                 </FormGroup>
 
                 <ColorPicker className="colour-picker d-inline h-100 w-100" value={this.colour} onChange={(e) => this.setColour(e.value)} inline />

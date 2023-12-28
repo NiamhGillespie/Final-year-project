@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Input, FormFeedback } from 'reactstrap';
 import axios from 'axios';
 import { API_URL, API_URL_STORY_DETAILS } from '../../constants';
 import { ModalHeader, ModalBody } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
 import '../../css/basic.css';
-import { currentEpic, displayEpics, displayTeamTags, displayValues, getDate, preselectedTags, preselectedValues, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
+import {
+    currentEpic,
+    displayEpics,
+    displayTeamTags,
+    displayValues,
+    getDate,
+    preselectedTags,
+    preselectedValues,
+    returnDefaultIfFieldEmpty
+} from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
 class UpdateStoryForm extends Component {
@@ -34,7 +43,13 @@ class UpdateStoryForm extends Component {
         created_by: this.props.story.created_by,
         time_created: this.props.story.time_created,
 
-        epics: this.getEpics()
+        epics: this.getEpics(),
+
+        validate: {
+            title: 'valid',
+            user_story: 'valid',
+            definition_of_done: 'valid'
+        }
     };
 
     async getTeamTags() {
@@ -65,10 +80,19 @@ class UpdateStoryForm extends Component {
 
     updateStory = (e) => {
         e.preventDefault();
-        axios.put(API_URL_STORY_DETAILS + this.state.story_id + '/details', this.state).then(() => {
-            this.props.resetState(this.state);
-            this.props.toggle();
-        });
+
+        if (
+            this.state.validate.title !== 'valid' ||
+            this.state.validate.user_story !== 'valid' ||
+            this.state.validate.definition_of_done !== 'valid'
+        ) {
+            alert('The form is invalid, please try again');
+        } else {
+            axios.put(API_URL_STORY_DETAILS + this.state.story_id + '/details', this.state).then(() => {
+                this.props.resetState(this.state);
+                this.props.toggle();
+            });
+        }
     };
 
     onValueAddition = (e) => {
@@ -107,13 +131,65 @@ class UpdateStoryForm extends Component {
         this.setState({ epic_id: e[0].id });
     };
 
+    validateTitle(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length === 0) {
+            validate.title = 'too_short';
+        } else if (e.target.value.length > 128) {
+            validate.title = 'too_long';
+        } else {
+            validate.title = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
+    validateUserStory(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length > 1028) {
+            validate.user_story = 'too_long';
+        } else {
+            validate.user_story = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
+    validateDoD(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length > 1028) {
+            validate.definition_of_done = 'too_long';
+        } else {
+            validate.definition_of_done = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
     render() {
         return (
             <Form onSubmit={this.updateStory}>
                 <div className="details-modal">
                     <ModalHeader toggle={this.toggleModal} className="coloured-header" style={{ background: '#' + this.props.epic_colour }}>
                         <FormGroup className="details-form-title">
-                            <Input type="text-long" name="title" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
+                            <Input
+                                type="text"
+                                name="title"
+                                onChange={(e) => {
+                                    this.onChange(e);
+                                    this.validateTitle(e);
+                                }}
+                                onTouched={this.validateTitle}
+                                value={returnDefaultIfFieldEmpty(this.state.title)}
+                                invalid={this.state.validate.title === 'too_short' || this.state.validate.title === 'too_long'}
+                            />
+                            <FormFeedback invalid className='text-white'>
+                                {this.state.validate.title === 'too_short' && <p> Please enter a title </p>}
+                                {this.state.validate.title === 'too_long' && <p> A title can't be longer than 128 characters </p>}
+                            </FormFeedback>
                         </FormGroup>
                         <p className="details-id float-end"> #{this.state.story_id} </p>
                     </ModalHeader>
@@ -127,16 +203,17 @@ class UpdateStoryForm extends Component {
                                 <FormGroup>
                                     <Input
                                         type="textarea"
-                                        rows={4}
+                                        rows={5}
                                         name="user_story"
-                                        onChange={this.onChange}
-                                        value={returnDefaultIfFieldEmpty(this.state.user_story)}
-                                        className="details-box-large"
-                                        style={{
-                                            backgroundColor: '#' + this.props.epic_colour + '40',
-                                            scrollbarColor: '#' + this.props.epic_colour + '90  #' + this.props.epic_colour + '30'
+                                        onChange={(e) => {
+                                            this.onChange(e);
+                                            this.validateUserStory(e);
                                         }}
+                                        onTouched={this.validateTitle}
+                                        value={returnDefaultIfFieldEmpty(this.state.user_story)}
+                                        invalid={this.state.validate.user_story === 'too_long'}
                                     />
+                                    <FormFeedback invalid>The user story can't be longer than 1028 characters</FormFeedback>
                                 </FormGroup>
                             </div>
 
@@ -150,14 +227,15 @@ class UpdateStoryForm extends Component {
                                         type="textarea"
                                         rows={4}
                                         name="definition_of_done"
-                                        onChange={this.onChange}
-                                        value={returnDefaultIfFieldEmpty(this.state.definition_of_done)}
-                                        className="details-box-small"
-                                        style={{
-                                            backgroundColor: '#' + this.props.epic_colour + '40',
-                                            scrollbarColor: '#' + this.props.epic_colour + '90  #' + this.props.epic_colour + '30'
+                                        onChange={(e) => {
+                                            this.onChange(e);
+                                            this.validateDoD(e);
                                         }}
+                                        onTouched={this.validateDoD}
+                                        value={returnDefaultIfFieldEmpty(this.state.definition_of_done)}
+                                        invalid={this.state.validate.definition_of_done === 'too_long'}
                                     />
+                                    <FormFeedback invalid>The definition of done can't be longer than 1028 characters</FormFeedback>
                                 </FormGroup>
                             </div>
 

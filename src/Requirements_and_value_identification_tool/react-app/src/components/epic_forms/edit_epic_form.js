@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Input, FormFeedback } from 'reactstrap';
 import axios from 'axios';
 import { API_URL_EPIC_DETAILS } from '../../constants';
 import { ColorPicker } from 'primereact/colorpicker';
@@ -24,7 +24,11 @@ class UpdateEpicForm extends Component {
         last_edited_by: 'Niamh Gillespie',
         last_edited: getDate(),
         created_by: this.props.epic.created_by,
-        time_created: this.props.epic.time_created
+        time_created: this.props.epic.time_created,
+
+        validate: {
+            title: 'valid'
+        }
     };
 
     async getTeamValues() {
@@ -37,10 +41,15 @@ class UpdateEpicForm extends Component {
 
     updateEpic = (e) => {
         e.preventDefault();
-        axios.put(API_URL_EPIC_DETAILS + this.state.epic_id + '/details', this.state).then(() => {
-            this.props.resetState(this.state);
-            this.props.toggle();
-        });
+
+        if (this.state.validate.title !== 'valid') {
+            alert('The form is invalid, please try again');
+        } else {
+            axios.put(API_URL_EPIC_DETAILS + this.state.epic_id + '/details', this.state).then(() => {
+                this.props.resetState(this.state);
+                this.props.toggle();
+            });
+        }
     };
 
     setColour(colour) {
@@ -64,13 +73,42 @@ class UpdateEpicForm extends Component {
         this.setState({ values: value_ids });
     };
 
+    validateTitle(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length === 0) {
+            validate.title = 'too_short';
+        } else if (e.target.value.length > 128) {
+            validate.title = 'too_long';
+        } else {
+            validate.title = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
     render() {
         return (
             <Form onSubmit={this.updateEpic}>
                 <div className="details-modal">
                     <ModalHeader className="coloured-header" style={{ background: '#' + this.state.epic_colour }}>
-                        <FormGroup className="details-form-title">
-                            <Input type="text" title="title" onChange={this.onTitleChange} value={returnDefaultIfFieldEmpty(this.state.title)} />
+                        <FormGroup >
+                            <Input
+                                className="details-form-title"
+                                type="text"
+                                title="title"
+                                onChange={(e) => {
+                                    this.onTitleChange(e);
+                                    this.validateTitle(e);
+                                }}
+                                onTouched={this.validateTitle}
+                                value={returnDefaultIfFieldEmpty(this.state.title)}
+                                invalid={this.state.validate.title === 'too_short' || this.state.validate.title === 'too_long'}
+                            />
+                            <FormFeedback invalid className='text-white'>
+                                {this.state.validate.title === 'too_short' && <p> Please enter a title </p>}
+                                {this.state.validate.title === 'too_long' && <p> A title can't be longer than 128 characters </p>}
+                            </FormFeedback>
                         </FormGroup>
 
                         <p className="details-id float-end"> #{this.state.id} </p>

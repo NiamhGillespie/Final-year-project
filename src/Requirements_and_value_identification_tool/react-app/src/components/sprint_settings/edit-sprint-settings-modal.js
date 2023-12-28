@@ -21,7 +21,7 @@ class EditSprintModal extends Component {
         );
 
         return (
-            <Fragment>
+            <div>
                 {settingsIcon}
                 <Modal
                     isOpen={this.state.modal}
@@ -36,7 +36,7 @@ class EditSprintModal extends Component {
                         <EditSprintForm toggle={this.toggleModal} resetState={this.props.resetState} sprint={this.props.sprint} />
                     </ModalBody>
                 </Modal>
-            </Fragment>
+            </div>
         );
     }
 }
