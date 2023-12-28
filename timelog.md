@@ -296,3 +296,8 @@
 ### 22 Dec 2023
 * *2 hours* Looked into the navigation issue that I've been having with react - didn't find any concrete ansers yet
 * *3.5 hours* Completed improving test coverage, overall python test coverage at 99% with both my views.py and models.py files at 100% code coverage.
+
+## Week 14
+
+### 28 Dec 2023
+* *8.5 hours* Continued research on navigation issue and fixed it. Fixed another bug with the tracking column title changing, then began working on custom error validation. Also fixed tests I accidentally broke.
