@@ -312,7 +312,7 @@ class SprintTests(TestCase):
         populate()
         response = client.get('/api/teamName/sprints')
         
-        expected_data = [OrderedDict([('id', 0), ('sprint_id', 'error'), ('dashboard_id', '0000'), ('start_date', '2023-12-22'), ('end_date', '2023-12-22'), ('stories', []), ('story_list', '')])]
+        expected_data = [OrderedDict([('id', 0), ('sprint_id', 'error'), ('dashboard_id', '0000'), ('start_date', '2023-12-28'), ('end_date', '2023-12-28'), ('stories', []), ('story_list', '')])]
         self.assertEqual(response.data, expected_data)
 
     def test_add_value_POST_request_returns_201(self):

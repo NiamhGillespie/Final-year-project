@@ -263,6 +263,8 @@ def TeamSprints(request):
         sprints = Sprint.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
         sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
 
+        
+        print(sprint_serializer.data)
         return Response(sprint_serializer.data, status=status.HTTP_200_OK)
     
     if request.method == 'POST':

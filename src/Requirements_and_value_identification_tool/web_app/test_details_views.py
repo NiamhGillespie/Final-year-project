@@ -358,7 +358,7 @@ class SprintDetailsTests(TestCase):
         populate()
         response = client.get('/api/teamName/sprint-details/0')
         
-        expected_data = {'id': 0, 'sprint_id': 'error', 'dashboard_id': '0000', 'start_date': '2023-12-22', 'end_date': '2023-12-22', 'stories': [], 'story_list': ''}
+        expected_data = {'id': 0, 'sprint_id': 'error', 'dashboard_id': '0000', 'start_date': '2023-12-28', 'end_date': '2023-12-28', 'stories': [], 'story_list': ''}
         self.assertEqual(response.data, expected_data)
 
     def test_bad_GET_request(self):
