@@ -18,7 +18,6 @@ def EpicDashboardInfo(request):
         story_serializer = StorySerializer(story_data, context={'request': request}, many=True)
 
         epic_and_story_data = [epic_serializer.data, story_serializer.data]
-        
         return Response(epic_and_story_data)
     
     if request.method == 'POST':
@@ -116,10 +115,7 @@ def StoryDetails(request, story_id):
 
     elif request.method == 'GET':
         story_serializer = StorySerializer(story)
-        try:
-            return Response(story_serializer.data, status=status.HTTP_200_OK)
-        finally:
-                db.connections.close_all()
+        return Response(story_serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
 def TeamTags(request):
@@ -263,8 +259,6 @@ def TeamSprints(request):
         sprints = Sprint.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
         sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
 
-        
-        print(sprint_serializer.data)
         return Response(sprint_serializer.data, status=status.HTTP_200_OK)
     
     if request.method == 'POST':

@@ -34,6 +34,8 @@ class Epic(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     values = models.ManyToManyField(ValueTag, blank=True)
 
+    completed = models.BooleanField(default = False)
+
     last_edited_by = models.CharField(max_length=128)
     last_edited =  models.CharField(max_length=128)
     created_by = models.CharField(max_length=128)
@@ -66,6 +68,7 @@ class Story(models.Model):
     assigned_to = models.CharField(max_length=128, blank=True) #this should be list of users in future
 
     state = models.CharField(max_length=128, default='undefined')
+    completed = models.BooleanField(default = False)
 
     last_edited_by = models.CharField(max_length=128)
     last_edited =  models.CharField(max_length=128)

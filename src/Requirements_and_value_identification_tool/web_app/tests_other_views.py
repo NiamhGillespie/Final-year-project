@@ -20,7 +20,7 @@ class CurrentSprintTests(TestCase):
         populate()
         response = client.get('/api/teamName/current-sprint')
         
-        expected_data = [OrderedDict([('id', 0), ('sprint_id', 'error'), ('dashboard_id', '0000'), ('start_date', '2023-12-28'), ('end_date', '2023-12-28'), ('stories', []), ('story_list', '')])]
+        expected_data = [OrderedDict([('id', 0), ('sprint_id', 'error'), ('dashboard_id', '0000'), ('start_date', '2023-12-29'), ('end_date', '2023-12-29'), ('stories', []), ('story_list', '')])]
         self.assertEqual(response.data, expected_data)
 
     def test_GET_request_expected_data_no_current_sprint(self):

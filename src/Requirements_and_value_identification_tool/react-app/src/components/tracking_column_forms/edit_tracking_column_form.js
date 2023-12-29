@@ -23,9 +23,11 @@ class EditColumnForm extends Component {
         original_title: this.props.column.title,
 
         validate: {
-            WIP: '',
-            title: 'too_short'
-        }
+            WIP: 'valid',
+            title: this.props.column.title === 'Done' ?  'protected_keyword' : 'valid',
+        },
+
+        checked: this.props.column.title === 'Done' ?  true : this.props.mark_as_complete
     };
 
     onChange = (e) => {
@@ -40,8 +42,18 @@ class EditColumnForm extends Component {
     onChangeCheckbox = (e) => {
         if (this.state.mark_as_complete === false) {
             this.setState({ [e.target.name]: true });
+            this.setState({ checked: true });
+            this.props.resetState()
         } else {
             this.setState({ [e.target.name]: false });
+            this.setState({ checked: false });
+            this.props.resetState()
+        }
+
+        if (this.state.title === 'Done') {
+            this.setState({ [e.target.name]: true });
+            this.setState({ checked: true });
+            this.props.resetState()
         }
     };
 
@@ -67,7 +79,7 @@ class EditColumnForm extends Component {
         this.setState({ story_list: this.state.stories.toString() });
         this.setState({ stories: this.state.stories });
 
-        if (this.state.validate.WIP !== 'valid' || this.state.validate.title !== 'valid') {
+        if (this.state.validate.WIP !== 'valid' || (this.state.validate.title !== 'valid' && this.state.validate.title !== 'protected_keyword')) {
             alert('The form is invalid, please try again');
         } else {
             axios.put(API_URL_TRACKING_COLUMN_DETAILS + this.state.column_id, this.state).then(() => {
@@ -87,7 +99,6 @@ class EditColumnForm extends Component {
     };
 
     onStoryAddition = (e) => {
-        console.log(e);
         var story_ids = [];
         for (var i = 0; i < e.length; i++) {
             story_ids.push(e[i].id);
@@ -149,6 +160,10 @@ class EditColumnForm extends Component {
             validate.title = 'too_short';
         } else if (e.target.value.length > 30) {
             validate.title = 'too_long';
+        } else if (e.target.value === 'Done'){
+            validate.title = 'protected_keyword';
+            this.setState({ checked: true });
+            this.setState({ mark_as_complete: true });
         } else {
             validate.title = 'valid';
         }
@@ -183,10 +198,13 @@ class EditColumnForm extends Component {
                         onTouched={this.validateTitle}
                         value={returnDefaultIfFieldEmpty(this.state.title)}
                         invalid={this.state.validate.title === 'too_short' || this.state.validate.title === 'too_long'}
+                        valid={this.state.validate.title === 'protected_keyword'}
                     />
                     <FormFeedback invalid>
                         {this.state.validate.title === 'too_short' && <p> Please enter a title </p>}
                         {this.state.validate.title === 'too_long' && <p> A title can't be longer than 30 characters </p>}
+                    </FormFeedback>
+                    <FormFeedback valid> Done is a protected keyword - stories in this column will automatically be marked as completed
                     </FormFeedback>
                 </FormGroup>
 
@@ -233,7 +251,9 @@ class EditColumnForm extends Component {
                         name="mark_as_complete"
                         onChange={this.onChangeCheckbox}
                         value={returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
-                        defaultChecked={this.state.mark_as_complete}
+                        defaultChecked={this.state.mark_as_complete || this.state.title === 'Done'}
+                        disabled={this.state.title === 'Done'}
+                        checked={this.state.checked}
                     />
                 </FormGroup>
 

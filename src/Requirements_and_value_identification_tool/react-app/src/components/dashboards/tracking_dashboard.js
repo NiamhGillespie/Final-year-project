@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/tracking_dashboard.css';
 import axios from 'axios';
-import {
-    API_URL_DASHBOARD_TRACKING_COLUMNS,
-    API_URL,
-    API_URL_CURRENT_SPRINT
-} from '../../constants';
+import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL, API_URL_CURRENT_SPRINT } from '../../constants';
 import { DragDropContext, Droppable, Draggable } from '../../constants/drag_and_drop';
 import EditColumnModal from '../tracking_column_forms/edit_tracking_column_modal';
 import EditSprintModal from '../sprint_settings/edit-sprint-settings-modal';
@@ -39,7 +35,7 @@ export class TrackingDashboard extends Component {
     async getNonCompletedStories() {
         await axios
             .get(API_URL)
-            .then((response) => this.setState({ non_completed_stories: response.data[1].filter((story) => story.state !== 'complete') }));
+            .then((response) => this.setState({ non_completed_stories: response.data[1].filter((story) => story.state !== '???') })); //WHAT AM I DOING  HERE??
     }
 
     async getEpics() {
@@ -168,7 +164,7 @@ export class TrackingDashboard extends Component {
                                                 <p style={{ background: '#' + story_colours[index] }} className="story-profile-photo">
                                                     icon
                                                 </p>
-                                                <p className="story-priority"> { displayPriority(story.priority) } </p>
+                                                <p className="story-priority"> {displayPriority(story.priority)} </p>
                                             </div>
                                         </div>
                                     )}
