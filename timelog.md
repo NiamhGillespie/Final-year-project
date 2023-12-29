@@ -301,3 +301,6 @@
 
 ### 28 Dec 2023
 * *8.5 hours* Continued research on navigation issue and fixed it. Fixed another bug with the tracking column title changing, then began working on custom error validation. Also fixed tests I accidentally broke.
+
+### 28 Dec 2023
+* *7 hours* Finished form validation, improved the mark_as_complete/done functionality in the tracking column dashboard so if a column has the title 'Done' then the column's mark_as_complete is marked as true, also added a 'completed' field to epics and stories to allow for future epic dashboard filtering, also created a figma design to add filtering to the epic dashboard design.
