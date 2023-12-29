@@ -121,8 +121,7 @@ class AddColumnForm extends Component {
                         name="mark_as_complete"
                         onChange={this.onChangeCheckbox}
                         value={returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
-                        disabled={this.state.title === 'Done'}
-                        checked={this.state.title === 'Done'}
+                        
                     />
                 </FormGroup>
 

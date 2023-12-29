@@ -79,6 +79,10 @@ class EditColumnForm extends Component {
         this.setState({ story_list: this.state.stories.toString() });
         this.setState({ stories: this.state.stories });
 
+        if (this.state.mark_as_complete === true) {
+            this.markStoriesAsComplete(this.state.stories)
+        }
+
         if (this.state.validate.WIP !== 'valid' || (this.state.validate.title !== 'valid' && this.state.validate.title !== 'protected_keyword')) {
             alert('The form is invalid, please try again');
         } else {
@@ -88,6 +92,12 @@ class EditColumnForm extends Component {
             });
         }
     };
+
+    markStoriesAsComplete(stories) {
+        for (var i = 0; i < stories.length; i++) {
+            // update stories.completed to true
+        }
+    }
 
     deleteColumn = () => {
         //move stories to undefined
