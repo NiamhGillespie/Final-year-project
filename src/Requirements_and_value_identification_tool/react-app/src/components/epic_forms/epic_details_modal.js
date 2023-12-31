@@ -44,6 +44,7 @@ class EpicDetailsModal extends Component {
     };
 
     getStories() {
+        var background_colour = this.state.epic.completed ? 'c7c7c7' : this.state.epic.epic_colour;
         var stories = this.props.stories;
         var epic_id = this.state.epic.epic_id;
 
@@ -54,7 +55,7 @@ class EpicDetailsModal extends Component {
                 if (stories[i].epic_id === String(epic_id)) {
                     return_list.push(
                         <div className="d-block">
-                            <p className="details-stories" style={{ border: '2px solid #' + this.state.epic.epic_colour }}>
+                            <p className="details-stories" style={{ border: '2px solid #' + background_colour }}>
                                 {stories[i].title}
                             </p>
                         </div>
@@ -66,7 +67,7 @@ class EpicDetailsModal extends Component {
         if (return_list.length === 0) {
             return_list.push(
                 <div className="d-block">
-                    <p className="details-stories" style={{ border: '2px solid #' + this.state.epic.epic_colour }}>
+                    <p className="details-stories" style={{ border: '2px solid #' + background_colour }}>
                         No stories added yet!
                     </p>
                 </div>
@@ -101,17 +102,19 @@ class EpicDetailsModal extends Component {
     }
 
     notEditing() {
+        var background_colour = this.state.epic.completed ? 'c7c7c7' : this.state.epic.epic_colour;
         return (
             <div className="details-modal">
-                <ModalHeader toggle={this.toggleModal} className="coloured-header" style={{ background: '#' + this.state.epic.epic_colour }}>
+                
+                <ModalHeader toggle={this.toggleModal} className="coloured-header" style={{ background: '#' + background_colour }}>
                     <p className="details-title"> {this.state.epic.title} </p>
                     <p className="details-id float-end"> #{this.state.epic.id} </p>
                 </ModalHeader>
 
                 <ModalBody className="mt-3">
-                    <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.state.epic.epic_colour + '60' }}>
+                    <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + background_colour + '60' }}>
                         <div className="story-details-values-box h-100 mt-0 mb-0">
-                            <p className="details-stories-header" style={{ color: '#' + this.state.epic.epic_colour }}>
+                            <p className="details-stories-header" style={{ color: '#' + background_colour }}>
                                 Values
                             </p>
                             <p
@@ -122,7 +125,7 @@ class EpicDetailsModal extends Component {
                         </div>
 
                         <div>
-                            <p className="details-stories-header" style={{ color: '#' + this.state.epic.epic_colour }}>
+                            <p className="details-stories-header" style={{ color: '#' + background_colour }}>
                                 Stories:
                             </p>
                             <div class="overflow-auto epic-stories-scrollable">{this.getStories()}</div>
@@ -133,8 +136,8 @@ class EpicDetailsModal extends Component {
                         <Button
                             className="details-edit-button"
                             style={{
-                                border: '2px solid #' + this.state.epic.epic_colour,
-                                color: '#' + this.state.epic.epic_colour,
+                                border: '2px solid #' + background_colour,
+                                color: '#' + background_colour,
                                 marginRight: '5vw'
                             }}
                             onClick={this.toggleEditing}>
@@ -142,7 +145,7 @@ class EpicDetailsModal extends Component {
                         </Button>
 
                         <div>
-                            <p style={{ color: '#' + this.state.epic.epic_colour }} className="details-heading mb-2">
+                            <p style={{ color: '#' + background_colour }} className="details-heading mb-2">
                                 Last edited:
                             </p>
                             <p className="p-0 mb-1 mt-1"> {this.state.epic.last_edited_by} </p>
@@ -150,7 +153,7 @@ class EpicDetailsModal extends Component {
                         </div>
 
                         <div className="mt-5">
-                            <p style={{ color: '#' + this.state.epic.epic_colour }} className="details-heading mb-2">
+                            <p style={{ color: '#' + background_colour }} className="details-heading mb-2">
                                 Created by:
                             </p>
                             <p className="p-0 mb-1 mt-1"> {this.state.epic.created_by} </p>
@@ -158,12 +161,12 @@ class EpicDetailsModal extends Component {
                         </div>
 
                         <div className="mt-5">
-                            <p style={{ color: '#' + this.state.epic.epic_colour }} className="details-heading">
+                            <p style={{ color: '#' + background_colour }} className="details-heading">
                                 Epic colour:
                             </p>
                             <ColorPicker
                                 className="colour-picker d-inline  w-120 h-120"
-                                value={this.state.epic.epic_colour}
+                                value={background_colour}
                                 inline
                                 disabled></ColorPicker>
                         </div>
@@ -189,8 +192,9 @@ class EpicDetailsModal extends Component {
         }
     }
     render() {
+        var background_colour = this.state.epic.completed ? 'c7c7c7' : this.state.epic.epic_colour;
         var epic_box = (
-            <div style={{ background: '#' + this.state.epic.epic_colour }} className="epic-box" onClick={this.toggleModal}>
+            <div style={{ background: '#' + background_colour }} className="epic-box" onClick={this.toggleModal}>
                 {this.state.epic.title}
             </div>
         );
@@ -207,7 +211,7 @@ class EpicDetailsModal extends Component {
                         minWidth: '60vw',
                         minHeight: '100vh',
                         margin: '0px',
-                        boxShadow: 'inset 0 0 2em 0.5em #' + this.state.epic.epic_colour + ', 0 0 2em 0.5em #' + this.state.epic.epic_colour
+                        boxShadow: 'inset 0 0 2em 0.5em #' + background_colour + ', 0 0 2em 0.5em #' + background_colour
                     }}>
                     {this.isEditing()}
                 </Modal>

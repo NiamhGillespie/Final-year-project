@@ -1,12 +1,17 @@
 import axios from 'axios';
-import {
-    API_URL_STORY_DETAILS,
-    API_URL_TRACKING_COLUMN_DETAILS,
-} from '../../constants';
+import { API_URL_STORY_DETAILS, API_URL_TRACKING_COLUMN_DETAILS } from '../../constants';
 
-export async function updateStory(story_id, column_title, non_completed_stories) {
+export async function updateStory(story_id, column, non_completed_stories) {
     var story = non_completed_stories.filter((story) => story.id === parseInt(story_id))[0];
-    story.state = column_title.toString();
+    story.state = column.title.toString();
+
+    if (column.mark_as_complete === true) {
+        console.log("marking as complete...")
+        story.completed = true;
+    } else {
+        console.log("marking as incomplete...")
+        story.completed = false;
+    }
     await axios.put(API_URL_STORY_DETAILS + story_id + '/details', story);
 }
 
@@ -27,7 +32,7 @@ export async function updateNewColumn(story_id, column_id, new_index, columns) {
     column.stories = ordered_ids;
     column.story_list = ordered_ids.toString();
     await axios.put(API_URL_TRACKING_COLUMN_DETAILS + column_id, column);
-    return column.title;
+    return column;
 }
 
 export async function updateOldColumn(story_id, column_id, columns) {

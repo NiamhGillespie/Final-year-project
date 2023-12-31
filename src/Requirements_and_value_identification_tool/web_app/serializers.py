@@ -4,8 +4,8 @@ from .models import *
 class EpicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Epic
-        fields = ('id', 'epic_id', 'epic_colour', 'dashboard_id', 'title', 'order', 'tags', 'values', 'completed', 
-                  'last_edited_by', 'last_edited', 'created_by', 'time_created')
+        fields = ('id', 'epic_id', 'epic_colour', 'dashboard_id', 'title', 'order', 'tags', 'values',
+                  'last_edited_by', 'last_edited', 'created_by', 'time_created', 'completed')
 
 class StorySerializer(serializers.ModelSerializer):
     class Meta:

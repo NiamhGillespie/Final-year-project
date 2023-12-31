@@ -8,6 +8,7 @@ import EpicDetailsModal from '../epic_forms/epic_details_modal';
 import AddStoryModal from '../story_forms/add_story_modal';
 import AddEpicModal from '../epic_forms/add_epic_modal';
 import { epicsAddedThisWeek, highPriorityStories, storiesAddedThisWeek } from '../helper-methods/stats_bar_methods';
+import { Button } from 'reactstrap';
 
 export class EpicsDashboard extends Component {
     state = {
@@ -15,7 +16,8 @@ export class EpicsDashboard extends Component {
         stories: [],
         colour: null,
         parent: null,
-        current_stories: []
+        current_stories: [],
+        filter: 'uncomplete_only'
     };
 
     async componentDidMount() {
@@ -23,17 +25,50 @@ export class EpicsDashboard extends Component {
     }
 
     async getEpics() {
-        await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0] }));
+        if (this.state.filter === 'all') {
+            await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0] }));
+        }
+
+        if (this.state.filter === 'uncomplete_only') {
+            await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0].filter((epic) => epic.completed === false) }));
+        }
+
+        if (this.state.filter === 'complete_only') {
+            await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0].filter((epic) => epic.completed === true) }));
+        }
     }
 
     async getStories() {
-        await axios.get(API_URL).then((response) => this.setState({ stories: response.data[1] }));
+        if (this.state.filter === 'all') {
+            await axios.get(API_URL).then((response) => this.setState({ stories: response.data[1] }));
+        }
+
+        if (this.state.filter === 'uncomplete_only') {
+            await axios.get(API_URL).then((response) => this.setState({ stories: response.data[1].filter((story) => story.completed === false) }));
+        }
+
+        if (this.state.filter === 'complete_only') {
+            await axios.get(API_URL).then((response) => this.setState({ stories: response.data[1].filter((story) => story.completed === true) }));
+
+            var stories_and_epics = await axios.get(API_URL)
+            var epic_ids = stories_and_epics.data[1].filter((story) => story.completed === true).map(story => story.epic_id);
+            var other_epic_ids = stories_and_epics.data[0].filter((epic) => epic.completed === true).map(epic => epic.epic_id);
+            var all_epics = epic_ids.concat(other_epic_ids)
+            
+            await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0].filter((epic) => all_epics.includes(epic.epic_id))}))            
+        }
     }
 
     resetState = () => {
         this.getEpics();
         this.getStories();
     };
+
+    changeFilter(filterName) {
+        this.setState({ filter: filterName });
+        this.state.filter = filterName
+        this.resetState();
+    }
 
     epics_drag_and_drop(epics) {
         if (epics.length !== 0) {
@@ -55,8 +90,7 @@ export class EpicsDashboard extends Component {
                                                 <div
                                                     className="epic-container"
                                                     style={{ border: snapshot.draggingOver ? '3px solid #' + epic.epic_colour + '60' : '' }}
-                                                    key={epic.id}
-                                                >
+                                                    key={epic.id}>
                                                     <div {...provided.dragHandleProps}>
                                                         <EpicDetailsModal resetState={this.resetState} epic={epic} stories={this.state.stories} />
                                                     </div>
@@ -71,7 +105,6 @@ export class EpicsDashboard extends Component {
                                                                 epic_colour={epic.epic_colour}
                                                             />
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -115,7 +148,11 @@ export class EpicsDashboard extends Component {
                                             {(provided) => (
                                                 <div ref={provided.innerRef} {...provided.draggableProps}>
                                                     <div {...provided.dragHandleProps}>
-                                                        <StoryDetailsModal resetState={this.resetState} story={story} epic_colour={epic_colour} />
+                                                        <StoryDetailsModal
+                                                            resetState={this.resetState}
+                                                            story={story}
+                                                            epic_colour={story.completed ? 'c7c7c7' : epic_colour}
+                                                        />
                                                     </div>
                                                 </div>
                                             )}
@@ -144,7 +181,7 @@ export class EpicsDashboard extends Component {
         this.setState({ epics: epics });
     }
 
-        reorderStories(stories, startIndex, endIndex) {
+    reorderStories(stories, startIndex, endIndex) {
         const [removed] = stories.splice(startIndex, 1);
         stories.splice(endIndex, 0, removed);
 
@@ -156,7 +193,6 @@ export class EpicsDashboard extends Component {
 
         this.getStories();
     }
-
 
     displayStories(epic_id, epic_colour) {
         var stories = this.state.stories;
@@ -188,6 +224,13 @@ export class EpicsDashboard extends Component {
                     <div className="border-bottom d-flex flex-row flex-nowrap">
                         <p className="text-center"> {this.displayStatsBar()} </p>
                         <AddEpicModal create={true} resetState={this.resetState} className="align-self-stretch" />
+                    </div>
+
+                    
+                    <div>
+                        <Button onClick={() => { this.changeFilter('all')}}> Display all </Button>
+                        <Button onClick={() => this.changeFilter('uncomplete_only')}> Display uncomplete only </Button>
+                        <Button onClick={() => this.changeFilter('complete_only')}> Display complete only </Button>
                     </div>
 
                     <div>

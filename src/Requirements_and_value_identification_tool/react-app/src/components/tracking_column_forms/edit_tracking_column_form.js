@@ -24,10 +24,10 @@ class EditColumnForm extends Component {
 
         validate: {
             WIP: 'valid',
-            title: this.props.column.title === 'Done' ?  'protected_keyword' : 'valid',
+            title: this.props.column.title === 'Done' ? 'protected_keyword' : 'valid'
         },
 
-        checked: this.props.column.title === 'Done' ?  true : this.props.mark_as_complete
+        checked: this.props.column.title === 'Done' ? true : this.props.mark_as_complete
     };
 
     onChange = (e) => {
@@ -43,17 +43,17 @@ class EditColumnForm extends Component {
         if (this.state.mark_as_complete === false) {
             this.setState({ [e.target.name]: true });
             this.setState({ checked: true });
-            this.props.resetState()
+            this.props.resetState();
         } else {
             this.setState({ [e.target.name]: false });
             this.setState({ checked: false });
-            this.props.resetState()
+            this.props.resetState();
         }
 
         if (this.state.title === 'Done') {
             this.setState({ [e.target.name]: true });
             this.setState({ checked: true });
-            this.props.resetState()
+            this.props.resetState();
         }
     };
 
@@ -79,8 +79,9 @@ class EditColumnForm extends Component {
         this.setState({ story_list: this.state.stories.toString() });
         this.setState({ stories: this.state.stories });
 
+        console.log("UPDATING")
         if (this.state.mark_as_complete === true) {
-            this.markStoriesAsComplete(this.state.stories)
+            this.markStoriesAsComplete(this.state.stories);
         }
 
         if (this.state.validate.WIP !== 'valid' || (this.state.validate.title !== 'valid' && this.state.validate.title !== 'protected_keyword')) {
@@ -93,9 +94,25 @@ class EditColumnForm extends Component {
         }
     };
 
-    markStoriesAsComplete(stories) {
+    async markStoriesAsComplete(stories) {
         for (var i = 0; i < stories.length; i++) {
-            // update stories.completed to true
+            var full_story = await axios.get(API_URL_STORY_DETAILS + stories[i] + '/details');
+            full_story.data.completed = true;
+
+            await axios.put(API_URL_STORY_DETAILS + full_story.data.story_id + '/details', full_story.data).then(() => {
+                this.props.resetState();
+            });
+        }
+    }
+
+    async markStoriesAsUncomplete(stories) {
+        for (var i = 0; i < stories.length; i++) {
+            var full_story = await axios.get(API_URL_STORY_DETAILS + stories[i] + '/details');
+            full_story.data.completed = false;
+
+            await axios.put(API_URL_STORY_DETAILS + full_story.data.story_id + '/details', full_story.data).then(() => {
+                this.props.resetState();
+            });
         }
     }
 
@@ -115,6 +132,10 @@ class EditColumnForm extends Component {
         }
         this.setState({ story_list: story_ids.toString() });
         this.setState({ stories: story_ids });
+
+        if (this.state.mark_as_complete === true) {
+            this.markStoriesAsComplete(this.state.stories);
+        }
     };
 
     onStoryDeletion = (e) => {
@@ -124,6 +145,10 @@ class EditColumnForm extends Component {
         }
         this.setState({ story_list: story_ids.toString() });
         this.setState({ stories: story_ids });
+
+        if (this.state.mark_as_complete === true) {
+            this.markStoriesAsUncomplete(this.state.stories);
+        }
     };
 
     displayStories() {
@@ -170,7 +195,7 @@ class EditColumnForm extends Component {
             validate.title = 'too_short';
         } else if (e.target.value.length > 30) {
             validate.title = 'too_long';
-        } else if (e.target.value === 'Done'){
+        } else if (e.target.value === 'Done') {
             validate.title = 'protected_keyword';
             this.setState({ checked: true });
             this.setState({ mark_as_complete: true });
@@ -214,8 +239,7 @@ class EditColumnForm extends Component {
                         {this.state.validate.title === 'too_short' && <p> Please enter a title </p>}
                         {this.state.validate.title === 'too_long' && <p> A title can't be longer than 30 characters </p>}
                     </FormFeedback>
-                    <FormFeedback valid> Done is a protected keyword - stories in this column will automatically be marked as completed
-                    </FormFeedback>
+                    <FormFeedback valid> Done is a protected keyword - stories in this column will automatically be marked as completed</FormFeedback>
                 </FormGroup>
 
                 <FormGroup>

@@ -55,10 +55,10 @@ export class TrackingDashboard extends Component {
             await updateOldColumn(story_id, old_column_id, this.state.columns);
 
             //add story to new column at order - is adding to new column
-            var column_title = await updateNewColumn(story_id, result_destination.droppableId, result_destination.index, this.state.columns);
+            var column = await updateNewColumn(story_id, result_destination.droppableId, result_destination.index, this.state.columns);
 
             //need to update story to say what column it's in
-            await updateStory(story_id, column_title, this.state.non_completed_stories);
+            await updateStory(story_id, column, this.state.non_completed_stories);
         } else {
             await updateColumStoryOrder(old_column_id, story_id, result_destination.index, old_index, this.state.columns);
         }
