@@ -304,3 +304,6 @@
 
 ### 29 Dec 2023
 * *7 hours* Finished form validation, improved the mark_as_complete/done functionality in the tracking column dashboard so if a column has the title 'Done' then the column's mark_as_complete is marked as true, also added a 'completed' field to epics and stories to allow for future epic dashboard filtering, also created a figma design to add filtering to the epic dashboard design.
+
+### 31 Dec 2023
+* *6 hours* Edited the tracking dashboard so stories that are put into any column with the 'mark as completed' section as true are automatically marked as completed, they are then displayed as grey on the epics dashboard. Epics can also be marked as completed through the epic details functionality on the epic dashboard. I then added 3 filters to the dashboard (all, uncompleted only and completed only) so that users can choose which subset of stories and epics they want to view.
