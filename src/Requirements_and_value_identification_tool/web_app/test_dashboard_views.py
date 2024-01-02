@@ -19,8 +19,7 @@ class EpicDashboardTests(TestCase):
         populate()
         response = client.get('/api/teamName/epicsDashboard')
         
-        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('order', 1), ('tags', []), ('values', [0, 1]), ('completed', False), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])], 
-                         [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('order', 1), ('tags', [0]), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('values', [0]), ('story_points', '3'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('state', 'In progress'), ('completed', False), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
+        expected_data = [[OrderedDict([('id', 1), ('epic_id', '1'), ('epic_colour', 'c93434'), ('dashboard_id', '0'), ('title', 'Epic for testing'), ('order', 1), ('tags', []), ('values', [0, 1]), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00'), ('completed', False)])], [OrderedDict([('id', 1), ('story_id', '1'), ('epic_id', '1'), ('title', 'Story for testing'), ('order', 1), ('tags', [0]), ('user_story', 'As a developer, I want to have a test story, so I can use it in the react app'), ('definition_of_done', 'Test story should display on REST framework page'), ('values', [0]), ('story_points', '3'), ('priority', 'MEDIUM'), ('pairable', False), ('assigned_to', 'Niamh'), ('state', 'In progress'), ('completed', False), ('last_edited_by', 'Niamh'), ('last_edited', '2023-10-03 15:00:00'), ('created_by', 'Niamh'), ('time_created', '2023-10-03 15:00:00')])]]
         self.assertEqual(response.data, expected_data)
 
     def test_add_epic_POST_request_returns_201(self):
@@ -312,7 +311,7 @@ class SprintTests(TestCase):
         populate()
         response = client.get('/api/teamName/sprints')
         
-        expected_data = [OrderedDict([('id', 0), ('sprint_id', 'error'), ('dashboard_id', '0000'), ('start_date', '2023-12-29'), ('end_date', '2023-12-29'), ('stories', []), ('story_list', '')])] 
+        expected_data = [OrderedDict([('id', 0), ('sprint_id', 'error'), ('dashboard_id', '0000'), ('start_date', '2024-01-02'), ('end_date', '2024-01-02'), ('stories', []), ('story_list', '')])] 
         self.assertEqual(response.data, expected_data)
 
     def test_add_value_POST_request_returns_201(self):

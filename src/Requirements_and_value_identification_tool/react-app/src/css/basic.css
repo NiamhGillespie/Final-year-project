@@ -4,12 +4,12 @@
 }
 
 .btn-primary{
-        color: white !important;
-        border-color: var(--blue-highlight) !important;
-        background-color: var(--blue-highlight) !important;
-        box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.25) !important;
-        border-radius: 10px !important;
-        padding: 1vh 2vh !important;
+    color: white !important;
+    border-color: var(--blue-highlight) !important;
+    background-color: var(--blue-highlight) !important;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 10px !important;
+    padding: 1vh 2vh !important;
 }
 
 .custom-form-error-message{ 

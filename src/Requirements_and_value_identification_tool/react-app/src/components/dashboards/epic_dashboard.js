@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/basic.css';
+import '../../css/tag_dashboard.css';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { DragDropContext, Droppable, Draggable } from '../../constants/drag_and_drop';
@@ -50,12 +51,14 @@ export class EpicsDashboard extends Component {
         if (this.state.filter === 'complete_only') {
             await axios.get(API_URL).then((response) => this.setState({ stories: response.data[1].filter((story) => story.completed === true) }));
 
-            var stories_and_epics = await axios.get(API_URL)
-            var epic_ids = stories_and_epics.data[1].filter((story) => story.completed === true).map(story => story.epic_id);
-            var other_epic_ids = stories_and_epics.data[0].filter((epic) => epic.completed === true).map(epic => epic.epic_id);
-            var all_epics = epic_ids.concat(other_epic_ids)
-            
-            await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0].filter((epic) => all_epics.includes(epic.epic_id))}))            
+            var stories_and_epics = await axios.get(API_URL);
+            var epic_ids = stories_and_epics.data[1].filter((story) => story.completed === true).map((story) => story.epic_id);
+            var other_epic_ids = stories_and_epics.data[0].filter((epic) => epic.completed === true).map((epic) => epic.epic_id);
+            var all_epics = epic_ids.concat(other_epic_ids);
+
+            await axios
+                .get(API_URL)
+                .then((response) => this.setState({ epics: response.data[0].filter((epic) => all_epics.includes(epic.epic_id)) }));
         }
     }
 
@@ -65,8 +68,7 @@ export class EpicsDashboard extends Component {
     };
 
     changeFilter(filterName) {
-        this.setState({ filter: filterName });
-        this.state.filter = filterName
+        this.state.filter = filterName;
         this.resetState();
     }
 
@@ -226,11 +228,29 @@ export class EpicsDashboard extends Component {
                         <AddEpicModal create={true} resetState={this.resetState} className="align-self-stretch" />
                     </div>
 
-                    
-                    <div>
-                        <Button onClick={() => { this.changeFilter('all')}}> Display all </Button>
-                        <Button onClick={() => this.changeFilter('uncomplete_only')}> Display uncomplete only </Button>
-                        <Button onClick={() => this.changeFilter('complete_only')}> Display complete only </Button>
+                    <div className='mt-1'>
+                        <p
+                            onClick={() => this.changeFilter('all')}
+                            className={this.state.filter === 'all' ? 'active-choice-button' : 'inactive-choice-button'}
+                            style={{ borderRight: '2px solid white' }}>
+                            Display all
+                        </p>
+                        <p
+                            onClick={() => this.changeFilter('uncomplete_only')}
+                            className={this.state.filter === 'uncomplete_only' ? 'active-choice-button' : 'inactive-choice-button'}
+                            style={{ borderRight: '2px solid white' }}>
+                            Display uncomplete only
+                        </p>
+                        <p
+                            onClick={() => this.changeFilter('complete_only')}
+                            className={this.state.filter === 'complete_only' ? 'active-choice-button' : 'inactive-choice-button'}
+                            style={{ borderRight: '2px solid white' }}>
+                            Display complete only
+                        </p>
+
+                        <p onClick={() => this.changeFilter('complete_only')} className="float-end inactive-choice-button">
+                            Search bar?
+                        </p>
                     </div>
 
                     <div>

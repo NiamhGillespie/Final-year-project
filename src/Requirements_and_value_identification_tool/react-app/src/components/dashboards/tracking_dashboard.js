@@ -17,7 +17,8 @@ export class TrackingDashboard extends Component {
         columns: [],
         non_completed_stories: [],
         epics: [],
-        sprint: {}
+        sprint: {},
+        filter: 'all',
     };
 
     async componentDidMount() {
@@ -48,6 +49,11 @@ export class TrackingDashboard extends Component {
         this.getNonCompletedStories();
         this.getEpics();
     };
+
+    changeFilter(filterName) {
+        this.state.filter = filterName;
+        this.resetState();
+    }
 
     async reorderStories(result_destination, story_id, old_column_id, old_index) {
         if (old_column_id !== result_destination.droppableId) {
@@ -193,6 +199,38 @@ export class TrackingDashboard extends Component {
                     <AddColumnModal resetState={this.resetState} />
                     {this.displaySprintSettings()}
                 </div>
+
+                <div className='ms-4 mt-2'>
+                        <p
+                            onClick={() => this.changeFilter('all')}
+                            className={this.state.filter === 'all' ? 'active-choice-button' : 'inactive-choice-button'}
+                            style={{ borderRight: '2px solid white'}}>
+                            All
+                        </p>
+
+                        <p
+                            onClick={() => this.changeFilter('24_hours')}
+                            className={this.state.filter === '24_hours' ? 'active-choice-button' : 'inactive-choice-button'}
+                            style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
+                            24
+                        </p>
+
+                        <p
+                            onClick={() => this.changeFilter('48_hours')}
+                            className={this.state.filter === '48_hours' ? 'active-choice-button' : 'inactive-choice-button'}
+                            style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
+                            48
+                        </p>
+
+                        <p
+                            onClick={() => this.changeFilter('72_hours')}
+                            className={this.state.filter === '72_hours' ? 'active-choice-button' : 'inactive-choice-button'}
+                            style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
+                            72
+                        </p>
+
+                    </div>
+
 
                 <div className="d-flex flex-row overflow-y mt-0">{this.displayColumns()}</div>
             </>
