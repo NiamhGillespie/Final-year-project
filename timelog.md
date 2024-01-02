@@ -307,3 +307,6 @@
 
 ### 31 Dec 2023
 * *6 hours* Edited the tracking dashboard so stories that are put into any column with the 'mark as completed' section as true are automatically marked as completed, they are then displayed as grey on the epics dashboard. Epics can also be marked as completed through the epic details functionality on the epic dashboard. I then added 3 filters to the dashboard (all, uncompleted only and completed only) so that users can choose which subset of stories and epics they want to view.
+
+### 2 Jan 2024
+* *4.5 hours* Finalised the user structure, updated my django unit tests so they pass again. Also updated the filters on they epic dashboard so the user interface shows which filter is selected and began working on time based filters for the tracking dashboard.
