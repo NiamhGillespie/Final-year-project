@@ -310,3 +310,8 @@
 
 ### 2 Jan 2024
 * *4.5 hours* Finalised the user structure, updated my django unit tests so they pass again. Also updated the filters on they epic dashboard so the user interface shows which filter is selected and began working on time based filters for the tracking dashboard.
+
+## Week 15
+
+### 6 Jan 2024
+* *8 hours* Finished time based filters on the tracking dashboard and refactored part of the display story methods to work with the new time-based display. Also created initial designs for user management (login, sign up and admin pages) - sign up design needs to be improved but most designs have been chosen. Started work on login page. 
