@@ -10,6 +10,7 @@ import TrackingSettingsModal from '../tracking_settings_forms/tracking_settings_
 import AddColumnModal from '../tracking_column_forms/add_tracking_column_modal';
 import { updateColumStoryOrder, updateNewColumn, updateOldColumn, updateStory } from '../helper-methods/column_update_methods';
 import { displayPriority } from '../helper-methods/story_display_methods';
+import { storiesEdited24Hours, storiesEdited48Hours, storiesEdited72Hours } from '../helper-methods/time_filter_methods';
 
 export class TrackingDashboard extends Component {
     state = {
@@ -18,7 +19,7 @@ export class TrackingDashboard extends Component {
         non_completed_stories: [],
         epics: [],
         sprint: {},
-        filter: 'all',
+        filter: 'all'
     };
 
     async componentDidMount() {
@@ -34,9 +35,24 @@ export class TrackingDashboard extends Component {
     }
 
     async getNonCompletedStories() {
-        await axios
-            .get(API_URL)
-            .then((response) => this.setState({ non_completed_stories: response.data[1].filter((story) => story.state !== '???') })); //WHAT AM I DOING  HERE??
+        if (this.state.filter === 'all') {
+            await axios.get(API_URL).then((response) => this.setState({ non_completed_stories: response.data[1] }));
+        }
+
+        if (this.state.filter === '24_hours') {
+            await axios.get(API_URL).then((response) => this.state.non_completed_stories = storiesEdited24Hours(response.data[1]) );
+            console.log(this.state.non_completed_stories)
+        }
+
+        if (this.state.filter === '48_hours') {
+            await axios.get(API_URL).then((response) => this.state.non_completed_stories = storiesEdited48Hours(response.data[1]) );
+            console.log("48 hour stories..", this.state.non_completed_stories, this.state.filter);
+        }
+
+        if (this.state.filter === '72_hours') {
+            await axios.get(API_URL).then((response) => this.state.non_completed_stories = storiesEdited72Hours(response.data[1]) );
+            console.log("72 hour stories ...", this.state.non_completed_stories, this.state.filter)
+        }
     }
 
     async getEpics() {
@@ -48,6 +64,7 @@ export class TrackingDashboard extends Component {
         this.getColumns();
         this.getNonCompletedStories();
         this.getEpics();
+        this.displayColumns();
     };
 
     changeFilter(filterName) {
@@ -135,8 +152,22 @@ export class TrackingDashboard extends Component {
         return return_list;
     }
 
+    filterIds(orderIds) {
+        var filteredIds = []
+        var idList = orderIds.split(',')
+        for (var i = 0; i < idList.length; i++) {
+            for (var j = 0; j < this.state.non_completed_stories.length; j++) {
+                if (parseInt(idList[i]) === this.state.non_completed_stories[j].id) {
+                    filteredIds.push(idList[i])
+                }
+            }
+        }
+
+        return filteredIds
+    }
+
     displayStories(column) {
-        var ordered_ids = column.story_list.split(',');
+        var ordered_ids = this.filterIds(column.story_list)
         var stories = [];
         var story_colours = [];
         if (
@@ -200,37 +231,35 @@ export class TrackingDashboard extends Component {
                     {this.displaySprintSettings()}
                 </div>
 
-                <div className='ms-4 mt-2'>
-                        <p
-                            onClick={() => this.changeFilter('all')}
-                            className={this.state.filter === 'all' ? 'active-choice-button' : 'inactive-choice-button'}
-                            style={{ borderRight: '2px solid white'}}>
-                            All
-                        </p>
+                <div className="ms-4 mt-2">
+                    <p
+                        onClick={() => this.changeFilter('all')}
+                        className={this.state.filter === 'all' ? 'active-choice-button' : 'inactive-choice-button'}
+                        style={{ borderRight: '2px solid white' }}>
+                        All
+                    </p>
 
-                        <p
-                            onClick={() => this.changeFilter('24_hours')}
-                            className={this.state.filter === '24_hours' ? 'active-choice-button' : 'inactive-choice-button'}
-                            style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
-                            24
-                        </p>
+                    <p
+                        onClick={() => this.changeFilter('24_hours')}
+                        className={this.state.filter === '24_hours' ? 'active-choice-button' : 'inactive-choice-button'}
+                        style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
+                        24
+                    </p>
 
-                        <p
-                            onClick={() => this.changeFilter('48_hours')}
-                            className={this.state.filter === '48_hours' ? 'active-choice-button' : 'inactive-choice-button'}
-                            style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
-                            48
-                        </p>
+                    <p
+                        onClick={() => this.changeFilter('48_hours')}
+                        className={this.state.filter === '48_hours' ? 'active-choice-button' : 'inactive-choice-button'}
+                        style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
+                        48
+                    </p>
 
-                        <p
-                            onClick={() => this.changeFilter('72_hours')}
-                            className={this.state.filter === '72_hours' ? 'active-choice-button' : 'inactive-choice-button'}
-                            style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
-                            72
-                        </p>
-
-                    </div>
-
+                    <p
+                        onClick={() => this.changeFilter('72_hours')}
+                        className={this.state.filter === '72_hours' ? 'active-choice-button' : 'inactive-choice-button'}
+                        style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
+                        72
+                    </p>
+                </div>
 
                 <div className="d-flex flex-row overflow-y mt-0">{this.displayColumns()}</div>
             </>

@@ -5,6 +5,12 @@ export async function updateStory(story_id, column, non_completed_stories) {
     var story = non_completed_stories.filter((story) => story.id === parseInt(story_id))[0];
     story.state = column.title.toString();
 
+    const date = new Date();
+    story.last_edited = date.toDateString();
+
+    //UPDATE THIS IN FUTURE
+    story.last_edited_by = "Update me once users exist :)"
+
     if (column.mark_as_complete === true) {
         console.log("marking as complete...")
         story.completed = true;

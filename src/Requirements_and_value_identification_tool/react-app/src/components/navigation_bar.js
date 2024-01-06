@@ -60,7 +60,7 @@ export class NavigationBar extends Component {
                             </NavItem>
 
                             <NavItem>
-                                <NavLink className="text-dark nav-item">
+                                <NavLink tag={Link} className="text-dark nav-item" to="/login">
                                     <span>Log in </span>
                                 </NavLink>
                             </NavItem>
