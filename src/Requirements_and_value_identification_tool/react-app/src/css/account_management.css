@@ -1,0 +1,177 @@
+:root {
+    --blue-background: #58c1d640;
+    --blue-strong: #58c1d6;
+}
+
+.add-team-box {
+    background-color: var(--blue-background);
+    margin: auto;
+    margin-top: 1vh;
+    margin-bottom: 0px;
+    width: 85vw;
+    height: 75vh;
+    border-radius: 10px;
+    padding: 5vh;
+}
+
+.add-team-title {
+    width: 85vw;
+    margin: auto;
+    padding-left: 2vh; 
+}
+
+.left-add-team-box {
+    width: 60%;
+    border-right: 1px solid white;
+    padding: 2vh;
+    float: left;
+    height: 90%;
+}
+
+.right-add-team-box {
+    width: 40%;
+    padding: 2vh;
+    float: right;
+    height: 90%;
+}
+
+.team-profile-photo {
+    border-radius: 100%;
+    margin-right: 0px;
+    margin-top: 5px;
+    width: 12vh;
+    height: 12vh;
+    background-color: white;
+    float: left;
+}
+
+.team-profile-photo-title {
+    height: 12vh;
+    line-height: 12vh;
+    text-align: center;
+    margin-right: 2vh;
+}
+
+
+.view-teams-box {
+    background-color: var(--blue-background);
+    margin: auto;
+    margin-top: 0vh;
+    margin-bottom: 0px;
+    width: 85vw;
+    min-height: 79vh;
+    border-radius: 10px;
+    padding: 5vh;
+}
+
+.team-card{
+    background-color: white;
+    border-radius: 15px;
+    height: 12vh;
+    width: 80vw;
+    margin: auto;
+    margin-bottom: 2vh;
+    border: 2px solid var(--blue-strong)
+}
+
+.team-card-photo {
+    border-radius: 100%;
+    margin: 2vh;
+    width: 8vh;
+    height: 8vh;
+    background-color: var(--blue-background);
+    float: left;
+    display: flex;
+}
+
+.team-card-info {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 3vh;
+}
+
+.edit-button {
+    float: right;
+    display: inline;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 2vh;
+    height: 4vh;
+    padding: 0vh 2vh;
+    border-radius: 15px;
+    color: var(--blue-strong);
+    border:  2px solid var(--blue-strong);
+}
+
+.drop-filter{
+    padding: 0vh 2vh;
+    text-align: center;
+    border-radius: 2px;
+    color: var(--blue-strong);
+    border:  2px solid var(--blue-strong); 
+    background-color: white;
+    width: 10vw;
+    height: 2vw;
+    margin-bottom: 1vh;
+    float: left;
+}
+
+.search-bar{
+    padding: 0vh 2vh;
+    border-radius: 2px;
+    color: var(--blue-strong);
+    border:  2px solid var(--blue-strong); 
+    background-color: white;
+    width: 10vw;
+    height: 2vw;
+    margin-bottom: 1vh;
+    float: right;
+    text-align: center;
+}
+
+.teams-details-box {
+    background-color: var(--blue-background);
+    margin: auto;
+    margin-top: 0vh;
+    margin-bottom: 0px;
+    width: 85vw;
+    min-height: 79vh;
+    border-radius: 10px;
+    padding: 2vh;
+}
+
+.view-teams-section-one{
+    top:0px !important;
+    height: 45vh !important;
+    width: 55vw !important;
+    background-color: powderblue;
+    display: inline-block;
+    overflow: auto;
+    margin-bottom: 0px;
+}
+
+.view-teams-section-two {
+    padding: 2vh;
+    height: 45vh !important;
+    width: 28vw !important;
+    background-color: greenyellow;
+    display: inline-block !important;
+    overflow: auto;
+    margin-bottom: 0px;
+}
+
+.view-teams-section-three {
+    height: 30vh;
+    width: 83vw;
+    background-color: white;
+    margin-top: 0px;
+}
+
+.progress-tracker {
+    margin-right: 30px !important;
+}
+
+.left-margin {
+    margin-left: 30px !important;
+}

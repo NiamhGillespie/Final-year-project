@@ -18,7 +18,7 @@ def EpicDashboardInfo(request):
         story_serializer = StorySerializer(story_data, context={'request': request}, many=True)
 
         epic_and_story_data = [epic_serializer.data, story_serializer.data]
-        print(epic_and_story_data)
+
         return Response(epic_and_story_data)
     
     if request.method == 'POST':
@@ -238,8 +238,7 @@ def ColumnDetail(request, column_id):
         if column_serializer.is_valid():      
             column_serializer.save()
             return Response(status=status.HTTP_201_CREATED)
-        
-        print(column_serializer.errors, request.data)
+      
         return Response(column_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -312,3 +311,7 @@ def getCurrentTeamSprint(request):
         
         if current_found == False:
             return Response({}, status=status.HTTP_200_OK)
+        
+@api_view(['POST'])
+def login(request):
+    print("write me!")

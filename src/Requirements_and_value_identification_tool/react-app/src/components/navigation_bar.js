@@ -36,13 +36,13 @@ export class NavigationBar extends Component {
                             </NavItem>
 
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark nav-item" to="/teamTags">
+                                <NavLink tag={Link} className="text-dark nav-item" to="/teamName/teamTags">
                                     <span>Tag Dashboard </span>
                                 </NavLink>
                             </NavItem>
 
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark nav-item" to="/teamName">
+                                <NavLink tag={Link} className="text-dark nav-item" to="/teamName/details">
                                     <span>Team Dashboard </span>
                                 </NavLink>
                             </NavItem>
@@ -64,6 +64,26 @@ export class NavigationBar extends Component {
                                     <span>Log in </span>
                                 </NavLink>
                             </NavItem>
+
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark nav-item" to="/sign-up">
+                                    <span>Sign up </span>
+                                </NavLink>
+                            </NavItem>
+
+                            {/* admin pages */}
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark nav-item" to="admin/add-team">
+                                    <span>Add team </span>
+                                </NavLink>
+                            </NavItem>
+
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark nav-item" to="admin/view-teams">
+                                    <span> View Teams </span>
+                                </NavLink>
+                            </NavItem>
+
                         </ul>
                     </Collapse>
                 </Navbar>

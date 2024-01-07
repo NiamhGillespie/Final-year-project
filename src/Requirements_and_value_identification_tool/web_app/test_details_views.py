@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from django.test import TestCase, Client
 from population_script import populate
 
@@ -358,7 +358,13 @@ class SprintDetailsTests(TestCase):
         populate()
         response = client.get('/api/teamName/sprint-details/0')
         
-        expected_data = {'id': 0, 'sprint_id': 'error', 'dashboard_id': '0000', 'start_date': '2024-01-02', 'end_date': '2024-01-02', 'stories': [], 'story_list': ''}
+        current_date = str(date.today())
+        date_format = '%Y-%m-%d'
+
+        formatted_current_date = datetime.strptime(current_date, date_format)
+
+        expected_data = {'id': 0, 'sprint_id': 'error', 'dashboard_id': '0000', 'start_date': str(formatted_current_date.date())
+                         , 'end_date': str(formatted_current_date.date()), 'stories': [], 'story_list': ''}
         self.assertEqual(response.data, expected_data)
 
     def test_bad_GET_request(self):

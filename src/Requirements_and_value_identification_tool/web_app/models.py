@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date, datetime
 
+
 # Create your models here.
 
 class Tag(models.Model):
@@ -118,3 +119,32 @@ class Sprint(models.Model):
         else:
             return False
         
+class Organisation(models.Model):
+    organisation_id = models.CharField(max_length=8, default='error')
+    name = models.CharField(max_length=128, default='error')
+    teams = models.ManyToManyField("Team", blank=True)
+    admins = models.ManyToManyField("User", blank=True)
+
+    def __str__(self):
+        return self.organisation_id
+    
+class Team(models.Model):
+    name = models.CharField(max_length=32, default='error')
+    picture = models.ImageField()
+    #team_leads = models.ManyToManyField("User", blank=True)
+    team_members = models.ManyToManyField("User", blank=True)
+
+    def __str__(self):
+        return self.name 
+
+class User(models.Model):
+    username = models.CharField(max_length=32, default='error', unique=True)
+    first_name = models.CharField(max_length=128, default='error')
+    surname_name = models.CharField(max_length=128, default='error')
+    role = models.CharField(max_length=32, default='error')
+
+    if role == 'team_member' or role == 'team_lead':
+        teams = models.ManyToManyField(Team, blank=True)
+
+    def __str__(self):
+        return self.username

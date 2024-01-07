@@ -14,11 +14,15 @@ export class LogIn extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
+    logIn() {
+        console.log("loggin in...")
+    }
+
     render() {
         return (
-            <Form onSubmit={this.createStory}>
+            <Form onSubmit={this.logIn}>
                 <div className="login-box">
-                    Login to -brand name-!
+                    <h3 className="text-center mb-3"> Login to -brand name-! </h3>
                     <FormGroup>
                         <Label for="username">Username:</Label>
                         <Input type="text" name="username" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.username)} />
@@ -29,7 +33,7 @@ export class LogIn extends Component {
                         <Input type="text" name="password" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.password)} />
                     </FormGroup>
 
-                    <p>Don’t have an account? Add your organistation or contact your system administrator!</p>
+                    <p className="text-center mb-3 mt-4"> Don’t have an account? Add your organistation or contact your system administrator!</p>
 
                     <Button className='btn-primary login-button'> Log in </Button>
                 </div>

@@ -9,6 +9,10 @@ import EpicsDashboard from './components/dashboards/epic_dashboard';
 import TagDashboard from './components/dashboards/tag_dashboard';
 import TeamDashboard from './components/dashboards/team_dashboard';
 import LogIn from './components/account_management/log_in';
+import SignUp from './components/account_management/sign_up';
+import ViewTeams from './components/account_management/view_teams';
+import AddTeam from './components/account_management/add_team';
+import TeamDetails from './components/account_management/team_details';
 
 export default function App() {
   return (
@@ -18,10 +22,16 @@ export default function App() {
         <Routes>
           <Route path="/" element={<BaseTemplate />}>
             <Route path="login" element={<LogIn />} />
+            <Route path="sign-up" element={<SignUp />} />
+
+            <Route path="admin/add-team" element={<AddTeam />} />
+            <Route path="admin/view-teams" element={<ViewTeams />} />
+
+            <Route path="teamName/details" element={<TeamDetails />} />
 
             <Route index element={<Home />} />
-            <Route path="teamTags" element={<TagDashboard />} />
-            <Route path="teamName"  index element={<TeamDashboard />} />
+            <Route path="teamName/teamTags" element={<TagDashboard />} />
+            {/* <Route path="teamName"  index element={<TeamDashboard />} /> */}
             <Route path="teamName/epics-dashboard" element={<EpicsDashboard />} />
             <Route path="teamName/tracking-dashboard" element={<TrackingDashboard />} />
           </Route>
