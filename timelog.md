@@ -316,5 +316,5 @@
 ### 6 Jan 2024
 * *8 hours* Finished time based filters on the tracking dashboard and refactored part of the display story methods to work with the new time-based display. Also created initial designs for user management (login, sign up and admin pages) - sign up design needs to be improved but most designs have been chosen. Started work on login page. 
 
-### 6 Jan 2024
+### 7 Jan 2024
 * *9 hours* Finalised Figma designs for the user management pages. Realised my tests were failing through github actions, investigated this and discovered it was due to an accidental hardcoded comparison based on the current date so fixed this problem. I then created the Django models for user management. Next I created and styled the sign up, view list of teams and add team react pages. Then started work on the team details page.
