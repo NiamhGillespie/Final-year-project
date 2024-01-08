@@ -16,3 +16,6 @@ export const API_URL_TRACKING_COLUMN_DETAILS = 'http://localhost:8000/api/teamNa
 export const API_URL_SPRINTS = 'http://localhost:8000/api/teamName/sprints/';
 export const API_URL_CURRENT_SPRINT = 'http://localhost:8000/api/teamName/current-sprint/';
 export const API_URL_SPRINT_DETAILS = 'http://localhost:8000/api/teamName/sprint-details/';
+
+export const API_URL_ORGANISATIONS = 'http://localhost:8000/api/organisations/';
+export const API_URL_USERS = 'http://localhost:8000/api/organisationName/users';

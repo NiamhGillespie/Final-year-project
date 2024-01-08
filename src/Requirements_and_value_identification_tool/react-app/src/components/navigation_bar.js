@@ -36,7 +36,7 @@ export class NavigationBar extends Component {
                             </NavItem>
 
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark nav-item" to="/teamName/teamTags">
+                                <NavLink tag={Link} className="text-dark nav-item" to="/teamName/tag-dashboard">
                                     <span>Tag Dashboard </span>
                                 </NavLink>
                             </NavItem>
@@ -71,6 +71,12 @@ export class NavigationBar extends Component {
                                 </NavLink>
                             </NavItem>
 
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark nav-item" to="/username/details">
+                                    <span> User Profile </span>
+                                </NavLink>
+                            </NavItem>
+
                             {/* admin pages */}
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark nav-item" to="admin/add-team">
@@ -81,6 +87,12 @@ export class NavigationBar extends Component {
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark nav-item" to="admin/view-teams">
                                     <span> View Teams </span>
+                                </NavLink>
+                            </NavItem>
+
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark nav-item" to="admin/view-users">
+                                    <span> View Users </span>
                                 </NavLink>
                             </NavItem>
 

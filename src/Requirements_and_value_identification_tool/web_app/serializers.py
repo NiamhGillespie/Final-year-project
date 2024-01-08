@@ -32,3 +32,18 @@ class SprintSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sprint
         fields = ('id', 'sprint_id', 'dashboard_id', 'start_date', 'end_date', 'stories', 'story_list')
+
+class OrganisationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organisation
+        fields = ('id', 'name', 'teams', 'users')
+
+class TeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = ('id', 'name', 'picture', 'team_members')
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'belongs_to', 'username', 'first_name', 'surname', 'role', 'teams')

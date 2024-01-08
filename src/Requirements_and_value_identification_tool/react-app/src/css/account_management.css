@@ -1,8 +1,9 @@
 :root {
-    --blue-background: #58c1d640;
+    --blue-background: #58c1d630;
     --blue-strong: #58c1d6;
 }
 
+/* add teams page */
 .add-team-box {
     background-color: var(--blue-background);
     margin: auto;
@@ -17,7 +18,7 @@
 .add-team-title {
     width: 85vw;
     margin: auto;
-    padding-left: 2vh; 
+    padding-left: 2vh;
 }
 
 .left-add-team-box {
@@ -52,7 +53,7 @@
     margin-right: 2vh;
 }
 
-
+/* view teams page */
 .view-teams-box {
     background-color: var(--blue-background);
     margin: auto;
@@ -64,14 +65,14 @@
     padding: 5vh;
 }
 
-.team-card{
+.team-card {
     background-color: white;
     border-radius: 15px;
     height: 12vh;
     width: 80vw;
     margin: auto;
     margin-bottom: 2vh;
-    border: 2px solid var(--blue-strong)
+    border: 2px solid var(--blue-strong);
 }
 
 .team-card-photo {
@@ -101,15 +102,15 @@
     padding: 0vh 2vh;
     border-radius: 15px;
     color: var(--blue-strong);
-    border:  2px solid var(--blue-strong);
+    border: 2px solid var(--blue-strong);
 }
 
-.drop-filter{
+.drop-filter {
     padding: 0vh 2vh;
     text-align: center;
     border-radius: 2px;
     color: var(--blue-strong);
-    border:  2px solid var(--blue-strong); 
+    border: 2px solid var(--blue-strong);
     background-color: white;
     width: 10vw;
     height: 2vw;
@@ -117,11 +118,11 @@
     float: left;
 }
 
-.search-bar{
+.search-bar {
     padding: 0vh 2vh;
     border-radius: 2px;
     color: var(--blue-strong);
-    border:  2px solid var(--blue-strong); 
+    border: 2px solid var(--blue-strong);
     background-color: white;
     width: 10vw;
     height: 2vw;
@@ -130,6 +131,7 @@
     text-align: center;
 }
 
+/* team details */
 .teams-details-box {
     background-color: var(--blue-background);
     margin: auto;
@@ -141,27 +143,26 @@
     padding: 2vh;
 }
 
-.view-teams-section-one{
-    top:0px !important;
+.team-details-section-one {
+    top: 0px !important;
     height: 45vh !important;
     width: 55vw !important;
-    background-color: powderblue;
     display: inline-block;
     overflow: auto;
     margin-bottom: 0px;
 }
 
-.view-teams-section-two {
+.team-details-section-two {
     padding: 2vh;
     height: 45vh !important;
     width: 28vw !important;
-    background-color: greenyellow;
     display: inline-block !important;
     overflow: auto;
     margin-bottom: 0px;
+    border-left: 2px solid white;
 }
 
-.view-teams-section-three {
+.team-details-section-three {
     height: 30vh;
     width: 83vw;
     background-color: white;
@@ -174,4 +175,112 @@
 
 .left-margin {
     margin-left: 30px !important;
+}
+
+.large-circular-photo {
+    border-radius: 100%;
+    margin: 3vh;
+    width: 16vh;
+    height: 16vh;
+    background-color: white;
+    float: left;
+}
+
+.team-name-title {
+    font-size: 6vh;
+    height: 10vh !important;
+    margin-top: 3vh;
+    padding-top: 2vh;
+    margin-bottom: auto;
+    margin-left: 22vh !important;
+    width: 70%;
+}
+
+.team-subtitle {
+    margin-left: 23vh !important;
+    width: 30vw;
+}
+
+.link-area {
+    background-color: white;
+    padding: 2vh;
+    margin-left: 23vh;
+    margin-top: 2vh;
+    width: 20vw;
+    height: 22vh !important;
+}
+
+.team-link {
+    padding: 3px;
+    text-decoration: none;
+    color: black
+}
+
+.team-link:hover {
+    background-color: var(--blue-strong);
+    color: white;
+    text-decoration: none;
+}
+
+.team-members-heading {
+    text-decoration: underline;
+    text-align: center;
+    font-size: large;
+}
+
+.small-team-member-card {
+    background-color: white;
+    border-radius: 10px;
+    height: 6vh;
+    width: 25vw;
+    margin: auto;
+    margin-bottom: 2vh;
+    border: 2px solid var(--blue-strong);
+}
+
+.small-team-member-photo {
+    border-radius: 100%;
+    margin: 0.5vh;
+    width: 4.5vh;
+    height: 4.5vh;
+    background-color: var(--blue-strong);
+    float: left;
+}
+
+.small-team-member-info{
+    margin-left: 6vh; 
+    height: 100%;
+    line-height: 6vh;
+}
+
+/* user details page  */
+.user-details-section-one {
+    top: 0px !important;
+    height: 74vh !important;
+    width: 55vw !important;
+    display: inline-block;
+    overflow: auto;
+    margin-bottom: 0px;
+}
+
+.user-details-section-two {
+    padding: 2vh;
+    top: 0px !important;
+    height: 74vh !important;
+    width: 28vw !important;
+    display: inline-block !important;
+    overflow: auto;
+    margin-bottom: 0px;
+    border-left: 2px solid white;
+}
+
+.user-details-form-block {
+    width: 51vw;
+    border-radius: 10px;
+    height: 45vh;
+    background-color: white;
+    padding: 4vh;
+    margin: 4vh;
+    margin-top: 4vh !important;
+    font-size: 3vh;
 }

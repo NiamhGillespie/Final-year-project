@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from web_app.models import Epic, Sprint, Story, Tag, TrackingColumn, ValueTag
+from web_app.models import *
 from datetime import date, timedelta
 
 class EpicCreationTests(TestCase):
@@ -474,7 +474,6 @@ class ValueTagCreationTests(TestCase):
         self.assertEqual(value.description, 'description...')
         self.assertEqual(value.colour, 'ffffff')
 
-
 class TrackingColumnCreationTests(TestCase):
     def test__tracking_column_created(self):
         """
@@ -559,3 +558,80 @@ class SprintCreationTests(TestCase):
         sprint.stories.set([])
         sprint.save()
         self.assertEqual(sprint.is_current(), False)
+
+class OrganisationCreationTests(TestCase):
+    def test_organisation_created(self):
+        """
+        Checks to make sure that when an organisation is created, the correct information is added.
+        """
+        org = Organisation(
+            id = 0,
+            name = 'University of Glasgow',
+            )
+        org.teams.set([])
+        org.users.set([])
+        org.save()
+        
+        self.assertEqual(str(org), 'University of Glasgow')
+
+        self.assertEqual(org.id, 0)
+        self.assertEqual(org.name, 'University of Glasgow')
+        self.assertEqual(str(org.teams), 'web_app.Team.None')
+        self.assertEqual(str(org.users), 'web_app.User.None')
+
+class TeamCreationTests(TestCase):
+    def test_team_created(self):
+        """
+        Checks to make sure that when an team is created, the correct information is added.
+        """
+        team = Team(
+            id = 0,
+            name = 'Team Name',
+            picture = '',
+            )
+        team.team_members.set([])
+        team.save()
+        
+        self.assertEqual(str(team), 'Team Name')
+
+        self.assertEqual(team.id, 0)
+        self.assertEqual(team.name, 'Team Name')
+        self.assertEqual(team.picture, '')
+        self.assertEqual(str(team.team_members), 'web_app.User.None')
+        
+class UserCreationTests(TestCase):
+    def test_user_created(self):
+        """
+        Checks to make sure that when a user is created, the correct information is added.
+        """
+        #need for FK
+        org = Organisation(
+            id = 0,
+            name = 'University of Glasgow',
+            )
+        org.teams.set([])
+        org.users.set([])
+        org.save()
+
+        user = User(
+            id = 0,
+            username = 'NiamhG',
+            first_name = 'Niamh',
+            surname = 'Gillespie',
+            role = 'team_member',
+            belongs_to = org
+            )
+        user.teams.set([])
+        user.save()
+        
+        self.assertEqual(str(user), 'NiamhG')
+
+        self.assertEqual(user.id, 0)
+        self.assertEqual(user.username, 'NiamhG')
+        self.assertEqual(user.first_name, 'Niamh')
+        self.assertEqual(user.surname, 'Gillespie')
+        self.assertEqual(user.role, 'team_member')
+        self.assertEqual(user.belongs_to, org)
+        self.assertEqual(str(user.teams), 'web_app.Team.None')
+
+    

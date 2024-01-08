@@ -38,7 +38,11 @@ urlpatterns = [
     re_path(r'^api/teamName/column-details/([0-9]*)$', views.ColumnDetail, name='columnDetails'),
     re_path(r'^api/teamName/sprint-details/([0-9]*)$', views.SprintDetails, name='sprintDetails'),
 
-    re_path(r'^api/teamName/current-sprint', views.getCurrentTeamSprint, name='getCurrentTeamSprint')
+    re_path(r'^api/teamName/current-sprint', views.getCurrentTeamSprint, name='getCurrentTeamSprint'),
+
+    re_path(r'^api/organisations', views.Organisations, name='createOrganisation'),
+
+    re_path(r'^api/([0-9]*)/admin/users$', views.Users, name='createUser'),
 
     #signup
     #profile

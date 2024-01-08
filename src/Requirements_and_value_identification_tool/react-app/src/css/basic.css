@@ -3,7 +3,7 @@
     --transparent-grey: #d3d7dc20;
 }
 
-.btn-primary{
+.btn-primary {
     color: white !important;
     border-color: var(--blue-highlight) !important;
     background-color: var(--blue-highlight) !important;
@@ -12,7 +12,7 @@
     padding: 1vh 2vh !important;
 }
 
-.custom-form-error-message{ 
+.custom-form-error-message {
     color: red !important;
     font-size: 14px;
 }
@@ -31,7 +31,7 @@
     height: 90px;
     font-size: 14px;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 
 .story-title {
@@ -56,7 +56,6 @@
     float: left;
     display: block;
 }
-
 
 /* Epic dashboard styling*/
 .epic-time {
@@ -85,7 +84,7 @@
     width: 180px;
     height: 90px;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 
 .add-story-box {
@@ -127,7 +126,6 @@
 .story-drag-and-drop {
     margin: 30px;
 }
-
 
 /* Epic and story details styling */
 .right-modal {
@@ -174,7 +172,7 @@
 
 .details-id {
     font-size: 20px;
-    float:right;
+    float: right;
     text-align: right;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -203,7 +201,7 @@
     margin-top: 0px;
     padding: 5px 10px;
     overflow-y: scroll;
-} 
+}
 
 .details-box-small {
     width: 32vw !important;
@@ -258,8 +256,8 @@
     font-size: 2vh;
     border-radius: 15px;
     padding: 0px 1vw;
-    margin-right: 1vw; 
-    margin-bottom: 1vh; 
+    margin-right: 1vw;
+    margin-bottom: 1vh;
     margin-top: 0px;
     width: auto;
     display: inline-block;
@@ -291,19 +289,19 @@
     font-size: 2vh;
     border-radius: 15px;
     padding: 0.5vh 0.6vw;
-    margin-right: 0.5vw; 
-    margin-left: 0.5vw; 
-    margin-bottom: 1vh; 
+    margin-right: 0.5vw;
+    margin-left: 0.5vw;
+    margin-bottom: 1vh;
     width: 96%;
     display: inline-block;
 }
 
-.details-value-title{
+.details-value-title {
     margin-bottom: 0px;
     font-size: 16px;
 }
 
-.details-value-description{
+.details-value-description {
     margin-bottom: 0px;
     padding-left: 0.2vw;
     font-size: 10px;
@@ -336,7 +334,6 @@
     margin-bottom: 1vh;
 }
 
-
 /* Epic details form  */
 .details-form-title {
     font-size: 25px;
@@ -358,10 +355,9 @@
     background-color: white !important;
 }
 
-
 /* Colour picker */
 .colour-picker {
-    float: left
+    float: left;
 }
 
 .colour-example {

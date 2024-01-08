@@ -94,7 +94,6 @@ def EpicDetails(request, epic_id):
         epic_serializer = EpicSerializer(epic)
         return Response(epic_serializer.data, status=status.HTTP_200_OK)
     
-
 @api_view(['PUT', 'DELETE', 'GET'])
 def StoryDetails(request, story_id):
     try:
@@ -163,7 +162,6 @@ def TagDetail(request, tag_id):
 
         return Response(tag_serializer.data, status=status.HTTP_200_OK)
     
-
 @api_view(['GET', 'POST'])
 def TeamValues(request):
     if request.method == 'GET':
@@ -311,7 +309,46 @@ def getCurrentTeamSprint(request):
         
         if current_found == False:
             return Response({}, status=status.HTTP_200_OK)
+
+@api_view(['POST', 'GET'])
+def Organisations(request):
+    if request.method == 'POST':
+        org_serializer = OrganisationSerializer(data=request.data)
+        if org_serializer.is_valid():
+            org_serializer.save()
+            return Response(org_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(org_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+    if request.method == 'GET':
+        org_data= Organisation.objects.all()
+        org_serializer = OrganisationSerializer(org_data, context={'request': request}, many=True)
+        return Response(org_serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['POST', 'GET'])
+def Users(request, organisation_id):
+    if request.method == 'POST':
+
+        organisation = Organisation.objects.get(id=organisation_id)
+
+        request.data['belongs_to'] = organisation.id
+        user_serializer = UserSerializer(data=request.data)
+
+        print(request.data)
+        if user_serializer.is_valid():
+            user_serializer.save()
+
+            user_id = user_serializer.data['id']
+            
+            new_user = User.objects.get(id=user_id)
+            organisation.users.add(new_user.id)
+
+            return Response(user_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-@api_view(['POST'])
-def login(request):
-    print("write me!")
+    if request.method == 'GET':
+        user_data= User.objects.filter(belongs_to = organisation_id)
+        user_serializer = UserSerializer(user_data, context={'request': request}, many=True)
+        return Response(user_serializer.data, status=status.HTTP_200_OK)
+

@@ -13,6 +13,8 @@ import SignUp from './components/account_management/sign_up';
 import ViewTeams from './components/account_management/view_teams';
 import AddTeam from './components/account_management/add_team';
 import TeamDetails from './components/account_management/team_details';
+import ViewUsers from './components/account_management/view_users';
+import UserDetails from './components/account_management/user_details';
 
 export default function App() {
   return (
@@ -26,11 +28,13 @@ export default function App() {
 
             <Route path="admin/add-team" element={<AddTeam />} />
             <Route path="admin/view-teams" element={<ViewTeams />} />
+            <Route path="admin/view-users" element={<ViewUsers />} />
 
             <Route path="teamName/details" element={<TeamDetails />} />
+            <Route path="username/details" element={<UserDetails />} />
 
             <Route index element={<Home />} />
-            <Route path="teamName/teamTags" element={<TagDashboard />} />
+            <Route path="teamName/tag-dashboard" element={<TagDashboard />} />
             {/* <Route path="teamName"  index element={<TeamDashboard />} /> */}
             <Route path="teamName/epics-dashboard" element={<EpicsDashboard />} />
             <Route path="teamName/tracking-dashboard" element={<TrackingDashboard />} />
