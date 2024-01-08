@@ -318,3 +318,6 @@
 
 ### 7 Jan 2024
 * *9 hours* Finalised Figma designs for the user management pages. Realised my tests were failing through github actions, investigated this and discovered it was due to an accidental hardcoded comparison based on the current date so fixed this problem. I then created the Django models for user management. Next I created and styled the sign up, view list of teams and add team react pages. Then started work on the team details page.
+
+### 8 Jan 2024
+* *7 hours* Finished team details page layout then completed the user profile and user management pages blueprints. Edited my Organisation and User models slightly and added unit tests for the Organisation, Team and User models (previously untested). Then created view that handle GET and PUT for the Organisation and User models.
