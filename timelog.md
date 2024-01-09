@@ -321,3 +321,6 @@
 
 ### 8 Jan 2024
 * *7 hours* Finished team details page layout then completed the user profile and user management pages blueprints. Edited my Organisation and User models slightly and added unit tests for the Organisation, Team and User models (previously untested). Then created view that handle GET and PUT for the Organisation and User models.
+
+### 9 Jan 2024
+* *5 hours* Sign up page now creates an organisation and user when the form is entered. Reasearched how to conduct user authentication with my current setup and tried some methods but have not found one that works yet.
