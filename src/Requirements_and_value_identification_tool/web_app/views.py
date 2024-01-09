@@ -316,8 +316,10 @@ def Organisations(request):
         org_serializer = OrganisationSerializer(data=request.data)
         if org_serializer.is_valid():
             org_serializer.save()
+            print("making organisation!!!!", org_serializer.data)
             return Response(org_serializer.data, status=status.HTTP_201_CREATED)
         else:
+            print(org_serializer.errors)
             return Response(org_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             
     if request.method == 'GET':
@@ -351,4 +353,3 @@ def Users(request, organisation_id):
         user_data= User.objects.filter(belongs_to = organisation_id)
         user_serializer = UserSerializer(user_data, context={'request': request}, many=True)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
-

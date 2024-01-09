@@ -17,7 +17,7 @@ class AddColumnForm extends Component {
         stories: [],
         WIP: 0, //same as default in models
         validate: {
-            WIP: '',
+            WIP: 'valid',
             title: 'too_short'
         }
     };

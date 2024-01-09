@@ -18,4 +18,4 @@ export const API_URL_CURRENT_SPRINT = 'http://localhost:8000/api/teamName/curren
 export const API_URL_SPRINT_DETAILS = 'http://localhost:8000/api/teamName/sprint-details/';
 
 export const API_URL_ORGANISATIONS = 'http://localhost:8000/api/organisations/';
-export const API_URL_USERS = 'http://localhost:8000/api/organisationName/users';
+export const API_URL_USERS = 'http://localhost:8000/api/';

@@ -9,7 +9,7 @@ import EpicDetailsModal from '../epic_forms/epic_details_modal';
 import AddStoryModal from '../story_forms/add_story_modal';
 import AddEpicModal from '../epic_forms/add_epic_modal';
 import { epicsAddedThisWeek, highPriorityStories, storiesAddedThisWeek } from '../helper-methods/stats_bar_methods';
-import { Button } from 'reactstrap';
+
 
 export class EpicsDashboard extends Component {
     state = {
@@ -218,9 +218,10 @@ export class EpicsDashboard extends Component {
         returnList.push(epicsAddedThisWeek(this.state.epics), storiesAddedThisWeek(this.state.stories), highPriorityStories(this.state.stories));
         return returnList;
     }
-
+    
     render() {
         return (
+            
             <>
                 <div key="epic-dashboard">
                     <div className="border-bottom d-flex flex-row flex-nowrap">
