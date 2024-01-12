@@ -324,3 +324,6 @@
 
 ### 9 Jan 2024
 * *5 hours* Sign up page now creates an organisation and user when the form is entered. Reasearched how to conduct user authentication with my current setup and tried some methods but have not found one that works yet.
+
+### 12 Jan 2024
+* *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
