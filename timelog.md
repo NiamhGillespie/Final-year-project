@@ -327,3 +327,8 @@
 
 ### 12 Jan 2024
 * *0.5 hours* Supervisor meeting with Peggy and wrote up meeting notes
+
+## Week 15
+
+### 6 Jan 2024
+* *3.5 hours* Working on the add team form, researched adding an image to a django database but haven't figured out a solution yet. 
