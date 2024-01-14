@@ -128,9 +128,11 @@ class Organisation(models.Model):
         return self.name
     
 class Team(models.Model):
-    name = models.CharField(max_length=32, default='error')
-    picture = models.ImageField()
-    team_members = models.ManyToManyField("User", blank=True)
+    belongs_to = models.ForeignKey(Organisation, blank=True, null=True, on_delete=models.CASCADE)
+    team_name = models.CharField(max_length=32, default='error')
+    team_photo = models.CharField(max_length=1024, default='error')
+    team_leads = models.ManyToManyField("User", related_name="team_leads", blank=True)
+    team_members = models.ManyToManyField("User", related_name="team_members", blank=True)
 
     def __str__(self):
         return self.name 

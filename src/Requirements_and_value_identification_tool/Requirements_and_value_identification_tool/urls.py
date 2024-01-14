@@ -43,6 +43,7 @@ urlpatterns = [
     re_path(r'^api/organisations', views.Organisations, name='createOrganisation'),
 
     re_path(r'^api/([0-9]*)/admin/users$', views.Users, name='createUser'),
+    re_path(r'^api/([0-9]*)/admin/teams$', views.Teams, name='createTeam'),
 
     #signup
     #profile

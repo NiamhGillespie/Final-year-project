@@ -353,3 +353,22 @@ def Users(request, organisation_id):
         user_data= User.objects.filter(belongs_to = organisation_id)
         user_serializer = UserSerializer(user_data, context={'request': request}, many=True)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
+    
+@api_view(['POST', 'GET'])
+def Teams(request, organisation_id):
+    if request.method == 'POST':
+        team_serializer = TeamSerializer(data=request.data)
+
+        print(request.data)
+        if team_serializer.is_valid():
+            team_serializer.save()
+
+            return Response(team_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print(team_serializer.errors)
+            return Response(team_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    if request.method == 'GET':
+        team_data= Team.objects.filter(belongs_to = organisation_id)
+        team_serializer = TeamSerializer(team_data, context={'request': request}, many=True)
+        return Response(team_serializer.data, status=status.HTTP_200_OK)

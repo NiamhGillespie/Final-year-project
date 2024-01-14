@@ -41,7 +41,7 @@ class OrganisationSerializer(serializers.ModelSerializer):
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ('id', 'name', 'picture', 'team_members')
+        fields = ('id', 'belongs_to', 'team_name', 'team_photo', 'team_leads', 'team_members')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
