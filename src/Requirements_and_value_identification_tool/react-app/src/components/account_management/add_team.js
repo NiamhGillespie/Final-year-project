@@ -26,7 +26,11 @@ export class AddTeam extends Component {
 
     handleFileChange = (e) => {
         this.setState({
-            [e.target.name]: URL.createObjectURL( e.target.files[0]),
+            [e.target.name]: e.target.files[0]
+        });
+
+        this.setState({
+            'preview_photo': URL.createObjectURL( e.target.files[0])
         });
     }
 
@@ -43,10 +47,18 @@ export class AddTeam extends Component {
 
     addTeam = (e) => {
         e.preventDefault();
+
+        let form_data = new FormData();
+        form_data.append('team_photo', this.state.team_photo, this.state.team_photo.name);
+        form_data.append('team_name', this.state.team_name);
+        // form_data.append('team_leads', []);
+        // form_data.append('team_members', []);
+        form_data.append('belongs_to', this.state.belongs_to);
+
         console.log('adding team...');
         console.log(this.state.team_photo)
         console.log(this.state.organisation, this.state)
-        axios.post(API_URL_TEAMS + this.state.organisation.id + '/admin/teams', this.state).then(() => {
+        axios.post(API_URL_TEAMS + this.state.organisation.id + '/admin/teams', form_data).then(() => {
             alert('team created');
             console.log("team added")
         });
@@ -71,7 +83,7 @@ export class AddTeam extends Component {
                         <div className='w-100'>
                             <p className='w-20 float-start team-profile-photo-title'>Team Photo Preview:</p>
                             <div className='w-75 float-start'>
-                                <img src={this.state.team_photo} alt="team profile" className='team-profile-photo'/>
+                                <img src={this.state.preview_photo} alt="team profile" className='team-profile-photo'/>
                             </div>
                         </div>
 

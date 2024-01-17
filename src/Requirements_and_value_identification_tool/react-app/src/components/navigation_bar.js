@@ -85,6 +85,12 @@ export class NavigationBar extends Component {
                             </NavItem>
 
                             <NavItem>
+                                <NavLink tag={Link} className="text-dark nav-item" to="admin/add-user">
+                                    <span> Add user </span>
+                                </NavLink>
+                            </NavItem>
+
+                            <NavItem>
                                 <NavLink tag={Link} className="text-dark nav-item" to="admin/view-teams">
                                     <span> View Teams </span>
                                 </NavLink>

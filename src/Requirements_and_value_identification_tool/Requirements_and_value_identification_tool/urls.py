@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.urls import include
 from web_app import views
+from django.conf import settings 
+from django.conf.urls.static import static
 
 urlpatterns = [
     #will be done by react?
@@ -37,6 +39,7 @@ urlpatterns = [
     re_path(r'^api/teamName/value-details/([0-9]*)$', views.ValueDetail, name='valueDetails'),
     re_path(r'^api/teamName/column-details/([0-9]*)$', views.ColumnDetail, name='columnDetails'),
     re_path(r'^api/teamName/sprint-details/([0-9]*)$', views.SprintDetails, name='sprintDetails'),
+    re_path(r'^api/user-details/([0-9]*)$', views.UserDetails, name='userDetails'),
 
     re_path(r'^api/teamName/current-sprint', views.getCurrentTeamSprint, name='getCurrentTeamSprint'),
 
@@ -53,3 +56,6 @@ urlpatterns = [
     #teamName/kanbanBoard
    
 ]
+
+if settings.DEBUG:  # new
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

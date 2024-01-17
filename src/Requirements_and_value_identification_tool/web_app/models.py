@@ -130,7 +130,7 @@ class Organisation(models.Model):
 class Team(models.Model):
     belongs_to = models.ForeignKey(Organisation, blank=True, null=True, on_delete=models.CASCADE)
     team_name = models.CharField(max_length=32, default='error')
-    team_photo = models.CharField(max_length=1024, default='error')
+    team_photo = models.ImageField(upload_to='team_images', blank=True)
     team_leads = models.ManyToManyField("User", related_name="team_leads", blank=True)
     team_members = models.ManyToManyField("User", related_name="team_members", blank=True)
 
@@ -140,10 +140,14 @@ class Team(models.Model):
 class User(models.Model):
     belongs_to = models.ForeignKey(Organisation, blank=True, null=True, on_delete=models.CASCADE)
     username = models.CharField(max_length=32, default='error', unique=True)
+    password = models.CharField(max_length=32, default='error')
+    email = models.CharField(max_length=128, default='error')
     first_name = models.CharField(max_length=128, default='error')
     surname = models.CharField(max_length=128, default='error')
     role = models.CharField(max_length=32, default='error')
     teams = models.ManyToManyField(Team, blank=True)
+    profile_photo = models.ImageField(upload_to='profile_images', blank=True)
+
 
     def __str__(self):
         return self.username

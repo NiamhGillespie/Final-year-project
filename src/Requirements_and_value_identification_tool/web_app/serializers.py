@@ -46,4 +46,4 @@ class TeamSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'belongs_to', 'username', 'first_name', 'surname', 'role', 'teams')
+        fields = ('id', 'belongs_to', 'username', 'password', 'email', 'first_name', 'surname', 'role', 'teams', 'profile_photo')

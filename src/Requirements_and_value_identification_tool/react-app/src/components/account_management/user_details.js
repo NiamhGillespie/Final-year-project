@@ -4,22 +4,19 @@ import '../../css/sign_up.css';
 import 'react-circular-progressbar/dist/styles.css';
 import { Button, FormGroup, Input, Label } from 'reactstrap';
 import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
+import { useLocation } from 'react-router-dom';
 
-export class UserDetails extends Component {
-    state = {
-        //get this info from user
-        username: 'nimhgia',
-        password: 'password',
-        email: 'fakeemail@gmail.com',
-    };
+export function UserDetails() {
+    const location = useLocation()
+    var user_details = location.state
 
-    //get user from API function
-
-    resetState() {
-        //call getUser funct
+    if (user_details === null) {
+        user_details = {id: 6, belongs_to: 2, username: 'Default', first_name: 'DEFAULT', surname: 'PROFILE', teams: [7]}
+    } else {
+        user_details = user_details.user
     }
 
-    displayTeams() {
+    const displayTeams = () => {
         const teams = [1, 2]; //this.state.teams;
         var returnList = [];
 
@@ -32,45 +29,45 @@ export class UserDetails extends Component {
             );
         }
         return returnList;
-    }
+    };
 
-    render() {
-        return (
-            <div>
-                <h3 className="add-team-title"> User Profile </h3>
+    console.log(user_details)
 
-                <div className="teams-details-box">
-                    <div className="user-details-section-one">
-                        <div className="large-circular-photo"> </div>
-                        <p className="team-name-title"> Niamh Gillespie - ID </p>
-                        <p className="team-subtitle"> Team Member</p>
+    return (
+        <div>
+            <h3 className="add-team-title"> User Profile </h3>
 
-                        <div className="user-details-form-block">
-                            <p>
-                                <u> User Details </u>
-                            </p>
-                            <FormGroup>
-                                <Label for="username">Email:</Label>
-                                <Input type="text" name="username" value={returnDefaultIfFieldEmpty(this.state.email)} disabled />
-                            </FormGroup>
+            <div className="teams-details-box">
+                <div className="user-details-section-one">
+                    <img src={user_details.profile_photo} alt="user profile" className="large-circular-photo" />
+                    <p className="team-name-title"> {user_details.first_name} {user_details.surname} - #{user_details.id} </p>
+                    <p className="team-subtitle"> {user_details.role}</p>
 
-                            <FormGroup>
-                                <Label for="password">Password:</Label>
-                                <Input type="password" name="password" value={returnDefaultIfFieldEmpty(this.state.password)} disabled />
-                            </FormGroup>
+                    <div className="user-details-form-block">
+                        <p>
+                            <u> User Details </u>
+                        </p>
+                        <FormGroup>
+                            <Label for="username">Email:</Label>
+                            <Input type="text" name="username" value={returnDefaultIfFieldEmpty(user_details.email)} disabled />
+                        </FormGroup>
 
-                            <Button className='btn-primary float-end'> Update Details </Button>
-                        </div>
-                    </div>
+                        <FormGroup>
+                            <Label for="password">Password:</Label>
+                            <Input type="password" name="password" value={returnDefaultIfFieldEmpty(user_details.password)} disabled />
+                        </FormGroup>
 
-                    <div className="user-details-section-two">
-                        <p className="team-members-heading"> Teams </p>
-                        {this.displayTeams()}
+                        <Button className="btn-primary float-end"> Update Details </Button>
                     </div>
                 </div>
+
+                <div className="user-details-section-two">
+                    <p className="team-members-heading"> Teams </p>
+                    {displayTeams}
+                </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default UserDetails;

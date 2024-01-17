@@ -15,6 +15,7 @@ import AddTeam from './components/account_management/add_team';
 import TeamDetails from './components/account_management/team_details';
 import ViewUsers from './components/account_management/view_users';
 import UserDetails from './components/account_management/user_details';
+import AddUser from './components/account_management/add_user';
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
 
             <Route path="admin/add-team" element={<AddTeam />} />
             <Route path="admin/view-teams" element={<ViewTeams />} />
+            <Route path="admin/add-user" element={<AddUser />} />
             <Route path="admin/view-users" element={<ViewUsers />} />
 
             <Route path="teamName/details" element={<TeamDetails />} />

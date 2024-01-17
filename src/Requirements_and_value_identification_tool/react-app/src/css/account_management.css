@@ -284,3 +284,9 @@
     margin-top: 4vh !important;
     font-size: 3vh;
 }
+
+.role-dropdown {
+    border: 2px solid var(--blue-strong) !important;
+    width: 10vw;
+    padding: 5px;
+}

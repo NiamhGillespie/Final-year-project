@@ -347,6 +347,7 @@ def Users(request, organisation_id):
 
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
         else:
+            print(user_serializer.errors)
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     if request.method == 'GET':
@@ -372,3 +373,27 @@ def Teams(request, organisation_id):
         team_data= Team.objects.filter(belongs_to = organisation_id)
         team_serializer = TeamSerializer(team_data, context={'request': request}, many=True)
         return Response(team_serializer.data, status=status.HTTP_200_OK)
+    
+@api_view(['PUT', 'DELETE', 'GET'])
+def UserDetails(request, user_id):
+    try:
+        user = User.objects.get(id = user_id)
+    
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        user_serializer = UserSerializer(user, data=request.data,context={'request': request})
+        if user_serializer.is_valid():      
+            user_serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'GET':
+        user_serializer = UserSerializer(user)
+        return Response(user_serializer.data, status=status.HTTP_200_OK)
