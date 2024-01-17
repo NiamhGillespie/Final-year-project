@@ -332,3 +332,6 @@
 
 ### 14 Jan 2024
 * *3.5 hours* Working on the add team form, researched adding an image to a django database but haven't figured out a solution yet. 
+
+### 17 Jan 2024
+* *5 hours* Sorted out adding a team profile image to the django database. Also added creating a new user functionality and updated the view user list and user detail pages so they work with props. 
