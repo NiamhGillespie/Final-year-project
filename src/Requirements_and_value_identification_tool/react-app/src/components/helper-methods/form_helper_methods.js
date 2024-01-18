@@ -7,11 +7,39 @@ export function getDate() {
     return date.toDateString();
 }
 
+export function displayTeamLeads(teamLeads) {
+    var returnList = [];
+
+    if (teamLeads === undefined || teamLeads.length === 0) {
+        return;
+    }
+
+    for (var i = 0; i < teamLeads.length; i++) {
+        returnList.push({ title: teamLeads[i].first_name + ' ' + teamLeads[i].surname + ' - ' + teamLeads[i].username, id: teamLeads[i].id });
+    }
+
+    return returnList;
+}
+
+export function displayTeamMembers(teamMembers) {
+    var returnList = [];
+
+    if (teamMembers === undefined || teamMembers.length === 0) {
+        return;
+    }
+
+    for (var i = 0; i < teamMembers.length; i++) {
+        returnList.push({ title: teamMembers[i].first_name + ' ' + teamMembers[i].surname + ' - ' + teamMembers[i].username, id: teamMembers[i].id });
+    }
+
+    return returnList;
+}
+
 export function displayValues(teamValues) {
     var returnList = [];
 
     if (teamValues === undefined || teamValues.length === 0) {
-        return
+        return;
     }
 
     for (var i = 0; i < teamValues.length; i++) {
@@ -25,7 +53,7 @@ export function preselectedValues(values, teamValues) {
     var returnList = [];
 
     if (teamValues === undefined || teamValues.length === 0) {
-        return
+        return;
     }
 
     for (var i = 0; i < teamValues.length; i++) {
@@ -43,7 +71,7 @@ export function displayTeamTags(teamTags) {
     var returnList = [];
 
     if (teamTags === undefined || teamTags.length === 0) {
-        return
+        return;
     }
 
     for (var i = 0; i < teamTags.length; i++) {
@@ -57,7 +85,7 @@ export function preselectedTags(tags, teamTags) {
     var returnList = [];
 
     if (teamTags === undefined || teamTags.length === 0) {
-        return
+        return;
     }
 
     for (var i = 0; i < teamTags.length; i++) {

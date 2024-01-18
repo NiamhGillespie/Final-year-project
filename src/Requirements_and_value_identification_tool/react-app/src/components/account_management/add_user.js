@@ -75,7 +75,9 @@ export class AddUser extends Component {
         form_data.append('first_name', this.state.first_name);
         form_data.append('surname', this.state.surname);
         form_data.append('role', this.state.role);
-        form_data.append('teams', this.state.teams);
+        if (this.state.teams.length !== 0) {
+            form_data.append('teams', this.state.teams);
+        }
         
 
         console.log('adding user...');

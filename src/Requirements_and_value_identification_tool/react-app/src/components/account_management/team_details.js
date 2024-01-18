@@ -3,22 +3,45 @@ import '../../css/basic.css';
 import '../../css/sign_up.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL_USERS } from '../../constants';
 
-export class TeamDetails extends Component {
-    state = {
-        team: this.props.team
+export function TeamDetails() {
+    const location = useLocation();
+    var team_details = location.state;
+    var users = location.state;
 
-        //get team info from provided id :)
-    };
-
-    //get teams from API function
-
-    resetState() {
-        //call getTeams funct
+    if (team_details === null) {
+        team_details = { id: 6, belongs_to: 2, team_name: 'Default Team', team_leads: [], team_members: [], teams: [7], role: 'default' };
+        users = [];
+    } else {
+        team_details = team_details.team;
+        users = location.state.users;
     }
 
-    displayStats() {
+    function getTeamMembers(users) {
+        const team_leads = [];
+        const team_members = [];
+
+        for (var i = 0; i < users.length; i++) {
+            if (team_details.team_leads.includes(users[i].id)) {
+                team_leads.push(users[i]);
+            }
+
+            if (team_details.team_members.includes(users[i].id)) {
+                team_members.push(users[i]);
+            }
+        }
+
+        return [team_leads, team_members];
+    }
+
+    var team = getTeamMembers(users);
+    var team_leads = team[0];
+    var team_members = team[1];
+
+    const displayStats = () => {
         const percentage = 66;
 
         return (
@@ -88,68 +111,88 @@ export class TeamDetails extends Component {
                 </div>
             </div>
         );
-    }
+    };
 
-    displayTeamMembers() {
-        const team_members = [1,2,3, 4, 5, 6] //this.state.team_members;
-        var returnList = []
+    const displayTeamMembers = () => {
+        var returnList = [];
 
         for (var i = 0; i < team_members.length; i++) {
             returnList.push(
-                <div className='small-team-member-card'>
-                    <p className='small-team-member-photo'/>
-                    <p className='small-team-member-info'> Username {team_members[i]} - id</p>
+                <div className="small-team-member-card">
+                    <img src={team_members[i].profile_photo} alt="user profile" className="small-team-member-photo" />
+                    <p className="small-team-member-info">
+                        {' '}
+                        {team_members[i].first_name} {team_members[i].surname} - {team_members[i].username}
+                    </p>
                 </div>
-            )
+            );
         }
-        return returnList
-    }
+        return returnList;
+    };
 
-    render() {
-        return (
-            <div>
-                <h3 className="add-team-title"> View Team </h3>
+    const displayTeamLeads = () => {
+        var returnList = [];
 
-                <div className="teams-details-box">
-                    <div className="team-details-section-one">
-                        <div className="large-circular-photo"> </div>
-                        <p className="team-name-title"> Team Name - ID </p>
-                        <p className="team-subtitle"> team leader #1, team leader #2 ...</p>
-
-                        <div className="link-area">
-                            <p>
-                                <u> Team Dashboards</u>
-                            </p>
-                            <li style={{ color: '#58c1d6' }}>
-                                <Link to="/teamName/epics-dashboard" className="team-link">
-                                    Epic Dashboard
-                                </Link>
-                            </li>
-
-                            <li style={{ color: '#58c1d6' }}>
-                                <Link to="/teamName/tracking-dashboard" className="team-link">
-                                    Tracking Dashboard
-                                </Link>
-                            </li>
-
-                            <li style={{ color: '#58c1d6' }}>
-                                <Link to="/teamName/tag-dashboard" className="team-link">
-                                    Tag Dashboard
-                                </Link>
-                            </li>
-                        </div>
-                    </div>
-
-                    <div className="team-details-section-two">
-                        <p className='team-members-heading'> Team Members </p>
-                        {this.displayTeamMembers()}
-                    </div>
-
-                    <div className="team-details-section-three">{this.displayStats()}</div>
+        for (var i = 0; i < team_leads.length; i++) {
+            returnList.push(
+                <div>
+                    <img src={team_leads[i].profile_photo} alt="user profile" className="small-team-member-photo" />
+                    <p className="small-team-member-info">
+                        {' '}
+                        {team_leads[i].first_name} {team_leads[i].surname} - {team_leads[i].username}
+                    </p>
                 </div>
+            );
+        }
+        return returnList;
+    };
+
+    return (
+        <div>
+            <h3 className="add-team-title"> View Team </h3>
+
+            <div className="teams-details-box">
+                <div className="team-details-section-one">
+                    <img src={team_details.team_photo} alt="user profile" className="large-circular-photo" />
+                
+                    <p className="team-name-title">
+                        {team_details.team_name}
+                    </p>
+                    <p className="team-subtitle"> {displayTeamLeads()}</p>
+
+                    <div className="link-area">
+                        <p>
+                            <u> Team Dashboards</u>
+                        </p>
+                        <li style={{ color: '#58c1d6' }}>
+                            <Link to="/teamName/epics-dashboard" className="team-link">
+                                Epic Dashboard
+                            </Link>
+                        </li>
+
+                        <li style={{ color: '#58c1d6' }}>
+                            <Link to="/teamName/tracking-dashboard" className="team-link">
+                                Tracking Dashboard
+                            </Link>
+                        </li>
+
+                        <li style={{ color: '#58c1d6' }}>
+                            <Link to="/teamName/tag-dashboard" className="team-link">
+                                Tag Dashboard
+                            </Link>
+                        </li>
+                    </div>
+                </div>
+
+                <div className="team-details-section-two">
+                    <p className="team-members-heading"> Team Members </p>
+                    {displayTeamMembers()}
+                </div>
+
+                <div className="team-details-section-three">{displayStats()}</div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default TeamDetails;

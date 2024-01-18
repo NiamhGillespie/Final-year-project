@@ -11,13 +11,13 @@ export function UserDetails() {
     var user_details = location.state
 
     if (user_details === null) {
-        user_details = {id: 6, belongs_to: 2, username: 'Default', first_name: 'DEFAULT', surname: 'PROFILE', teams: [7]}
+        user_details = {id: 6, belongs_to: 2, username: 'Default', first_name: 'DEFAULT', surname: 'PROFILE', teams: [7], role: 'default'}
     } else {
         user_details = user_details.user
     }
 
     const displayTeams = () => {
-        const teams = [1, 2]; //this.state.teams;
+        const teams = user_details.teams;
         var returnList = [];
 
         for (var i = 0; i < teams.length; i++) {
