@@ -335,3 +335,6 @@
 
 ### 17 Jan 2024
 * *5 hours* Sorted out adding a team profile image to the django database. Also added creating a new user functionality and updated the view user list and user detail pages so they work with props. 
+
+### 18 Jan 2024
+* *4.5 hours* Updating the add team page to allow a user to add team leads and team members, then updated the teams view page to a function instead of class so I could pass location based states to it. 
