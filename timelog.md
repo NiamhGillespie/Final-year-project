@@ -338,3 +338,6 @@
 
 ### 18 Jan 2024
 * *4.5 hours* Updating the add team page to allow a user to add team leads and team members, then updated the teams view page to a function instead of class so I could pass location based states to it. 
+
+### 19 Jan 2024
+* *9.5 hours* Made user and teams components editable in the admin views, also added filtering and searching to each of these. I also updated the add team form so that both the team and user detail views display correctly. Did the same for the add user form as well, also allowed each user to be added to multiple teams in this form. Also updated user details view so that an admin user will not have a list displayed and the add user view so that only non-admin users will have the teams selection displayed. Started working on allowing teams to be deleted.
