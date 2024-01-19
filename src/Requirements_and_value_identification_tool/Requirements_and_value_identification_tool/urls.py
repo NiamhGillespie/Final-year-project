@@ -40,6 +40,7 @@ urlpatterns = [
     re_path(r'^api/teamName/column-details/([0-9]*)$', views.ColumnDetail, name='columnDetails'),
     re_path(r'^api/teamName/sprint-details/([0-9]*)$', views.SprintDetails, name='sprintDetails'),
     re_path(r'^api/user-details/([0-9]*)$', views.UserDetails, name='userDetails'),
+    re_path(r'^api/team-details/([0-9]*)$', views.TeamDetails, name='teamDetails'),
 
     re_path(r'^api/teamName/current-sprint', views.getCurrentTeamSprint, name='getCurrentTeamSprint'),
 

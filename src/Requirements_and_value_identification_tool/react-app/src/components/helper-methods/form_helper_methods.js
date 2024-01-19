@@ -7,6 +7,77 @@ export function getDate() {
     return date.toDateString();
 }
 
+export function displayTeams(teams) {
+    var returnList = [];
+
+    if (teams === undefined || teams.length === 0) {
+        return;
+    }
+
+    for (var i = 0; i < teams.length; i++) {
+        returnList.push({ title: teams[i].team_name + ' - #' + teams[i].id, id: teams[i].id });
+    }
+
+    return returnList;
+}
+
+export function preselectedTeams(teams, orgTeams) {
+    var returnList = [];
+
+    if (orgTeams === undefined || orgTeams.length === 0) {
+        return;
+    }
+
+    for (var i = 0; i < orgTeams.length; i++) {
+        for (var j = 0; j < teams.length; j++) {
+            if (orgTeams[i].id === teams[j]) {
+                returnList.push({ title: orgTeams[i].team_name + ' - #' + orgTeams[i].id, id: orgTeams[i].id });
+            }
+        }
+    }
+
+    return returnList;
+}
+
+export function preselectedTeamLeads(leads, orgLeads) {
+    var returnList = [];
+
+    if (orgLeads === undefined || orgLeads.length === 0) {
+        return;
+    }
+
+    for (var i = 0; i < orgLeads.length; i++) {
+        for (var j = 0; j < leads.length; j++) {
+            if (orgLeads[i].id === leads[j]) {
+                returnList.push({ title: orgLeads[i].first_name + ' ' + orgLeads[i].surname + ' - ' + orgLeads[i].username, id: orgLeads[i].id });
+            }
+        }
+    }
+
+    return returnList;
+}
+
+export function preselectedTeamMembers(members, orgMembers) {
+    var returnList = [];
+
+    if (orgMembers === undefined || orgMembers.length === 0) {
+        return;
+    }
+
+    for (var i = 0; i < orgMembers.length; i++) {
+        for (var j = 0; j < members.length; j++) {
+            if (orgMembers[i].id === members[j]) {
+                returnList.push({
+                    title: orgMembers[i].first_name + ' ' + orgMembers[i].surname + ' - ' + orgMembers[i].username,
+                    id: orgMembers[i].id
+                });
+            }
+        }
+    }
+
+    return returnList;
+}
+
 export function displayTeamLeads(teamLeads) {
     var returnList = [];
 

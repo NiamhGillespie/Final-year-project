@@ -5,7 +5,7 @@ import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { displayTeamLeads, displayTeamMembers, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 import Multiselect from 'multiselect-react-dropdown';
 import axios from 'axios';
-import { API_URL_ORGANISATIONS, API_URL_TEAMS, API_URL_USERS } from '../../constants';
+import { API_URL_ORGANISATIONS, API_URL_TEAMS, API_URL_USERS, API_URL_USER_DETAILS } from '../../constants';
 
 export class AddTeam extends Component {
     state = {
@@ -110,14 +110,12 @@ export class AddTeam extends Component {
         });
         form_data.append('belongs_to', this.state.belongs_to);
 
-        console.log('adding team...');
-        console.log(this.state.team_photo);
-        console.log(this.state.organisation, this.state);
         axios.post(API_URL_TEAMS + this.state.organisation.id + '/admin/teams', form_data).then(() => {
             alert('team created');
             console.log('team added');
         });
     };
+
     render() {
         return (
             <Form onSubmit={this.addTeam}>

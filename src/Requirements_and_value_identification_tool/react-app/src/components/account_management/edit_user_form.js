@@ -1,25 +1,27 @@
-import React, { Component, useState } from 'react';
-import '../../css/basic.css';
-import '../../css/account_management.css';
-import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap';
-import { displayTeams, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
-import Multiselect from 'multiselect-react-dropdown';
+import React, { Component } from 'react';
+import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { API_URL_ORGANISATIONS, API_URL_TEAMS, API_URL_USERS } from '../../constants';
+import { API_URL_ORGANISATIONS, API_URL_TAG_DETAILS, API_URL_TEAMS, API_URL_USERS, API_URL_USER_DETAILS } from '../../constants';
+import { ColorPicker } from 'primereact/colorpicker';
+import { displayTeams, preselectedTeams, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
+import Multiselect from 'multiselect-react-dropdown';
 
-export class AddUser extends Component {
+//need to add error handeling to this :)
+class EditUserForm extends Component {
     state = {
-        username: '',
-        first_name: '',
-        surname: '',
-        role: 'admin',
-        teams: [],
-        profile_photo: '',
-        password: '',
-        email: '',
-        belongs_to: 2,
+        username: this.props.user.username,
+        first_name: this.props.user.first_name,
+        surname: this.props.user.surname,
+        role: this.props.user.role,
+        teams: this.props.user.teams,
+        profile_photo: this.props.user.profile_photo,
+        password: this.props.user.password,
+        email: this.props.user.email,
+        belongs_to: this.props.user.belongs_to,
         organisation: this.get_organisation(),
-        list_of_teams: this.getTeams()
+        list_of_teams: this.getTeams(),
+        preview_photo: this.props.user.profile_photo,
+        photo_edited: false,
     };
 
     async getTeams() {
@@ -36,6 +38,7 @@ export class AddUser extends Component {
     };
 
     handleFileChange = (e) => {
+        this.state.photo_edited = true;
         this.setState({
             [e.target.name]: e.target.files[0]
         });
@@ -54,21 +57,24 @@ export class AddUser extends Component {
         return organisation[0];
     }
 
-    dropDownTeams() {
-        var teams = this.state.list_of_teams;
-        var returnList = [];
+    updateTag = (e) => {
+        e.preventDefault();
 
-        for (var i = 0; i < teams.length; i++) {
-            returnList.push(<option value={teams[i].id}> {teams[i].team_name} </option>);
-        }
-        return returnList;
-    }
+        // axios.put(API_URL_TAG_DETAILS + this.state.tag_id, this.state).then(() => {
+        //     this.props.resetState();
+        //     this.props.toggle();
+        // });
+    };
 
     addUser = (e) => {
         e.preventDefault();
 
+        
         let form_data = new FormData();
-        form_data.append('profile_photo', this.state.profile_photo, this.state.profile_photo.name);
+        if (this.state.photo_edited) {
+            form_data.append('profile_photo', this.state.profile_photo, this.state.profile_photo.name);
+        }
+        
         form_data.append('username', this.state.username);
         form_data.append('password', this.state.password);
         form_data.append('email', this.state.email);
@@ -81,8 +87,9 @@ export class AddUser extends Component {
             });
         }
 
-        axios.post(API_URL_USERS + this.state.belongs_to + '/admin/users', form_data).then(() => {
-            alert('user created');
+        axios.put(API_URL_USER_DETAILS + this.props.user.id, form_data).then(() => {
+            this.props.toggle();
+            this.props.resetState();
         });
     };
 
@@ -102,21 +109,20 @@ export class AddUser extends Component {
         this.setState({ teams: team_ids });
     };
 
-
     render() {
         return (
-            <Form onSubmit={this.addUser}>
-                <h3 className="add-team-title"> Add User </h3>
-                <div className="add-team-box">
+            <div>
+                <Form onSubmit={this.addUser}>
+                <div className="edit-user-box">
                     <div className="left-add-team-box">
                         <FormGroup>
                             <Label for="profile_photo">Profile Photo:</Label>
                             <input type="file" name="profile_photo" onChange={this.handleFileChange} />
                         </FormGroup>
 
-                        <div className="w-100">
-                            <p className="w-20 float-start team-profile-photo-title">Profile Photo Preview:</p>
-                            <div className="w-75 float-start">
+                        <div className="w-100 photo-section">
+                            <p className="float-start edit-title team-profile-photo-title">Profile Photo Preview:</p>
+                            <div className="edit-photo float-start">
                                 <img src={this.state.preview_photo} alt="profile profile" className="team-profile-photo" />
                             </div>
                         </div>
@@ -133,7 +139,7 @@ export class AddUser extends Component {
 
                         <FormGroup>
                             <Label for="role">Role:</Label>
-                            <select value={this.state.role} onChange={this.onChange} name="role" className="ms-2 role-dropdown">
+                            <select value={this.state.role} onChange={this.onChange} name="role" className="ms-2 role-dropdown-disabled" disabled>
                                 <option value="admin">Admin</option>
                                 <option value="team_lead">Team Lead</option>
                                 <option value="team_member">Team Member</option>
@@ -154,7 +160,7 @@ export class AddUser extends Component {
                         </FormGroup>
 
                         <FormGroup>
-                            <Label for="password">Initial password:</Label>
+                            <Label for="password">Password:</Label>
                             <Input type="text" name="password" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.password)} />
                         </FormGroup>
 
@@ -172,6 +178,7 @@ export class AddUser extends Component {
                                     }}
                                     placeholder="Add Teams"
                                     displayValue="title"
+                                    selectedValues={preselectedTeams(this.state.teams, this.state.list_of_teams)}
                                 />
                             </FormGroup>
                         ) : (
@@ -180,12 +187,13 @@ export class AddUser extends Component {
                     </div>
 
                     <div>
-                        <Button className="btn-primary login-button mt-3 float-end"> Create User </Button>
+                        <Button className="btn-primary login-button mt-3 float-end"> Update User </Button>
                     </div>
                 </div>
             </Form>
+            </div>
         );
     }
 }
 
-export default AddUser;
+export default EditUserForm;

@@ -6,40 +6,18 @@ import 'react-circular-progressbar/dist/styles.css';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL_USERS } from '../../constants';
+import DisplayTeamUsers from '../helper_components/displayTeamUsers';
 
 export function TeamDetails() {
     const location = useLocation();
     var team_details = location.state;
-    var users = location.state;
 
     if (team_details === null) {
         team_details = { id: 6, belongs_to: 2, team_name: 'Default Team', team_leads: [], team_members: [], teams: [7], role: 'default' };
-        users = [];
     } else {
         team_details = team_details.team;
-        users = location.state.users;
     }
 
-    function getTeamMembers(users) {
-        const team_leads = [];
-        const team_members = [];
-
-        for (var i = 0; i < users.length; i++) {
-            if (team_details.team_leads.includes(users[i].id)) {
-                team_leads.push(users[i]);
-            }
-
-            if (team_details.team_members.includes(users[i].id)) {
-                team_members.push(users[i]);
-            }
-        }
-
-        return [team_leads, team_members];
-    }
-
-    var team = getTeamMembers(users);
-    var team_leads = team[0];
-    var team_members = team[1];
 
     const displayStats = () => {
         const percentage = 66;
@@ -113,40 +91,6 @@ export function TeamDetails() {
         );
     };
 
-    const displayTeamMembers = () => {
-        var returnList = [];
-
-        for (var i = 0; i < team_members.length; i++) {
-            returnList.push(
-                <div className="small-team-member-card">
-                    <img src={team_members[i].profile_photo} alt="user profile" className="small-team-member-photo" />
-                    <p className="small-team-member-info">
-                        {' '}
-                        {team_members[i].first_name} {team_members[i].surname} - {team_members[i].username}
-                    </p>
-                </div>
-            );
-        }
-        return returnList;
-    };
-
-    const displayTeamLeads = () => {
-        var returnList = [];
-
-        for (var i = 0; i < team_leads.length; i++) {
-            returnList.push(
-                <div>
-                    <img src={team_leads[i].profile_photo} alt="user profile" className="small-team-member-photo" />
-                    <p className="small-team-member-info">
-                        {' '}
-                        {team_leads[i].first_name} {team_leads[i].surname} - {team_leads[i].username}
-                    </p>
-                </div>
-            );
-        }
-        return returnList;
-    };
-
     return (
         <div>
             <h3 className="add-team-title"> View Team </h3>
@@ -154,11 +98,9 @@ export function TeamDetails() {
             <div className="teams-details-box">
                 <div className="team-details-section-one">
                     <img src={team_details.team_photo} alt="user profile" className="large-circular-photo" />
-                
-                    <p className="team-name-title">
-                        {team_details.team_name}
-                    </p>
-                    <p className="team-subtitle"> {displayTeamLeads()}</p>
+
+                    <p className="team-name-title">{team_details.team_name}</p>
+                    <p className="team-subtitle"> </p>
 
                     <div className="link-area">
                         <p>
@@ -186,7 +128,11 @@ export function TeamDetails() {
 
                 <div className="team-details-section-two">
                     <p className="team-members-heading"> Team Members </p>
-                    {displayTeamMembers()}
+                    <DisplayTeamUsers
+                        team_leads={team_details.team_leads}
+                        team_members={team_details.team_members}
+                        belongs_to={team_details.belongs_to}
+                    />
                 </div>
 
                 <div className="team-details-section-three">{displayStats()}</div>

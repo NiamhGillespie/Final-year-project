@@ -105,32 +105,6 @@
     border: 2px solid var(--blue-strong);
 }
 
-.drop-filter {
-    padding: 0vh 2vh;
-    text-align: center;
-    border-radius: 2px;
-    color: var(--blue-strong);
-    border: 2px solid var(--blue-strong);
-    background-color: white;
-    width: 10vw;
-    height: 2vw;
-    margin-bottom: 1vh;
-    float: left;
-}
-
-.search-bar {
-    padding: 0vh 2vh;
-    border-radius: 2px;
-    color: var(--blue-strong);
-    border: 2px solid var(--blue-strong);
-    background-color: white;
-    width: 10vw;
-    height: 2vw;
-    margin-bottom: 1vh;
-    float: right;
-    text-align: center;
-}
-
 /* team details */
 .teams-details-box {
     background-color: var(--blue-background);
@@ -213,7 +187,7 @@
 .team-link {
     padding: 3px;
     text-decoration: none;
-    color: black
+    color: black;
 }
 
 .team-link:hover {
@@ -238,6 +212,11 @@
     border: 2px solid var(--blue-strong);
 }
 
+.small-card-info {
+    line-height: 6vh;
+    margin:auto;
+}
+
 .small-team-member-photo {
     border-radius: 100%;
     margin: 0.5vh;
@@ -247,8 +226,8 @@
     float: left;
 }
 
-.small-team-member-info{
-    margin-left: 6vh; 
+.small-team-member-info {
+    margin-left: 6vh;
     height: 100%;
     line-height: 6vh;
 }
@@ -289,4 +268,118 @@
     border: 2px solid var(--blue-strong) !important;
     width: 10vw;
     padding: 5px;
+}
+
+.role-dropdown-disabled {
+    border: 2px solid gray !important;
+    width: 10vw;
+    padding: 5px;
+    background-color: lightgrey;
+}
+.link {
+    color: black;
+    padding-right: 1vh;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: black;
+    padding-right: 1vh;
+    text-decoration: underline var(--blue-strong) 2px;
+}
+
+.users-name-section {
+    float: right !important;
+    margin-bottom: 0px !important;
+    margin-top: 7.5vh;
+    margin-left: 12vh;
+    position: absolute;
+    font-size: 2vh;
+}
+
+.drop-filter {
+    text-align: center;
+    border-radius: 2px;
+    color: var(--blue-strong);
+    border: 2px solid var(--blue-strong) !important;
+    background-color: white;
+    width: 12vw !important;
+    height: 2vw;
+    margin-bottom: 1vh;
+    float: left;
+    position: relative !important;
+}
+
+.search-box {
+    padding: 0vh 2vh;
+    border-radius: 2px;
+    color: var(--blue-strong);
+    border: 2px solid var(--blue-strong);
+    background-color: white;
+    width: 10vw;
+    height: 2vw;
+    margin-bottom: 1vh;
+    float: right;
+    text-align: center;
+}
+
+.search-box:focus {
+    color: var(--blue-strong);
+}
+
+.search-btn {
+    width: 2vw;
+    height: 2vw;
+    text-align: center;
+    color: var(--blue-strong);
+    background-color: white;
+    border: 2px solid var(--blue-strong);
+    border-right: none;
+    padding:0px;
+    margin: auto;
+    border-radius: 5px 0px 0px 5px;
+    cursor: pointer;
+    float: right;
+    font-size: 20px;
+}
+
+.not-found-message {
+    margin: auto;
+    line-height: 12vh;
+    text-align: center;
+    font-size: 30px;
+    color: var(--blue-strong);
+    border: 3px solid white;
+    border-radius: 15px;
+}
+
+.top-margin {
+    margin-top: 8vh;
+}
+
+.edit-user-box {
+    background-color: var(--blue-background);
+    margin: auto;
+    margin-bottom: 0px;
+    height: 75vh;
+    border-radius: 10px;
+    padding: 5vh;
+}
+
+.photo-section {
+    height: 16vh;
+    display: block;
+}
+
+.edit-title {
+    display: inline;
+}
+
+.edit-photo {
+    width: 20vw !important;
+    display: inline !important;
+}
+
+.edit-button:hover {
+    text-decoration: underline 1px var(--blue-strong);
 }

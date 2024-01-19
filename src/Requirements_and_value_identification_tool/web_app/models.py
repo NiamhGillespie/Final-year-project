@@ -135,7 +135,7 @@ class Team(models.Model):
     team_members = models.ManyToManyField("User", related_name="team_members", blank=True)
 
     def __str__(self):
-        return self.name 
+        return self.team_name 
 
 class User(models.Model):
     belongs_to = models.ForeignKey(Organisation, blank=True, null=True, on_delete=models.CASCADE)

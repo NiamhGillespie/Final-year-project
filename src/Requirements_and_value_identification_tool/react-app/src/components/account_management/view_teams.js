@@ -4,19 +4,21 @@ import '../../css/sign_up.css';
 import { API_URL_TEAMS, API_URL_USERS } from '../../constants';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import EditTeamModal from './edit_team_modal';
 
 export class ViewTeams extends Component {
     state = {
         organisation_id: 2,
         teams: [],
-        users: []
+        users: [],
+        full_teams: [],
     };
 
     //get teams from API function
     async getTeams() {
         await axios
             .get(API_URL_TEAMS + this.state.organisation_id + '/admin/teams', this.state)
-            .then((response) => this.setState({ teams: response.data }));
+            .then((response) => this.setState({ teams: response.data }, this.setState({ full_teams: response.data })));
     }
 
     async getUsers() {
@@ -29,7 +31,7 @@ export class ViewTeams extends Component {
         this.resetState();
     }
 
-    resetState() {
+    resetState = () => {
         this.getTeams();
         this.getUsers();
     }
@@ -43,31 +45,60 @@ export class ViewTeams extends Component {
                 <div className="team-card d-flex flex-row flex-nowrap">
                     <img src={teams[i].team_photo} alt="team profile" className="team-card-photo" />
                     <p className="team-card-info">
-                        {' '}
-                        {teams[i].team_name} - {teams[i].id}{' '}
+                        <Link to="/teamName/details" state={{ team: teams[i], users: this.state.users }} className="link">
+                            {teams[i].team_name}
+                        </Link>
                     </p>
 
-                    <Link to="/teamName/details" state={{ team: teams[i], users: this.state.users }}>
-                        Team Profile
-                    </Link>
-
-                    <p className="edit-button align-self-stretch float-end"> edit </p>
+                    <EditTeamModal team={teams[i]} resetState={this.resetState} />
                 </div>
             );
         }
+
+        if (returnList.length === 0) {
+            returnList.push(
+                <div className='top-margin'>
+                    <p className='not-found-message'> No teams found </p>
+                </div>
+            )
+        }
         return returnList;
     }
+
+    updateSearchTerm = (e) => {
+        this.state.search_term = e.target.value;
+        this.search()
+    };
+    search = (e) => {
+
+        var teams = this.state.full_teams;
+        var search_term = this.state.search_term.toLowerCase();
+        var returned_teams = [];
+
+        for (var i = 0; i < teams.length; i++) {
+            if (
+                teams[i].team_name.toLowerCase().includes(search_term) ||
+                teams[i].id === parseInt(search_term)
+            ) {
+                returned_teams.push(teams[i]);
+            }
+        }
+
+        this.setState({ teams: returned_teams });
+        this.state.teams = returned_teams;
+    };
 
     render() {
         return (
             <div>
                 <h3 className="add-team-title"> View Teams </h3>
                 <div className="view-teams-box">
-                    <div className="ms-1 mt-2 float-start drop-filter">
-                        <p> dropdown filter :) </p>
+                    <div>
+                        <input id="search-input" type="text" className="search-box" onChange={this.updateSearchTerm} placeholder="team search..." />
+                        <button className="search-btn">
+                            🔍
+                        </button>
                     </div>
-
-                    <p className="me-1 mt-2 search-bar">Search bar?</p>
 
                     {this.displayTeams()}
                 </div>
