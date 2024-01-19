@@ -68,6 +68,7 @@ def EpicDashboardInfo(request):
 
                 return Response(status=status.HTTP_201_CREATED)
             else: 
+                print(story_serializer.errors)
                 return Response(story_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         return Response(status=status.HTTP_400_BAD_REQUEST)

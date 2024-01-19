@@ -5,6 +5,7 @@ import axios from 'axios';
 import UpdateStoryForm from './edit_story_form';
 import { displayPriority, displayTags } from '../helper-methods/story_display_methods';
 import { displayTeamTags } from '../helper-methods/form_helper_methods';
+import { API_URL_USER_DETAILS } from '../../constants';
 
 class StoryDetailsModal extends Component {
     state = {
@@ -188,19 +189,47 @@ class StoryDetailsModal extends Component {
         }
     }
 
+    displayUserImages() {
+        var userImages = [];
+        var users = this.props.users;
+        var assigned_to = this.props.story.assigned_to;
+        console.log(users);
+        var marginLeft = 0;
+
+        if (users.length !== undefined) {
+            for (var i = 0; i < users.length; i++) {
+                for (var j = 0; j < assigned_to.length; j++) {
+                    if (users[i].id === assigned_to[j]) {
+                        console.log(users[i].id === assigned_to[j], users[i].id, assigned_to[j]);
+                        userImages.push(
+                            <img
+                                src={users[i].profile_photo}
+                                alt="profile"
+                                className="story-profile-photo"
+                                style={{ marginLeft: marginLeft + 'vh' }}
+                            />
+                        );
+                        marginLeft = marginLeft - 3;
+                    }
+                }
+            }
+        }
+        return userImages;
+    }
+
     render() {
         var story_box = (
             <div style={{ border: '2px solid #' + this.props.epic_colour }} className="story-box" onClick={this.toggleModal}>
                 <p className="story-title"> {this.state.story.title} </p>
-                <p style={{ background: '#' + this.props.epic_colour }} className="story-profile-photo">
-                    icon
-                </p>
+
+                {this.displayUserImages()}
+
                 <p className="story-priority"> {displayPriority(this.state.story.priority)} </p>
             </div>
         );
 
         return (
-            <div  key={this.state.story.id}>
+            <div key={this.state.story.id}>
                 {story_box}
                 <Modal
                     className="right-modal float-right"

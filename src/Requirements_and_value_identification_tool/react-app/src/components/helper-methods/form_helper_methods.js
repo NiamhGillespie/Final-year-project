@@ -7,6 +7,20 @@ export function getDate() {
     return date.toDateString();
 }
 
+export function displayAllUsers(users) {
+    var returnList = [];
+
+    if (users === undefined || users.length === 0 || users.length === undefined) {
+        return;
+    }
+
+    for (var i = 0; i < users.length; i++) {
+        returnList.push({ title: users[i].username + ' - #' + users[i].id , id: users[i].id });
+    }
+
+    return returnList;
+}
+
 export function displayTeams(teams) {
     var returnList = [];
 

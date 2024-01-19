@@ -107,7 +107,7 @@ def populate():
             'story_points': 3,
             'priority': 'MEDIUM',
             'pairable': False,
-            'assigned_to': 'Niamh',
+            'assigned_to': [],
             'state': 'In progress',
             'last_edited_by': 'Niamh',
             'last_edited': datetime(2023, 10, 3, 15),
@@ -186,7 +186,7 @@ def add_story(story_id, epic_id, title, order, tags, user_story, definition_of_d
     story.story_points = story_points
     story.priority = priority
     story.pairable = pairable
-    story.assigned_to = assigned_to
+    story.assigned_to .set(assigned_to)
     story.state = state
     story.last_edited_by = last_edited_by
     story.last_edited = last_edited

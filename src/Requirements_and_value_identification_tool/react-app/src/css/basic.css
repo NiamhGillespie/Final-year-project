@@ -52,12 +52,17 @@
 }
 
 .story-profile-photo {
-    border-radius: 200%;
-    padding: 2%;
-    width: 20%;
+    border-radius: 100%;
+    margin-right: -0.5vh;
+    width: 5vh;
+    height: 5vh;
+    background-color: var(--blue-background);
     float: right;
     display: inline;
-    color: white;
+    padding: 0px;
+    margin-top: 4vh;
+    position:absolute;
+   
 }
 
 .story-priority {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { API_URL } from '../../constants';
+import { API_URL, API_URL_TEAM_DETAILS, API_URL_USER_DETAILS } from '../../constants';
 import Multiselect from 'multiselect-react-dropdown';
 import '../../css/basic.css';
-import { displayValues, getDate, returnDefaultIfFieldEmpty, displayTeamTags } from '../helper-methods/form_helper_methods';
+import { displayValues, getDate, returnDefaultIfFieldEmpty, displayTeamTags, displayAllUsers } from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
 class AddStoryForm extends Component {
@@ -24,7 +24,7 @@ class AddStoryForm extends Component {
         priority: 'LOW',
 
         pairable: false,
-        assigned_to: '',
+        assigned_to: [],
 
         last_edited_by: 'Niamh Gillespie',
         last_edited: getDate(),
@@ -35,8 +35,19 @@ class AddStoryForm extends Component {
             title: 'too_short',
             user_story: 'valid',
             definition_of_done: 'valid'
-        }
+        },
+
+        team: 1,
+        full_member_list: this.getTeamMembers(),
+        full_lead_list: this.getTeamLeads(),
+        member_list: this.getTeamUsers()
     };
+
+    async componentDidMount() {
+        await this.getTeamMembers();
+        await this.getTeamLeads();
+        await this.getTeamUsers();
+    }
 
     async getTeamValues() {
         await axios.get('http://localhost:8000/api/teamName/values').then((response) => this.setState({ team_values: response.data }));
@@ -46,8 +57,37 @@ class AddStoryForm extends Component {
         await axios.get('http://localhost:8000/api/teamName/tags').then((response) => this.setState({ team_tags: response.data }));
     }
 
+    async getTeamMembers() {
+        await axios.get(API_URL_TEAM_DETAILS + 1).then((response) => (this.state.full_member_list = response.data.team_members));
+    }
+
+    async getTeamLeads() {
+        await axios.get(API_URL_TEAM_DETAILS + 1).then((response) => (this.state.full_lead_list = response.data.team_leads));
+    }
+
+    async getTeamUsers() {
+        await this.getTeamMembers();
+        await this.getTeamLeads();
+        var id_list = this.state.full_lead_list + ',' + this.state.full_member_list;
+        id_list = id_list.split(',');
+
+        if (typeof this.state.full_lead_list[0] === 'number') {
+            var member_list = [];
+            for (var i = 0; i < id_list.length; i++) {
+                var member = await axios.get(API_URL_USER_DETAILS + parseInt(id_list[i]));
+                member_list.push(member.data);
+            }
+        }
+
+        this.state.member_list = member_list;
+        this.setState({ member_list: member_list})
+        console.log('member list!', this.state.member_list);
+        return member_list;
+    }
+
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
+        this.getTeamUsers();
     };
 
     onChangeCheckbox = (e) => {
@@ -61,7 +101,11 @@ class AddStoryForm extends Component {
     createStory = (e) => {
         e.preventDefault();
 
-        if (this.state.validate.title !== 'valid' || this.state.validate.user_story !== 'valid' || this.state.validate.definition_of_done !== 'valid') {
+        if (
+            this.state.validate.title !== 'valid' ||
+            this.state.validate.user_story !== 'valid' ||
+            this.state.validate.definition_of_done !== 'valid'
+        ) {
             alert('The form is invalid, please try again');
         } else {
             axios.post(API_URL, this.state).then(() => {
@@ -69,6 +113,22 @@ class AddStoryForm extends Component {
                 this.props.toggle();
             });
         }
+    };
+
+    onMemberAddition = (e) => {
+        var team_member_ids = [];
+        for (var i = 0; i < e.length; i++) {
+            team_member_ids.push(e[i].id);
+        }
+        this.setState({ assigned_to: team_member_ids });
+    };
+
+    onMemberDeletion = (e) => {
+        var team_member_ids = [];
+        for (var i = 0; i < e.length; i++) {
+            team_member_ids.push(e[i].id);
+        }
+        this.setState({ assigned_to: team_member_ids });
     };
 
     onValueAddition = (e) => {
@@ -256,7 +316,19 @@ class AddStoryForm extends Component {
 
                     <FormGroup>
                         <Label for="assigned_to">Assigned to:</Label>
-                        <Input type="text" name="assigned_to" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.assigned_to)} />
+                        <Multiselect
+                            options={displayAllUsers(this.state.member_list)}
+                            onSelect={this.onMemberAddition}
+                            onRemove={this.onMemberDeletion}
+                            name="assigned_to"
+                            style={{
+                                chips: { background: 'light blue' },
+                                searchBox: { border: 'none', 'border-bottom': '1px solid blue', borderRadius: '0px' }
+                            }}
+                            placeholder="Assign Users"
+                            displayValue="title"
+                            
+                        />
                     </FormGroup>
                 </div>
 

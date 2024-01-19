@@ -66,7 +66,7 @@ class Story(models.Model):
     priority = models.CharField(max_length=6, choices = [(LOW, "low priority"), (MEDIUM, "medium priority"), (HIGH, "high priority")])
 
     pairable = models.BooleanField(default = False, blank=True)
-    assigned_to = models.CharField(max_length=128, blank=True) #this should be list of users in future
+    assigned_to = models.ManyToManyField("User", blank=True)
 
     state = models.CharField(max_length=128, default='undefined')
     completed = models.BooleanField(default = False)

@@ -90,7 +90,7 @@ class StoryDetailsTests(TestCase):
         populate()
         response = client.get('/api/teamName/stories/1/details')
         
-        expected_data = {'id': 1, 'story_id': '1', 'epic_id': '1', 'title': 'Story for testing', 'order': 1, 'tags': [0], 'user_story': 'As a developer, I want to have a test story, so I can use it in the react app', 'definition_of_done': 'Test story should display on REST framework page', 'values': [0], 'story_points': '3', 'priority': 'MEDIUM', 'pairable': False, 'assigned_to': 'Niamh', 'state': 'In progress', 'completed': False, 'last_edited_by': 'Niamh', 'last_edited': '2023-10-03 15:00:00', 'created_by': 'Niamh', 'time_created': '2023-10-03 15:00:00'}
+        expected_data = {'id': 1, 'story_id': '1', 'epic_id': '1', 'title': 'Story for testing', 'order': 1, 'tags': [0], 'user_story': 'As a developer, I want to have a test story, so I can use it in the react app', 'definition_of_done': 'Test story should display on REST framework page', 'values': [0], 'story_points': '3', 'priority': 'MEDIUM', 'pairable': False, 'assigned_to': [], 'state': 'In progress', 'completed': False, 'last_edited_by': 'Niamh', 'last_edited': '2023-10-03 15:00:00', 'created_by': 'Niamh', 'time_created': '2023-10-03 15:00:00'}
         self.assertEqual(response.data, expected_data)
 
     def test_bad_GET_request(self):
@@ -115,7 +115,7 @@ class StoryDetailsTests(TestCase):
             'story_points': 3,
             'priority': 'MEDIUM',
             'pairable': False,
-            'assigned_to': 'Niamh',
+            'assigned_to': [],
             'state': 'In progress',
             'last_edited_by': 'Niamh',
             'last_edited': date.today(),

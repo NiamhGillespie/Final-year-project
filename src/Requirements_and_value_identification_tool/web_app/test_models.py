@@ -155,12 +155,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.story_id, '0')
 
@@ -177,12 +178,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.epic_id, '1')
 
@@ -199,12 +201,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.title, 'Test Story Title')
 
@@ -221,12 +224,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.order, 0)
 
@@ -243,13 +247,15 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
         story.save()
+        story.assigned_to.set([])
+        story.save()
+        
         self.assertEqual(story.user_story, 'As a developer, I want to create unit tests, So that I can continously integrate my code')
 
     def test_definition_of_done_created(self):
@@ -265,12 +271,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.definition_of_done, 'Set up a unit test suite')
 
@@ -287,12 +294,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.priority, 'MEDIUM')
 
@@ -310,12 +318,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.pairable, False)
     
@@ -332,14 +341,15 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
         story.save()
-        self.assertEqual(story.assigned_to, 'Niamh Gillespie')
+        story.assigned_to.set([])
+        story.save()
+        self.assertEqual(str(story.assigned_to), 'web_app.User.None')
 
     def test_last_edited_by_created(self):
         """
@@ -354,12 +364,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.last_edited_by, 'Niamh Gillespie')
 
@@ -376,12 +387,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.last_edited, date.today())
 
@@ -399,12 +411,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(story.created_by, 'Niamh Gillespie')
 
@@ -421,12 +434,13 @@ class StoryCreationTests(TestCase):
                 definition_of_done = 'Set up a unit test suite',
                 priority = 'MEDIUM',
                 pairable = False,
-                assigned_to = 'Niamh Gillespie',
                 last_edited_by = 'Niamh Gillespie',
                 last_edited = date.today(),
                 created_by = 'Niamh Gillespie',
                 time_created = date.today()
             )
+        story.save()
+        story.assigned_to.set([])
         story.save()
         self.assertEqual(str(story), 'Test Story Title')
 
@@ -584,19 +598,29 @@ class TeamCreationTests(TestCase):
         """
         Checks to make sure that when an team is created, the correct information is added.
         """
+        #need for FK
+        org = Organisation(
+            id = 0,
+            name = 'University of Glasgow',
+            )
+        org.teams.set([])
+        org.users.set([])
+        org.save()
+
         team = Team(
             id = 0,
-            name = 'Team Name',
-            picture = '',
+            team_name = 'Team Name',
+            belongs_to = org
             )
+        team.team_leads.set([])
         team.team_members.set([])
         team.save()
         
         self.assertEqual(str(team), 'Team Name')
 
         self.assertEqual(team.id, 0)
-        self.assertEqual(team.name, 'Team Name')
-        self.assertEqual(team.picture, '')
+        self.assertEqual(team.team_name, 'Team Name')
+        self.assertEqual(str(team.team_leads), 'web_app.User.None')
         self.assertEqual(str(team.team_members), 'web_app.User.None')
         
 class UserCreationTests(TestCase):
@@ -616,6 +640,8 @@ class UserCreationTests(TestCase):
         user = User(
             id = 0,
             username = 'NiamhG',
+            password ="pass123",
+            email = "fake@gmail.com",
             first_name = 'Niamh',
             surname = 'Gillespie',
             role = 'team_member',
@@ -628,6 +654,8 @@ class UserCreationTests(TestCase):
 
         self.assertEqual(user.id, 0)
         self.assertEqual(user.username, 'NiamhG')
+        self.assertEqual(user.password, 'pass123')
+        self.assertEqual(user.email, 'fake@gmail.com')
         self.assertEqual(user.first_name, 'Niamh')
         self.assertEqual(user.surname, 'Gillespie')
         self.assertEqual(user.role, 'team_member')

@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/tag_dashboard.css';
 import axios from 'axios';
-import { API_URL } from '../../constants';
+import { API_URL, API_URL_TEAM_DETAILS, API_URL_USERS } from '../../constants';
 import { DragDropContext, Droppable, Draggable } from '../../constants/drag_and_drop';
 import StoryDetailsModal from '../story_forms/story_details_modal';
 import EpicDetailsModal from '../epic_forms/epic_details_modal';
 import AddStoryModal from '../story_forms/add_story_modal';
 import AddEpicModal from '../epic_forms/add_epic_modal';
 import { epicsAddedThisWeek, highPriorityStories, storiesAddedThisWeek } from '../helper-methods/stats_bar_methods';
-
 
 export class EpicsDashboard extends Component {
     state = {
@@ -18,7 +17,9 @@ export class EpicsDashboard extends Component {
         colour: null,
         parent: null,
         current_stories: [],
-        filter: 'uncomplete_only'
+        filter: 'uncomplete_only',
+        users: []
+        
     };
 
     async componentDidMount() {
@@ -62,9 +63,18 @@ export class EpicsDashboard extends Component {
         }
     }
 
+
+    async getUsers() {
+        //UPDATE ME
+        await axios
+        .get(API_URL_USERS + '2/admin/users')
+        .then((response) => this.setState({ users: response.data}));
+    }
+
     resetState = () => {
         this.getEpics();
         this.getStories();
+        this.getUsers();
     };
 
     changeFilter(filterName) {
@@ -153,6 +163,7 @@ export class EpicsDashboard extends Component {
                                                         <StoryDetailsModal
                                                             resetState={this.resetState}
                                                             story={story}
+                                                            users={this.state.users}
                                                             epic_colour={story.completed ? 'c7c7c7' : epic_colour}
                                                         />
                                                     </div>
@@ -218,10 +229,9 @@ export class EpicsDashboard extends Component {
         returnList.push(epicsAddedThisWeek(this.state.epics), storiesAddedThisWeek(this.state.stories), highPriorityStories(this.state.stories));
         return returnList;
     }
-    
+
     render() {
         return (
-            
             <>
                 <div key="epic-dashboard">
                     <div className="border-bottom d-flex flex-row flex-nowrap">
@@ -229,7 +239,7 @@ export class EpicsDashboard extends Component {
                         <AddEpicModal create={true} resetState={this.resetState} className="align-self-stretch" />
                     </div>
 
-                    <div className='mt-1'>
+                    <div className="mt-1">
                         <p
                             onClick={() => this.changeFilter('all')}
                             className={this.state.filter === 'all' ? 'active-choice-button' : 'inactive-choice-button'}
