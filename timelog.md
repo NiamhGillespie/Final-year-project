@@ -345,3 +345,8 @@
 ### 20 Jan 2024
 * *1 hours* Supervisor meeting with Peggy and wrote up meeting notes
 * *3 hours* Let user assign team members to a story via the add user form and styled the story form accordingly, also updated unit tests so they no longer fail
+
+## Week 15
+
+### 21 Jan 2024
+* *3 hours* Revamping tracking dashboard so when user clicks a story the details modal appears, added user images to the story boxes with a tooltip containing the users fullname that appears on hover, also added a completed banner to completed epics and storys and added tags to uncompleted stories.
