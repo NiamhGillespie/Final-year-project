@@ -196,6 +196,8 @@ class EpicDetailsModal extends Component {
         var epic_box = (
             <div style={{ background: '#' + background_colour }} className="epic-box" onClick={this.toggleModal}>
                 {this.state.epic.title}
+
+                {this.state.epic.completed ? <div className="completed-banner-epic">completed</div> : <div>{/* display tags and stuff? */}</div>}
             </div>
         );
 

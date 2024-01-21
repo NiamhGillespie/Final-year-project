@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Input, FormFeedback } from 'reactstrap';
+import { Button, Form, FormGroup, Input, FormFeedback, Label } from 'reactstrap';
 import axios from 'axios';
-import { API_URL, API_URL_STORY_DETAILS } from '../../constants';
+import { API_URL, API_URL_STORY_DETAILS, API_URL_TEAM_DETAILS, API_URL_USER_DETAILS } from '../../constants';
 import { ModalHeader, ModalBody } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
 import '../../css/basic.css';
 import {
     currentEpic,
+    displayAllUsers,
     displayEpics,
     displayTeamTags,
     displayValues,
     getDate,
     preselectedTags,
+    preselectedUsers,
     preselectedValues,
     returnDefaultIfFieldEmpty
 } from '../helper-methods/form_helper_methods';
@@ -45,12 +47,23 @@ class UpdateStoryForm extends Component {
 
         epics: this.getEpics(),
 
+        team: 1,
+        full_member_list: this.getTeamMembers(),
+        full_lead_list: this.getTeamLeads(),
+        member_list: this.getTeamUsers(),
+
         validate: {
             title: 'valid',
             user_story: 'valid',
             definition_of_done: 'valid'
         }
     };
+
+    async componentDidMount() {
+        await this.getTeamMembers();
+        await this.getTeamLeads();
+        await this.getTeamUsers();
+    }
 
     async getTeamTags() {
         var tags = await axios.get('http://localhost:8000/api/teamName/tags/');
@@ -64,6 +77,34 @@ class UpdateStoryForm extends Component {
 
     async getEpics() {
         await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0] }));
+    }
+
+    async getTeamMembers() {
+        await axios.get(API_URL_TEAM_DETAILS + 1).then((response) => (this.state.full_member_list = response.data.team_members));
+    }
+
+    async getTeamLeads() {
+        await axios.get(API_URL_TEAM_DETAILS + 1).then((response) => (this.state.full_lead_list = response.data.team_leads));
+    }
+
+    async getTeamUsers() {
+        await this.getTeamMembers();
+        await this.getTeamLeads();
+        var id_list = this.state.full_lead_list + ',' + this.state.full_member_list;
+        id_list = id_list.split(',');
+
+        if (typeof this.state.full_lead_list[0] === 'number') {
+            var member_list = [];
+            for (var i = 0; i < id_list.length; i++) {
+                var member = await axios.get(API_URL_USER_DETAILS + parseInt(id_list[i]));
+                member_list.push(member.data);
+            }
+        }
+
+        this.state.member_list = member_list;
+        this.setState({ member_list: member_list})
+        console.log('member list!', this.state.member_list);
+        return member_list;
     }
 
     onChange = (e) => {
@@ -94,6 +135,23 @@ class UpdateStoryForm extends Component {
             });
         }
     };
+
+    onMemberAddition = (e) => {
+        var team_member_ids = [];
+        for (var i = 0; i < e.length; i++) {
+            team_member_ids.push(e[i].id);
+        }
+        this.setState({ assigned_to: team_member_ids });
+    };
+
+    onMemberDeletion = (e) => {
+        var team_member_ids = [];
+        for (var i = 0; i < e.length; i++) {
+            team_member_ids.push(e[i].id);
+        }
+        this.setState({ assigned_to: team_member_ids });
+    };
+
 
     onValueAddition = (e) => {
         var value_ids = [];
@@ -186,7 +244,7 @@ class UpdateStoryForm extends Component {
                                 value={returnDefaultIfFieldEmpty(this.state.title)}
                                 invalid={this.state.validate.title === 'too_short' || this.state.validate.title === 'too_long'}
                             />
-                            <FormFeedback invalid className='text-white'>
+                            <FormFeedback invalid className="text-white">
                                 {this.state.validate.title === 'too_short' && <p> Please enter a title </p>}
                                 {this.state.validate.title === 'too_long' && <p> A title can't be longer than 128 characters </p>}
                             </FormFeedback>
@@ -316,34 +374,25 @@ class UpdateStoryForm extends Component {
                                 </FormGroup>
                             </div>
 
-                            <div className="mt-3">
-                                <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-1 d-inline">
-                                    Pairable:
-                                </p>
-                                <FormGroup className="checkbox-styling d-inline">
-                                    <Input
-                                        type="checkbox"
-                                        name="pairable"
-                                        onChange={this.onChangeCheckbox}
-                                        value={returnDefaultIfFieldEmpty(this.state.pairable)}
-                                        className="mt-2"
-                                        style={{ border: '2px solid #' + this.props.epic_colour }}
-                                    />
-                                </FormGroup>
-                            </div>
 
                             <div className="mt-3">
                                 <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-1">
                                     Assigned to:
                                 </p>
                                 <FormGroup>
-                                    <Input
-                                        type="text"
+                                    <Multiselect
+                                        options={displayAllUsers(this.state.member_list)}
+                                        onSelect={this.onMemberAddition}
+                                        onRemove={this.onMemberDeletion}
                                         name="assigned_to"
-                                        onChange={this.onChange}
-                                        value={returnDefaultIfFieldEmpty(this.state.assigned_to)}
-                                        className="w-75"
-                                        style={{ border: '2px solid #' + this.props.epic_colour }}
+                                        className="ms-2 w-75"
+                                        style={{
+                                            chips: { background: '#' + this.props.epic_colour },
+                                            searchBox: { border: 'none', 'border-bottom': '1px solid blue', borderRadius: '0px' }
+                                        }}
+                                        placeholder="Assign Users"
+                                        displayValue="title"
+                                        selectedValues={preselectedUsers(this.state.assigned_to, this.state.member_list)}
                                     />
                                 </FormGroup>
                             </div>

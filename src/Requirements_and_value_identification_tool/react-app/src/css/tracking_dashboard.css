@@ -10,8 +10,8 @@
     border-radius: 10px;
     margin: 3vh;
     margin-right: 5px;
-    padding: 1vw;
-    width: 200px;
+    padding: 0vw !important;
+    width: 210px;
     min-height: 75vh;
 }
 

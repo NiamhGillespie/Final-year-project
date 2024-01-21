@@ -7,6 +7,24 @@ export function getDate() {
     return date.toDateString();
 }
 
+export function preselectedUsers(users, teamUsers) {
+    var returnList = [];
+
+    if (teamUsers === undefined || teamUsers.length === 0 || teamUsers.length === undefined) {
+        return;
+    }
+
+    for (var i = 0; i < teamUsers.length; i++) {
+        for (var j = 0; j < users.length; j++) {
+            if (teamUsers[i].id === users[j]) {
+                returnList.push({ title: teamUsers[i].username + ' - #' + teamUsers[i].id , id: teamUsers[i].id });
+            }
+        }
+    }
+
+    return returnList;
+}
+
 export function displayAllUsers(users) {
     var returnList = [];
 

@@ -71,6 +71,12 @@ export class EpicsDashboard extends Component {
         .then((response) => this.setState({ users: response.data}));
     }
 
+    async getTeamTags() {
+        //UPDATE ME
+        await axios
+        .get(API_URL_USERS + '2/admin/users')
+        .then((response) => this.setState({ users: response.data}));
+    }
     resetState = () => {
         this.getEpics();
         this.getStories();

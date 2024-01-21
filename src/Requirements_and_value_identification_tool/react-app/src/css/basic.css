@@ -1,6 +1,7 @@
 :root {
     --blue-highlight: #58c1d6;
     --transparent-grey: #d3d7dc20;
+    --completed-grey: #c7c7c7;
 }
 
 .btn-primary {
@@ -36,8 +37,8 @@
     margin: auto;
     margin-bottom: 15px;
     margin-top: 15px;
-    width: 180px;
-    height: 90px;
+    width: 190px;
+    height: 95px;
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -53,14 +54,26 @@
 
 .story-profile-photo {
     border-radius: 100%;
-    margin-right: -0.5vh;
-    width: 5vh;
-    height: 5vh;
+    margin-right: -15px;
+    width: 30px;
+    height: 30px;
     background-color: var(--blue-background);
     float: right;
     display: inline;
     padding: 0px;
-    margin-top: 4vh;
+    margin-top: 0vh;
+    position:absolute;
+   
+}
+
+.story-profile-photo-tooltip {
+    margin-right: -40px !important;
+    margin: auto;
+    width: 30px;
+    height: 0px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 20px;
     position:absolute;
    
 }
@@ -83,7 +96,7 @@
     border-radius: 10px;
     margin: 10%;
     margin-right: 5px;
-    min-width: 200px;
+    min-width: 210px;
     min-height: 100%;
 }
 
@@ -95,8 +108,8 @@
     margin: auto;
     margin-top: 10px;
     margin-bottom: 5px;
-    width: 180px;
-    height: 90px;
+    width: 190px;
+    height: 95px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -109,8 +122,8 @@
     border-radius: 15px;
     margin: 5%;
     margin-top: 1px;
-    width: 180px;
-    height: 90px;
+    width: 190px;
+    height: 95px;
     display: table;
 }
 
@@ -380,3 +393,83 @@
     margin-bottom: 2%;
     margin-top: 2%;
 }
+
+
+.completed-banner {
+    border-top: 2px solid var(--completed-grey);
+    border-bottom: 2px solid var(--completed-grey);
+    color: white;
+    text-align: center;
+    width: 190px;
+    height: 20px;
+    line-height: 15px !important;
+    background-color: var(--completed-grey);
+    vertical-align: middle !important;
+    margin:0px;
+    margin-left: -10px !important;
+    padding: 0px;
+    margin-top: 55px;
+}
+
+.completed-banner-epic {
+    border-top: 2px solid white ;
+    border-bottom: 2px solid white;
+    color: var(--completed-grey);
+    text-align: center;
+    width: 190px;
+    height: 20px;
+    line-height: 15px !important;
+    background-color: white;
+    vertical-align: middle !important;
+    margin:0px;
+    margin-left: -10px !important;
+    padding: 0px;
+    margin-top: 30px;
+}
+
+.details-div {
+    display:block;
+    height: 20px;
+    margin-top: 55px !important;
+    width: 190px;
+    margin: 0px;
+    margin:0px;
+    margin-left: -10px !important;
+    padding: 0px 1px;
+    white-space: nowrap;
+  overflow: hidden;
+}
+
+.details-tag-small {
+    font-size: 12px;
+    border-radius: 15px;
+    padding: 0px 1vh;
+    margin-right: 2px;
+    margin-top: 0px;
+    width: auto;
+    display: inline-block;
+    color: white;
+}
+
+.tooltip .tooltip-text{
+    /* visibility: hidden; */
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+  }
+
+.tool-tip:hover {
+    background-color: black;
+    color: white;
+    display:block
+}
+

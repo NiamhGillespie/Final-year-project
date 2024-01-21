@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import '../../css/basic.css';
 import axios from 'axios';
 import UpdateStoryForm from './edit_story_form';
-import { displayPriority, displayTags } from '../helper-methods/story_display_methods';
+import { displayPriority, displaySmallTags, displayTags } from '../helper-methods/story_display_methods';
 import { displayTeamTags } from '../helper-methods/form_helper_methods';
 import { API_URL_USER_DETAILS } from '../../constants';
+import { Tooltip } from 'react-tooltip';
 
 class StoryDetailsModal extends Component {
     state = {
@@ -196,18 +198,18 @@ class StoryDetailsModal extends Component {
         console.log(users);
         var marginLeft = 0;
 
-        if (users.length !== undefined) {
+        if (users.length !== undefined && users !== undefined) {
             for (var i = 0; i < users.length; i++) {
                 for (var j = 0; j < assigned_to.length; j++) {
                     if (users[i].id === assigned_to[j]) {
                         console.log(users[i].id === assigned_to[j], users[i].id, assigned_to[j]);
                         userImages.push(
-                            <img
-                                src={users[i].profile_photo}
-                                alt="profile"
-                                className="story-profile-photo"
-                                style={{ marginLeft: marginLeft + 'vh' }}
-                            />
+                            <div>
+                                <a id={users[i].username} className="story-profile-photo-tooltip" style={{ marginLeft: marginLeft + 'vh' }}>
+                                    <img id="profile_photo" src={users[i].profile_photo} alt="profile" className="story-profile-photo" />
+                                </a>
+                                <Tooltip anchorSelect={'#' + users[i].username} content={users[i].first_name + " " + users[i].surname} />
+                            </div>
                         );
                         marginLeft = marginLeft - 3;
                     }
@@ -225,6 +227,15 @@ class StoryDetailsModal extends Component {
                 {this.displayUserImages()}
 
                 <p className="story-priority"> {displayPriority(this.state.story.priority)} </p>
+
+                {this.state.story.completed ? (
+                    <div className="completed-banner">completed</div>
+                ) : (
+                    <div className="details-div">
+                        {' '}
+                        <Tooltip id="photo-tooltip" anchorSelect="#profile" /> {displaySmallTags(this.state.story.tags, this.state.teamTags)}
+                    </div>
+                )}
             </div>
         );
 

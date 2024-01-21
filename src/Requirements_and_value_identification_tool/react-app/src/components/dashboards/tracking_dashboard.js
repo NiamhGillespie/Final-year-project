@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/tracking_dashboard.css';
 import axios from 'axios';
-import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL, API_URL_CURRENT_SPRINT } from '../../constants';
+import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL, API_URL_CURRENT_SPRINT, API_URL_USERS } from '../../constants';
 import { DragDropContext, Droppable, Draggable } from '../../constants/drag_and_drop';
 import EditColumnModal from '../tracking_column_forms/edit_tracking_column_modal';
 import EditSprintModal from '../sprint_settings/edit-sprint-settings-modal';
@@ -11,6 +11,7 @@ import AddColumnModal from '../tracking_column_forms/add_tracking_column_modal';
 import { updateColumStoryOrder, updateNewColumn, updateOldColumn, updateStory } from '../helper-methods/column_update_methods';
 import { displayPriority } from '../helper-methods/story_display_methods';
 import { storiesEdited24Hours, storiesEdited48Hours, storiesEdited72Hours } from '../helper-methods/time_filter_methods';
+import StoryDetailsModal from '../story_forms/story_details_modal';
 
 export class TrackingDashboard extends Component {
     state = {
@@ -19,11 +20,18 @@ export class TrackingDashboard extends Component {
         non_completed_stories: [],
         epics: [],
         sprint: {},
-        filter: 'all'
+        filter: 'all',
+
+        users: []
     };
 
     async componentDidMount() {
         this.resetState();
+    }
+
+    async getUsers() {
+        //UPDATE ME
+        await axios.get(API_URL_USERS + '2/admin/users').then((response) => this.setState({ users: response.data }));
     }
 
     async getCurrentSprint() {
@@ -40,18 +48,18 @@ export class TrackingDashboard extends Component {
         }
 
         if (this.state.filter === '24_hours') {
-            await axios.get(API_URL).then((response) => this.state.non_completed_stories = storiesEdited24Hours(response.data[1]) );
-            console.log(this.state.non_completed_stories)
+            await axios.get(API_URL).then((response) => (this.state.non_completed_stories = storiesEdited24Hours(response.data[1])));
+            console.log(this.state.non_completed_stories);
         }
 
         if (this.state.filter === '48_hours') {
-            await axios.get(API_URL).then((response) => this.state.non_completed_stories = storiesEdited48Hours(response.data[1]) );
-            console.log("48 hour stories..", this.state.non_completed_stories, this.state.filter);
+            await axios.get(API_URL).then((response) => (this.state.non_completed_stories = storiesEdited48Hours(response.data[1])));
+            console.log('48 hour stories..', this.state.non_completed_stories, this.state.filter);
         }
 
         if (this.state.filter === '72_hours') {
-            await axios.get(API_URL).then((response) => this.state.non_completed_stories = storiesEdited72Hours(response.data[1]) );
-            console.log("72 hour stories ...", this.state.non_completed_stories, this.state.filter)
+            await axios.get(API_URL).then((response) => (this.state.non_completed_stories = storiesEdited72Hours(response.data[1])));
+            console.log('72 hour stories ...', this.state.non_completed_stories, this.state.filter);
         }
     }
 
@@ -65,6 +73,7 @@ export class TrackingDashboard extends Component {
         this.getNonCompletedStories();
         this.getEpics();
         this.displayColumns();
+        this.getUsers();
     };
 
     changeFilter(filterName) {
@@ -153,21 +162,21 @@ export class TrackingDashboard extends Component {
     }
 
     filterIds(orderIds) {
-        var filteredIds = []
-        var idList = orderIds.split(',')
+        var filteredIds = [];
+        var idList = orderIds.split(',');
         for (var i = 0; i < idList.length; i++) {
             for (var j = 0; j < this.state.non_completed_stories.length; j++) {
                 if (parseInt(idList[i]) === this.state.non_completed_stories[j].id) {
-                    filteredIds.push(idList[i])
+                    filteredIds.push(idList[i]);
                 }
             }
         }
 
-        return filteredIds
+        return filteredIds;
     }
 
     displayStories(column) {
-        var ordered_ids = this.filterIds(column.story_list)
+        var ordered_ids = this.filterIds(column.story_list);
         var stories = [];
         var story_colours = [];
         if (
@@ -195,13 +204,17 @@ export class TrackingDashboard extends Component {
                                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                             <div
                                                 {...provided.dragHandleProps}
-                                                style={{ border: '2px solid #' + story_colours[index] }}
-                                                className="story-box">
-                                                <p className="story-title"> {story.title} </p>
-                                                <p style={{ background: '#' + story_colours[index] }} className="story-profile-photo">
-                                                    icon
-                                                </p>
-                                                <p className="story-priority"> {displayPriority(story.priority)} </p>
+                                                >
+                                                {/* <p className="story-title"> {story.title} </p>
+                                                {this.displayUserImages(story)}
+                                                <p className="story-priority"> {displayPriority(story.priority)} </p> */}
+
+                                                <StoryDetailsModal
+                                                    resetState={this.resetState}
+                                                    story={story}
+                                                    users={this.state.users}
+                                                    epic_colour={story.completed ? 'c7c7c7' : story_colours[index]}
+                                                />
                                             </div>
                                         </div>
                                     )}

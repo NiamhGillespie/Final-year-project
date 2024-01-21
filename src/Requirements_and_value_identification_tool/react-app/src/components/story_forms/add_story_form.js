@@ -304,16 +304,6 @@ class AddStoryForm extends Component {
                         </select>
                     </FormGroup>
 
-                    <FormGroup className="checkbox-styling">
-                        <Label for="pairable">Pairable: </Label>
-                        <Input
-                            type="checkbox"
-                            name="pairable"
-                            onChange={this.onChangeCheckbox}
-                            value={returnDefaultIfFieldEmpty(this.state.pairable)}
-                        />
-                    </FormGroup>
-
                     <FormGroup>
                         <Label for="assigned_to">Assigned to:</Label>
                         <Multiselect
