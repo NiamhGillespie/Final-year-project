@@ -2,6 +2,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from django import db
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
 import time
 
 from .models import Epic, Story, Tag, ValueTag
@@ -418,6 +422,33 @@ def UserDetails(request, user_id):
         return Response(user_serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['PUT', 'DELETE', 'GET'])
+def UserDetailsByUsername(request, username):
+    try:
+        user = User.objects.get(username = username)
+        print("user", user)
+    
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        user_serializer = UserSerializer(user, data=request.data,context={'request': request})
+        if user_serializer.is_valid():      
+            user_serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        
+        print(user_serializer.errors)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'GET':
+        user_serializer = UserSerializer(user)
+        print(user_serializer.data)
+        return Response(user_serializer.data, status=status.HTTP_200_OK)
+    
+@api_view(['PUT', 'DELETE', 'GET'])
 def TeamDetails(request, team_id):
     try:
         team = Team.objects.get(id = int(team_id))
@@ -443,3 +474,23 @@ def TeamDetails(request, team_id):
         team_serializer = TeamSerializer(team)
         print(team_serializer.data)
         return Response(team_serializer.data, status=status.HTTP_200_OK)
+    
+    
+class Logout(APIView):
+    permission_classes = (IsAuthenticated,)
+    def post(self, request):
+          
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+          
+class HomeView(APIView):
+    permission_classes = (IsAuthenticated, )
+    def get(self, request):
+        content = {'message': "Welcome to the JWT Authenticated page using React Js and Django!"}
+        return Response(content)

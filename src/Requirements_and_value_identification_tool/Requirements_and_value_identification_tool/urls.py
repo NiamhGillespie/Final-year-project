@@ -20,6 +20,7 @@ from django.urls import include
 from web_app import views
 from django.conf import settings 
 from django.conf.urls.static import static
+from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     #will be done by react?
@@ -41,6 +42,7 @@ urlpatterns = [
     re_path(r'^api/teamName/sprint-details/([0-9]*)$', views.SprintDetails, name='sprintDetails'),
     re_path(r'^api/user-details/([0-9]*)$', views.UserDetails, name='userDetails'),
     re_path(r'^api/team-details/([0-9]*)$', views.TeamDetails, name='teamDetails'),
+    re_path(r'^api/user-details-by-username/(.*)$', views.UserDetailsByUsername, name='userDetailsByUsername'),
 
     re_path(r'^api/teamName/current-sprint', views.getCurrentTeamSprint, name='getCurrentTeamSprint'),
 
@@ -49,12 +51,9 @@ urlpatterns = [
     re_path(r'^api/([0-9]*)/admin/users$', views.Users, name='createUser'),
     re_path(r'^api/([0-9]*)/admin/teams$', views.Teams, name='createTeam'),
 
-    #signup
-    #profile
-    #teams - will return list of teams 
-    #teamName - will return details of team and links to issue and epic board
-    #teamName/epicsDashboard
-    #teamName/kanbanBoard
+    path('token/', jwt_views.TokenObtainPairView.as_view(), name ='token_obtain_pair'),
+     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name ='token_refresh'),
+    path('logout/', views.Logout.as_view(), name ='logout'),
    
 ]
 

@@ -111,6 +111,7 @@ export class ViewUsers extends Component {
         var returnList = [];
 
         for (var i = 0; i < users.length; i++) {
+            console.log('vie users', users[i].profile_photo)
             returnList.push(
                 <div className="team-card d-flex flex-nowrap">
                     <img src={users[i].profile_photo} alt="user profile" className="team-card-photo" />

@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import collections
 collections.Callable = collections.abc.Callable
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web_app',
     'bootstrap5',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+    'corsheaders',
 ]
 
 # TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -53,6 +56,14 @@ INSTALLED_APPS = [
 #     '--with-coverage',
 #     '--cover-package= web_app, tests.py'
 # ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+'http://localhost:3000',
+'http://localhost:8000',
+'http://localhost:8080',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,7 +77,20 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+
+
+SIMPLE_JWT = {
+     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+     'ROTATE_REFRESH_TOKENS': True,
+     'BLACKLIST_AFTER_ROTATION': True
+}
+
+REST_FRAMEWORK = {
+     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+      ],
+}
 
 ROOT_URLCONF = 'Requirements_and_value_identification_tool.urls'
 
