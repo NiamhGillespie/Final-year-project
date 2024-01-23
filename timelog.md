@@ -350,3 +350,6 @@
 
 ### 21 Jan 2024
 * *3 hours* Revamping tracking dashboard so when user clicks a story the details modal appears, added user images to the story boxes with a tooltip containing the users fullname that appears on hover, also added a completed banner to completed epics and storys and added tags to uncompleted stories.
+
+### 23 Jan 2024
+* *4 hours* Adding the basics of log in and log out functionality with JWT authentication.
