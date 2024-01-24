@@ -353,3 +353,6 @@
 
 ### 23 Jan 2024
 * *4 hours* Adding the basics of log in and log out functionality with JWT authentication.
+
+### 23 and 24 Jan 2024
+* *12 hours* Updating login functionality so it works with my custom user profile, refactored a significant portion of the webapp so that a team_member or team_lead can choose between teams for each of the dashboards - initially I hadn't planned to support this but have set up the majority of the administration side to support multiple teams. Finished off all the user management requirements and manually tested the setup to check if it worked. Updated branding of the webapp and started on help documentation on the homepage.
