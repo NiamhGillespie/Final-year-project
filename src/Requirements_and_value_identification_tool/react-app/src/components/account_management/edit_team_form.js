@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import {
-    API_URL_ORGANISATIONS,
-    API_URL_TAG_DETAILS,
-    API_URL_TEAMS,
-    API_URL_TEAM_DETAILS,
-    API_URL_USERS,
-    API_URL_USER_DETAILS
-} from '../../constants';
-import { ColorPicker } from 'primereact/colorpicker';
+import { API_URL_TEAMS, API_URL_TEAM_DETAILS, API_URL_USERS } from '../../constants';
 import {
     displayTeamLeads,
     displayTeamMembers,
@@ -20,7 +12,6 @@ import {
     returnDefaultIfFieldEmpty
 } from '../helper-methods/form_helper_methods';
 import Multiselect from 'multiselect-react-dropdown';
-import DeleteTeamModal from './delete_team_modal';
 
 //need to add error handeling to this :)
 class EditTeamForm extends Component {
@@ -29,9 +20,7 @@ class EditTeamForm extends Component {
         team_photo: this.props.team.team_photo,
         team_leads: this.props.team.team_leads,
         team_members: this.props.team.team_members,
-        organisation_id: 2,
         belongs_to: this.props.team.belongs_to,
-        organisation: this.get_organisation(),
         team_leads_list: this.getPotentialLeads(),
         team_members_list: this.getPotentialMembers(),
         preview_photo: this.props.team.team_photo
@@ -39,18 +28,18 @@ class EditTeamForm extends Component {
 
     async getPotentialLeads() {
         await axios
-            .get(API_URL_USERS + '2/admin/users')
+            .get(API_URL_USERS + this.props.team.belongs_to + '/admin/users')
             .then((response) => this.setState({ team_leads_list: response.data.filter((user) => user.role === 'team_lead') }));
     }
 
     async getPotentialMembers() {
         await axios
-            .get(API_URL_USERS + '2/admin/users')
+            .get(API_URL_USERS + this.props.team.belongs_to + '/admin/users')
             .then((response) => this.setState({ team_members_list: response.data.filter((user) => user.role === 'team_member') }));
     }
 
     async getTeams() {
-        var teams = await axios.get(API_URL_TEAMS + 2 + '/admin/teams');
+        var teams = await axios.get(API_URL_TEAMS + this.props.team.belongs_to + '/admin/teams');
         this.setState({ list_of_teams: teams.data });
     }
 
@@ -72,15 +61,6 @@ class EditTeamForm extends Component {
             preview_photo: URL.createObjectURL(e.target.files[0])
         });
     };
-
-    async get_organisation() {
-        var organisations = await axios.get(API_URL_ORGANISATIONS).then((response) => response.data);
-
-        const organisation = organisations.filter((org) => org.id === this.state.organisation_id);
-
-        this.state.organisation = organisation[0];
-        return organisation[0];
-    }
 
     updateTeam = (e) => {
         e.preventDefault();
@@ -136,7 +116,7 @@ class EditTeamForm extends Component {
     };
 
     deleteTeam() {
-        console.log("deleting...")
+        console.log('deleting...');
     }
 
     render() {
@@ -204,12 +184,18 @@ class EditTeamForm extends Component {
                             </FormGroup>
                         </div>
 
-                        <div className='float-start'>
-                            <Button className="btn-delete login-button mt-3 float-end" onClick={this.deleteTeam()}> Delete Team </Button>
+                        <div className="float-start">
+                            <Button className="btn-delete login-button mt-3 float-end" onClick={this.deleteTeam()}>
+                                {' '}
+                                Delete Team{' '}
+                            </Button>
                         </div>
 
                         <div>
-                            <Button className="btn-primary login-button mt-3 float-end" onClick={this.updateTeam}> Update Team </Button>
+                            <Button className="btn-primary login-button mt-3 float-end" onClick={this.updateTeam}>
+                                {' '}
+                                Update Team{' '}
+                            </Button>
                         </div>
                     </div>
                 </Form>

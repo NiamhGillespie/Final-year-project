@@ -1,0 +1,58 @@
+:root {
+    --blue-highlight: #58c1d6;
+    --blue-background: #58c1d630;
+    --transparent-grey: #d3d7dc20;
+    --completed-grey: #c7c7c7;
+}
+
+.home-welcome {
+    text-align: center;
+    font-size: 5vh;
+    margin-top: 5vh;
+    color: var(--blue-highlight);
+}
+
+.home-blurb {
+    border-right: 2px solid var(--blue-highlight) !important;
+    border-left: 2px solid var(--blue-highlight) !important;
+    border-bottom: 2px solid var(--blue-highlight) !important;
+    margin: auto;
+    height: 30vh;
+    padding: 3vh;
+    margin-left: 5.5vh;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    display: none;
+    overflow: hidden;
+    width: 95vw !important;
+
+}
+
+.collapsible-symbol {
+    color: var(--blue-highlight);
+    font-size: large;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 0px;
+}
+
+.collapsible {
+    border: 2px solid var(--blue-highlight) !important;
+    background-color: white;
+    cursor: pointer;
+    padding: 3vh;
+    width: 90vw;
+    height: 10vh;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    margin: 5.5vh;
+    width: 95vw;
+    margin-bottom: 0px;
+}
+
+.active,
+.collapsible:hover {
+    background-color: var(--blue-background);
+}

@@ -4,13 +4,13 @@ from .models import *
 class EpicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Epic
-        fields = ('id', 'epic_id', 'epic_colour', 'dashboard_id', 'title', 'order', 'tags', 'values',
+        fields = ('id', 'epic_id', 'epic_colour', 'team_id', 'title', 'order', 'tags', 'values',
                   'last_edited_by', 'last_edited', 'created_by', 'time_created', 'completed')
 
 class StorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
-        fields = ('id', 'story_id', 'epic_id', 'title', 'order', 'tags', 'user_story', 'definition_of_done', 'values', 'story_points', 'priority', 
+        fields = ('id', 'story_id', 'epic_id', 'team_id', 'title', 'order', 'tags', 'user_story', 'definition_of_done', 'values', 'story_points', 'priority', 
                   'pairable', 'assigned_to', 'state', 'completed', 'last_edited_by', 'last_edited', 'created_by', 'time_created')
         
 class TagSerializer(serializers.ModelSerializer):
@@ -45,5 +45,5 @@ class TeamSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = UserProfile
         fields = ('id', 'belongs_to', 'username', 'password', 'email', 'first_name', 'surname', 'role', 'teams', 'profile_photo')

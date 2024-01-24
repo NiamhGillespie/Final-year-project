@@ -37,7 +37,11 @@ export class DisplayUserTeams extends Component {
         for (var i = 0; i < teams.length; i++) {
             returnList.push(
                 <div className="small-team-member-card">
-                    <img src={teams[i].team_photo} alt="user profile" className="small-team-member-photo" />
+                    {teams[i].team_photo === null ? (
+                        <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="small-team-member-photo" />
+                    ) : (
+                        <img src={teams[i].team_photo} alt="hey" className="small-team-member-photo" />
+                    )}
                     <Link to="/teamName/details" state={{ team: teams[i] }} className="link small-card-info">
                             {teams[i].team_name}
                     </Link>

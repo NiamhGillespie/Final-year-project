@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/tracking_dashboard.css';
 import axios from 'axios';
-import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL, API_URL_CURRENT_SPRINT, API_URL_USERS } from '../../constants';
+import { API_URL_USERS, API_URL_SHORT } from '../../constants';
 import { DragDropContext, Droppable, Draggable } from '../../constants/drag_and_drop';
 import EditColumnModal from '../tracking_column_forms/edit_tracking_column_modal';
-import EditSprintModal from '../sprint_settings/edit-sprint-settings-modal';
-import TrackingSettingsModal from '../tracking_settings_forms/tracking_settings_modal';
 import AddColumnModal from '../tracking_column_forms/add_tracking_column_modal';
 import { updateColumStoryOrder, updateNewColumn, updateOldColumn, updateStory } from '../helper-methods/column_update_methods';
-import { displayPriority } from '../helper-methods/story_display_methods';
 import { storiesEdited24Hours, storiesEdited48Hours, storiesEdited72Hours } from '../helper-methods/time_filter_methods';
 import StoryDetailsModal from '../story_forms/story_details_modal';
 
@@ -22,58 +19,79 @@ export class TrackingDashboard extends Component {
         sprint: {},
         filter: 'all',
 
-        users: []
+        users: this.getUsers(),
+        team: this.getTeam()
     };
 
+    getTeam() {
+        console.log('PROPS ARE', this.props);
+        if (this.props.current_team) {
+            console.log('current team', this.props.current_team);
+            //this.state.team = this.props.current_team
+            this.setState({ team: this.props.current_team });
+            return this.props.current_team;
+        } else {
+            //this.state.team = this.props.team[0]
+            this.setState({ team: this.props.team[0] });
+            return this.props.team[0];
+        }
+    }
+
     async componentDidMount() {
+        await this.getTeam();
+        this.getUsers();
         this.resetState();
     }
 
     async getUsers() {
         //UPDATE ME
-        await axios.get(API_URL_USERS + '2/admin/users').then((response) => this.setState({ users: response.data }));
-    }
-
-    async getCurrentSprint() {
-        await axios.get(API_URL_CURRENT_SPRINT).then((response) => this.setState({ sprint: response.data[0] }));
+        await axios.get(API_URL_USERS + this.props.user.belongs_to + '/admin/users').then((response) => this.setState({ users: response.data }));
     }
 
     async getColumns() {
-        await axios.get(API_URL_DASHBOARD_TRACKING_COLUMNS).then((response) => this.setState({ columns: response.data }));
+        await axios.get(API_URL_SHORT + this.state.team.id + '/tracking-columns').then((response) => this.setState({ columns: response.data }));
     }
 
     async getNonCompletedStories() {
         if (this.state.filter === 'all') {
-            await axios.get(API_URL).then((response) => this.setState({ non_completed_stories: response.data[1] }));
+            await axios
+                .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
+                .then((response) => this.setState({ non_completed_stories: response.data[1] }));
         }
 
         if (this.state.filter === '24_hours') {
-            await axios.get(API_URL).then((response) => (this.state.non_completed_stories = storiesEdited24Hours(response.data[1])));
+            await axios
+                .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
+                .then((response) => (this.state.non_completed_stories = storiesEdited24Hours(response.data[1])));
             console.log(this.state.non_completed_stories);
         }
 
         if (this.state.filter === '48_hours') {
-            await axios.get(API_URL).then((response) => (this.state.non_completed_stories = storiesEdited48Hours(response.data[1])));
+            await axios
+                .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
+                .then((response) => (this.state.non_completed_stories = storiesEdited48Hours(response.data[1])));
             console.log('48 hour stories..', this.state.non_completed_stories, this.state.filter);
         }
 
         if (this.state.filter === '72_hours') {
-            await axios.get(API_URL).then((response) => (this.state.non_completed_stories = storiesEdited72Hours(response.data[1])));
+            await axios
+                .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
+                .then((response) => (this.state.non_completed_stories = storiesEdited72Hours(response.data[1])));
             console.log('72 hour stories ...', this.state.non_completed_stories, this.state.filter);
         }
     }
 
     async getEpics() {
-        await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0] }));
+        console.log("epic cols", this.state.team)
+        await axios.get(API_URL_SHORT + this.state.team.id + '/epicsDashboard').then((response) => this.setState({ epics: response.data[0] }));
     }
 
     resetState = () => {
-        this.getCurrentSprint();
-        this.getColumns();
         this.getNonCompletedStories();
         this.getEpics();
-        this.displayColumns();
+        this.getColumns();
         this.getUsers();
+        this.displayColumns();
     };
 
     changeFilter(filterName) {
@@ -96,6 +114,32 @@ export class TrackingDashboard extends Component {
         }
         this.getColumns();
     }
+
+    getTeams(teams) {
+        var returnList = [];
+        for (var i = 0; i < teams.length; i++) {
+            returnList.push(
+                <>
+                    <option value={teams[i].id}>
+                        <div>{teams[i].team_name}</div>
+                    </option>
+                </>
+            );
+        }
+
+        return returnList;
+    }
+
+    changeChosenTeam = (e) => {
+        for (var i = 0; i < this.props.teams.length; i++) {
+            if (parseInt(e.target.value) === this.props.teams[i].id) {
+                this.state.team = this.props.teams[i];
+                this.setState({ team: this.props.teams[i] })
+                this.getEpics()
+            }
+        }
+        this.resetState();
+    };
 
     displayColumns() {
         const getDraggingStyleColumn = (isDraggingOver, WIP, col_stories) => ({
@@ -137,6 +181,7 @@ export class TrackingDashboard extends Component {
                                             resetState={this.resetState}
                                             column={column}
                                             non_completed_stories={non_completed_stories}
+                                            team={this.state.team}
                                         />
                                         {column.WIP !== 0 ? (
                                             <p className="wip-limit mt-0 mb-2 d-block" style={WIPStyling(column.WIP, column.stories)}>
@@ -192,6 +237,9 @@ export class TrackingDashboard extends Component {
                 // eslint-disable-next-line no-loop-func
                 stories.push(this.state.non_completed_stories.filter((story) => story.id === parseInt(ordered_ids[i]))[0]);
                 // eslint-disable-next-line no-loop-func
+                console.log(this.state.team)
+                console.log(stories[i].epic_id, this.state.epics)
+                console.log(this.state.epics.filter((epic) => epic.epic_id === stories[i].epic_id)[0])
                 story_colours.push(this.state.epics.filter((epic) => epic.epic_id === stories[i].epic_id)[0].epic_colour);
             }
             if (stories[0] !== undefined) {
@@ -202,9 +250,7 @@ export class TrackingDashboard extends Component {
                                 <Draggable key={story.id} draggableId={story.id.toString()} index={index} className="story-drag-and-drop">
                                     {(provided, snapshot) => (
                                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                            <div
-                                                {...provided.dragHandleProps}
-                                                >
+                                            <div {...provided.dragHandleProps}>
                                                 {/* <p className="story-title"> {story.title} </p>
                                                 {this.displayUserImages(story)}
                                                 <p className="story-priority"> {displayPriority(story.priority)} </p> */}
@@ -214,6 +260,7 @@ export class TrackingDashboard extends Component {
                                                     story={story}
                                                     users={this.state.users}
                                                     epic_colour={story.completed ? 'c7c7c7' : story_colours[index]}
+                                                    team={this.state.team}
                                                 />
                                             </div>
                                         </div>
@@ -227,22 +274,33 @@ export class TrackingDashboard extends Component {
         }
     }
 
-    displaySprintSettings() {
-        if (this.state.sprint !== undefined) {
-            return <EditSprintModal resetState={this.resetState} sprint={this.state.sprint} />;
-        }
+    // displaySprintSettings() {
+    //     if (this.state.sprint !== undefined) {
+    //         return <EditSprintModal resetState={this.resetState} sprint={this.state.sprint} />;
+    //     }
 
-        return <TrackingSettingsModal resetState={this.resetState} />;
-    }
+    //     return <TrackingSettingsModal resetState={this.resetState} />;
+    // }
 
     render() {
         return (
             <>
-                <div className="d-flex flex-row flex-parent m-0 justify-content-between">
-                    <h4 className="mt-0 mb-0 p-2 ml-5 pl-5"> Tracking Dashboard </h4>
-                    <AddColumnModal resetState={this.resetState} />
-                    {this.displaySprintSettings()}
+                <div className="d-flex mt-0 pt-0 ">
+                    <div className="team-choice choice-section w-50 mt-0 pt-0 mb-2">
+                        {this.state.team.team_photo === null ? (
+                            <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="nav-photo-left" />
+                        ) : (
+                            <img src={'http://localhost:8000/' + this.state.team.team_photo} alt="hey" className="nav-photo-left" />
+                        )}
+                        <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
+                            {this.getTeams(this.props.teams)}
+                        </select>
+                         - Tracking Dashboard
+                    </div>
+                    <AddColumnModal resetState={this.resetState} team={this.state.team} className="d-inline w-25 bg-primary float-end" />
                 </div>
+
+                <hr className='mt-0 mb-2 pt-0 pb-2'/>
 
                 <div className="ms-4 mt-2">
                     <p

@@ -1,11 +1,11 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/account_management.css';
 import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap';
 import { displayTeamLeads, displayTeamMembers, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 import Multiselect from 'multiselect-react-dropdown';
 import axios from 'axios';
-import { API_URL_ORGANISATIONS, API_URL_TEAMS, API_URL_USERS, API_URL_USER_DETAILS } from '../../constants';
+import { API_URL_TEAMS, API_URL_USERS } from '../../constants';
 
 export class AddTeam extends Component {
     state = {
@@ -13,22 +13,20 @@ export class AddTeam extends Component {
         team_photo: '',
         team_leads: [],
         team_members: [],
-        organisation_id: 2,
-        belongs_to: 2,
-        organisation: this.get_organisation(),
+        belongs_to: this.props.user.belongs_to,
         team_leads_list: this.getPotentialLeads(),
         team_members_list: this.getPotentialMembers()
     };
 
     async getPotentialLeads() {
         await axios
-            .get(API_URL_USERS + '2/admin/users')
+            .get(API_URL_USERS + this.props.user.belongs_to + '/admin/users')
             .then((response) => this.setState({ team_leads_list: response.data.filter((user) => user.role === 'team_lead') }));
     }
 
     async getPotentialMembers() {
         await axios
-            .get(API_URL_USERS + '2/admin/users')
+            .get(API_URL_USERS + this.props.user.belongs_to + '/admin/users')
             .then((response) => this.setState({ team_members_list: response.data.filter((user) => user.role === 'team_member') }));
     }
 
@@ -37,6 +35,7 @@ export class AddTeam extends Component {
     }
 
     resetState() {
+        console.log(this.props.user)
         this.getPotentialLeads();
         this.getPotentialMembers();
     }
@@ -55,14 +54,6 @@ export class AddTeam extends Component {
         });
     };
 
-    async get_organisation() {
-        var organisations = await axios.get(API_URL_ORGANISATIONS).then((response) => response.data);
-
-        const organisation = organisations.filter((org) => org.id === this.state.organisation_id);
-
-        this.state.organisation = organisation[0];
-        return organisation[0];
-    }
 
     onLeadAddition = (e) => {
         var team_lead_ids = [];
@@ -100,7 +91,10 @@ export class AddTeam extends Component {
         e.preventDefault();
 
         let form_data = new FormData();
-        form_data.append('team_photo', this.state.team_photo, this.state.team_photo.name);
+        if (this.state.team_photo !== '') {
+            form_data.append('team_photo', this.state.team_photo, this.state.team_photo.name);
+        }
+        
         form_data.append('team_name', this.state.team_name);
         this.state.team_leads.forEach((lead) => {
             form_data.append('team_leads', lead);
@@ -110,7 +104,7 @@ export class AddTeam extends Component {
         });
         form_data.append('belongs_to', this.state.belongs_to);
 
-        axios.post(API_URL_TEAMS + this.state.organisation.id + '/admin/teams', form_data).then(() => {
+        axios.post(API_URL_TEAMS + this.state.belongs_to + '/admin/teams', form_data).then(() => {
             alert('team created');
             console.log('team added');
         });

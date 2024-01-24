@@ -6,7 +6,7 @@ import axios from 'axios';
 import UpdateStoryForm from './edit_story_form';
 import { displayPriority, displaySmallTags, displayTags } from '../helper-methods/story_display_methods';
 import { displayTeamTags } from '../helper-methods/form_helper_methods';
-import { API_URL_USER_DETAILS } from '../../constants';
+import { API_URL_SHORT, API_URL_USER_DETAILS } from '../../constants';
 import { Tooltip } from 'react-tooltip';
 
 class StoryDetailsModal extends Component {
@@ -19,12 +19,12 @@ class StoryDetailsModal extends Component {
     };
 
     async getTeamTags() {
-        var tags = await axios.get('http://localhost:8000/api/teamName/tags/');
+        var tags = await axios.get(API_URL_SHORT + this.props.team.id + '/tags');
         this.setState({ teamTags: tags.data });
     }
 
     async getTeamValues() {
-        var values = await axios.get('http://localhost:8000/api/teamName/values/');
+        var values = await axios.get(API_URL_SHORT + this.props.team.id + '/values');
         this.setState({ teamValues: values.data });
     }
 
@@ -184,6 +184,7 @@ class StoryDetailsModal extends Component {
                     epic_colour={this.props.epic_colour}
                     getTags={displayTeamTags(this.state.teamTags)}
                     getValues={this.displayValues()}
+                    team = {this.props.team}
                 />
             );
         } else {
@@ -196,7 +197,7 @@ class StoryDetailsModal extends Component {
         var users = this.props.users;
         var assigned_to = this.props.story.assigned_to;
         console.log(users);
-        var marginLeft = 0;
+        var marginLeft = 20;
 
         if (users.length !== undefined && users !== undefined) {
             for (var i = 0; i < users.length; i++) {
@@ -205,13 +206,13 @@ class StoryDetailsModal extends Component {
                         console.log(users[i].id === assigned_to[j], users[i].id, assigned_to[j]);
                         userImages.push(
                             <div>
-                                <a id={users[i].username} className="story-profile-photo-tooltip" style={{ marginLeft: marginLeft + 'vh' }}>
+                                <a id={users[i].username} className="story-profile-photo-tooltip" style={{ marginLeft: marginLeft + 'px' }}>
                                     <img id="profile_photo" src={users[i].profile_photo} alt="profile" className="story-profile-photo" />
                                 </a>
                                 <Tooltip anchorSelect={'#' + users[i].username} content={users[i].first_name + " " + users[i].surname} />
                             </div>
                         );
-                        marginLeft = marginLeft - 3;
+                        marginLeft = marginLeft - 20;
                     }
                 }
             }
@@ -224,7 +225,9 @@ class StoryDetailsModal extends Component {
             <div style={{ border: '2px solid #' + this.props.epic_colour }} className="story-box" onClick={this.toggleModal}>
                 <p className="story-title"> {this.state.story.title} </p>
 
-                {this.displayUserImages()}
+                <div className='story-photo-area'>
+                    {this.displayUserImages()}
+                </div>
 
                 <p className="story-priority"> {displayPriority(this.state.story.priority)} </p>
 
@@ -232,7 +235,6 @@ class StoryDetailsModal extends Component {
                     <div className="completed-banner">completed</div>
                 ) : (
                     <div className="details-div">
-                        {' '}
                         <Tooltip id="photo-tooltip" anchorSelect="#profile" /> {displaySmallTags(this.state.story.tags, this.state.teamTags)}
                     </div>
                 )}

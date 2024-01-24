@@ -25,7 +25,7 @@ class EditUserForm extends Component {
     };
 
     async getTeams() {
-        var teams = await axios.get(API_URL_TEAMS + 2 + '/admin/teams');
+        var teams = await axios.get(API_URL_TEAMS + this.props.user.belongs_to + '/admin/teams');
         this.setState({ list_of_teams: teams.data });
     }
 

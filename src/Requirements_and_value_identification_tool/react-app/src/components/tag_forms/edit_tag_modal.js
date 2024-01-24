@@ -28,7 +28,7 @@ class EditTagModal extends Component {
                     <ModalHeader toggle={this.toggleModal}>Edit Tag</ModalHeader>
 
                     <ModalBody>
-                        <EditTagForm toggle={this.toggleModal} resetState={this.props.resetState} tag={this.props.tag} />
+                        <EditTagForm toggle={this.toggleModal} resetState={this.props.resetState} tag={this.props.tag} belongs_to={this.props.belongs_to}/>
                     </ModalBody>
                 </Modal>
             </div>

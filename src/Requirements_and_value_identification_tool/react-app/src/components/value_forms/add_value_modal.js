@@ -27,7 +27,7 @@ class AddValueModal extends Component {
                     <ModalHeader toggle={this.toggleModal}>Add Value</ModalHeader>
 
                     <ModalBody>
-                        <AddValueForm toggle={this.toggleModal} resetState={this.props.resetState} />
+                        <AddValueForm toggle={this.toggleModal} resetState={this.props.resetState} belongs_to={this.props.belongs_to}/>
                     </ModalBody>
                 </Modal>
             </div>

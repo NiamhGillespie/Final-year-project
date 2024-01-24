@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/tag_dashboard.css';
 import axios from 'axios';
-import { API_URL, API_URL_TEAM_DETAILS, API_URL_USERS } from '../../constants';
+import { API_URL, API_URL_SHORT, API_URL_TEAM_DETAILS, API_URL_USERS } from '../../constants';
 import { DragDropContext, Droppable, Draggable } from '../../constants/drag_and_drop';
 import StoryDetailsModal from '../story_forms/story_details_modal';
 import EpicDetailsModal from '../epic_forms/epic_details_modal';
@@ -18,65 +18,104 @@ export class EpicsDashboard extends Component {
         parent: null,
         current_stories: [],
         filter: 'uncomplete_only',
-        users: []
-        
+        users: [],
+        team: this.getTeam()
+    };
+
+    getTeam() {
+        console.log('PROPS ARE', this.props);
+        if (this.props.current_team) {
+            console.log('current team', this.props.current_team);
+            //this.state.team = this.props.current_team
+            this.setState({ team: this.props.current_team });
+            return this.props.current_team;
+        } else {
+            //this.state.team = this.props.team[0]
+            this.setState({ team: this.props.team[0] });
+            return this.props.team[0];
+        }
+    }
+
+    getTeams(teams) {
+        var returnList = [];
+        for (var i = 0; i < teams.length; i++) {
+            returnList.push(
+                <>
+                    <option value={teams[i].id}>
+                        <div>{teams[i].team_name}</div>
+                    </option>
+                </>
+            );
+        }
+
+        return returnList;
+    }
+
+    changeChosenTeam = (e) => {
+        for (var i = 0; i < this.props.teams.length; i++) {
+            if (parseInt(e.target.value) === this.props.teams[i].id) {
+                this.state.team = this.props.teams[i];
+            }
+        }
+        this.resetState();
     };
 
     async componentDidMount() {
+        await this.getTeam();
         this.resetState();
     }
 
     async getEpics() {
+        console.log('in get epics', this.state);
         if (this.state.filter === 'all') {
-            await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0] }));
+            await axios.get(API_URL_SHORT + this.state.team.id + '/epicsDashboard').then((response) => this.setState({ epics: response.data[0] }));
         }
 
         if (this.state.filter === 'uncomplete_only') {
-            await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0].filter((epic) => epic.completed === false) }));
+            await axios
+                .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
+                .then((response) => this.setState({ epics: response.data[0].filter((epic) => epic.completed === false) }));
         }
 
         if (this.state.filter === 'complete_only') {
-            await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0].filter((epic) => epic.completed === true) }));
+            await axios
+                .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
+                .then((response) => this.setState({ epics: response.data[0].filter((epic) => epic.completed === true) }));
         }
     }
 
     async getStories() {
         if (this.state.filter === 'all') {
-            await axios.get(API_URL).then((response) => this.setState({ stories: response.data[1] }));
+            await axios.get(API_URL_SHORT + this.state.team.id + '/epicsDashboard').then((response) => this.setState({ stories: response.data[1] }));
         }
 
         if (this.state.filter === 'uncomplete_only') {
-            await axios.get(API_URL).then((response) => this.setState({ stories: response.data[1].filter((story) => story.completed === false) }));
+            await axios
+                .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
+                .then((response) => this.setState({ stories: response.data[1].filter((story) => story.completed === false) }));
         }
 
         if (this.state.filter === 'complete_only') {
-            await axios.get(API_URL).then((response) => this.setState({ stories: response.data[1].filter((story) => story.completed === true) }));
+            await axios
+                .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
+                .then((response) => this.setState({ stories: response.data[1].filter((story) => story.completed === true) }));
 
-            var stories_and_epics = await axios.get(API_URL);
+            var stories_and_epics = await axios.get(API_URL_SHORT + this.state.team.id + '/epicsDashboard');
             var epic_ids = stories_and_epics.data[1].filter((story) => story.completed === true).map((story) => story.epic_id);
             var other_epic_ids = stories_and_epics.data[0].filter((epic) => epic.completed === true).map((epic) => epic.epic_id);
             var all_epics = epic_ids.concat(other_epic_ids);
 
             await axios
-                .get(API_URL)
+                .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
                 .then((response) => this.setState({ epics: response.data[0].filter((epic) => all_epics.includes(epic.epic_id)) }));
         }
     }
 
-
     async getUsers() {
         //UPDATE ME
-        await axios
-        .get(API_URL_USERS + '2/admin/users')
-        .then((response) => this.setState({ users: response.data}));
+        await axios.get(API_URL_USERS + this.props.user.belongs_to + '/admin/users').then((response) => this.setState({ users: response.data }));
     }
 
-    async getTeamTags() {
-        //UPDATE ME
-        await axios
-        .get(API_URL_USERS + '2/admin/users')
-        .then((response) => this.setState({ users: response.data}));
-    }
     resetState = () => {
         this.getEpics();
         this.getStories();
@@ -110,7 +149,13 @@ export class EpicsDashboard extends Component {
                                                     style={{ border: snapshot.draggingOver ? '3px solid #' + epic.epic_colour + '60' : '' }}
                                                     key={epic.id}>
                                                     <div {...provided.dragHandleProps}>
-                                                        <EpicDetailsModal resetState={this.resetState} epic={epic} stories={this.state.stories} />
+                                                        {console.log('fucks skae', this.state.team)}
+                                                        <EpicDetailsModal
+                                                            resetState={this.resetState}
+                                                            epic={epic}
+                                                            stories={this.state.stories}
+                                                            team={this.state.team}
+                                                        />
                                                     </div>
 
                                                     <div className="d-flex flex-column">
@@ -121,6 +166,7 @@ export class EpicsDashboard extends Component {
                                                                 resetState={this.resetState}
                                                                 epic_id={epic.epic_id}
                                                                 epic_colour={epic.epic_colour}
+                                                                team={this.state.team}
                                                             />
                                                         </div>
                                                     </div>
@@ -171,6 +217,7 @@ export class EpicsDashboard extends Component {
                                                             story={story}
                                                             users={this.state.users}
                                                             epic_colour={story.completed ? 'c7c7c7' : epic_colour}
+                                                            team={this.state.team}
                                                         />
                                                     </div>
                                                 </div>
@@ -240,9 +287,19 @@ export class EpicsDashboard extends Component {
         return (
             <>
                 <div key="epic-dashboard">
-                    <div className="border-bottom d-flex flex-row flex-nowrap">
-                        <p className="text-center"> {this.displayStatsBar()} </p>
-                        <AddEpicModal create={true} resetState={this.resetState} className="align-self-stretch" />
+                    <div className="border-bottom ">
+                        <div className="epic-left-bar">
+                            {this.state.team.team_photo === null ? (
+                                <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="nav-photo-left" />
+                            ) : (
+                                <img src={'http://localhost:8000/' + this.state.team.team_photo} alt="hey" className="nav-photo-left" />
+                            )}
+                            <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
+                                {this.getTeams(this.props.teams)}
+                            </select>
+                        </div>
+                        <p className=" center-stats"> {this.displayStatsBar()} </p>
+                        <AddEpicModal create={true} resetState={this.resetState} className="align-self-stretch" team={this.state.team} />
                     </div>
 
                     <div className="mt-1">
@@ -263,10 +320,6 @@ export class EpicsDashboard extends Component {
                             className={this.state.filter === 'complete_only' ? 'active-choice-button' : 'inactive-choice-button'}
                             style={{ borderRight: '2px solid white' }}>
                             Display complete only
-                        </p>
-
-                        <p onClick={() => this.changeFilter('complete_only')} className="float-end inactive-choice-button">
-                            Search bar?
                         </p>
                     </div>
 

@@ -17,6 +17,15 @@ import ViewUsers from './components/account_management/view_users';
 import UserDetails from './components/account_management/user_details';
 import AddUser from './components/account_management/add_user';
 import { LogOut } from './components/account_management/log_out';
+import ViewUsersFunction from './components/account_management_functions/view_users_function';
+import ViewTeamsFunction from './components/account_management_functions/view_teams_function';
+import AddTeamFunction from './components/account_management_functions/add_team_function';
+import AddUserFunction from './components/account_management_functions/add_user_function';
+import TagDashboardFunction from './components/dashboard_functions/tag_dashboard_function';
+import EpicsDashboardFunction from './components/dashboard_functions/epic_dashboard_function';
+import TrackingDashboardFunction from './components/dashboard_functions/tracking_dashboard_function';
+import TeamDashboardFunction from './components/dashboard_functions/team_dashboard_function';
+import UserDashboardFunction from './components/dashboard_functions/user_dashboard_function';
 
 export default function App() {
 
@@ -29,19 +38,20 @@ export default function App() {
                         <Route path="logout" element={<LogOut />} />
                         <Route path="sign-up" element={<SignUp />} />
 
-                        <Route path="admin/add-team" element={<AddTeam />} />
-                        <Route path="admin/view-teams" element={<ViewTeams />} />
-                        <Route path="admin/add-user" element={<AddUser />} />
-                        <Route path="admin/view-users" element={<ViewUsers />} />
+                        <Route path="admin/add-team" element={<AddTeamFunction />} />
+                        <Route path="admin/view-teams" element={<ViewTeamsFunction />} />
+                        <Route path="admin/add-user" element={<AddUserFunction />} />
+                        <Route path="admin/view-users" element={<ViewUsersFunction />} />
 
                         <Route path="teamName/details" element={<TeamDetails />} />
                         <Route path="username/details" element={<UserDetails />} />
 
                         <Route index element={<Home />} />
-                        <Route path="teamName/tag-dashboard" element={<TagDashboard />} />
-                        {/* <Route path="teamName"  index element={<TeamDashboard />} /> */}
-                        <Route path="teamName/epics-dashboard" element={<EpicsDashboard />} />
-                        <Route path="teamName/tracking-dashboard" element={<TrackingDashboard />} />
+                        <Route path="teamName/tag-dashboard" element={<TagDashboardFunction />} />
+                        <Route path="team/team-dashboard" element={<TeamDashboardFunction />} />
+                        <Route path="teamName/epics-dashboard" element={<EpicsDashboardFunction />} />
+                        <Route path="teamName/tracking-dashboard" element={<TrackingDashboardFunction />} />
+                        <Route path="userDashboard" element={<UserDashboardFunction />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

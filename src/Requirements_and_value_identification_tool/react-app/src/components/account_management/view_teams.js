@@ -8,7 +8,7 @@ import EditTeamModal from './edit_team_modal';
 
 export class ViewTeams extends Component {
     state = {
-        organisation_id: 2,
+        organisation_id: this.props.user.belongs_to,
         teams: [],
         users: [],
         full_teams: [],
@@ -43,9 +43,11 @@ export class ViewTeams extends Component {
         for (var i = 0; i < teams.length; i++) {
             returnList.push(
                 <div className="team-card d-flex flex-row flex-nowrap">
-                    <img src={teams[i].team_photo} alt="team profile" className="team-card-photo" />
+                    {teams[i].team_photo === null ? (
+                        <img src='http://localhost:8000/media/profile_images/default.jpg' alt="user profile" className="team-card-photo" />
+                    ) : (<img src={teams[i].team_photo} alt="hey" className="team-card-photo" />)}
                     <p className="team-card-info">
-                        <Link to="/teamName/details" state={{ team: teams[i], users: this.state.users }} className="link">
+                        <Link to="/teamName/details" state={{ team: teams[i], users: this.state.users, belongs_to: this.props.user.belongs_to }} className="link">
                             {teams[i].team_name}
                         </Link>
                     </p>

@@ -6,6 +6,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 import axios from 'axios';
 import { API_URL, API_URL_ORGANISATIONS, API_URL_USERS } from '../../constants';
+import { Link, redirect } from 'react-router-dom';
 
 export class SignUp extends Component {
     state = {
@@ -18,8 +19,10 @@ export class SignUp extends Component {
             username: '',
             first_name: '',
             surname: '',
-            email_address: '',
-            password: ''
+            email: '',
+            password: '',
+            role: 'admin',
+            belongs_to: ''
         }
     };
 
@@ -43,20 +46,21 @@ export class SignUp extends Component {
 
         console.log(organisation[organisation.length -1].name)
         if (organisation[organisation.length -1].name === this.state.organisation.name) {
-            axios.post(API_URL_USERS + organisation[organisation.length -1].id + '/admin/users', this.state.admin).then(() => {
-            alert('user created');
+            this.state.admin.belongs_to = organisation[organisation.length -1].id 
+            await axios.post(API_URL_USERS + organisation[organisation.length -1].id + '/admin/users', this.state.admin).then(() => {
+            
         });
         } else {
             alert("error try again")
         }
         console.log("organisation", organisation[organisation.length -1].name, this.state.organisation.name,
-        organisation[organisation.length -1].name === this.state.organisation.name ); //
+        organisation[organisation.length -1].name === this.state.organisation.name );
         return organisation;
     }
 
     async create_org() {
         await axios.post(API_URL_ORGANISATIONS, this.state.organisation).then(() => {
-            alert('organisation created');
+            
         });
     }
 
@@ -64,9 +68,10 @@ export class SignUp extends Component {
         await this.create_org()
 
         await this.get_organisation()
+
     }
+
     signIn = (e) => {
-        console.log('signing in ...');
         console.log(this.state);
         e.preventDefault();
 
@@ -112,10 +117,10 @@ export class SignUp extends Component {
                             <Input type="text" name="surname" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.surname)} />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="email_address">Email Address:</Label>
+                            <Label for="email">Email Address:</Label>
                             <Input
                                 type="text"
-                                name="email_address"
+                                name="email"
                                 onChange={this.onChange}
                                 value={returnDefaultIfFieldEmpty(this.state.email_address)}
                             />
@@ -127,7 +132,7 @@ export class SignUp extends Component {
                     </div>
 
                     <div>
-                        <p className="text-center mb-2 mt-5"> Is your organisation already signed up? Log in here!</p>
+                        <p className="text-center mb-2 mt-5"> Is your organisation already signed up? <Link to="/login"> Log in here! </Link></p>
                         <Button className="btn-primary login-button mt-0"> Sign Up </Button>
                     </div>
                 </div>

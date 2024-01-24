@@ -45,3 +45,13 @@
 .no-wip-limit {
     height: 22px;
 }
+
+.add-column-button {
+    float: end !important;
+    position: absolute;
+    right: 0px !important;
+    top: 85px;
+    margin: auto;
+    padding: auto;
+    height: 8vh;
+}

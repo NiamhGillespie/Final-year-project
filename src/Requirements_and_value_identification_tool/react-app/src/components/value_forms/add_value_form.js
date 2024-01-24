@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { API_URL_TEAMVALUES } from '../../constants';
+import { API_URL_SHORT, API_URL_TEAMVALUES } from '../../constants';
 import { ColorPicker } from 'primereact/colorpicker';
 import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
@@ -11,7 +11,7 @@ class AddValueForm extends Component {
 
     state = {
         tag_id: '0',
-        team_id: '0000', //need to update this in future
+        team_id: this.props.belongs_to,
         title: '',
         description: '',
         colour: 'ff0000',
@@ -37,7 +37,7 @@ class AddValueForm extends Component {
         if (this.state.validate.title !== 'valid' || this.state.validate.description !== 'valid') {
             alert('The form is invalid, please try again');
         } else {
-            axios.post(API_URL_TEAMVALUES, this.state).then(() => {
+            axios.post(API_URL_SHORT + this.state.team_id + '/values', this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
             });

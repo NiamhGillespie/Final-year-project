@@ -18,7 +18,6 @@ export function TeamDetails() {
         team_details = team_details.team;
     }
 
-
     const displayStats = () => {
         const percentage = 66;
 
@@ -97,7 +96,11 @@ export function TeamDetails() {
 
             <div className="teams-details-box">
                 <div className="team-details-section-one">
-                    <img src={team_details.team_photo} alt="user profile" className="large-circular-photo" />
+                    {team_details.team_photo === null ? (
+                        <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="large-circular-photo" />
+                    ) : (
+                        <img src={team_details.team_photo} alt="hey" className="large-circular-photo" />
+                    )}
 
                     <p className="team-name-title">{team_details.team_name}</p>
                     <p className="team-subtitle"> </p>
@@ -132,6 +135,7 @@ export function TeamDetails() {
                         team_leads={team_details.team_leads}
                         team_members={team_details.team_members}
                         belongs_to={team_details.belongs_to}
+                        links={true}
                     />
                 </div>
 

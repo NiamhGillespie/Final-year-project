@@ -4,23 +4,26 @@ import '../../css/basic.css';
 import { ColorPicker } from 'primereact/colorpicker';
 import axios from 'axios';
 import UpdateEpicForm from './edit_epic_form';
+import { API_URL, API_URL_SHORT } from '../../constants';
 
 class EpicDetailsModal extends Component {
     state = {
         modal: false,
         editing: false,
         teamValues: this.getTeamValues(),
-        epic: this.props.epic
+        epic: this.props.epic,
+        team: this.props.team,
     };
 
     async getTeamValues() {
-        var values = await axios.get('http://localhost:8000/api/teamName/values/');
+        console.log('team time?', this.props.team)
+        var values = await axios.get(API_URL_SHORT + this.props.team.id + '/values');
         this.setState({ teamValues: values.data });
     }
 
     async updateEpic() {
         console.log('original epic', this.state.epic);
-        var epic = await axios.get('http://localhost:8000/api/teamName/epics/' + this.state.epic.epic_id + '/details');
+        var epic = await axios.get(API_URL_SHORT + this.props.team.id + '/epics' + this.state.epic.epic_id + '/details');
         if (epic !== undefined) {
             this.setState({ epic: epic.data });
         }
@@ -185,6 +188,7 @@ class EpicDetailsModal extends Component {
                     resetState={this.resetState}
                     getStories={this.getStories()}
                     getValues={this.displayValues()}
+                    team={this.props.team}
                 />
             );
         } else {

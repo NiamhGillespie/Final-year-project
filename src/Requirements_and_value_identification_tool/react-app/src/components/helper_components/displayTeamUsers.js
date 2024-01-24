@@ -9,7 +9,7 @@ export class DisplayTeamUsers extends Component {
     state = {
         users: [],
         leads: [],
-        members: [],
+        members: []
     };
 
     //get users from API function
@@ -49,22 +49,33 @@ export class DisplayTeamUsers extends Component {
 
     displayTeamLeads() {
         var leads = this.getTeamLeads();
-        console.log('boo');
+
         var returnList = [];
         console.log(leads);
 
         for (var i = 0; i < leads.length; i++) {
             returnList.push(
                 <div className="small-team-member-card">
-                    <img src={leads[i].profile_photo} alt="user profile" className="small-team-member-photo" />
-                    <Link to="/username/details" state={{ user: leads[i] }} className="link small-card-info">
+                    {leads[i].profile_photo === null ? (
+                        <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="small-team-member-photo" />
+                    ) : (
+                        <img src={leads[i].profile_photo} alt="hey" className="small-team-member-photo" />
+                    )}
+
+                    {this.props.links === false ? (
+                        <div className="small-card-info">
                             {leads[i].first_name} {leads[i].surname} - {leads[i].role}
-                    </Link>
+                        </div>
+                    ) : (
+                        <Link to="/username/details" state={{ user: leads[i] }} className="link small-card-info">
+                            {leads[i].first_name} {leads[i].surname} - {leads[i].role}
+                        </Link>
+                    )}
                 </div>
             );
         }
         return returnList;
-    };
+    }
 
     displayTeamMembers() {
         var members = this.getTeamMembers();
@@ -75,15 +86,26 @@ export class DisplayTeamUsers extends Component {
         for (var i = 0; i < members.length; i++) {
             returnList.push(
                 <div className="small-team-member-card">
-                    <img src={members[i].profile_photo} alt="user profile" className="small-team-member-photo" />
-                    <Link to="/username/details" state={{ user: members[i] }} className="link small-card-info">
+                    {members[i].profile_photo === null ? (
+                        <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="small-team-member-photo" />
+                    ) : (
+                        <img src={members[i].profile_photo} alt="hey" className="small-team-member-photo" />
+                    )}
+                    
+                    {this.props.links === false ? (
+                        <div className="small-card-info">
                             {members[i].first_name} {members[i].surname} - {members[i].role}
-                    </Link>
+                        </div>
+                    ) : (
+                        <Link to="/username/details" state={{ user: members[i] }} className="link small-card-info">
+                            {members[i].first_name} {members[i].surname} - {members[i].role}
+                        </Link>
+                    )}
                 </div>
             );
         }
         return returnList;
-    };
+    }
     async componentDidMount() {
         this.resetState();
     }
@@ -92,12 +114,11 @@ export class DisplayTeamUsers extends Component {
         this.getUsers();
     }
 
-
     render() {
         return (
             <div>
-               {this.displayTeamLeads()}
-               {this.displayTeamMembers()}
+                {this.displayTeamLeads()}
+                {this.displayTeamMembers()}
             </div>
         );
     }

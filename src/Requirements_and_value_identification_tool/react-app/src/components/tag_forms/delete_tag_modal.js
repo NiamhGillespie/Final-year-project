@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
+import { API_URL_TAG_DETAILS } from '../../constants';
 
 class DeleteTagModal extends Component {
     state = {
@@ -15,7 +16,7 @@ class DeleteTagModal extends Component {
 
     deleteTag = () => {
         if (this.state.modal) {
-            axios.delete('API_URL_TAG_DETAILS' + this.props.tag.tag_id).then(() => {
+            axios.delete(API_URL_TAG_DETAILS + this.props.tag.tag_id).then(() => {
                 this.props.resetState();
                 this.toggleModal();
             });

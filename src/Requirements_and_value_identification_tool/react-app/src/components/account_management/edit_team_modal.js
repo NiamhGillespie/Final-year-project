@@ -22,6 +22,8 @@ class EditTeamModal extends Component {
             </p>
         );
 
+        console.log("model props", this.props)
+
         return (
             <Fragment>
                 {edit_button}
@@ -29,7 +31,11 @@ class EditTeamModal extends Component {
                     <ModalHeader toggle={this.toggleModal}>Edit Team</ModalHeader>
 
                     <ModalBody>
-                        <EditTeamForm toggle={this.toggleModal} team={this.props.team} resetState={this.props.resetState} />
+                        <EditTeamForm
+                            toggle={this.toggleModal}
+                            team={this.props.team}
+                            resetState={this.props.resetState}
+                        />
                     </ModalBody>
                 </Modal>
             </Fragment>

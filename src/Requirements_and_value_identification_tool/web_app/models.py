@@ -28,7 +28,7 @@ class ValueTag(models.Model):
 class Epic(models.Model):
     epic_id = models.CharField(max_length=8) #8 digits specific only - constrain this
     epic_colour = models.CharField(max_length=6)
-    dashboard_id = models.CharField(max_length=8) #this will be a foreign key
+    team_id = models.CharField(max_length=8) #this will be a foreign key
     title = models.CharField(max_length=128)
 
     order = models.IntegerField(default=-1)
@@ -50,6 +50,8 @@ class Story(models.Model):
     epic_id = models.CharField(max_length=8) #maybe foreign key #each story corresponds to only one epic
     title = models.CharField(max_length=128)
 
+    team_id = models.CharField(max_length=8) 
+
     order = models.IntegerField(default=-1)
     tags = models.ManyToManyField(Tag, blank=True)
     
@@ -66,7 +68,7 @@ class Story(models.Model):
     priority = models.CharField(max_length=6, choices = [(LOW, "low priority"), (MEDIUM, "medium priority"), (HIGH, "high priority")])
 
     pairable = models.BooleanField(default = False, blank=True)
-    assigned_to = models.ManyToManyField("User", blank=True)
+    assigned_to = models.ManyToManyField("UserProfile", blank=True)
 
     state = models.CharField(max_length=128, default='undefined')
     completed = models.BooleanField(default = False)
@@ -122,7 +124,7 @@ class Sprint(models.Model):
 class Organisation(models.Model):
     name = models.CharField(max_length=128, default='error')
     teams = models.ManyToManyField("Team", blank=True)
-    users = models.ManyToManyField("User", blank=True)
+    users = models.ManyToManyField("UserProfile", blank=True)
 
     def __str__(self):
         return self.name
@@ -131,13 +133,13 @@ class Team(models.Model):
     belongs_to = models.ForeignKey(Organisation, blank=True, null=True, on_delete=models.CASCADE)
     team_name = models.CharField(max_length=32, default='error')
     team_photo = models.ImageField(upload_to='team_images', blank=True)
-    team_leads = models.ManyToManyField("User", related_name="team_leads", blank=True)
-    team_members = models.ManyToManyField("User", related_name="team_members", blank=True)
+    team_leads = models.ManyToManyField("UserProfile", related_name="team_leads", blank=True)
+    team_members = models.ManyToManyField("UserProfile", related_name="team_members", blank=True)
 
     def __str__(self):
         return self.team_name 
 
-class User(models.Model):
+class UserProfile(models.Model):
     belongs_to = models.ForeignKey(Organisation, blank=True, null=True, on_delete=models.CASCADE)
     username = models.CharField(max_length=32, default='error', unique=True)
     password = models.CharField(max_length=32, default='error')

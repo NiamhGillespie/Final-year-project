@@ -6,11 +6,21 @@
 .login-box {
     background-color: var(--blue-background);
     margin: auto;
-    margin-top: 12vh;
+    margin-top: 8vh;
     width: 30vw;
-    height: 60vh;
+    height: 70vh;
     border-radius: 10px;
     padding: 5vh;
+}
+
+.login-logo{
+    width: 20vw;
+    height: 10vh;
+    margin: auto;
+    padding: auto;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 2vh;
 }
 
 .sign-up-box {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { API_URL } from '../../constants';
+import { API_URL, API_URL_SHORT } from '../../constants';
 import { ColorPicker } from 'primereact/colorpicker';
 import Multiselect from 'multiselect-react-dropdown';
 import { displayValues, getDate, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
@@ -13,7 +13,7 @@ class AddEpicForm extends Component {
     state = {
         epic_id: '0',
         epic_colour: 'ff0000',
-        dashboard_id: '0001',
+        team_id: this.props.team.id,
         title: '',
 
         team_values: this.getTeamValues(),
@@ -32,7 +32,8 @@ class AddEpicForm extends Component {
     };
 
     async getTeamValues() {
-        await axios.get('http://localhost:8000/api/teamName/values').then((response) => this.setState({ team_values: response.data }));
+        console.log("team is", this.props.team)
+        await axios.get(API_URL_SHORT + this.props.team.id + '/values').then((response) => this.setState({ team_values: response.data }));
     }
 
     onTitleChange = (e) => {
@@ -45,7 +46,7 @@ class AddEpicForm extends Component {
         if (this.state.validate.title !== 'valid') {
             alert('The form is invalid, please try again');
         } else {
-            axios.post(API_URL, this.state).then(() => {
+            axios.post(API_URL_SHORT + this.props.team.id + '/epicsDashboard', this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
             });

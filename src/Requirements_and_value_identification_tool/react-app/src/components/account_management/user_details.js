@@ -19,15 +19,16 @@ export function UserDetails() {
         user_details = user_details.user;
     }
 
-    console.log(user_details);
-
     return (
         <div>
             <h3 className="add-team-title"> User Profile </h3>
 
             <div className="teams-details-box">
                 <div className="user-details-section-one">
-                    <img src={user_details.profile_photo} alt="user profile" className="large-circular-photo" />
+                    {user_details.profile_photo === 'http://localhost:8000/null' || user_details.profile_photo === null ? (
+                        <img src='http://localhost:8000/media/profile_images/default.jpg' alt="user profile" className="large-circular-photo" />
+                    ) : (<img src={user_details.profile_photo} alt="user profile" className="large-circular-photo" />)}
+                    
                     <p className="team-name-title">
                         {user_details.first_name} {user_details.surname} - #{user_details.id}
                     </p>
@@ -47,14 +48,13 @@ export function UserDetails() {
                             <Input type="password" name="password" value={returnDefaultIfFieldEmpty(user_details.password)} disabled />
                         </FormGroup>
 
-                        <Button className="btn-primary float-end"> Update Details </Button>
                     </div>
                 </div>
 
                 {user_details.role !== 'admin' ? (
                     <div className="user-details-section-two">
                         <p className="team-members-heading"> Teams </p>
-                        <DisplayUserTeams teams={user_details.teams} belongs_to={user_details.belongs_to} />
+                        <DisplayUserTeams teams={user_details.teams} belongs_to={user_details.belongs_to} links={true}/>
                     </div>
                 ) : (
                     <div className="">

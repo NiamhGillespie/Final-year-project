@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { API_URL, API_URL_TEAM_DETAILS, API_URL_USER_DETAILS } from '../../constants';
+import { API_URL, API_URL_SHORT, API_URL_TEAM_DETAILS, API_URL_USER_DETAILS } from '../../constants';
 import Multiselect from 'multiselect-react-dropdown';
 import '../../css/basic.css';
 import { displayValues, getDate, returnDefaultIfFieldEmpty, displayTeamTags, displayAllUsers } from '../helper-methods/form_helper_methods';
@@ -11,6 +11,7 @@ class AddStoryForm extends Component {
     state = {
         story_id: '0',
         epic_id: this.props.epic_id,
+        team_id: this.props.team.id,
         title: '',
 
         order: 0,
@@ -37,7 +38,7 @@ class AddStoryForm extends Component {
             definition_of_done: 'valid'
         },
 
-        team: 1,
+        team: this.props.team,
         full_member_list: this.getTeamMembers(),
         full_lead_list: this.getTeamLeads(),
         member_list: this.getTeamUsers()
@@ -50,38 +51,49 @@ class AddStoryForm extends Component {
     }
 
     async getTeamValues() {
-        await axios.get('http://localhost:8000/api/teamName/values').then((response) => this.setState({ team_values: response.data }));
+        await axios.get(API_URL_SHORT + this.props.team.id + '/values').then((response) => this.setState({ team_values: response.data }));
     }
 
     async getTeamTags() {
-        await axios.get('http://localhost:8000/api/teamName/tags').then((response) => this.setState({ team_tags: response.data }));
+        await axios.get(API_URL_SHORT + this.props.team.id + '/tags').then((response) => this.setState({ team_tags: response.data }));
     }
 
     async getTeamMembers() {
-        await axios.get(API_URL_TEAM_DETAILS + 1).then((response) => (this.state.full_member_list = response.data.team_members));
+        await axios
+            .get(API_URL_TEAM_DETAILS + this.props.team.id)
+            .then((response) => this.setState({ full_member_list: response.data.team_members }));
     }
 
     async getTeamLeads() {
-        await axios.get(API_URL_TEAM_DETAILS + 1).then((response) => (this.state.full_lead_list = response.data.team_leads));
+        await axios.get(API_URL_TEAM_DETAILS + this.props.team.id).then((response) => this.setState({ full_lead_list: response.data.team_leads }));
     }
 
     async getTeamUsers() {
         await this.getTeamMembers();
         await this.getTeamLeads();
-        var id_list = this.state.full_lead_list + ',' + this.state.full_member_list;
-        id_list = id_list.split(',');
 
-        if (typeof this.state.full_lead_list[0] === 'number') {
+        if (this.state.full_lead_list.length > 0) {
+            var id_list = this.state.full_lead_list + ',' + this.state.full_member_list;
+        } else {
+            id_list = this.state.full_lead_list + this.state.full_member_list;
+        }
+        
+        id_list = id_list.split(',');
+        console.log('id list is', id_list, typeof this.state.full_lead_list[0] === 'number');
+
+        if (typeof this.state.full_lead_list[0] === 'number' || typeof this.state.full_member_list[0] === 'number') {
             var member_list = [];
             for (var i = 0; i < id_list.length; i++) {
-                var member = await axios.get(API_URL_USER_DETAILS + parseInt(id_list[i]));
-                member_list.push(member.data);
+                if (id_list[i] !== '') {
+                    var member = await axios.get(API_URL_USER_DETAILS + parseInt(id_list[i]));
+                    member_list.push(member.data);
+                }
             }
         }
 
         this.state.member_list = member_list;
-        this.setState({ member_list: member_list})
-        console.log('member list!', this.state.member_list);
+        this.setState({ member_list: member_list });
+        console.log('member list!', member_list);
         return member_list;
     }
 
@@ -108,7 +120,7 @@ class AddStoryForm extends Component {
         ) {
             alert('The form is invalid, please try again');
         } else {
-            axios.post(API_URL, this.state).then(() => {
+            axios.post(API_URL_SHORT + this.props.team.id + '/epicsDashboard', this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
             });
@@ -317,7 +329,6 @@ class AddStoryForm extends Component {
                             }}
                             placeholder="Assign Users"
                             displayValue="title"
-                            
                         />
                     </FormGroup>
                 </div>

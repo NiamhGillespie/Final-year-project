@@ -9,8 +9,9 @@ import { FormGroup, Label, NavLink } from 'reactstrap';
 import EditUserModal from './edit_user_modal';
 
 export class ViewUsers extends Component {
+
     state = {
-        organisation_id: 2,
+        organisation_id: this.props.user.belongs_to,
         users: [],
         filter: 'all',
         search_term: '',
@@ -106,15 +107,18 @@ export class ViewUsers extends Component {
     };
 
     displayUsers() {
+        const user = this.props;
+        console.log(user)
         var users = this.state.users;
         console.log("users inn ser", this.state.users)
         var returnList = [];
 
         for (var i = 0; i < users.length; i++) {
-            console.log('vie users', users[i].profile_photo)
             returnList.push(
                 <div className="team-card d-flex flex-nowrap">
-                    <img src={users[i].profile_photo} alt="user profile" className="team-card-photo" />
+                    {users[i].profile_photo === null ? (
+                        <img src='http://localhost:8000/media/profile_images/default.jpg' alt="user profile" className="team-card-photo" />
+                    ) : (<img src={users[i].profile_photo} alt="hey" className="team-card-photo" />)}
                     <Link to="/username/details" state={{ user: users[i] }} className="link team-card-info">
                         {users[i].username}
                     </Link>

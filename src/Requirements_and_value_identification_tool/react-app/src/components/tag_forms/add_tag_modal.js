@@ -19,7 +19,7 @@ class AddTagModal extends Component {
                 Add Tag
             </Button>
         );
-
+        
         return (
             <div style={{ display: 'inline' }}>
                 {button}
@@ -27,7 +27,7 @@ class AddTagModal extends Component {
                     <ModalHeader toggle={this.toggleModal}>Add Tag</ModalHeader>
 
                     <ModalBody>
-                        <AddTagForm toggle={this.toggleModal} resetState={this.props.resetState} />
+                        <AddTagForm toggle={this.toggleModal} resetState={this.props.resetState} belongs_to={this.props.belongs_to}/>
                     </ModalBody>
                 </Modal>
             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { API_URL_EPIC_DETAILS } from '../../constants';
+import { API_URL_EPIC_DETAILS, API_URL_SHORT } from '../../constants';
 import { ColorPicker } from 'primereact/colorpicker';
 import { ModalHeader, ModalBody } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
@@ -13,7 +13,7 @@ class UpdateEpicForm extends Component {
         id: this.props.epic.id,
         epic_id: this.props.epic.epic_id,
         epic_colour: this.props.epic.epic_colour,
-        dashboard_id: this.props.epic.dashboard_id,
+        team_id: this.props.epic.team_id,
         title: this.props.epic.title,
 
         team_values: this.getTeamValues(),
@@ -34,7 +34,7 @@ class UpdateEpicForm extends Component {
     };
 
     async getTeamValues() {
-        await axios.get('http://localhost:8000/api/teamName/values').then((response) => this.setState({ team_values: response.data }));
+        await axios.get(API_URL_SHORT + this.props.team.id + '/values').then((response) => this.setState({ team_values: response.data }));
     }
 
     onTitleChange = (e) => {

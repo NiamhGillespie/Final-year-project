@@ -5,7 +5,7 @@ import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { displayTeams, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 import Multiselect from 'multiselect-react-dropdown';
 import axios from 'axios';
-import { API_URL_ORGANISATIONS, API_URL_TEAMS, API_URL_USERS } from '../../constants';
+import { API_URL_TEAMS, API_URL_USERS } from '../../constants';
 
 export class AddUser extends Component {
     state = {
@@ -17,13 +17,12 @@ export class AddUser extends Component {
         profile_photo: '',
         password: '',
         email: '',
-        belongs_to: 2,
-        organisation: this.get_organisation(),
+        belongs_to: '',
         list_of_teams: this.getTeams()
     };
 
     async getTeams() {
-        var teams = await axios.get(API_URL_TEAMS + 2 + '/admin/teams');
+        var teams = await axios.get(API_URL_TEAMS + this.props.user.belongs_to + '/admin/teams');
         this.setState({ list_of_teams: teams.data });
     }
 
@@ -45,14 +44,6 @@ export class AddUser extends Component {
         });
     };
 
-    async get_organisation() {
-        var organisations = await axios.get(API_URL_ORGANISATIONS).then((response) => response.data);
-
-        const organisation = organisations.filter((org) => org.id === this.state.organisation_id);
-
-        this.state.organisation = organisation[0];
-        return organisation[0];
-    }
 
     dropDownTeams() {
         var teams = this.state.list_of_teams;
@@ -68,20 +59,24 @@ export class AddUser extends Component {
         e.preventDefault();
 
         let form_data = new FormData();
-        form_data.append('profile_photo', this.state.profile_photo, this.state.profile_photo.name);
+        if (this.state.profile_photo !== '') {
+            form_data.append('profile_photo', this.state.profile_photo, this.state.profile_photo.name);
+        }
+        
         form_data.append('username', this.state.username);
         form_data.append('password', this.state.password);
         form_data.append('email', this.state.email);
         form_data.append('first_name', this.state.first_name);
         form_data.append('surname', this.state.surname);
         form_data.append('role', this.state.role);
+        form_data.append('belongs_to', this.props.user.belongs_to);
         if (this.state.teams.length !== 0) {
             this.state.teams.forEach((team) => {
                 form_data.append('teams', team);
             });
         }
 
-        axios.post(API_URL_USERS + this.state.belongs_to + '/admin/users', form_data).then(() => {
+        axios.post(API_URL_USERS + this.props.user.belongs_to + '/admin/users', form_data).then(() => {
             alert('user created');
         });
     };

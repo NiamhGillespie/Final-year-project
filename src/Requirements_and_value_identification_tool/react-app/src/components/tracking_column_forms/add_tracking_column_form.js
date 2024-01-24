@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { API_URL_DASHBOARD_TRACKING_COLUMNS } from '../../constants';
+import { API_URL_DASHBOARD_TRACKING_COLUMNS, API_URL_SHORT } from '../../constants';
 import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
 //need to add error handeling to this :)
@@ -11,7 +11,7 @@ class AddColumnForm extends Component {
     state = {
         column_id: '0',
         dashboard_id: '0000',
-        team_id: '0000',
+        team_id: this.props.team.id,
         title: '',
         mark_as_complete: false,
         stories: [],
@@ -40,7 +40,7 @@ class AddColumnForm extends Component {
         if (this.state.validate.WIP !== 'valid' || this.state.validate.title !== 'valid') {
             alert('The form is invalid, please try again');
         } else {
-            axios.post(API_URL_DASHBOARD_TRACKING_COLUMNS, this.state).then(() => {
+            axios.post(API_URL_SHORT + this.state.team_id + '/tracking-columns', this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
             });

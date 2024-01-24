@@ -33,6 +33,7 @@ class EditColumnModal extends Component {
                             column={this.props.column}
                             non_completed_stories={this.props.non_completed_stories}
                             epics={this.props.epics}
+                            team={this.props.team}
                         />
                     </ModalBody>
                 </Modal>

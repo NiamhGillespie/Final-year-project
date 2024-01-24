@@ -15,9 +15,11 @@ class AddColumnModal extends Component {
 
     render() {
         var button = (
-            <Button className="me-4 mt-0 mb-0 btn-primary add-col-btn-modal" onClick={this.toggleModal}>
-                +
+            <div className='add-column-button'>
+            <Button className="me-4 mt-0 mb-0 btn-primary " onClick={this.toggleModal}>
+                Add Column
             </Button>
+            </div>
         );
 
         return (
@@ -27,7 +29,7 @@ class AddColumnModal extends Component {
                     <ModalHeader toggle={this.toggleModal}> Add Tracking Column </ModalHeader>
 
                     <ModalBody>
-                        <AddColumnForm toggle={this.toggleModal} resetState={this.props.resetState} />
+                        <AddColumnForm toggle={this.toggleModal} resetState={this.props.resetState} team={this.props.team} />
                     </ModalBody>
                 </Modal>
             </div>

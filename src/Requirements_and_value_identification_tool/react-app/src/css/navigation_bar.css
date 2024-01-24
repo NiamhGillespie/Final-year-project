@@ -4,52 +4,20 @@
 a.navbar-brand {
     white-space: normal;
     text-align: center;
-    word-break: break-all;
-    padding: 20px;
 }
 
-html {
-    font-size: 14px;
-}
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
 
 .box-shadow {
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
 }
 
-.box-shadow-small {
-    box-shadow: 0 0.25rem 0rem rgba(0, 0, 0, 0.05);
-}
 
-.sub-nav-menu {
-    margin-top: -15px;
-    width: 100%;
-    font-size: 15px !important;
-}
-
-/* Nav menu buttons for both nav-items and buttons with links */
 .nav-item {
     text-decoration: none;
     font-size: 17px;
     color: #545454;
 }
 
-.btn-link {
-    text-decoration: none;
-    font-size: 17px;
-    color: #545454;
-}
-
-/* Text which will display what role you have e.g 'Customer'*/
-/* TODO: centre this properly */
-.specification-text {
-    font-size: 30px;
-    color: var(--blue-highlight);
-}
 
 /* Animation for nav bar components*/
 a.nav-item:link {

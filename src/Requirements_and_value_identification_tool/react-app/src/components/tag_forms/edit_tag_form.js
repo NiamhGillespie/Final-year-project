@@ -26,7 +26,6 @@ class EditTagForm extends Component {
 
     onDescriptionChange = (e) => {
         this.setState({ description: e.target.value });
-        console.log(this.state.description);
     };
 
     updateTag = (e) => {

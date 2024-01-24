@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth.models import User
+
 import time
 
 from .models import Epic, Story, Tag, ValueTag
@@ -13,12 +15,12 @@ from .serializers import *
 
 
 @api_view(['GET', 'POST'])
-def EpicDashboardInfo(request):
+def EpicDashboardInfo(request, team_id):
     if request.method == 'GET':
-        epic_data =  Epic.objects.all().order_by('order')
+        epic_data =  Epic.objects.filter(team_id = team_id).order_by('order')
         epic_serializer = EpicSerializer(epic_data, context={'request': request}, many=True)
 
-        story_data =  Story.objects.all().order_by('order')
+        story_data =  Story.objects.filter(team_id = team_id).order_by('order')
         story_serializer = StorySerializer(story_data, context={'request': request}, many=True)
 
         epic_and_story_data = [epic_serializer.data, story_serializer.data]
@@ -27,15 +29,15 @@ def EpicDashboardInfo(request):
     
     if request.method == 'POST':
         
-        if (request.data.get('dashboard_id')):
+        if (request.data.get('epic_colour')):
             epic_serializer = EpicSerializer(data=request.data)
             
             if epic_serializer.is_valid():
                 epic_serializer.save()
                 epic_id = epic_serializer.data['id']
-                dashboard_id = epic_serializer.data['dashboard_id']
+                team_id = epic_serializer.data['team_id']
 
-                epics = Epic.objects.filter(dashboard_id=dashboard_id).order_by('order')
+                epics = Epic.objects.filter(team_id=team_id).order_by('order')
                 epic_serializer_2 = EpicSerializer(epics, many=True)
 
                 if len(epic_serializer_2.data) == 1:
@@ -123,9 +125,9 @@ def StoryDetails(request, story_id):
         return Response(story_serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
-def TeamTags(request):
+def TeamTags(request, team_id):
     if request.method == 'GET':
-        tags = Tag.objects.filter(team_id='0000') #implement teams later
+        tags = Tag.objects.filter(team_id=team_id)
         
         tag_serializer = TagSerializer(tags, context={'request': request}, many=True)
         return Response(tag_serializer.data, status=status.HTTP_200_OK)
@@ -146,7 +148,7 @@ def TeamTags(request):
 @api_view(['PUT', 'DELETE', 'GET'])
 def TagDetail(request, tag_id):
     try:
-        tag = Tag.objects.get(id = tag_id, team_id = '0000') #chnge this when implementing teams
+        tag = Tag.objects.get(id = tag_id)
 
     except Tag.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -168,9 +170,9 @@ def TagDetail(request, tag_id):
         return Response(tag_serializer.data, status=status.HTTP_200_OK)
     
 @api_view(['GET', 'POST'])
-def TeamValues(request):
+def TeamValues(request, team_id):
     if request.method == 'GET':
-        values = ValueTag.objects.filter(team_id='0000') #implement teams later
+        values = ValueTag.objects.filter(team_id=team_id)
         value_serializer = ValueTagSerializer(values, context={'request': request}, many=True)
         return Response(value_serializer.data, status=status.HTTP_200_OK)
     
@@ -190,7 +192,7 @@ def TeamValues(request):
 @api_view(['PUT', 'DELETE', 'GET'])
 def ValueDetail(request, value_id):
     try:
-        value = ValueTag.objects.get(id = value_id, team_id = '0000') #chnge this when implementing teams
+        value = ValueTag.objects.get(id = value_id)
     except ValueTag.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -210,9 +212,9 @@ def ValueDetail(request, value_id):
         return Response(value_serializer.data, status=status.HTTP_200_OK)
     
 @api_view(['GET', 'POST'])
-def TeamTrackingColumns(request):
+def TeamTrackingColumns(request, team_id):
     if request.method == 'GET':
-        columns = TrackingColumn.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
+        columns = TrackingColumn.objects.filter(team_id = team_id) #could be teams or dashboard - decide later
         column_serializer = TrackingColumnSerializer(columns, context={'request': request}, many=True)
         return Response(column_serializer.data, status=status.HTTP_200_OK)
     
@@ -232,7 +234,7 @@ def TeamTrackingColumns(request):
 @api_view(['PUT', 'DELETE', 'GET'])
 def ColumnDetail(request, column_id):
     try:
-        column = TrackingColumn.objects.get(id = column_id, team_id = '0000') #chnge this when implementing teams
+        column = TrackingColumn.objects.get(id = column_id) #chnge this when implementing teams
     except TrackingColumn.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -321,10 +323,8 @@ def Organisations(request):
         org_serializer = OrganisationSerializer(data=request.data)
         if org_serializer.is_valid():
             org_serializer.save()
-            print("making organisation!!!!", org_serializer.data)
             return Response(org_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print(org_serializer.errors)
             return Response(org_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             
     if request.method == 'GET':
@@ -335,19 +335,21 @@ def Organisations(request):
 @api_view(['POST', 'GET'])
 def Users(request, organisation_id):
     if request.method == 'POST':
-
         organisation = Organisation.objects.get(id=organisation_id)
 
-        request.data['belongs_to'] = organisation.id
         user_serializer = UserSerializer(data=request.data)
 
-        print(request.data)
         if user_serializer.is_valid():
             user_serializer.save()
 
+            User.objects.create_user(username=request.data['username'],
+                                 email=request.data['email'],
+                                 password=request.data['password'])
+            
+
             user_id = user_serializer.data['id']
             
-            new_user = User.objects.get(id=user_id)
+            new_user = UserProfile.objects.get(id=user_id)
             organisation.users.add(new_user.id)
 
             for team_id in user_serializer.data['teams']:
@@ -359,11 +361,10 @@ def Users(request, organisation_id):
 
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print(user_serializer.errors)
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     if request.method == 'GET':
-        user_data= User.objects.filter(belongs_to = organisation_id)
+        user_data= UserProfile.objects.filter(belongs_to = organisation_id)
         user_serializer = UserSerializer(user_data, context={'request': request}, many=True)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
     
@@ -372,21 +373,20 @@ def Teams(request, organisation_id):
     if request.method == 'POST':
         team_serializer = TeamSerializer(data=request.data)
 
-        print(request.data)
+        
         if team_serializer.is_valid():
             team_serializer.save()
 
             for lead_id in team_serializer.data['team_leads']:
-                lead = User.objects.get(id = int(lead_id))
+                lead = UserProfile.objects.get(id = int(lead_id))
                 lead.teams.add(team_serializer.data['id'])
 
             for member_id in team_serializer.data['team_members']:
-                member = User.objects.get(id = int(member_id))
+                member = UserProfile.objects.get(id = int(member_id))
                 member.teams.add(team_serializer.data['id'])
 
             return Response(team_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print(team_serializer.errors)
             return Response(team_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     if request.method == 'GET':
@@ -397,43 +397,52 @@ def Teams(request, organisation_id):
 @api_view(['PUT', 'DELETE', 'GET'])
 def UserDetails(request, user_id):
     try:
-        user = User.objects.get(id = int(user_id))
-        print("user", user)
+        user = UserProfile.objects.get(id = int(user_id))
+        
     
-    except User.DoesNotExist:
+    except UserProfile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
         user_serializer = UserSerializer(user, data=request.data,context={'request': request})
         if user_serializer.is_valid():      
             user_serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+
+            userToken = User.objects.get(username=user_serializer.data['username'])
+            userToken.email=request.data['email'],
+            userToken.set_password(request.data['password'])
+            userToken.save()
+            return Response(user_serializer.data, status=status.HTTP_201_CREATED)
         
-        print(user_serializer.errors)
+    
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        user.delete()
+        UserProfile.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'GET':
         user_serializer = UserSerializer(user)
-        print(user_serializer.data)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['PUT', 'DELETE', 'GET'])
 def UserDetailsByUsername(request, username):
     try:
-        user = User.objects.get(username = username)
+        user = UserProfile.objects.get(username = username)
         print("user", user)
     
-    except User.DoesNotExist:
+    except UserProfile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
         user_serializer = UserSerializer(user, data=request.data,context={'request': request})
         if user_serializer.is_valid():      
             user_serializer.save()
+
+            userToken = User.objects.get(username=user_serializer.data['username'])
+            userToken.email=request.data['email'],
+            userToken.set_password(request.data['password'])
+            userToken.save()
             return Response(status=status.HTTP_201_CREATED)
         
         print(user_serializer.errors)
@@ -446,6 +455,7 @@ def UserDetailsByUsername(request, username):
     elif request.method == 'GET':
         user_serializer = UserSerializer(user)
         print(user_serializer.data)
+        print("AHHHHHHHHH 2", User.objects.get(username=user_serializer.data['username']).password)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
     
 @api_view(['PUT', 'DELETE', 'GET'])
@@ -489,8 +499,3 @@ class Logout(APIView):
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
           
-class HomeView(APIView):
-    permission_classes = (IsAuthenticated, )
-    def get(self, request):
-        content = {'message': "Welcome to the JWT Authenticated page using React Js and Django!"}
-        return Response(content)

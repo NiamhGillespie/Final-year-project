@@ -46,23 +46,32 @@
 
 .story-title {
     font-size: 100%;
-    width: 80%;
+    width: 70%;
     float: left;
     display: inline;
     margin-bottom: 0px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.story-photo-area {
+    width: 30% !important;
+    height: 50px !important;
+    float: right;
+    overflow: hidden !important;
 }
 
 .story-profile-photo {
     border-radius: 100%;
-    margin-right: -15px;
     width: 30px;
     height: 30px;
     background-color: var(--blue-background);
-    float: right;
+    float: end;
     display: inline;
     padding: 0px;
-    margin-top: 0vh;
-    position:absolute;
+    margin-top: 0px;
+    margin-right: 0px;
+    right: 0px;
    
 }
 
@@ -79,7 +88,9 @@
 }
 
 .story-priority {
-    font-size: 80%;
+    font-size: 90%;
+    height: 20px;
+    margin: 0px !important;
     float: left;
     display: block;
 }
@@ -358,7 +369,8 @@
     font-size: 3vh;
     margin-left: 5vw;
     margin-top: 0px;
-    margin-bottom: 1vh;
+    padding-top: 0px;
+    margin-bottom: 1px;
 }
 
 /* Epic details form  */
@@ -399,8 +411,8 @@
     border-top: 2px solid var(--completed-grey);
     border-bottom: 2px solid var(--completed-grey);
     color: white;
-    text-align: center;
-    width: 190px;
+    text-align: center !important;
+    width: 190px !important;
     height: 20px;
     line-height: 15px !important;
     background-color: var(--completed-grey);
@@ -409,6 +421,9 @@
     margin-left: -10px !important;
     padding: 0px;
     margin-top: 55px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 .completed-banner-epic {
@@ -430,14 +445,13 @@
 .details-div {
     display:block;
     height: 20px;
-    margin-top: 55px !important;
     width: 190px;
     margin: 0px;
     margin:0px;
     margin-left: -10px !important;
     padding: 0px 1px;
     white-space: nowrap;
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .details-tag-small {
@@ -445,6 +459,7 @@
     border-radius: 15px;
     padding: 0px 1vh;
     margin-right: 2px;
+    margin-left: 3px;
     margin-top: 0px;
     width: auto;
     display: inline-block;
@@ -473,3 +488,65 @@
     display:block
 }
 
+.nav-photo {
+    border-radius: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+    margin-left: 4vw;
+    width: 8vh;
+    height: 8vh;
+    background-color: white;
+    float: left;
+}
+
+
+.nav-photo-left {
+    border-radius: 100%;
+    margin: 0px;
+    padding: 0px;
+    top: 0px;
+    display: inline;
+    margin-left: 1vw;
+    width: 8vh;
+    height: 8vh;
+    background-color: white;
+    float: left;
+    display: inline;
+}
+
+.team-choice {
+    font-size: 17px;
+    border: none !important;
+    margin-top: 2.5vh;
+    padding-top: 0px !important;
+
+}
+
+.team-choice-team-dashboard {
+    border: none !important;
+    background-color: var(--blue-background);
+    font-size: 5vh !important;
+}
+
+.center-stats {
+    height: 10vh;
+    width: 45vw;
+    margin: auto;
+    padding: 1px;
+}
+
+.epic-left-bar {
+    position: absolute;
+    left: 0px;
+}
+.logo {
+    width: 16vw;
+    height: 8vh;
+    margin:0px;
+    padding: 0px;
+    float: start;
+    position: absolute;
+    left: 5px;
+    top: 0px;
+}

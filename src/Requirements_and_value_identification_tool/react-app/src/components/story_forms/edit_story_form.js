@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, FormFeedback, Label } from 'reactstrap';
 import axios from 'axios';
-import { API_URL, API_URL_STORY_DETAILS, API_URL_TEAM_DETAILS, API_URL_USER_DETAILS } from '../../constants';
+import { API_URL, API_URL_SHORT, API_URL_STORY_DETAILS, API_URL_TEAM_DETAILS, API_URL_USER_DETAILS } from '../../constants';
 import { ModalHeader, ModalBody } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
 import '../../css/basic.css';
@@ -24,6 +24,7 @@ class UpdateStoryForm extends Component {
         story_id: this.props.story.story_id,
         epic_id: this.props.story.epic_id,
         title: this.props.story.title,
+        team_id: this.props.story.team_id,
 
         order: this.props.story.order,
 
@@ -66,44 +67,53 @@ class UpdateStoryForm extends Component {
     }
 
     async getTeamTags() {
-        var tags = await axios.get('http://localhost:8000/api/teamName/tags/');
+        var tags = await axios.get(API_URL_SHORT + this.props.team.id + '/tags');
         this.setState({ team_tags: tags.data });
     }
 
     async getTeamValues() {
-        var values = await axios.get('http://localhost:8000/api/teamName/values/');
+        var values = await axios.get(API_URL_SHORT + this.props.team.id + '/values');
         this.setState({ team_values: values.data });
     }
 
     async getEpics() {
-        await axios.get(API_URL).then((response) => this.setState({ epics: response.data[0] }));
+        await axios.get(API_URL_SHORT + this.props.team.id + '/epicsDashboard').then((response) => this.setState({ epics: response.data[0] }));
     }
 
     async getTeamMembers() {
-        await axios.get(API_URL_TEAM_DETAILS + 1).then((response) => (this.state.full_member_list = response.data.team_members));
+        await axios.get(API_URL_TEAM_DETAILS + this.props.team.id).then((response) => (this.state.full_member_list = response.data.team_members));
     }
 
     async getTeamLeads() {
-        await axios.get(API_URL_TEAM_DETAILS + 1).then((response) => (this.state.full_lead_list = response.data.team_leads));
+        await axios.get(API_URL_TEAM_DETAILS + this.props.team.id).then((response) => (this.state.full_lead_list = response.data.team_leads));
     }
 
     async getTeamUsers() {
         await this.getTeamMembers();
         await this.getTeamLeads();
-        var id_list = this.state.full_lead_list + ',' + this.state.full_member_list;
-        id_list = id_list.split(',');
 
-        if (typeof this.state.full_lead_list[0] === 'number') {
+        if (this.state.full_lead_list.length > 0) {
+            var id_list = this.state.full_lead_list + ',' + this.state.full_member_list;
+        } else {
+            id_list = this.state.full_lead_list + this.state.full_member_list;
+        }
+        
+        id_list = id_list.split(',');
+        console.log('id list is', id_list, typeof this.state.full_lead_list[0] === 'number');
+
+        if (typeof this.state.full_lead_list[0] === 'number' || typeof this.state.full_member_list[0] === 'number') {
             var member_list = [];
             for (var i = 0; i < id_list.length; i++) {
-                var member = await axios.get(API_URL_USER_DETAILS + parseInt(id_list[i]));
-                member_list.push(member.data);
+                if (id_list[i] !== '') {
+                    var member = await axios.get(API_URL_USER_DETAILS + parseInt(id_list[i]));
+                    member_list.push(member.data);
+                }
             }
         }
 
         this.state.member_list = member_list;
-        this.setState({ member_list: member_list})
-        console.log('member list!', this.state.member_list);
+        this.setState({ member_list: member_list });
+        console.log('member list!', member_list);
         return member_list;
     }
 

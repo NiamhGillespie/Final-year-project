@@ -15,9 +15,11 @@ class AddEpicModal extends Component {
 
     render() {
         var button = (
-            <Button className="stat-bar-btn btn-primary" onClick={this.toggleModal}>
-                Add Epic
-            </Button>
+            <div className="add-column-button">
+                <Button className="stat-bar-btn btn-primary" onClick={this.toggleModal}>
+                    Add Epic
+                </Button>
+            </div>
         );
 
         return (
@@ -27,7 +29,7 @@ class AddEpicModal extends Component {
                     <ModalHeader toggle={this.toggleModal}>Add Epic</ModalHeader>
 
                     <ModalBody>
-                        <AddEpicForm toggle={this.toggleModal} epic={this.props.epics} resetState={this.props.resetState} />
+                        <AddEpicForm toggle={this.toggleModal} epic={this.props.epics} resetState={this.props.resetState} team={this.props.team} />
                     </ModalBody>
                 </Modal>
             </div>
