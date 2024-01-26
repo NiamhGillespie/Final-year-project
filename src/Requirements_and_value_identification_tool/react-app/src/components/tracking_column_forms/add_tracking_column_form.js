@@ -19,7 +19,9 @@ class AddColumnForm extends Component {
         validate: {
             WIP: 'valid',
             title: 'too_short'
-        }
+        },
+
+        checked: false
     };
 
     onChange = (e) => {
@@ -37,7 +39,7 @@ class AddColumnForm extends Component {
     createColumn = (e) => {
         e.preventDefault();
 
-        if (this.state.validate.WIP !== 'valid' || this.state.validate.title !== 'valid') {
+        if (this.state.validate.WIP !== 'valid' || (this.state.validate.title !== 'valid' && this.state.validate.title !== 'protected_keyword')) {
             alert('The form is invalid, please try again');
         } else {
             axios.post(API_URL_SHORT + this.state.team_id + '/tracking-columns', this.state).then(() => {
@@ -58,6 +60,10 @@ class AddColumnForm extends Component {
             validate.title = 'too_short';
         } else if (e.target.value.length > 30) {
             validate.title = 'too_long';
+        } else if (e.target.value === 'Done') {
+            validate.title = 'protected_keyword';
+            this.setState({ checked: true });
+            this.setState({ mark_as_complete: true });
         } else {
             validate.title = 'valid';
         }
@@ -92,11 +98,13 @@ class AddColumnForm extends Component {
                         onTouched={this.validateTitle}
                         value={returnDefaultIfFieldEmpty(this.state.title)}
                         invalid={this.state.validate.title === 'too_short' || this.state.validate.title === 'too_long'}
+                        valid={this.state.validate.title === 'protected_keyword'}
                     />
                     <FormFeedback invalid>
                         {this.state.validate.title === 'too_short' && <p> Please enter a title </p>}
                         {this.state.validate.title === 'too_long' && <p> A title can't be longer than 30 characters </p>}
                     </FormFeedback>
+                    <FormFeedback valid> Done is a protected keyword - stories in this column will automatically be marked as completed</FormFeedback>
                 </FormGroup>
 
                 <FormGroup>
@@ -121,7 +129,9 @@ class AddColumnForm extends Component {
                         name="mark_as_complete"
                         onChange={this.onChangeCheckbox}
                         value={returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
-                        
+                        defaultChecked={this.state.mark_as_complete || this.state.title === 'Done'}
+                        disabled={this.state.title === 'Done'}
+                        checked={this.state.checked}
                     />
                 </FormGroup>
 

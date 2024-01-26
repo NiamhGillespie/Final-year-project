@@ -16,10 +16,8 @@ export function NavigationBar() {
         }
     }
 
-    // if (user !== null && teams.length !== 0 && chosen_team === '') {
-    //     chosen_team = teams[0];
-    //     localStorage.setItem('chosen_team', JSON.stringify(chosen_team));
-    // }
+    //GET user and stuff iif navbar not in use !!!
+
 
     useEffect(() => {
         if (localStorage.getItem('access_token') !== null) {

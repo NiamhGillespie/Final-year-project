@@ -56,7 +56,7 @@ export const LogIn = () => {
 
                      <FormGroup>
                          <Label for="password">Password:</Label>
-                         <Input type="text" name="password" onChange={e => setPassword(e.target.value)} />
+                         <Input type="password" name="password" onChange={e => setPassword(e.target.value)} />
                      </FormGroup>
 
                      <p className="text-center mb-3 mt-4"> Don’t have an account? <Link to="/sign-up"> Add your organistation </Link> or contact your system administrator!</p>
