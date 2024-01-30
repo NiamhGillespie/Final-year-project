@@ -5,6 +5,7 @@ import { ColorPicker } from 'primereact/colorpicker';
 import axios from 'axios';
 import UpdateEpicForm from './edit_epic_form';
 import { API_URL, API_URL_SHORT } from '../../constants';
+import { displaySmallValues } from '../helper-methods/epic_display_methods';
 
 class EpicDetailsModal extends Component {
     state = {
@@ -12,17 +13,15 @@ class EpicDetailsModal extends Component {
         editing: false,
         teamValues: this.getTeamValues(),
         epic: this.props.epic,
-        team: this.props.team,
+        team: this.props.team
     };
 
     async getTeamValues() {
-        console.log('team time?', this.props.team)
         var values = await axios.get(API_URL_SHORT + this.props.team.id + '/values');
         this.setState({ teamValues: values.data });
     }
 
     async updateEpic() {
-        console.log('original epic', this.state.epic);
         var epic = await axios.get(API_URL_SHORT + this.props.team.id + '/epics' + this.state.epic.epic_id + '/details');
         if (epic !== undefined) {
             this.setState({ epic: epic.data });
@@ -108,7 +107,6 @@ class EpicDetailsModal extends Component {
         var background_colour = this.state.epic.completed ? 'c7c7c7' : this.state.epic.epic_colour;
         return (
             <div className="details-modal">
-                
                 <ModalHeader toggle={this.toggleModal} className="coloured-header" style={{ background: '#' + background_colour }}>
                     <p className="details-title"> {this.state.epic.title} </p>
                     <p className="details-id float-end"> #{this.state.epic.id} </p>
@@ -167,11 +165,7 @@ class EpicDetailsModal extends Component {
                             <p style={{ color: '#' + background_colour }} className="details-heading">
                                 Epic colour:
                             </p>
-                            <ColorPicker
-                                className="colour-picker d-inline  w-120 h-120"
-                                value={background_colour}
-                                inline
-                                disabled></ColorPicker>
+                            <ColorPicker className="colour-picker d-inline  w-120 h-120" value={background_colour} inline disabled></ColorPicker>
                         </div>
                     </div>
                 </ModalBody>
@@ -201,7 +195,11 @@ class EpicDetailsModal extends Component {
             <div style={{ background: '#' + background_colour }} className="epic-box" onClick={this.toggleModal}>
                 {this.state.epic.title}
 
-                {this.state.epic.completed ? <div className="completed-banner-epic">completed</div> : <div>{/* display tags and stuff? */}</div>}
+                {this.state.epic.completed ? (
+                    <div className="completed-banner-epic">completed</div>
+                ) : (
+                    <div> {displaySmallValues(this.state.epic.values, this.state.teamValues)}</div>
+                )}
             </div>
         );
 

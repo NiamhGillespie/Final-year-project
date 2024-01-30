@@ -26,6 +26,7 @@ import EpicsDashboardFunction from './components/dashboard_functions/epic_dashbo
 import TrackingDashboardFunction from './components/dashboard_functions/tracking_dashboard_function';
 import TeamDashboardFunction from './components/dashboard_functions/team_dashboard_function';
 import UserDashboardFunction from './components/dashboard_functions/user_dashboard_function';
+import ErrorPage from './components/error_page';
 
 export default function App() {
 
@@ -52,6 +53,8 @@ export default function App() {
                         <Route path="teamName/epics-dashboard" element={<EpicsDashboardFunction />} />
                         <Route path="teamName/tracking-dashboard" element={<TrackingDashboardFunction />} />
                         <Route path="userDashboard" element={<UserDashboardFunction />} />
+
+                        <Route path='*' element={<ErrorPage/>} />
                     </Route>
                 </Routes>
             </BrowserRouter>

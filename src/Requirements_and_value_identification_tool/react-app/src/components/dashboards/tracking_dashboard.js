@@ -24,9 +24,7 @@ export class TrackingDashboard extends Component {
     };
 
     getTeam() {
-        console.log('PROPS ARE', this.props);
         if (this.props.current_team) {
-            console.log('current team', this.props.current_team);
             //this.state.team = this.props.current_team
             this.setState({ team: this.props.current_team });
             return this.props.current_team;
@@ -63,26 +61,22 @@ export class TrackingDashboard extends Component {
             await axios
                 .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
                 .then((response) => (this.state.non_completed_stories = storiesEdited24Hours(response.data[1])));
-            console.log(this.state.non_completed_stories);
         }
 
         if (this.state.filter === '48_hours') {
             await axios
                 .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
                 .then((response) => (this.state.non_completed_stories = storiesEdited48Hours(response.data[1])));
-            console.log('48 hour stories..', this.state.non_completed_stories, this.state.filter);
         }
 
         if (this.state.filter === '72_hours') {
             await axios
                 .get(API_URL_SHORT + this.state.team.id + '/epicsDashboard')
                 .then((response) => (this.state.non_completed_stories = storiesEdited72Hours(response.data[1])));
-            console.log('72 hour stories ...', this.state.non_completed_stories, this.state.filter);
         }
     }
 
     async getEpics() {
-        console.log("epic cols", this.state.team)
         await axios.get(API_URL_SHORT + this.state.team.id + '/epicsDashboard').then((response) => this.setState({ epics: response.data[0] }));
     }
 
@@ -237,9 +231,6 @@ export class TrackingDashboard extends Component {
                 // eslint-disable-next-line no-loop-func
                 stories.push(this.state.non_completed_stories.filter((story) => story.id === parseInt(ordered_ids[i]))[0]);
                 // eslint-disable-next-line no-loop-func
-                console.log(this.state.team)
-                console.log(stories[i].epic_id, this.state.epics)
-                console.log(this.state.epics.filter((epic) => epic.epic_id === stories[i].epic_id)[0])
                 story_colours.push(this.state.epics.filter((epic) => epic.epic_id === stories[i].epic_id)[0].epic_colour);
             }
             if (stories[0] !== undefined) {
@@ -258,6 +249,7 @@ export class TrackingDashboard extends Component {
                                                 <StoryDetailsModal
                                                     resetState={this.resetState}
                                                     story={story}
+                                                    completed = {story.completed ? true : false}
                                                     users={this.state.users}
                                                     epic_colour={story.completed ? 'c7c7c7' : story_colours[index]}
                                                     team={this.state.team}

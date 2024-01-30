@@ -80,6 +80,10 @@ export class TagDashboard extends Component {
             );
         }
 
+        if (tags.length === 0 ) {
+            returnList.push(<div> explanation of what a tag is</div>)
+        }
+
         return returnList;
     }
 
@@ -103,6 +107,10 @@ export class TagDashboard extends Component {
                     <p className="tag-description"> {values[i].description} </p>
                 </div>
             );
+        }
+
+        if (values.length === 0 ) {
+            returnList.push(<div> explanation of what a value is</div>)
         }
 
         return returnList;

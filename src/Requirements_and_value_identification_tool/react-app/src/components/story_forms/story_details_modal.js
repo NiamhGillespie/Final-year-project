@@ -196,14 +196,12 @@ class StoryDetailsModal extends Component {
         var userImages = [];
         var users = this.props.users;
         var assigned_to = this.props.story.assigned_to;
-        console.log(users);
         var marginLeft = 20;
 
         if (users.length !== undefined && users !== undefined) {
             for (var i = 0; i < users.length; i++) {
                 for (var j = 0; j < assigned_to.length; j++) {
                     if (users[i].id === assigned_to[j]) {
-                        console.log(users[i].id === assigned_to[j], users[i].id, assigned_to[j]);
                         userImages.push(
                             <div>
                                 <a id={users[i].username} className="story-profile-photo-tooltip" style={{ marginLeft: marginLeft + 'px' }}>
@@ -231,7 +229,7 @@ class StoryDetailsModal extends Component {
 
                 <p className="story-priority"> {displayPriority(this.state.story.priority)} </p>
 
-                {this.state.story.completed ? (
+                {this.state.story.completed || this.props.completed ? (
                     <div className="completed-banner">completed</div>
                 ) : (
                     <div className="details-div">
@@ -240,6 +238,8 @@ class StoryDetailsModal extends Component {
                 )}
             </div>
         );
+
+        console.log("story completed...", this.state.story.completed, this.state.story.title)
 
         return (
             <div key={this.state.story.id}>

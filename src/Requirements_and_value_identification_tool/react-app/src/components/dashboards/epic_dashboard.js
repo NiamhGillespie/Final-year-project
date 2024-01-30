@@ -23,14 +23,10 @@ export class EpicsDashboard extends Component {
     };
 
     getTeam() {
-        console.log('PROPS ARE', this.props);
         if (this.props.current_team) {
-            console.log('current team', this.props.current_team);
-            //this.state.team = this.props.current_team
             this.setState({ team: this.props.current_team });
             return this.props.current_team;
         } else {
-            //this.state.team = this.props.team[0]
             this.setState({ team: this.props.team[0] });
             return this.props.team[0];
         }
