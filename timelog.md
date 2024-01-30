@@ -359,3 +359,8 @@
 
 ### 26 Jan 2024
 * *2.5 hours* Created first draft of survey questions and emailed to Peggy for feedback
+
+## Week 17
+
+### 29 Jan 2024
+* *3 hours* Adding a 404 default page, fixing a tracking dashboard bug - updating the 'completed' checkbox wouldn't update the display of the story details block properly. and added value tags to epic details block
