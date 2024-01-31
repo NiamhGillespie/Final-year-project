@@ -9,6 +9,7 @@ import AddColumnModal from '../tracking_column_forms/add_tracking_column_modal';
 import { updateColumStoryOrder, updateNewColumn, updateOldColumn, updateStory } from '../helper-methods/column_update_methods';
 import { storiesEdited24Hours, storiesEdited48Hours, storiesEdited72Hours } from '../helper-methods/time_filter_methods';
 import StoryDetailsModal from '../story_forms/story_details_modal';
+import NavigationBar from '../navigation_bar';
 
 export class TrackingDashboard extends Component {
     state = {
@@ -39,6 +40,10 @@ export class TrackingDashboard extends Component {
         await this.getTeam();
         this.getUsers();
         this.resetState();
+    }
+
+    componentDidCatch(error, errorInfo) {
+        console.log("error has occured", error, errorInfo);
     }
 
     async getUsers() {

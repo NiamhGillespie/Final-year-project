@@ -81,7 +81,7 @@ export class TagDashboard extends Component {
         }
 
         if (tags.length === 0 ) {
-            returnList.push(<div> explanation of what a tag is</div>)
+            returnList.push(<div className='tag-list list-center'> Used to catagorise a story, e.g Bug or Testing</div>)
         }
 
         return returnList;
@@ -110,7 +110,7 @@ export class TagDashboard extends Component {
         }
 
         if (values.length === 0 ) {
-            returnList.push(<div> explanation of what a value is</div>)
+            returnList.push(<div className='tag-list list-center'> Used to identify what values belong to a particular story or epic </div>)
         }
 
         return returnList;

@@ -7,13 +7,27 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL_USERS } from '../../constants';
 import DisplayTeamUsers from '../helper_components/displayTeamUsers';
+import UnauthorisedPage from '../unauthorised_page';
 
 export function TeamDetails() {
     const location = useLocation();
     var team_details = location.state;
 
+    if (location.state !== null && location.state.user !== undefined) {
+        var user = location.state.user;
+        console.log("user is ", user)
+    } else {
+        user = JSON.parse(localStorage.getItem('user'));
+    }
+
+    if (user === null) {
+        return <UnauthorisedPage/>
+    } else if (user.role !== 'admin') {
+        return <UnauthorisedPage/>
+    }
+
     if (team_details === null) {
-        team_details = { id: 6, belongs_to: 2, team_name: 'Default Team', team_leads: [], team_members: [], teams: [7], role: 'default' };
+        return <div className='lone-error-text'>No team details provided </div>;
     } else {
         team_details = team_details.team;
     }

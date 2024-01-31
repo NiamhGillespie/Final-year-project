@@ -15,7 +15,11 @@ export class AddTeam extends Component {
         team_members: [],
         belongs_to: this.props.user.belongs_to,
         team_leads_list: this.getPotentialLeads(),
-        team_members_list: this.getPotentialMembers()
+        team_members_list: this.getPotentialMembers(),
+
+        validate: {
+            team_name: 'too_short'
+        }
     };
 
     async getPotentialLeads() {
@@ -35,7 +39,7 @@ export class AddTeam extends Component {
     }
 
     resetState() {
-        console.log(this.props.user)
+        console.log(this.props.user);
         this.getPotentialLeads();
         this.getPotentialMembers();
     }
@@ -53,7 +57,6 @@ export class AddTeam extends Component {
             preview_photo: URL.createObjectURL(e.target.files[0])
         });
     };
-
 
     onLeadAddition = (e) => {
         var team_lead_ids = [];
@@ -90,25 +93,43 @@ export class AddTeam extends Component {
     addTeam = (e) => {
         e.preventDefault();
 
-        let form_data = new FormData();
-        if (this.state.team_photo !== '') {
-            form_data.append('team_photo', this.state.team_photo, this.state.team_photo.name);
-        }
-        
-        form_data.append('team_name', this.state.team_name);
-        this.state.team_leads.forEach((lead) => {
-            form_data.append('team_leads', lead);
-        });
-        this.state.team_members.forEach((member) => {
-            form_data.append('team_members', member);
-        });
-        form_data.append('belongs_to', this.state.belongs_to);
+        if (this.state.validate.team_name === 'valid') {
+            let form_data = new FormData();
+            if (this.state.team_photo !== '') {
+                form_data.append('team_photo', this.state.team_photo, this.state.team_photo.name);
+            }
 
-        axios.post(API_URL_TEAMS + this.state.belongs_to + '/admin/teams', form_data).then(() => {
-            alert('team created');
-            console.log('team added');
-        });
+            form_data.append('team_name', this.state.team_name);
+            this.state.team_leads.forEach((lead) => {
+                form_data.append('team_leads', lead);
+            });
+            this.state.team_members.forEach((member) => {
+                form_data.append('team_members', member);
+            });
+            form_data.append('belongs_to', this.state.belongs_to);
+
+            axios.post(API_URL_TEAMS + this.state.belongs_to + '/admin/teams', form_data).then(() => {
+                alert('team created');
+                console.log('team added');
+            });
+        } else {
+            alert('Add team is invalid')
+        }
     };
+
+    validateTeamName(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length === 0) {
+            validate.team_name = 'too_short';
+        } else if (e.target.value.length > 30) {
+            validate.team_name = 'too_long';
+        } else {
+            validate.team_name = 'valid';
+        }
+
+        this.setState({ validate });
+    }
 
     render() {
         return (
@@ -118,7 +139,21 @@ export class AddTeam extends Component {
                     <div className="left-add-team-box">
                         <FormGroup>
                             <Label for="team_name">Team Name:</Label>
-                            <Input type="text" name="team_name" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.team_name)} />
+                            <Input
+                                type="text"
+                                name="team_name"
+                                value={returnDefaultIfFieldEmpty(this.state.team_name)}
+                                onChange={(e) => {
+                                    this.onChange(e);
+                                    this.validateTeamName(e);
+                                }}
+                                onTouched={this.validateTeamName}
+                                invalid={this.state.validate.team_name !== 'valid'}
+                            />
+                            <FormFeedback invalid>
+                                {this.state.validate.team_name === 'too_short' && <p> Please enter a team name </p>}
+                                {this.state.validate.team_name === 'too_long' && <p> A team name cannot be longer than 30 characters </p>}
+                            </FormFeedback>
                         </FormGroup>
 
                         <FormGroup>

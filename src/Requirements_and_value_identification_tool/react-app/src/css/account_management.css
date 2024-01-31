@@ -36,6 +36,13 @@
     height: 90%;
 }
 
+.spacing {
+    margin-top: 10px;
+    margin-left: 0vh;
+    width: 45vw;
+    float: left !important;
+}
+
 .team-profile-photo {
     border-radius: 100%;
     margin-right: 0px;
@@ -47,6 +54,7 @@
 }
 
 .team-profile-photo-title {
+    margin-top: 5px;
     height: 12vh;
     line-height: 12vh;
     text-align: center;

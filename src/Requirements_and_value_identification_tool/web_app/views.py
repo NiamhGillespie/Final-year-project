@@ -455,7 +455,6 @@ def UserDetailsByUsername(request, username):
     elif request.method == 'GET':
         user_serializer = UserSerializer(user)
         print(user_serializer.data)
-        print("AHHHHHHHHH 2", User.objects.get(username=user_serializer.data['username']).password)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
     
 @api_view(['PUT', 'DELETE', 'GET'])
@@ -499,3 +498,14 @@ class Logout(APIView):
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
           
+@api_view(['GET'])
+def GetAllUsernames(request):
+
+    users = UserProfile.objects
+
+    if request.method == 'GET':
+        return_users = []
+        user_serializer = UsernameSerializer(users, context={'request': request}, many=True)
+        for user in user_serializer.data:
+            return_users.append(user['username'])
+        return Response(return_users, status=status.HTTP_200_OK)

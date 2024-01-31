@@ -23,7 +23,11 @@ class EditTeamForm extends Component {
         belongs_to: this.props.team.belongs_to,
         team_leads_list: this.getPotentialLeads(),
         team_members_list: this.getPotentialMembers(),
-        preview_photo: this.props.team.team_photo
+        preview_photo: this.props.team.team_photo,
+
+        validate: {
+            team_name: 'valid'
+        }
     };
 
     async getPotentialLeads() {
@@ -65,22 +69,26 @@ class EditTeamForm extends Component {
     updateTeam = (e) => {
         e.preventDefault();
 
-        let form_data = new FormData();
-        if (this.state.photo_edited) {
-            form_data.append('team_photo', this.state.team_photo, this.state.team_photo.name);
-        }
-        form_data.append('team_name', this.state.team_name);
-        this.state.team_leads.forEach((lead) => {
-            form_data.append('team_leads', lead);
-        });
-        this.state.team_members.forEach((member) => {
-            form_data.append('team_members', member);
-        });
+        if (this.state.validate.team_name === 'valid') {
+            let form_data = new FormData();
+            if (this.state.photo_edited) {
+                form_data.append('team_photo', this.state.team_photo, this.state.team_photo.name);
+            }
+            form_data.append('team_name', this.state.team_name);
+            this.state.team_leads.forEach((lead) => {
+                form_data.append('team_leads', lead);
+            });
+            this.state.team_members.forEach((member) => {
+                form_data.append('team_members', member);
+            });
 
-        axios.put(API_URL_TEAM_DETAILS + this.props.team.id, form_data).then(() => {
-            this.props.toggle();
-            this.props.resetState();
-        });
+            axios.put(API_URL_TEAM_DETAILS + this.props.team.id, form_data).then(() => {
+                this.props.toggle();
+                this.props.resetState();
+            });
+        } else {
+            alert('Form is invalid');
+        }
     };
 
     onLeadAddition = (e) => {
@@ -119,6 +127,20 @@ class EditTeamForm extends Component {
         console.log('deleting...');
     }
 
+    validateTeamName(e) {
+        const validate = this.state.validate;
+
+        if (e.target.value.length === 0) {
+            validate.team_name = 'too_short';
+        } else if (e.target.value.length > 30) {
+            validate.team_name = 'too_long';
+        } else {
+            validate.team_name = 'valid';
+        }
+
+        this.setState({ validate });
+    }
+
     render() {
         return (
             <div>
@@ -130,9 +152,18 @@ class EditTeamForm extends Component {
                                 <Input
                                     type="text"
                                     name="team_name"
-                                    onChange={this.onChange}
                                     value={returnDefaultIfFieldEmpty(this.state.team_name)}
+                                    onChange={(e) => {
+                                        this.onChange(e);
+                                        this.validateTeamName(e);
+                                    }}
+                                    onTouched={this.validateTeamName}
+                                    invalid={this.state.validate.team_name !== 'valid'}
                                 />
+                                <FormFeedback invalid>
+                                    {this.state.validate.team_name === 'too_short' && <p> Please enter a team name </p>}
+                                    {this.state.validate.team_name === 'too_long' && <p> A team name cannot be longer than 30 characters </p>}
+                                </FormFeedback>
                             </FormGroup>
 
                             <FormGroup>
@@ -143,7 +174,15 @@ class EditTeamForm extends Component {
                             <div className="w-100 photo-section">
                                 <p className="float-start edit-title team-profile-photo-title">Team Photo Preview:</p>
                                 <div className="edit-photo float-start">
-                                    <img src={this.state.preview_photo} alt="team profile" className="team-profile-photo" />
+                                    {this.state.preview_photo === 'http://localhost:8000/null' || this.state.preview_photo === null ? (
+                                        <img
+                                            src="http://localhost:8000/media/profile_images/default.jpg"
+                                            alt="team profile"
+                                            className="team-profile-photo"
+                                        />
+                                    ) : (
+                                        <img src={this.state.preview_photo} alt="team profile" className="team-profile-photo" />
+                                    )}
                                 </div>
                             </div>
 

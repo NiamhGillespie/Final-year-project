@@ -39,6 +39,7 @@ export default function App() {
                         <Route path="logout" element={<LogOut />} />
                         <Route path="sign-up" element={<SignUp />} />
 
+                        {/* checked here down */}
                         <Route path="admin/add-team" element={<AddTeamFunction />} />
                         <Route path="admin/view-teams" element={<ViewTeamsFunction />} />
                         <Route path="admin/add-user" element={<AddUserFunction />} />

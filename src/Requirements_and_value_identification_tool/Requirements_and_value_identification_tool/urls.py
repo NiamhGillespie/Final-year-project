@@ -51,6 +51,8 @@ urlpatterns = [
     re_path(r'^api/([0-9]*)/admin/users$', views.Users, name='createUser'),
     re_path(r'^api/([0-9]*)/admin/teams$', views.Teams, name='createTeam'),
 
+    re_path(r'^api/getUsernames', views.GetAllUsernames, name='getAllUsernames'),
+
     path('token/', jwt_views.TokenObtainPairView.as_view(), name ='token_obtain_pair'),
      path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name ='token_refresh'),
     path('logout/', views.Logout.as_view(), name ='logout'),

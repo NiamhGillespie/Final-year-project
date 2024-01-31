@@ -571,6 +571,14 @@
     padding: 0px;
 }
 
+.lone-error-text {
+    text-align: center;
+    font-size: 30px;
+    color: var(--blue-highlight);
+    margin-top: 30vh !important;
+    padding: 0px;
+}
+
 .details-value-small {
     font-size: 12px;
     border-radius: 15px;
@@ -581,4 +589,33 @@
     width: auto;
     display: inline-block;
     color: white;
+}
+
+.unauthorised-header {
+    text-align: center;
+    font-size: 100px;
+    height: 130px;
+    color: #58c1d620;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #58c1d6;
+    margin-top: 20vh;
+    margin-bottom: 0px !important;
+    padding: 0px
+}
+
+.list-center {
+    border: solid 2px var(--blue-highlight);
+    text-align: center;
+}
+
+.name-section {
+    width: 48% !important;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+.form-height {
+    height: 90px !important;
+    margin: 0px !important;
+    padding: 0px !important;
 }

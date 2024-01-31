@@ -26,11 +26,12 @@
 .sign-up-box {
     background-color: var(--blue-background);
     margin: auto;
-    margin-top: 5vh;
+    margin-top: 2vh;
     width: 65vw;
-    height: 82vh;
+    height: 88vh;
     border-radius: 10px;
     padding: 5vh;
+    padding-top: 2vh;
 }
 
 .login-button {
@@ -51,4 +52,16 @@
 
 .display-border {
     border-right: 2px solid white;
+}
+
+.email-section {
+    margin-top: 120px !important;
+    margin-bottom: 20px;
+}
+
+.sign-up-section {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-top: 5vh;
 }

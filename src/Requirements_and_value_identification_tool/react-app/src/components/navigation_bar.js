@@ -7,8 +7,6 @@ export function NavigationBar() {
     const [isAuth, setIsAuth] = useState(false);
     const user = JSON.parse(localStorage.getItem('user'));
     const teams = JSON.parse(localStorage.getItem('teams'));
-    console.log('USER', user);
-    console.log('TEAMS', teams);
 
     if (user !== null && user.profile_photo !== null) {
         if (user.profile_photo[1] === 'm') {
@@ -16,15 +14,13 @@ export function NavigationBar() {
         }
     }
 
-    //GET user and stuff iif navbar not in use !!!
-
-
     useEffect(() => {
         if (localStorage.getItem('access_token') !== null) {
             setIsAuth(true);
         }
     }, [isAuth, user]);
 
+    
     return (
         <>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
