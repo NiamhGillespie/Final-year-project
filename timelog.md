@@ -364,3 +364,6 @@
 
 ### 29 Jan 2024
 * *3 hours* Adding a 404 default page, fixing a tracking dashboard bug - updating the 'completed' checkbox wouldn't update the display of the story details block properly. and added value tags to epic details block
+
+### 30 Jan 2024
+* *8.5 hours* Updated my state passing functions so pages can be accessed properly if link is typed in search par as oppose to accessing via a link, Added form validation on log in, sign up and admin adding and editing pages - form validation on sign up includes making sure the username doesn't already exist (created a getUsernames view to achieve this), also added tag and value descriptions to the tracking dashboard.
