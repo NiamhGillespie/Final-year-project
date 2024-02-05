@@ -193,7 +193,7 @@ class EpicDetailsModal extends Component {
         var background_colour = this.state.epic.completed ? 'c7c7c7' : this.state.epic.epic_colour;
         var epic_box = (
             <div style={{ background: '#' + background_colour }} className="epic-box" onClick={this.toggleModal}>
-                {this.state.epic.title}
+                <div className='epic-title-dashboard'> {this.state.epic.title} </div>
 
                 {this.state.epic.completed ? (
                     <div className="completed-banner-epic">completed</div>

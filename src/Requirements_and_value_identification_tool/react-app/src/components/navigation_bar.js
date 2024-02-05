@@ -11,6 +11,7 @@ export function NavigationBar() {
     if (user !== null && user.profile_photo !== null) {
         if (user.profile_photo[1] === 'm') {
             user.profile_photo = 'http://localhost:8000/' + user.profile_photo;
+            console.log(user.profile_photo)
         }
     }
 

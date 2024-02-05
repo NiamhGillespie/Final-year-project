@@ -35,10 +35,10 @@
     font-size: 12px;
     padding-left: 6px !important;
     padding-right: 6px !important;
+    margin: auto !important;
     margin-top: 0px !important;
     margin-bottom: 2px !important;
-    margin-right: 2px;
-    float: right;
+    width: 100px;
     height: 22px;
 }
 

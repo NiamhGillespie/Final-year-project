@@ -17,7 +17,6 @@
     border-left: 2px solid var(--blue-highlight) !important;
     border-bottom: 2px solid var(--blue-highlight) !important;
     margin: auto;
-    height: 30vh;
     padding: 3vh;
     margin-left: 5.5vh;
     margin-top: 0px;
@@ -25,6 +24,7 @@
     display: none;
     overflow: hidden;
     width: 95vw !important;
+    overflow-y: auto;
 
 }
 
@@ -55,4 +55,13 @@
 .active,
 .collapsible:hover {
     background-color: var(--blue-background);
+}
+
+.home-img {
+    width: 100vw;
+    height: 85vh;
+    object-fit: contain;
+    background-color: #58c1d6;
+    position: absolute;
+    top: 60px;
 }
