@@ -23,7 +23,6 @@ export class DisplayTeamUsers extends Component {
         var team_leads = [];
 
         for (var i = 0; i < users.length; i++) {
-            console.log(lead_ids, users[i].id);
             if (lead_ids.includes(parseInt(users[i].id))) {
                 team_leads.push(users[i]);
             }
@@ -38,7 +37,6 @@ export class DisplayTeamUsers extends Component {
         var team_members = [];
 
         for (var i = 0; i < users.length; i++) {
-            console.log(member_ids, users[i].id);
             if (member_ids.includes(parseInt(users[i].id))) {
                 team_members.push(users[i]);
             }
@@ -51,7 +49,6 @@ export class DisplayTeamUsers extends Component {
         var leads = this.getTeamLeads();
 
         var returnList = [];
-        console.log(leads);
 
         for (var i = 0; i < leads.length; i++) {
             returnList.push(
@@ -79,9 +76,7 @@ export class DisplayTeamUsers extends Component {
 
     displayTeamMembers() {
         var members = this.getTeamMembers();
-        console.log('boo');
         var returnList = [];
-        console.log(members);
 
         for (var i = 0; i < members.length; i++) {
             returnList.push(

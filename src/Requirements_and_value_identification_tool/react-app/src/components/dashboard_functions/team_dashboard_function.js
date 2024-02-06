@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import TeamDashboard from '../dashboards/team_dashboard';
 import UnauthorisedPage from '../unauthorised_page';
+import { SHORT_URL } from '../../constants';
 
 function TeamDashboardFunction(props) {
     const location = useLocation();
@@ -14,6 +15,10 @@ function TeamDashboardFunction(props) {
         user = JSON.parse(localStorage.getItem('user'));
         teams = JSON.parse(localStorage.getItem('teams'));
         current_team = teams[0];
+    }
+
+    if (current_team === undefined) {
+        current_team = teams[0]
     }
 
     if (user !== null && (user.role === 'team_member' || user.role === 'team_lead')) {
