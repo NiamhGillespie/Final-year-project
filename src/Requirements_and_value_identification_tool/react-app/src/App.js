@@ -27,6 +27,7 @@ import TrackingDashboardFunction from './components/dashboard_functions/tracking
 import TeamDashboardFunction from './components/dashboard_functions/team_dashboard_function';
 import UserDashboardFunction from './components/dashboard_functions/user_dashboard_function';
 import ErrorPage from './components/error_page';
+import HelpDashboard from './components/dashboards/help_dashboard';
 
 export default function App() {
 
@@ -39,7 +40,6 @@ export default function App() {
                         <Route path="logout" element={<LogOut />} />
                         <Route path="sign-up" element={<SignUp />} />
 
-                        {/* checked here down */}
                         <Route path="admin/add-team" element={<AddTeamFunction />} />
                         <Route path="admin/view-teams" element={<ViewTeamsFunction />} />
                         <Route path="admin/add-user" element={<AddUserFunction />} />
@@ -55,6 +55,7 @@ export default function App() {
                         <Route path="teamName/tracking-dashboard" element={<TrackingDashboardFunction />} />
                         <Route path="userDashboard" element={<UserDashboardFunction />} />
 
+                        <Route path="help" element={<HelpDashboard />} />
                         <Route path='*' element={<ErrorPage/>} />
                     </Route>
                 </Routes>

@@ -594,6 +594,7 @@
     width: auto;
     display: inline-block;
     color: white;
+    text-decoration: none !important;
 }
 
 .unauthorised-header {
@@ -623,4 +624,25 @@
     height: 90px !important;
     margin: 0px !important;
     padding: 0px !important;
+}
+
+.delay-tooltip {
+    --rt-transition-show-delay: 2s;
+}
+
+.assigned-to-section {
+    width: 20vw;
+    border-radius: 15px;
+    padding: 2px;
+    margin-bottom: 4px;
+}
+
+.assigned-to-photo {
+        border-radius: 100%;
+        width: 20px !important;
+        height: 20px !important;
+        margin: 2px;
+        float: left;
+        margin-right: 6px;
+        margin-left: 6px;
 }

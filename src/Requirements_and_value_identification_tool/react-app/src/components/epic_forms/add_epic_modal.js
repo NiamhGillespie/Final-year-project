@@ -29,7 +29,13 @@ class AddEpicModal extends Component {
                     <ModalHeader toggle={this.toggleModal}>Add Epic</ModalHeader>
 
                     <ModalBody>
-                        <AddEpicForm toggle={this.toggleModal} epic={this.props.epics} resetState={this.props.resetState} team={this.props.team} />
+                        <AddEpicForm
+                            toggle={this.toggleModal}
+                            epic={this.props.epics}
+                            resetState={this.props.resetState}
+                            team={this.props.team}
+                            user={this.props.user}
+                        />
                     </ModalBody>
                 </Modal>
             </div>

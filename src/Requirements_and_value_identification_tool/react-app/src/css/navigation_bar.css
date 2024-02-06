@@ -6,11 +6,9 @@ a.navbar-brand {
     text-align: center;
 }
 
-
 .box-shadow {
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
 }
-
 
 .nav-item {
     text-decoration: none;

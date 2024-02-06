@@ -6,6 +6,7 @@ import { ColorPicker } from 'primereact/colorpicker';
 import { ModalHeader, ModalBody } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
 import { displayValues, getDate, preselectedValues, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
+import DeleteTagModal from '../tag_forms/delete_tag_modal';
 
 //need to add error handeling to this :)
 class UpdateEpicForm extends Component {
@@ -21,7 +22,7 @@ class UpdateEpicForm extends Component {
         tags: this.props.epic.tags,
         order: this.props.epic.order,
 
-        last_edited_by: 'Niamh Gillespie',
+        last_edited_by: this.props.epic.last_edited_by,
         last_edited: getDate(),
         created_by: this.props.epic.created_by,
         time_created: this.props.epic.time_created,
@@ -47,6 +48,7 @@ class UpdateEpicForm extends Component {
         if (this.state.validate.title !== 'valid') {
             alert('The form is invalid, please try again');
         } else {
+            this.setState({ last_edited_by: this.props.user.id });
             axios.put(API_URL_EPIC_DETAILS + this.state.epic_id + '/details', this.state).then(() => {
                 this.props.resetState(this.state);
                 this.props.toggle();
@@ -90,11 +92,30 @@ class UpdateEpicForm extends Component {
     }
 
     complete_epic() {
-        //add in popup modal
         if (this.state.completed) {
             this.setState({ completed: false });
         } else {
             this.setState({ completed: true });
+        }
+    }
+
+    delete_epic() {
+        if (window.confirm("Delete epic '" + this.state.title + "'? All relevent stories will also be deleted.")) {
+            axios.delete(API_URL_EPIC_DETAILS + this.state.epic_id + '/details').then(() => {
+                this.props.resetState(this.state);
+                this.props.toggle();
+                alert('Epic deleted');
+            });
+        }
+    }
+
+    getUsername(user_id) {
+        const users = this.props.user_list;
+
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id === parseInt(user_id)) {
+                return users[i].first_name + ' ' + users[i].surname;
+            }
         }
     }
 
@@ -172,11 +193,18 @@ class UpdateEpicForm extends Component {
                                 {this.state.completed ? <> mark epic as uncomplete </> : <> mark epic as complete </>}
                             </Button>
 
+                            <Button
+                                className="details-edit-button mt-2"
+                                style={{ border: '2px solid #' + background_colour, color: '#' + background_colour }}
+                                onClick={() => this.delete_epic()}>
+                                delete epic
+                            </Button>
+
                             <div>
                                 <p style={{ color: '#' + background_colour }} className="details-heading mb-2">
                                     Last edited:
                                 </p>
-                                <p className="p-0 mb-1 mt-1"> {this.state.last_edited_by} </p>
+                                <p className="p-0 mb-1 mt-1"> {this.getUsername(this.state.last_edited_by)} </p>
                                 <p className="p-0 mt-1"> {this.state.last_edited} </p>
                             </div>
 
@@ -184,7 +212,7 @@ class UpdateEpicForm extends Component {
                                 <p style={{ color: '#' + background_colour }} className="details-heading mb-2">
                                     Created by:
                                 </p>
-                                <p className="p-0 mb-1 mt-1"> {this.state.created_by} </p>
+                                <p className="p-0 mb-1 mt-1"> {this.getUsername(this.state.created_by)} </p>
                                 <p className="p-0 mt-1">{this.state.time_created} </p>
                             </div>
 

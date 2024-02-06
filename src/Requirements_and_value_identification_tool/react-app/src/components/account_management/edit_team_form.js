@@ -123,10 +123,6 @@ class EditTeamForm extends Component {
         this.setState({ team_members: team_member_ids });
     };
 
-    deleteTeam() {
-        console.log('deleting...');
-    }
-
     validateTeamName(e) {
         const validate = this.state.validate;
 
@@ -139,6 +135,16 @@ class EditTeamForm extends Component {
         }
 
         this.setState({ validate });
+    }
+
+    deleteTeam() {
+        if (window.confirm("Delete team '" + this.props.team.team_name + "'? All dashboards will be lost.")) {
+            axios.delete(API_URL_TEAM_DETAILS + this.props.team.id).then(() => {
+                this.props.resetState(this.state);
+                this.props.toggle();
+                alert('Team deleted');
+            });
+        }
     }
 
     render() {
@@ -224,16 +230,14 @@ class EditTeamForm extends Component {
                         </div>
 
                         <div className="float-start">
-                            <Button className="btn-delete login-button mt-3 float-end" onClick={this.deleteTeam()}>
-                                {' '}
-                                Delete Team{' '}
+                            <Button className="btn-delete login-button mt-3 float-start" onClick={() => this.deleteTeam()}>
+                                Delete Team
                             </Button>
                         </div>
 
                         <div>
                             <Button className="btn-primary login-button mt-3 float-end" onClick={this.updateTeam}>
-                                {' '}
-                                Update Team{' '}
+                                Update Team
                             </Button>
                         </div>
                     </div>

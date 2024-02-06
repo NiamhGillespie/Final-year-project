@@ -70,6 +70,35 @@ class StoryDetailsModal extends Component {
         }
     }
 
+    getAssignedToUsers() {
+        var users = this.props.user_list;
+        var assigned_to = this.state.story.assigned_to;
+        var returnList = [];
+
+        for (var i = 0; i < users.length; i++) {
+            for (var j = 0; j < assigned_to.length; j++) {
+                if (users[i].id === parseInt(assigned_to[j])) {
+                    returnList.push(
+                        <p className="assigned-to-section" style={{ border: '2px solid #' + this.props.epic_colour }}>
+                           
+                            {users[i].profile_photo === null ? (
+                            <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="assigned-to-photo" />
+                        ) : (
+                            <img src={users[i].profile_photo} alt="hey" className="assigned-to-photo" />
+                        )}
+                            {users[i].first_name + ' ' + users[i].surname}
+                        </p>
+                    );
+                }
+            }
+        }
+
+        if (returnList.length === 0) {
+            return (<p> No users assigned yet </p>)
+        }
+        return returnList;
+    }
+
     notEditing() {
         return (
             <div className="details-modal">
@@ -144,14 +173,14 @@ class StoryDetailsModal extends Component {
                             <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
                                 Assigned to:
                             </p>
-                            <p className="p-0 mb-1 mt-1"> {this.state.story.assigned_to} </p>
+                            <p className="p-0 mb-1 mt-1"> {this.getAssignedToUsers()} </p>
                         </div>
 
                         <div className="mt-3">
                             <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
                                 Last edited:
                             </p>
-                            <p className="p-0 mb-1 mt-1"> {this.state.story.last_edited_by} </p>
+                            <p className="p-0 mb-1 mt-1"> {this.getUsername(this.state.story.last_edited_by)} </p>
                             <p className="p-0 mt-1"> {this.state.story.last_edited} </p>
                         </div>
 
@@ -159,7 +188,7 @@ class StoryDetailsModal extends Component {
                             <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
                                 Created by:
                             </p>
-                            <p className="p-0 mb-1 mt-1"> {this.state.story.created_by} </p>
+                            <p className="p-0 mb-1 mt-1"> {this.getUsername(this.state.story.created_by)} </p>
                             <p className="p-0 mt-1">{this.state.story.time_created} </p>
                         </div>
 
@@ -184,7 +213,8 @@ class StoryDetailsModal extends Component {
                     epic_colour={this.props.epic_colour}
                     getTags={displayTeamTags(this.state.teamTags)}
                     getValues={this.displayValues()}
-                    team = {this.props.team}
+                    team={this.props.team}
+                    user={this.props.user}
                 />
             );
         } else {
@@ -207,7 +237,7 @@ class StoryDetailsModal extends Component {
                                 <a id={users[i].username} className="story-profile-photo-tooltip" style={{ marginLeft: marginLeft + 'px' }}>
                                     <img id="profile_photo" src={users[i].profile_photo} alt="profile" className="story-profile-photo" />
                                 </a>
-                                <Tooltip anchorSelect={'#' + users[i].username} content={users[i].first_name + " " + users[i].surname} />
+                                <Tooltip anchorSelect={'#' + users[i].username} content={users[i].first_name + ' ' + users[i].surname}  className='delay-tooltip' data-tooltip-delay-show={1}/>
                             </div>
                         );
                         marginLeft = marginLeft - 20;
@@ -218,14 +248,22 @@ class StoryDetailsModal extends Component {
         return userImages;
     }
 
+    getUsername(user_id) {
+        const users = this.props.user_list;
+
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id === parseInt(user_id)) {
+                return users[i].first_name + ' ' + users[i].surname;
+            }
+        }
+    }
+
     render() {
         var story_box = (
             <div style={{ border: '2px solid #' + this.props.epic_colour }} className="story-box" onClick={this.toggleModal}>
                 <p className="story-title"> {this.state.story.title} </p>
 
-                <div className='story-photo-area'>
-                    {this.displayUserImages()}
-                </div>
+                <div className="story-photo-area">{this.displayUserImages()}</div>
 
                 <p className="story-priority"> {displayPriority(this.state.story.priority)} </p>
 
@@ -239,7 +277,7 @@ class StoryDetailsModal extends Component {
             </div>
         );
 
-        console.log("story completed...", this.state.story.completed, this.state.story.title)
+        console.log('story completed...', this.state.story.completed, this.state.story.title);
 
         return (
             <div key={this.state.story.id}>

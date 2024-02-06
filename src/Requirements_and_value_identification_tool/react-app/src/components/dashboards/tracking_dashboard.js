@@ -258,6 +258,8 @@ export class TrackingDashboard extends Component {
                                                     users={this.state.users}
                                                     epic_colour={story.completed ? 'c7c7c7' : story_colours[index]}
                                                     team={this.state.team}
+                                                    user={this.props.user}
+                                                    user_list={this.state.users}
                                                 />
                                             </div>
                                         </div>

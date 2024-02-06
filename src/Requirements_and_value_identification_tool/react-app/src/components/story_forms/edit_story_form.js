@@ -41,7 +41,7 @@ class UpdateStoryForm extends Component {
         pairable: this.props.story.pairable,
         assigned_to: this.props.story.assigned_to,
 
-        last_edited_by: 'Niamh Gillespie',
+        last_edited_by: this.props.story.last_edited_by,
         last_edited: getDate(),
         created_by: this.props.story.created_by,
         time_created: this.props.story.time_created,
@@ -113,7 +113,6 @@ class UpdateStoryForm extends Component {
 
         this.state.member_list = member_list;
         this.setState({ member_list: member_list });
-        console.log('member list!', member_list);
         return member_list;
     }
 
@@ -139,6 +138,7 @@ class UpdateStoryForm extends Component {
         ) {
             alert('The form is invalid, please try again');
         } else {
+            this.setState({ "last_edited_by": this.props.user.id });
             axios.put(API_URL_STORY_DETAILS + this.state.story_id + '/details', this.state).then(() => {
                 this.props.resetState(this.state);
                 this.props.toggle();
@@ -235,6 +235,16 @@ class UpdateStoryForm extends Component {
         }
 
         this.setState({ validate });
+    }
+
+    delete_story() {
+        if (window.confirm("Delete story '" + this.state.title + "'?")) {
+            axios.delete(API_URL_STORY_DETAILS + this.state.story_id + '/details', this.state).then(() => {
+                this.props.resetState(this.state);
+                this.props.toggle();
+                alert('Story deleted');
+            });
+        }
     }
 
     render() {
@@ -336,6 +346,13 @@ class UpdateStoryForm extends Component {
                                 className="details-edit-button"
                                 style={{ border: '2px solid #' + this.props.epic_colour, color: '#' + this.props.epic_colour }}>
                                 Update
+                            </Button>
+
+                            <Button
+                                className="details-edit-button"
+                                style={{ border: '2px solid #' +  this.props.epic_colour, color: '#' + this.props.epic_colour}}
+                                onClick={() => this.delete_story()}>
+                                Delete Story
                             </Button>
 
                             <div className="story-details-values-box h-100 mt-0 mb-0">

@@ -33,6 +33,7 @@ class AddStoryModal extends Component {
                         epic_id={this.props.epic_id}
                         resetState={this.props.resetState}
                         team={this.props.team}
+                        user={this.props.user}
                     />
                 </ModalBody>
             </Modal>

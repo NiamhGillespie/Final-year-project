@@ -45,6 +45,16 @@ class EpicDetailsModal extends Component {
         }));
     };
 
+    getUsername(user_id) {
+        const users = this.props.user_list;
+
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id === parseInt(user_id)) {
+                return( users[i].first_name + " " + users[i].surname)
+            }
+        }
+    }
+
     getStories() {
         var background_colour = this.state.epic.completed ? 'c7c7c7' : this.state.epic.epic_colour;
         var stories = this.props.stories;
@@ -149,7 +159,7 @@ class EpicDetailsModal extends Component {
                             <p style={{ color: '#' + background_colour }} className="details-heading mb-2">
                                 Last edited:
                             </p>
-                            <p className="p-0 mb-1 mt-1"> {this.state.epic.last_edited_by} </p>
+                            <p className="p-0 mb-1 mt-1"> {this.getUsername(this.state.epic.last_edited_by)} </p>
                             <p className="p-0 mt-1"> {this.state.epic.last_edited} </p>
                         </div>
 
@@ -157,7 +167,7 @@ class EpicDetailsModal extends Component {
                             <p style={{ color: '#' + background_colour }} className="details-heading mb-2">
                                 Created by:
                             </p>
-                            <p className="p-0 mb-1 mt-1"> {this.state.epic.created_by} </p>
+                            <p className="p-0 mb-1 mt-1"> {this.getUsername(this.state.epic.created_by)} </p>
                             <p className="p-0 mt-1">{this.state.epic.time_created} </p>
                         </div>
 
@@ -183,6 +193,8 @@ class EpicDetailsModal extends Component {
                     getStories={this.getStories()}
                     getValues={this.displayValues()}
                     team={this.props.team}
+                    user = {this.props.user}
+                    user_list={this.props.user_list}
                 />
             );
         } else {

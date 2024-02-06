@@ -108,7 +108,6 @@ export class EpicsDashboard extends Component {
     }
 
     async getUsers() {
-        //UPDATE ME
         await axios.get(API_URL_USERS + this.props.user.belongs_to + '/admin/users').then((response) => this.setState({ users: response.data }));
     }
 
@@ -151,6 +150,8 @@ export class EpicsDashboard extends Component {
                                                             epic={epic}
                                                             stories={this.state.stories}
                                                             team={this.state.team}
+                                                            user={this.props.user}
+                                                            user_list={this.state.users}
                                                         />
                                                     </div>
 
@@ -163,6 +164,7 @@ export class EpicsDashboard extends Component {
                                                                 epic_id={epic.epic_id}
                                                                 epic_colour={epic.epic_colour}
                                                                 team={this.state.team}
+                                                                user={this.props.user}
                                                             />
                                                         </div>
                                                     </div>
@@ -214,6 +216,8 @@ export class EpicsDashboard extends Component {
                                                             users={this.state.users}
                                                             epic_colour={story.completed ? 'c7c7c7' : epic_colour}
                                                             team={this.state.team}
+                                                            user={this.props.user}
+                                                            user_list={this.state.users}
                                                         />
                                                     </div>
                                                 </div>
@@ -295,7 +299,7 @@ export class EpicsDashboard extends Component {
                             </select>
                         </div>
                         <p className=" center-stats"> {this.displayStatsBar()} </p>
-                        <AddEpicModal create={true} resetState={this.resetState} className="align-self-stretch" team={this.state.team} />
+                        <AddEpicModal create={true} resetState={this.resetState} user={this.props.user} className="align-self-stretch" team={this.state.team} />
                     </div>
 
                     <div className="mt-1">

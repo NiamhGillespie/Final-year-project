@@ -123,10 +123,14 @@ class EditColumnForm extends Component {
     deleteColumn = () => {
         //move stories to undefined
         this.redefine(this.state.stories, 'undefined');
-        axios.delete(API_URL_TRACKING_COLUMN_DETAILS + this.state.column_id).then(() => {
-            this.props.resetState();
-            this.props.toggle();
-        });
+
+        if (window.confirm("Delete tracking column:  '" + this.state.title + "'?")) {
+            axios.delete(API_URL_TRACKING_COLUMN_DETAILS + this.state.column_id).then(() => {
+                this.props.resetState(this.state);
+                this.props.toggle();
+                alert('Column deleted');
+            });
+        }
     };
 
     onStoryAddition = (e) => {
@@ -297,7 +301,7 @@ class EditColumnForm extends Component {
 
                 <Button className="btn-primary">Update Column</Button>
 
-                <Button className="btn-danger float-end" onClick={this.deleteColumn}>
+                <Button className="btn-danger float-end" onClick={() => this.deleteColumn()}>
                     Delete Column
                 </Button>
             </Form>

@@ -45,12 +45,12 @@ class EditUserForm extends Component {
     }
 
     componentDidMount() {
-        this.existingUsernames()
-        console.log("getting usernames", this.state.usernames)
+        this.existingUsernames();
+        console.log('getting usernames', this.state.usernames);
     }
 
     onChange = (e) => {
-        console.log("getting usernames", this.state.usernames)
+        console.log('getting usernames', this.state.usernames);
         this.setState({ [e.target.name]: e.target.value });
     };
 
@@ -207,6 +207,16 @@ class EditUserForm extends Component {
         }
 
         this.setState({ validate });
+    }
+
+    deleteUser() {
+        if (window.confirm("Delete user '" + this.props.user.username + "'? All information will be lost.")) {
+            axios.delete(API_URL_USER_DETAILS + this.props.user.id).then(() => {
+                this.props.resetState(this.state);
+                this.props.toggle();
+                alert('User deleted');
+            });
+        }
     }
 
     render() {
@@ -368,6 +378,11 @@ class EditUserForm extends Component {
                             )}
                         </div>
 
+                        <div className="float-start">
+                            <Button className="btn-delete login-button mt-3 float-start" onClick={() => this.deleteUser()}>
+                                Delete User
+                            </Button>
+                        </div>
                         <div>
                             <Button className="btn-primary login-button mt-3 float-end"> Update User </Button>
                         </div>

@@ -94,7 +94,11 @@ def EpicDetails(request, epic_id):
         return Response(epic_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
+        stories_to_delete = Story.objects.filter(epic_id = epic.id)
+        for story in stories_to_delete:
+            story.delete()
         epic.delete()
+
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     elif request.method == 'GET':
@@ -418,7 +422,7 @@ def UserDetails(request, user_id):
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        UserProfile.delete()
+        user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'GET':

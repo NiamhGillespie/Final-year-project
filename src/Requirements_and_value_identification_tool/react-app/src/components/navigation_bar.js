@@ -11,7 +11,7 @@ export function NavigationBar() {
     if (user !== null && user.profile_photo !== null) {
         if (user.profile_photo[1] === 'm') {
             user.profile_photo = 'http://localhost:8000/' + user.profile_photo;
-            console.log(user.profile_photo)
+            console.log(user.profile_photo);
         }
     }
 
@@ -21,12 +21,11 @@ export function NavigationBar() {
         }
     }, [isAuth, user]);
 
-    
     return (
         <>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
                 <NavbarBrand>
-                    <img src={'http://localhost:8000/media/logo.png'} alt="logo" className='logo' />
+                    <img src={'http://localhost:8000/media/logo.png'} alt="logo" className="logo" />
                 </NavbarBrand>
 
                 <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
@@ -137,6 +136,12 @@ export function NavigationBar() {
                                 </NavItem>
                             </>
                         )}
+
+                        <NavItem>
+                            <NavLink tag={Link} className="text-dark nav-item" to="/help">
+                                <span> Help </span>
+                            </NavLink>
+                        </NavItem>
                     </ul>
                 </Collapse>
             </Navbar>

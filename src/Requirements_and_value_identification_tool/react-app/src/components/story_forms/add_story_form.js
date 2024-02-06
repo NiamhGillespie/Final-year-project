@@ -27,9 +27,9 @@ class AddStoryForm extends Component {
         pairable: false,
         assigned_to: [],
 
-        last_edited_by: 'Niamh Gillespie',
+        last_edited_by: this.props.user.id,
         last_edited: getDate(),
-        created_by: 'Niamh Gillespie',
+        created_by: this.props.user.id,
         time_created: getDate(),
 
         validate: {

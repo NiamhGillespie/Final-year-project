@@ -21,9 +21,9 @@ class AddEpicForm extends Component {
         tags: [],
         order: -1,
 
-        last_edited_by: 'Niamh Gillespie',
+        last_edited_by: this.props.user.id,
         last_edited: getDate(),
-        created_by: 'Niamh Gillespie',
+        created_by: this.props.user.id,
         time_created: getDate(),
 
         validate: {
@@ -33,6 +33,7 @@ class AddEpicForm extends Component {
 
     async getTeamValues() {
         console.log("team is", this.props.team)
+        console.log("props are...", this.props)
         await axios.get(API_URL_SHORT + this.props.team.id + '/values').then((response) => this.setState({ team_values: response.data }));
     }
 
