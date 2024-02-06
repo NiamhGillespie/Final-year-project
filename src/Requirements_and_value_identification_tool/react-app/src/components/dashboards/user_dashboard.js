@@ -26,17 +26,15 @@ export class UserDashboard extends Component {
     };
 
     onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value});
+        this.setState({ [e.target.name]: e.target.value });
     };
 
-    updateUser= (e) => {
+    updateUser = (e) => {
         e.preventDefault();
-        
+
         console.log('updating...');
 
-
-        
-        console.log(this.props.user)
+        console.log(this.props.user);
         let form_data = new FormData();
         form_data.append('email', this.state.email);
         form_data.append('password', this.state.password);
@@ -45,15 +43,13 @@ export class UserDashboard extends Component {
                 form_data.append('teams', team);
             });
         }
-        
 
         axios.put(API_URL_USER_DETAILS + this.props.user.id, form_data).then((response) => {
             localStorage.setItem('user', JSON.stringify(response.data));
-            this.updateForm()
-            this.setState({user: response.data});
-
+            this.updateForm();
+            this.setState({ user: response.data });
         });
-    }
+    };
 
     render() {
         const user = this.props.user;
@@ -74,12 +70,14 @@ export class UserDashboard extends Component {
                         </p>
                         <p className="team-subtitle"> {user.role}</p>
 
-                        
-                            <div className="user-details-form-block">
-                                <p>
-                                    <u> User Details </u>
-                                </p>
-                                <Form onSubmit={this.updateUser}>
+                        <div className="user-details-form-block">
+                            <Button className="btn-primary float-end" disabled={this.state.not_updating}>
+                                Update
+                            </Button>
+                            <p>
+                                <u> User Details </u>
+                            </p>
+                            <Form onSubmit={this.updateUser}>
                                 <FormGroup>
                                     <Label for="email">Email:</Label>
                                     <Input
@@ -105,11 +103,8 @@ export class UserDashboard extends Component {
                                         }}
                                     />
                                 </FormGroup>
-
-                                <Button className="btn-primary float-end" disabled={this.state.not_updating}>Update</Button>
-                                </Form>
-                            </div>
-                        
+                            </Form>
+                        </div>
 
                         <Button className="btn-primary float-end me-5 mt-0" onClick={this.updateForm}>
                             Update Details
