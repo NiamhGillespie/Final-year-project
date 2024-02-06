@@ -84,7 +84,7 @@ export const LogIn = () => {
                     </FormGroup>
 
                     <p className="text-center mb-3 mt-4">
-                        Don’t have an account? <Link to="/sign-up"> Add your organistation </Link> or contact your system administrator!
+                        Don’t have an account? <Link to="/sign-up"> Add your organisation here</Link> or contact your system administrator!
                     </p>
 
                     <Button className="btn-primary login-button"> Log in </Button>
