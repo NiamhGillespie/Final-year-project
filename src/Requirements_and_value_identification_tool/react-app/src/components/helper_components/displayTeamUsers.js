@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/sign_up.css';
-import { API_URL_TEAMS, API_URL_USERS } from '../../constants';
+import { API_URL_TEAMS, API_URL_USERS, SHORT_URL } from '../../constants';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -57,7 +57,7 @@ export class DisplayTeamUsers extends Component {
             returnList.push(
                 <div className="small-team-member-card">
                     {leads[i].profile_photo === null ? (
-                        <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="small-team-member-photo" />
+                        <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="small-team-member-photo" />
                     ) : (
                         <img src={leads[i].profile_photo} alt="hey" className="small-team-member-photo" />
                     )}
@@ -87,7 +87,7 @@ export class DisplayTeamUsers extends Component {
             returnList.push(
                 <div className="small-team-member-card">
                     {members[i].profile_photo === null ? (
-                        <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="small-team-member-photo" />
+                        <img src={SHORT_URL + "/media/profile_images/default.jpg"} alt="user profile" className="small-team-member-photo" />
                     ) : (
                         <img src={members[i].profile_photo} alt="hey" className="small-team-member-photo" />
                     )}

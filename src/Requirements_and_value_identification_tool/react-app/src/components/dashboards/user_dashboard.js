@@ -6,15 +6,15 @@ import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap'
 import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 import axios from 'axios';
 import DisplayUserTeams from '../helper_components/displayUserTeams';
-import { API_URL_SHORT, API_URL_USERS, API_URL_USER_DETAILS } from '../../constants';
+import { API_URL_SHORT, API_URL_USERS, API_URL_USER_DETAILS, SHORT_URL } from '../../constants';
 
 export class UserDashboard extends Component {
     state = {
-        user: this.props.user,
+        user: JSON.parse(localStorage.getItem('user')),
         not_updating: true,
 
-        email: this.props.user.email,
-        password: this.props.user.password
+        email: JSON.parse(localStorage.getItem('user')).email,
+        password: JSON.parse(localStorage.getItem('user')).password
     };
 
     updateForm = (e) => {
@@ -52,17 +52,18 @@ export class UserDashboard extends Component {
     };
 
     render() {
-        const user = this.props.user;
+        const user = this.state.user;
+        console.log("USER DASH USER IS", this.state.user.profile_photo)
         return (
             <div>
                 <h3 className="add-team-title"> User Profile </h3>
 
                 <div className="teams-details-box">
                     <div className="user-details-section-one">
-                        {user.profile_photo === 'http://localhost:8000/null' || user.profile_photo === null ? (
-                            <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="large-circular-photo" />
+                        {user.profile_photo === SHORT_URL + 'null' || user.profile_photo === null ? (
+                            <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="large-circular-photo" />
                         ) : (
-                            <img src={user.profile_photo} alt="user profile" className="large-circular-photo" />
+                            <img src={SHORT_URL + user.profile_photo} alt="user profile" className="large-circular-photo" />
                         )}
 
                         <p className="team-name-title">
@@ -71,13 +72,13 @@ export class UserDashboard extends Component {
                         <p className="team-subtitle"> {user.role}</p>
 
                         <div className="user-details-form-block">
-                            <Button className="btn-primary float-end" disabled={this.state.not_updating}>
-                                Update
-                            </Button>
                             <p>
                                 <u> User Details </u>
                             </p>
                             <Form onSubmit={this.updateUser}>
+                            <Button className="btn-primary float-end" disabled={this.state.not_updating}>
+                                Update
+                            </Button>
                                 <FormGroup>
                                     <Label for="email">Email:</Label>
                                     <Input
@@ -114,7 +115,7 @@ export class UserDashboard extends Component {
                     {user.role !== 'admin' ? (
                         <div className="user-details-section-two">
                             <p className="team-members-heading"> Teams </p>
-                            <DisplayUserTeams teams={user.teams} belongs_to={user.belongs_to} links={true} />
+                            <DisplayUserTeams teams={user.teams} belongs_to={user.belongs_to} links={true} user={this.props.user}/>
                         </div>
                     ) : (
                         <div className=""></div>

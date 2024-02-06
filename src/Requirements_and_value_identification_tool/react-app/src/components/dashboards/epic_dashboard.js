@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/tag_dashboard.css';
 import axios from 'axios';
-import { API_URL, API_URL_SHORT, API_URL_TEAM_DETAILS, API_URL_USERS } from '../../constants';
+import { API_URL, API_URL_SHORT, API_URL_TEAM_DETAILS, API_URL_USERS, SHORT_URL } from '../../constants';
 import { DragDropContext, Droppable, Draggable } from '../../constants/drag_and_drop';
 import StoryDetailsModal from '../story_forms/story_details_modal';
 import EpicDetailsModal from '../epic_forms/epic_details_modal';
@@ -241,7 +241,7 @@ export class EpicsDashboard extends Component {
         for (var i = 0; i < epics.length; i++) {
             epics[i].order = i + 1;
 
-            axios.put('http://localhost:8000/api/teamName/epics/' + epics[i].epic_id + '/details', epics[i]);
+            axios.put(API_URL_SHORT + 'teamName/epics/' + epics[i].epic_id + '/details', epics[i]);
         }
 
         this.setState({ epics: epics });
@@ -254,7 +254,7 @@ export class EpicsDashboard extends Component {
         for (var i = 0; i < stories.length; i++) {
             stories[i].order = i + 1;
 
-            axios.put('http://localhost:8000/api/teamName/stories/' + stories[i].story_id + '/details', stories[i]);
+            axios.put(API_URL_SHORT + 'teamName/stories/' + stories[i].story_id + '/details', stories[i]);
         }
 
         this.getStories();
@@ -290,9 +290,9 @@ export class EpicsDashboard extends Component {
                     <div className="border-bottom ">
                         <div className="epic-left-bar">
                             {this.state.team.team_photo === null ? (
-                                <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="nav-photo-left" />
+                                <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="nav-photo-left" />
                             ) : (
-                                <img src={'http://localhost:8000/' + this.state.team.team_photo} alt="hey" className="nav-photo-left" />
+                                <img src={SHORT_URL + this.state.team.team_photo} alt="hey" className="nav-photo-left" />
                             )}
                             <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
                                 {this.getTeams(this.props.teams)}

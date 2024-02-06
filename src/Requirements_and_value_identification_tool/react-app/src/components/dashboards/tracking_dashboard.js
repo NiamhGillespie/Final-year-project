@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/tracking_dashboard.css';
 import axios from 'axios';
-import { API_URL_USERS, API_URL_SHORT } from '../../constants';
+import { API_URL_USERS, API_URL_SHORT, SHORT_URL } from '../../constants';
 import { DragDropContext, Droppable, Draggable } from '../../constants/drag_and_drop';
 import EditColumnModal from '../tracking_column_forms/edit_tracking_column_modal';
 import AddColumnModal from '../tracking_column_forms/add_tracking_column_modal';
@@ -93,6 +93,14 @@ export class TrackingDashboard extends Component {
         this.displayColumns();
     };
 
+    async teamChange() {
+        await this.getNonCompletedStories();
+        await this.getEpics();
+        await this.getColumns();
+        await this.getUsers();
+        this.displayColumns();
+    }
+
     changeFilter(filterName) {
         this.state.filter = filterName;
         this.resetState();
@@ -134,7 +142,7 @@ export class TrackingDashboard extends Component {
             if (parseInt(e.target.value) === this.props.teams[i].id) {
                 this.state.team = this.props.teams[i];
                 this.setState({ team: this.props.teams[i] })
-                this.getEpics()
+                this.teamChange()
             }
         }
         this.resetState();
@@ -235,8 +243,13 @@ export class TrackingDashboard extends Component {
             for (var i = 0; i < ordered_ids.length; i++) {
                 // eslint-disable-next-line no-loop-func
                 stories.push(this.state.non_completed_stories.filter((story) => story.id === parseInt(ordered_ids[i]))[0]);
+               
+                try {
                 // eslint-disable-next-line no-loop-func
                 story_colours.push(this.state.epics.filter((epic) => epic.epic_id === stories[i].epic_id)[0].epic_colour);
+                } catch (e) {
+                    console.log(e)
+                }
             }
             if (stories[0] !== undefined) {
                 return (
@@ -287,9 +300,9 @@ export class TrackingDashboard extends Component {
                 <div className="d-flex mt-0 pt-0 ">
                     <div className="team-choice choice-section w-50 mt-0 pt-0 mb-2">
                         {this.state.team.team_photo === null ? (
-                            <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="nav-photo-left" />
+                            <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="nav-photo-left" />
                         ) : (
-                            <img src={'http://localhost:8000/' + this.state.team.team_photo} alt="hey" className="nav-photo-left" />
+                            <img src={SHORT_URL + this.state.team.team_photo} alt="hey" className="nav-photo-left" />
                         )}
                         <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
                             {this.getTeams(this.props.teams)}

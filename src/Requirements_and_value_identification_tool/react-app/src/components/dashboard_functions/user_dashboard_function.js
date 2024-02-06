@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import UserDashboard from '../dashboards/user_dashboard';
 import UnauthorisedPage from '../unauthorised_page';
+import { SHORT_URL } from '../../constants';
 
 function UserDashboardFunction(props) {
     const location = useLocation();
@@ -17,7 +18,7 @@ function UserDashboardFunction(props) {
     
     if (user !== null && user.profile_photo !== null) {
         if (user.profile_photo[1] === 'm') {
-            user.profile_photo = 'http://localhost:8000/' + user.profile_photo;
+            user.profile_photo = SHORT_URL + user.profile_photo;
         }
     }
     

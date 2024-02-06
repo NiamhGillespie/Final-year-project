@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { API_URL_ORGANISATIONS, API_URL_SHORT, API_URL_TAG_DETAILS, API_URL_TEAMS, API_URL_USERS, API_URL_USER_DETAILS } from '../../constants';
+import { API_URL_ORGANISATIONS, API_URL_SHORT, API_URL_TAG_DETAILS, API_URL_TEAMS, API_URL_USERS, API_URL_USER_DETAILS, SHORT_URL } from '../../constants';
 import { ColorPicker } from 'primereact/colorpicker';
 import { displayTeams, preselectedTeams, returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 import Multiselect from 'multiselect-react-dropdown';
@@ -108,6 +108,8 @@ class EditUserForm extends Component {
             axios.put(API_URL_USER_DETAILS + this.props.user.id, form_data).then(() => {
                 this.props.toggle();
                 this.props.resetState();
+
+                
             });
         } else {
             alert('Form is invalid');
@@ -233,9 +235,9 @@ class EditUserForm extends Component {
                             <div className="w-100 photo-section">
                                 <p className="float-start edit-title team-profile-photo-title">Profile Photo Preview:</p>
                                 <div className="edit-photo float-start">
-                                    {this.state.preview_photo === 'http://localhost:8000/null' || this.state.preview_photo === null ? (
+                                    {this.state.preview_photo === SHORT_URL + 'null' || this.state.preview_photo === null ? (
                                         <img
-                                            src="http://localhost:8000/media/profile_images/default.jpg"
+                                            src={SHORT_URL + "media/profile_images/default.jpg"}
                                             alt="user profile"
                                             className="team-profile-photo"
                                         />

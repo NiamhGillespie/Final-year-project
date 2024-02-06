@@ -72,6 +72,7 @@ export class SignUp extends Component {
         }
         
         alert("organisation created")
+        window.location.reload(); 
         return organisation;
     }
 

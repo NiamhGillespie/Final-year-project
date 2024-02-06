@@ -110,7 +110,7 @@ export class AddTeam extends Component {
 
             axios.post(API_URL_TEAMS + this.state.belongs_to + '/admin/teams', form_data).then(() => {
                 alert('team created');
-                console.log('team added');
+                window.location.reload(); 
             });
         } else {
             alert('Add team is invalid')

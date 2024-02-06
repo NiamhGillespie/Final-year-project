@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/tag_dashboard.css';
 import axios from 'axios';
-import { API_URL_TAGS, API_URL_STORIES, API_URL_SHORT } from '../../constants';
+import { API_URL_TAGS, API_URL_STORIES, API_URL_SHORT, SHORT_URL } from '../../constants';
 import DeleteTagModal from '../tag_forms/delete_tag_modal';
 import EditTagModal from '../tag_forms/edit_tag_modal';
 import AddTagModal from '../tag_forms/add_tag_modal';
@@ -144,9 +144,9 @@ export class TagDashboard extends Component {
         return (
             <>
                 {this.state.team.team_photo === null ? (
-                    <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="nav-photo" />
+                    <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="nav-photo" />
                 ) : (
-                    <img src={'http://localhost:8000/' + this.state.team.team_photo} alt="hey" className="nav-photo" />
+                    <img src={SHORT_URL + this.state.team.team_photo} alt="hey" className="nav-photo" />
                 )}
                 <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
                     {this.getTeams(this.props.teams)}

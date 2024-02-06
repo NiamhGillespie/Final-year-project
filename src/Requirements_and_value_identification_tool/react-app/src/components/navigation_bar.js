@@ -2,15 +2,16 @@ import React, { Component, useEffect, useState } from 'react';
 import { Collapse, Label, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import '../css/navigation_bar.css';
+import { SHORT_URL } from '../constants';
 
 export function NavigationBar() {
     const [isAuth, setIsAuth] = useState(false);
-    const user = JSON.parse(localStorage.getItem('user'));
+    var user = JSON.parse(localStorage.getItem('user'));
     const teams = JSON.parse(localStorage.getItem('teams'));
 
     if (user !== null && user.profile_photo !== null) {
         if (user.profile_photo[1] === 'm') {
-            user.profile_photo = 'http://localhost:8000/' + user.profile_photo;
+            user.profile_photo = SHORT_URL + user.profile_photo;
             console.log(user.profile_photo);
         }
     }
@@ -21,11 +22,13 @@ export function NavigationBar() {
         }
     }, [isAuth, user]);
 
+    
+    
     return (
         <>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
                 <NavbarBrand>
-                    <img src={'http://localhost:8000/media/logo.png'} alt="logo" className="logo" />
+                    <img src={SHORT_URL + 'media/logo.png'} alt="logo" className="logo" />
                 </NavbarBrand>
 
                 <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>

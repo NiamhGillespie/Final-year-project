@@ -5,7 +5,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { API_URL_USERS } from '../../constants';
+import { API_URL_USERS, SHORT_URL } from '../../constants';
 import DisplayTeamUsers from '../helper_components/displayTeamUsers';
 import UnauthorisedPage from '../unauthorised_page';
 
@@ -111,7 +111,7 @@ export function TeamDetails() {
             <div className="teams-details-box">
                 <div className="team-details-section-one">
                     {team_details.team_photo === null ? (
-                        <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="large-circular-photo" />
+                        <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="large-circular-photo" />
                     ) : (
                         <img src={team_details.team_photo} alt="hey" className="large-circular-photo" />
                     )}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/sign_up.css';
-import { API_URL_TEAMS, API_URL_USERS } from '../../constants';
+import { API_URL_TEAMS, API_URL_USERS, SHORT_URL } from '../../constants';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import EditTeamModal from './edit_team_modal';
@@ -44,7 +44,7 @@ export class ViewTeams extends Component {
             returnList.push(
                 <div className="team-card d-flex flex-row flex-nowrap">
                     {teams[i].team_photo === null ? (
-                        <img src='http://localhost:8000/media/profile_images/default.jpg' alt="user profile" className="team-card-photo" />
+                        <img src={SHORT_URL + 'media/profile_images/default.jpg'} alt="user profile" className="team-card-photo" />
                     ) : (<img src={teams[i].team_photo} alt="hey" className="team-card-photo" />)}
                     <p className="team-card-info">
                         <Link to="/teamName/details" state={{ team: teams[i], users: this.state.users, belongs_to: this.props.user.belongs_to }} className="link">

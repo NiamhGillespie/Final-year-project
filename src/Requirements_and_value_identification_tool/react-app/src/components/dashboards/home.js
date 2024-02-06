@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/home.css';
+import { SHORT_URL } from '../../constants';
 
 export class Home extends Component {
     render() {
@@ -8,7 +9,7 @@ export class Home extends Component {
         return (
             <>
                     <div className="home-img-background">
-                        <img src="http://localhost:8000//media/homepage.png" alt="logo" className="home-img" />
+                        <img src={SHORT_URL + "media/homepage.png"} alt="logo" className="home-img" />
                     </div>
             </>
         );

@@ -5,7 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { Button, FormGroup, Input, Label } from 'reactstrap';
 import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 import { useLocation } from 'react-router-dom';
-import { API_URL_TEAMS } from '../../constants';
+import { API_URL_TEAMS, SHORT_URL } from '../../constants';
 import axios from 'axios';
 import DisplayUserTeams from '../helper_components/displayUserTeams';
 import UnauthorisedPage from '../unauthorised_page';
@@ -35,8 +35,8 @@ export function UserDetails() {
 
             <div className="teams-details-box">
                 <div className="user-details-section-one">
-                    {user_details.profile_photo === 'http://localhost:8000/null' || user_details.profile_photo === null ? (
-                        <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="large-circular-photo" />
+                    {user_details.profile_photo === SHORT_URL + 'null' || user_details.profile_photo === null ? (
+                        <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="large-circular-photo" />
                     ) : (
                         <img src={user_details.profile_photo} alt="user profile" className="large-circular-photo" />
                     )}
@@ -65,7 +65,7 @@ export function UserDetails() {
                 {user_details.role !== 'admin' ? (
                     <div className="user-details-section-two">
                         <p className="team-members-heading"> Teams </p>
-                        <DisplayUserTeams teams={user_details.teams} belongs_to={user_details.belongs_to} links={true} />
+                        <DisplayUserTeams teams={user_details.teams} belongs_to={user_details.belongs_to} links={true} user={JSON.parse(localStorage.getItem('user'))}/>
                     </div>
                 ) : (
                     <div className=""></div>

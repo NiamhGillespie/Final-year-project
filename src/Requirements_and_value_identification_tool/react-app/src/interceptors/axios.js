@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { LogIn } from '../components/account_management/log_in';
+import { SHORT_URL } from '../constants';
 let refresh = false;
 axios.interceptors.response.use(
     (resp) => resp,
@@ -9,7 +10,7 @@ axios.interceptors.response.use(
             refresh = true;
 
             const response = await axios.post(
-                'http://localhost:8000/token/refresh/',
+                SHORT_URL + 'token/refresh/',
                 { refresh: localStorage.getItem('refresh_token') },
                 {
                     headers: {

@@ -104,6 +104,7 @@ export class AddUser extends Component {
 
             axios.post(API_URL_USERS + this.props.user.belongs_to + '/admin/users', form_data).then(() => {
                 alert('user created');
+                window.location.reload(); 
             });
         } else {
             alert('Form is invalid');

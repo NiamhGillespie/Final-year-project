@@ -9,14 +9,16 @@ function TeamDashboardFunction(props) {
     if (location.state !== null) {
         var teams = location.state.teams;
         var user = location.state.user;
+        var current_team = location.state.current_team
     } else {
         user = JSON.parse(localStorage.getItem('user'));
         teams = JSON.parse(localStorage.getItem('teams'));
+        current_team = teams[0];
     }
 
     if (user !== null && (user.role === 'team_member' || user.role === 'team_lead')) {
         return (
-            <TeamDashboard teams={teams} user={user}/>
+        <TeamDashboard teams={teams} user={user} current_team={current_team}/>
         );
     } else {
         return (

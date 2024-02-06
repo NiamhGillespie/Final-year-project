@@ -5,12 +5,12 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Link, useLocation } from 'react-router-dom';
 import DisplayTeamUsers from '../helper_components/displayTeamUsers';
-import { API_URL_USERS } from '../../constants';
+import { API_URL_USERS, SHORT_URL } from '../../constants';
 import axios from 'axios';
 
 export class TeamDashboard extends Component {
     state = {
-        team: this.props.teams[0]
+        team: this.props.current_team
     };
 
     async getUsers() {
@@ -126,9 +126,9 @@ export class TeamDashboard extends Component {
                     
                     <div className="team-details-section-one">
                         {this.state.team.team_photo === null ? (
-                            <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="large-circular-photo" />
+                            <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="large-circular-photo" />
                         ) : (
-                            <img src={'http://localhost:8000/' + this.state.team.team_photo} alt="hey" className="large-circular-photo" />
+                            <img src={this.state.team.team_photo} alt="hey" className="large-circular-photo" />
                         )}
 
                         <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice-team-dashboard team-name-title" value={this.state.team.id}>
@@ -177,6 +177,7 @@ export class TeamDashboard extends Component {
                             team_members={this.state.team.team_members}
                             belongs_to={this.state.team.belongs_to}
                             links={false}
+                            user={this.props.user}
                         />
                     </div>
 

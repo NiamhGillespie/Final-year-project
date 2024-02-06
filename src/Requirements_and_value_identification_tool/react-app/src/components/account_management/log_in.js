@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap';
-import { API_URL_TEAM_DETAILS } from '../../constants';
+import { API_URL_SHORT, API_URL_TEAM_DETAILS, SHORT_URL, URL } from '../../constants';
 import { Link } from 'react-router-dom';
 
 export const LogIn = () => {
@@ -23,7 +23,7 @@ export const LogIn = () => {
             password: password
         };
 
-        const userInfo = await axios.get('http://127.0.0.1:8000/api/user-details-by-username/' + user['username']);
+        const userInfo = await axios.get(API_URL_SHORT + 'user-details-by-username/' + user['username']);
         const userData = userInfo.data;
 
         if (userInfo.code === 'ERR_BAD_REQUEST') {
@@ -37,7 +37,7 @@ export const LogIn = () => {
             teamInfo.push(team.data);
         }
 
-        const { data } = await axios.post('http://127.0.0.1:8000/token/', user, {
+        const { data } = await axios.post(SHORT_URL + 'token/', user, {
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true
         });
@@ -60,7 +60,7 @@ export const LogIn = () => {
         <div className="Auth-form-container">
             <Form onSubmit={logIn}>
                 <div className="login-box">
-                    <img src={'http://localhost:8000/media/logo.png'} alt="logo" className="login-logo" />
+                    <img src={SHORT_URL + '/media/logo.png'} alt="logo" className="login-logo" />
                     <h3 className="text-center mb-3"> Login </h3>
                     <FormGroup>
                         <Label for="username">Username:</Label>

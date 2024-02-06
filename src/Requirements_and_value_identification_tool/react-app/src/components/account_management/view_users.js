@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../css/basic.css';
 import '../../css/sign_up.css';
-import { API_URL_USERS } from '../../constants';
+import { API_URL_USERS, SHORT_URL } from '../../constants';
 import axios from 'axios';
 import UserDetails from './user_details';
 import { Link } from 'react-router-dom';
@@ -117,7 +117,7 @@ export class ViewUsers extends Component {
             returnList.push(
                 <div className="team-card d-flex flex-nowrap">
                     {users[i].profile_photo === null ? (
-                        <img src='http://localhost:8000/media/profile_images/default.jpg' alt="user profile" className="team-card-photo" />
+                        <img src={SHORT_URL + 'media/profile_images/default.jpg'} alt="user profile" className="team-card-photo" />
                     ) : (<img src={users[i].profile_photo} alt="hey" className="team-card-photo" />)}
                     <Link to="/username/details" state={{ user: users[i] }} className="link team-card-info">
                         {users[i].username}
