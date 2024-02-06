@@ -373,5 +373,8 @@
 
 ## Week 18
 
-### 5 Feb 2024
+### 4 Feb 2024
 * *3.5 hours* Working on homepage/help section of webapp
+
+### 5 Feb 2024
+* *6.5 hours* Fixed issues with assigned_to, created_by and last_edited_by in the epic and story forms, made epics, stories, users, teams and tracking columns deletable with a confirmation prompt and finished off the help section - I decided to move this to a seperate help page to allow for the graphic to take center stage on the homepage.
