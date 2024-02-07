@@ -226,11 +226,11 @@
 
 .coloured-header {
     margin: 1vh !important;
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
     width: 59vw;
     max-height: 16vh;
     color: white;
-    padding-bottom: 0px;
+    padding-bottom: 0px !important;
     border-radius: 2vw !important;
 }
 
@@ -320,7 +320,7 @@
     width: 4vw !important;
     height: 4vw !important;
     line-height: 4vw !important;
-    font-size: 2vw !important;
+    font-size: 1.5vw !important;
     color: white !important;
     border-radius: 15px !important;
     text-align: center !important;
@@ -679,4 +679,9 @@
         float: left;
         margin-right: 6px;
         margin-left: 6px;
+}
+
+.subtitle-section {
+    display: block;
+    margin-top: -40px !important;
 }

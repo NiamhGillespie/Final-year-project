@@ -101,23 +101,25 @@ class StoryDetailsModal extends Component {
     notEditing() {
         return (
             <div className="details-modal">
-                <ModalHeader toggle={this.toggleModal} className="coloured-header" style={{ background: '#' + this.props.epic_colour }}>
+                <ModalHeader toggle={this.toggleModal} className="coloured-header mb-0 pb-0" style={{ background: '#' + this.props.epic_colour }}>
                     <p className="details-title"> {this.state.story.title} </p>
                     <p className="details-id float-end"> #{this.state.story.story_id} </p>
                 </ModalHeader>
 
-                <ModalBody className="mt-0 mb-0">
-                    <div className="mt-0 mb-0">{displayTags(this.state.story.tags, this.state.teamTags)}</div>
+                <ModalBody className="mt-0 pt-0 mb-0">
+                    <div className="subtitle-section mt-0 mb-0 pb-0 ">
+                        <div className="mt-0 mb-0">{displayTags(this.state.story.tags, this.state.teamTags)}</div>
 
-                    <Button
-                        className="details-edit-button"
-                        style={{ border: '2px solid #' + this.props.epic_colour, color: '#' + this.props.epic_colour, marginRight: '42vw' }}
-                        onClick={this.toggleEditing}>
-                        Edit
-                    </Button>
+                        <Button
+                            className="details-edit-button"
+                            style={{ border: '2px solid #' + this.props.epic_colour, color: '#' + this.props.epic_colour, marginRight: '42vw' }}
+                            onClick={this.toggleEditing}>
+                            Edit
+                        </Button>
 
-                    <p className="mt-0 mb-0 details-state"> {this.state.story.state}</p>
-                    <p className="mt-0 mb-0 details-priority"> {displayPriority(this.state.story.priority)} </p>
+                        <p className="mt-0 mb-0 details-state"> {this.state.story.state}</p>
+                        <p className="mt-0 mb-0 details-priority"> {displayPriority(this.state.story.priority)} </p>
+                    </div>
 
                     <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.props.epic_colour + '60' }}>
                         <div className="story-details-user-story-box h-100">
@@ -192,6 +194,9 @@ class StoryDetailsModal extends Component {
                         </div>
 
                         <div className="mt-3 mb-0">
+                            <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
+                                Story Points:
+                            </p>
                             <p className="details-story-points" style={{ background: '#' + this.props.epic_colour }}>
                                 {this.state.story.story_points}
                             </p>
