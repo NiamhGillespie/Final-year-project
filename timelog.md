@@ -378,3 +378,6 @@
 
 ### 5 Feb 2024
 * *6.5 hours* Fixed issues with assigned_to, created_by and last_edited_by in the epic and story forms, made epics, stories, users, teams and tracking columns deletable with a confirmation prompt and finished off the help section - I decided to move this to a seperate help page to allow for the graphic to take center stage on the homepage.
+
+### 6 and 7 Feb 2024
+* *6 hours* Hosted both the Django API and React webapp. Tested everything worked as expected and fixed any bugs that hosting has caused. Then finished off user evaluation survey and signed ethics checklist. 
