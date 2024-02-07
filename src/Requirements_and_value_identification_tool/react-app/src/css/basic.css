@@ -371,7 +371,7 @@
 }
 
 .center-stats {
-    height: 60px;
+    height: 9vh;
     width: 50vw;
     margin: auto;
     padding: 1px;
@@ -379,7 +379,7 @@
 
 .epic-stat {
     text-align: center;
-    font-size: 18px;
+    font-size: 1vw;
     margin-left: 5vw;
     margin-top: 0px;
     padding-top: 0px;
