@@ -381,3 +381,7 @@
 
 ### 6 and 7 Feb 2024
 * *6 hours* Hosted both the Django API and React webapp. Tested everything worked as expected and fixed any bugs that hosting has caused. Then finished off user evaluation survey and signed ethics checklist. 
+
+### 7 Feb 2024
+* *0.5 hours* Supervisor meeting with Peggy
+* *5.5 hours* Fixing css display issues on larger screen and conducting pilot user study - discovered small bug during this and updated some css to highlight what text opens modals more clearly. Also removed all logging messages from react app.
