@@ -370,13 +370,21 @@
     margin-bottom: 0px;
 }
 
+.center-stats {
+    height: 60px;
+    width: 570px;
+    margin: auto;
+    padding: 1px;
+}
+
 .epic-stat {
     text-align: center;
     font-size: 18px;
-    margin-left: 5vw;
+    margin-left: 30px;
     margin-top: 0px;
     padding-top: 0px;
     margin-bottom: 1px;
+    width: 150px !important;
 }
 
 /* Epic details form  */
@@ -533,13 +541,6 @@
     border: none !important;
     background-color: var(--blue-background);
     font-size: 5vh !important;
-}
-
-.center-stats {
-    height: 60px;
-    width: 45vw;
-    margin: auto;
-    padding: 1px;
 }
 
 .epic-left-bar {
