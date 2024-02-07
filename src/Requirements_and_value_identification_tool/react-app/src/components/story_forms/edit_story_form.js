@@ -97,7 +97,7 @@ class UpdateStoryForm extends Component {
         } else {
             id_list = this.state.full_lead_list + this.state.full_member_list;
         }
-        
+
         id_list = id_list.split(',');
         console.log('id list is', id_list, typeof this.state.full_lead_list[0] === 'number');
 
@@ -138,7 +138,7 @@ class UpdateStoryForm extends Component {
         ) {
             alert('The form is invalid, please try again');
         } else {
-            this.setState({ "last_edited_by": this.props.user.id });
+            this.setState({ last_edited_by: this.props.user.id });
             axios.put(API_URL_STORY_DETAILS + this.state.story_id + '/details', this.state).then(() => {
                 this.props.resetState(this.state);
                 this.props.toggle();
@@ -161,7 +161,6 @@ class UpdateStoryForm extends Component {
         }
         this.setState({ assigned_to: team_member_ids });
     };
-
 
     onValueAddition = (e) => {
         var value_ids = [];
@@ -251,7 +250,7 @@ class UpdateStoryForm extends Component {
         return (
             <Form onSubmit={this.updateStory}>
                 <div className="details-modal">
-                    <ModalHeader toggle={this.toggleModal} className="coloured-header" style={{ background: '#' + this.props.epic_colour }}>
+                    <ModalHeader toggle={this.toggleModal} className="coloured-header mb-0 pb-0" style={{ background: '#' + this.props.epic_colour }}>
                         <FormGroup className="details-form-title">
                             <Input
                                 type="text"
@@ -272,7 +271,21 @@ class UpdateStoryForm extends Component {
                         <p className="details-id float-end"> #{this.state.story_id} </p>
                     </ModalHeader>
 
-                    <ModalBody className="mt-0 mb-0">
+                    <ModalBody className="mt-0 pt-0 mb-0">
+                        <div className="subtitle-section edit-subtitle mt-0 mb-0 pb-0 ">
+                            <Button
+                                className="details-edit-button"
+                                style={{ border: '2px solid #' + this.props.epic_colour, color: '#' + this.props.epic_colour }}>
+                                Update
+                            </Button>
+                            <Button
+                                className="details-edit-button"
+                                style={{ border: '2px solid #' + this.props.epic_colour, color: '#' + this.props.epic_colour }}
+                                onClick={() => this.delete_story()}>
+                                Delete Story
+                            </Button>
+                        </div>
+
                         <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + this.props.epic_colour + '60' }}>
                             <div className="story-details-user-story-box h-100">
                                 <p className="details-box-header" style={{ backgroundColor: '#' + this.props.epic_colour }}>
@@ -290,6 +303,7 @@ class UpdateStoryForm extends Component {
                                         onTouched={this.validateTitle}
                                         value={returnDefaultIfFieldEmpty(this.state.user_story)}
                                         invalid={this.state.validate.user_story === 'too_long'}
+                                        className="details-box-large"
                                     />
                                     <FormFeedback invalid>The user story can't be longer than 1028 characters</FormFeedback>
                                 </FormGroup>
@@ -312,6 +326,7 @@ class UpdateStoryForm extends Component {
                                         onTouched={this.validateDoD}
                                         value={returnDefaultIfFieldEmpty(this.state.definition_of_done)}
                                         invalid={this.state.validate.definition_of_done === 'too_long'}
+                                        className="details-box-small"
                                     />
                                     <FormFeedback invalid>The definition of done can't be longer than 1028 characters</FormFeedback>
                                 </FormGroup>
@@ -342,19 +357,6 @@ class UpdateStoryForm extends Component {
                         </div>
 
                         <div className="details-right-col float-right">
-                            <Button
-                                className="details-edit-button"
-                                style={{ border: '2px solid #' + this.props.epic_colour, color: '#' + this.props.epic_colour }}>
-                                Update
-                            </Button>
-
-                            <Button
-                                className="details-edit-button"
-                                style={{ border: '2px solid #' +  this.props.epic_colour, color: '#' + this.props.epic_colour}}
-                                onClick={() => this.delete_story()}>
-                                Delete Story
-                            </Button>
-
                             <div className="story-details-values-box h-100 mt-0 mb-0">
                                 <p className="details-stories-header" style={{ color: '#' + this.props.epic_colour }}>
                                     Tags:
@@ -401,7 +403,6 @@ class UpdateStoryForm extends Component {
                                 </FormGroup>
                             </div>
 
-
                             <div className="mt-3">
                                 <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-1">
                                     Assigned to:
@@ -443,6 +444,9 @@ class UpdateStoryForm extends Component {
                             </div>
 
                             <div className="mt-3 mb-0">
+                            <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
+                                Story Points:
+                            </p>
                                 <FormGroup>
                                     <Input
                                         type="text"

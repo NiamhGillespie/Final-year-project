@@ -383,7 +383,7 @@
 
 .values-scrollable {
     margin-top: 0px;
-    height: 11vh;
+    height: 18vh;
     width: 32vw;
 }
 
@@ -438,7 +438,7 @@
     float: right;
     display: inline;
     margin: 0px;
-    margin-right: 5vw;
+    margin-right: 2vw;
     padding: 0vh 2vh !important;
     border-radius: 15px !important;
     background-color: white !important;
@@ -684,4 +684,10 @@
 .subtitle-section {
     display: block;
     margin-top: -35px !important;
+}
+
+.edit-subtitle {
+    padding-top: 1vh;
+    width: 60vw;
+    min-height: 7vh;
 }

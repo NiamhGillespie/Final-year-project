@@ -124,7 +124,7 @@ class UpdateEpicForm extends Component {
         return (
             <Form onSubmit={this.updateEpic}>
                 <div className="details-modal">
-                    <ModalHeader className="coloured-header" style={{ background: '#' + background_colour }}>
+                    <ModalHeader className="coloured-header mb-0 pb-0" style={{ background: '#' + background_colour }}>
                         <FormGroup>
                             <Input
                                 className="details-form-title"
@@ -147,7 +147,28 @@ class UpdateEpicForm extends Component {
                         <p className="details-id float-end"> #{this.state.id} </p>
                     </ModalHeader>
 
-                    <ModalBody className="mt-3">
+                    <ModalBody className="mt-0 pt-0">
+                        <div className="subtitle-section edit-subtitle mt-0 mb-0 pb-0 ">
+                            <Button
+                                className="details-edit-button "
+                                style={{ border: '2px solid #' + background_colour, color: '#' + background_colour }}>
+                                Update
+                            </Button>
+
+                            <Button
+                                className="details-edit-button"
+                                style={{ border: '2px solid #' + background_colour, color: '#' + background_colour }}
+                                onClick={() => this.complete_epic()}>
+                                {this.state.completed ? <> Mark epic as uncomplete </> : <> Mark epic as complete </>}
+                            </Button>
+
+                            <Button
+                                className="details-edit-button"
+                                style={{ border: '2px solid #' + background_colour, color: '#' + background_colour }}
+                                onClick={() => this.delete_epic()}>
+                                Delete epic
+                            </Button>
+                        </div>
                         <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + background_colour + '60' }}>
                             <div className="story-details-values-box h-100 mt-0 mb-0">
                                 <p className="details-stories-header" style={{ color: '#' + background_colour }}>
@@ -180,26 +201,6 @@ class UpdateEpicForm extends Component {
                         </div>
 
                         <div className="details-right-col float-right">
-                            <Button
-                                className="details-edit-button"
-                                style={{ border: '2px solid #' + background_colour, color: '#' + background_colour }}>
-                                update
-                            </Button>
-
-                            <Button
-                                className="details-edit-button mt-2"
-                                style={{ border: '2px solid #' + background_colour, color: '#' + background_colour }}
-                                onClick={() => this.complete_epic()}>
-                                {this.state.completed ? <> mark epic as uncomplete </> : <> mark epic as complete </>}
-                            </Button>
-
-                            <Button
-                                className="details-edit-button mt-2"
-                                style={{ border: '2px solid #' + background_colour, color: '#' + background_colour }}
-                                onClick={() => this.delete_epic()}>
-                                delete epic
-                            </Button>
-
                             <div>
                                 <p style={{ color: '#' + background_colour }} className="details-heading mb-2">
                                     Last edited:
