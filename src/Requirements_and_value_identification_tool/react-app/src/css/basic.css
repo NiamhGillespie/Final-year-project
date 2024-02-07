@@ -545,16 +545,6 @@
     position: absolute;
     left: 0px;
 }
-.logo {
-    width: 16vw;
-    height: 8vh;
-    margin:0px;
-    padding: 0px;
-    float: start;
-    position: absolute;
-    left: 5px;
-    top: 0px;
-}
 
 .error-number {
     text-align: center;
