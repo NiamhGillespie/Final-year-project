@@ -168,7 +168,11 @@ export class AddTeam extends Component {
                             </div>
                         </div>
 
-                        <FormGroup>
+                    </div>
+
+                    <div className="right-add-team-box">
+
+                    <FormGroup className='mb-5'>
                             <Label for="team_leads">Team Leads:</Label>
                             <Multiselect
                                 options={displayTeamLeads(this.state.team_leads_list)}
@@ -183,10 +187,9 @@ export class AddTeam extends Component {
                                 displayValue="title"
                             />
                         </FormGroup>
-                    </div>
 
-                    <div className="right-add-team-box">
-                        <FormGroup>
+
+                        <FormGroup className='mt-5'>
                             <Label for="team_members">Team Members:</Label>
                             <Multiselect
                                 options={displayTeamMembers(this.state.team_members_list)}
