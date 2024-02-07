@@ -31,15 +31,11 @@ export class UserDashboard extends Component {
 
     updateUser = (e) => {
         e.preventDefault();
-
-        console.log('updating...');
-
-        console.log(this.props.user);
         let form_data = new FormData();
         form_data.append('email', this.state.email);
         form_data.append('password', this.state.password);
         if (this.props.user.teams.length !== 0) {
-            this.state.teams.forEach((team) => {
+            this.props.user.teams.forEach((team) => {
                 form_data.append('teams', team);
             });
         }
@@ -53,6 +49,11 @@ export class UserDashboard extends Component {
 
     render() {
         const user = this.state.user;
+        if (user !== null && user.profile_photo !== null) {
+            if (user.profile_photo[1] === 'm') {
+                user.profile_photo = SHORT_URL + user.profile_photo;
+            }
+        }
         console.log("USER DASH USER IS", this.state.user.profile_photo)
         return (
             <div>
@@ -63,7 +64,7 @@ export class UserDashboard extends Component {
                         {user.profile_photo === SHORT_URL + 'null' || user.profile_photo === null ? (
                             <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="large-circular-photo" />
                         ) : (
-                            <img src={SHORT_URL + user.profile_photo} alt="user profile" className="large-circular-photo" />
+                            <img src={user.profile_photo} alt="user profile" className="large-circular-photo" />
                         )}
 
                         <p className="team-name-title">

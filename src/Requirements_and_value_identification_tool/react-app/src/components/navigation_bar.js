@@ -12,7 +12,6 @@ export function NavigationBar() {
     if (user !== null && user.profile_photo !== null) {
         if (user.profile_photo[1] === 'm') {
             user.profile_photo = SHORT_URL + user.profile_photo;
-            console.log(user.profile_photo);
         }
     }
 
