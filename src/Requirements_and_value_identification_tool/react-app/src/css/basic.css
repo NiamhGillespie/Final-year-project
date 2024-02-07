@@ -61,6 +61,36 @@
     overflow: hidden !important;
 }
 
+.story-details-profile-photo {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    background-color: var(--blue-background);
+    float: right !important;
+    display: inline;
+    padding: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    right: 0px;  
+}
+
+.story-details-profile-photo-tooltip {
+    margin-right: -40px !important;
+    display: inline !important;
+    float: right !important;
+    margin: auto;
+    height: 0px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+.story-details-photo-section {
+    float: right;
+    width: 90px;
+    margin: 0px;
+}
+
 .story-profile-photo {
     border-radius: 100%;
     width: 30px;

@@ -7,6 +7,7 @@ import UpdateEpicForm from './edit_epic_form';
 import { API_URL, API_URL_SHORT } from '../../constants';
 import { displaySmallValues } from '../helper-methods/epic_display_methods';
 import { displaySmallTags } from '../helper-methods/story_display_methods';
+import { Tooltip } from 'react-tooltip';
 
 class EpicDetailsModal extends Component {
     state = {
@@ -85,6 +86,37 @@ class EpicDetailsModal extends Component {
         }
     }
 
+    displayUserImages(story) {
+        var userImages = [];
+        var users = this.props.user_list;
+        var assigned_to = story.assigned_to;
+        var marginLeft = 30;
+
+        if (users.length !== undefined && users !== undefined) {
+            for (var i = 0; i < users.length; i++) {
+                for (var j = 0; j < assigned_to.length; j++) {
+                    if (users[i].id === assigned_to[j]) {
+                        userImages.push(
+                            <div className='w-25 h-25 bg-primary'>
+                                <a id={users[i].username} className="story-details-profile-photo-tooltip" style={{ marginLeft: marginLeft + 'px' }}>
+                                    <img id="profile_photo" src={users[i].profile_photo} alt="profile" className="story-details-profile-photo" />
+                                </a>
+                                <Tooltip
+                                    anchorSelect={'#' + users[i].username}
+                                    content={users[i].first_name + ' ' + users[i].surname}
+                                    className="delay-tooltip"
+                                    data-tooltip-delay-show={1}
+                                />
+                            </div>
+                        );
+                        marginLeft = marginLeft - 20;
+                    }
+                }
+            }
+        }
+        return userImages;
+    }
+
     getStories() {
         var background_colour = this.state.epic.completed ? 'c7c7c7' : this.state.epic.epic_colour;
         var stories = this.props.stories;
@@ -98,8 +130,11 @@ class EpicDetailsModal extends Component {
                     return_list.push(
                         <div className="d-block">
                             <div className="details-stories" style={{ border: '2px solid #' + background_colour }}>
+                                <div className='story-details-photo-section'> {this.displayUserImages(stories[i])} </div>
                                 <p className='mb-1'> {stories[i].title} </p>
                                 {this.displaySmallTags(stories[i].tags, this.state.teamTags)}
+
+
                             </div>
                             
                         </div>
