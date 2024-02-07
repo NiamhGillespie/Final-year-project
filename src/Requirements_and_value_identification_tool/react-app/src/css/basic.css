@@ -374,16 +374,15 @@
     height: 9vh;
     width: 50vw;
     margin: auto;
-    padding: 1px;
-    background-color: pink;
+    padding: 1px !important;
+    display: flex;
 }
 
 .epic-stat {
     text-align: center;
-    font-size: 1vw;
+    font-size: 14px;
     margin-left: 5vw;
     margin-top: 0px !important;
-    background-color: #58c1d6;
     height: 3vh;
     padding-top: 0px !important;
     margin-bottom: 1px;
