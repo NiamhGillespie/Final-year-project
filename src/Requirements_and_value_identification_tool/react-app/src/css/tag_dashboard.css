@@ -73,7 +73,7 @@
 .tag-edit-button {
     float: right;
     display: inline;
-    margin: 0px;
+    margin: auto;
     padding: 0vh 2vh;
     border-radius: 15px;
     color: white;

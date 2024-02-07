@@ -156,8 +156,9 @@
 
 .stat-bar-btn {
     margin: auto !important;
-    margin-bottom: 1% !important;
-    margin-right: 5% !important;
+    margin-top: 0px;
+    margin-bottom: 50px !important;
+    margin-right: 20px !important;
     float: right !important;
     width: 10vw !important;
 }
@@ -371,7 +372,7 @@
 
 .epic-stat {
     text-align: center;
-    font-size: 3vh;
+    font-size: 18px;
     margin-left: 5vw;
     margin-top: 0px;
     padding-top: 0px;
@@ -535,7 +536,7 @@
 }
 
 .center-stats {
-    height: 10vh;
+    height: 60px;
     width: 45vw;
     margin: auto;
     padding: 1px;
