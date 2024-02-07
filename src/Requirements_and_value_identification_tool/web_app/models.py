@@ -60,7 +60,7 @@ class Story(models.Model):
     definition_of_done = models.CharField(max_length=1028, blank=True)
     values = models.ManyToManyField(ValueTag, blank=True)
 
-    story_points = models.CharField(max_length=10, default='N/A')
+    story_points = models.CharField(max_length=10, default='0')
 
     LOW = "LOW"
     MEDIUM = "MEDIUM"

@@ -32,7 +32,6 @@ export class DisplayUserTeams extends Component {
     displayTeams() {
         var teams = this.getUserTeams();
         var returnList = [];
-        console.log('user', this.props.user.role);
 
         for (var i = 0; i < teams.length; i++) {
             returnList.push(

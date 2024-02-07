@@ -12,7 +12,6 @@ export class HelpDashboard extends Component {
     };
 
     updateCollapsible = (e) => {
-        console.log(this.state[e.target.name]);
         if (this.state[e.target.name] === false) {
             this.setState({ [e.target.name]: true });
         } else {

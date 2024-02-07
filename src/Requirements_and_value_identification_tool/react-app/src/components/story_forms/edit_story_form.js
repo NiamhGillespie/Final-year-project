@@ -99,7 +99,6 @@ class UpdateStoryForm extends Component {
         }
 
         id_list = id_list.split(',');
-        console.log('id list is', id_list, typeof this.state.full_lead_list[0] === 'number');
 
         if (typeof this.state.full_lead_list[0] === 'number' || typeof this.state.full_member_list[0] === 'number') {
             var member_list = [];

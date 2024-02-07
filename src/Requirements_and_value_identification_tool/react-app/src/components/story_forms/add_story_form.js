@@ -27,6 +27,8 @@ class AddStoryForm extends Component {
         pairable: false,
         assigned_to: [],
 
+        story_points: 0,
+
         last_edited_by: this.props.user.id,
         last_edited: getDate(),
         created_by: this.props.user.id,
@@ -79,7 +81,6 @@ class AddStoryForm extends Component {
         }
         
         id_list = id_list.split(',');
-        console.log('id list is', id_list, typeof this.state.full_lead_list[0] === 'number');
 
         if (typeof this.state.full_lead_list[0] === 'number' || typeof this.state.full_member_list[0] === 'number') {
             var member_list = [];
@@ -93,7 +94,6 @@ class AddStoryForm extends Component {
 
         this.state.member_list = member_list;
         this.setState({ member_list: member_list });
-        console.log('member list!', member_list);
         return member_list;
     }
 

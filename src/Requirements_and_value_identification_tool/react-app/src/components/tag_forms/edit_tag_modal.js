@@ -11,7 +11,6 @@ class EditTagModal extends Component {
         this.setState((previous) => ({
             modal: !previous.modal
         }));
-        console.log(this.props);
     };
 
     render() {

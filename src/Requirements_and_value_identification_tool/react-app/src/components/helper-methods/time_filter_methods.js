@@ -7,7 +7,6 @@ export function getDateInBounds(editedDate, timeFilter) {
 }
 
 export function storiesEdited24Hours(stories) {
-    console.log("filter time!", stories.filter((stories) => getDateInBounds(stories.last_edited, 1)))
     return stories.filter((stories) => getDateInBounds(stories.last_edited, 1));
 }
 

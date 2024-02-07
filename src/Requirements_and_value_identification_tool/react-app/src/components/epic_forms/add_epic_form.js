@@ -32,8 +32,6 @@ class AddEpicForm extends Component {
     };
 
     async getTeamValues() {
-        console.log("team is", this.props.team)
-        console.log("props are...", this.props)
         await axios.get(API_URL_SHORT + this.props.team.id + '/values').then((response) => this.setState({ team_values: response.data }));
     }
 
@@ -123,7 +121,7 @@ class AddEpicForm extends Component {
                             chips: { background: 'green' },
                             searchBox: { border: 'none', 'border-bottom': '1px solid blue', borderRadius: '0px' }
                         }}
-                        placeholder="Choose Tags"
+                        placeholder="Choose Values"
                         displayValue="title"
                     />
                 </FormGroup>

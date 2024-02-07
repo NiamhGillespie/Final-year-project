@@ -119,13 +119,11 @@ export class TeamDashboard extends Component {
     };
 
     render() {
-        console.log("team pic = ", this.state.team.team_photo)
         if (this.state.team !== null && this.state.team.team_photo !== null) {
             if (this.state.team.team_photo[1] === 'm') {
                 this.state.team.team_photo = SHORT_URL + this.state.team.team_photo;
             }
         }
-        console.log("team pic = ", this.state.team.team_photo)
         return (
             <>
                 <h3 className="add-team-title"> Team Profile </h3>

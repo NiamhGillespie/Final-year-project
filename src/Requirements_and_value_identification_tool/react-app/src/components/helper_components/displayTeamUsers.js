@@ -47,7 +47,6 @@ export class DisplayTeamUsers extends Component {
 
     displayTeamLeads() {
         var leads = this.getTeamLeads();
-        console.log(leads)
         var returnList = [];
 
         for (var i = 0; i < leads.length; i++) {
@@ -76,7 +75,6 @@ export class DisplayTeamUsers extends Component {
 
     displayTeamMembers() {
         var members = this.getTeamMembers();
-        console.log(members)
         var returnList = [];
 
         for (var i = 0; i < members.length; i++) {

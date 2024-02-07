@@ -286,8 +286,6 @@ class StoryDetailsModal extends Component {
             </div>
         );
 
-        console.log('story completed...', this.state.story.completed, this.state.story.title);
-
         return (
             <div key={this.state.story.id}>
                 {story_box}

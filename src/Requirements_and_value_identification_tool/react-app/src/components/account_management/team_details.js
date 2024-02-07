@@ -15,7 +15,6 @@ export function TeamDetails() {
 
     if (location.state !== null && location.state.user !== undefined) {
         var user = location.state.user;
-        console.log("user is ", user)
     } else {
         user = JSON.parse(localStorage.getItem('user'));
     }

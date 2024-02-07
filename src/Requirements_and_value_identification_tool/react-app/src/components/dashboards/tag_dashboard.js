@@ -19,10 +19,7 @@ export class TagDashboard extends Component {
     };
 
     getTeam() {
-        console.log("PROPS ARE", this.props)
         if (this.props.current_team) {
-            console.log("current team", this.props.current_team)
-            //this.state.team = this.props.current_team
             this.setState({ team: this.props.current_team })
             return this.props.current_team
         } else {
@@ -141,12 +138,17 @@ export class TagDashboard extends Component {
     };
 
     render() {
+        if (this.state.team !== null && this.state.team.team_photo !== null) {
+            if (this.state.team.team_photo[1] === 'm') {
+                this.state.team.team_photo = SHORT_URL + this.state.team.team_photo;
+            }
+        }
         return (
             <>
                 {this.state.team.team_photo === null ? (
                     <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="nav-photo" />
                 ) : (
-                    <img src={SHORT_URL + this.state.team.team_photo} alt="hey" className="nav-photo" />
+                    <img src={this.state.team.team_photo} alt="hey" className="nav-photo" />
                 )}
                 <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
                     {this.getTeams(this.props.teams)}

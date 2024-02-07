@@ -27,7 +27,6 @@ export class ViewUsers extends Component {
         }
 
         if (this.state.filter === 'admins') {
-            console.log(this.state.users);
             await axios
                 .get(API_URL_USERS + this.state.organisation_id + '/admin/users', this.state)
                 .then((response) =>
@@ -39,7 +38,6 @@ export class ViewUsers extends Component {
         }
 
         if (this.state.filter === 'team_members') {
-            console.log(this.state.users);
             await axios
                 .get(API_URL_USERS + this.state.organisation_id + '/admin/users', this.state)
                 .then((response) => this.setState({ users: response.data.filter((user) => user.role === 'team_member') },
@@ -47,7 +45,6 @@ export class ViewUsers extends Component {
         }
 
         if (this.state.filter === 'team_leads') {
-            console.log(this.state.users);
             await axios
                 .get(API_URL_USERS + this.state.organisation_id + '/admin/users', this.state)
                 .then((response) => this.setState({ users: response.data.filter((user) => user.role === 'team_lead') },
@@ -55,7 +52,6 @@ export class ViewUsers extends Component {
         }
 
         if (this.state.filter === 'stakeholders') {
-            console.log(this.state.users);
             await axios
                 .get(API_URL_USERS + this.state.organisation_id + '/admin/users', this.state)
                 .then((response) => this.setState({ users: response.data.filter((user) => user.role === 'stakeholder') },
@@ -72,18 +68,15 @@ export class ViewUsers extends Component {
     }
 
     changeFilter = (e) => {
-        console.log('filter', e.target.value);
         this.state.filter = e.target.value;
         this.resetState();
     };
 
     updateSearchTerm = (e) => {
         this.state.search_term = e.target.value;
-        console.log(this.state.search_term, 'search term');
         this.search()
     };
     search = (e) => {
-        console.log('searching...', this.state.search_term);
 
         var users = this.state.filtered_users;
         var search_term = this.state.search_term.toLowerCase();
@@ -108,9 +101,7 @@ export class ViewUsers extends Component {
 
     displayUsers() {
         const user = this.props;
-        console.log(user)
         var users = this.state.users;
-        console.log("users inn ser", this.state.users)
         var returnList = [];
 
         for (var i = 0; i < users.length; i++) {

@@ -295,6 +295,11 @@ export class TrackingDashboard extends Component {
     // }
 
     render() {
+        if (this.state.team !== null && this.state.team.team_photo !== null) {
+            if (this.state.team.team_photo[1] === 'm') {
+                this.state.team.team_photo = SHORT_URL + this.state.team.team_photo;
+            }
+        }
         return (
             <>
                 <div className="d-flex mt-0 pt-0 ">
@@ -302,7 +307,7 @@ export class TrackingDashboard extends Component {
                         {this.state.team.team_photo === null ? (
                             <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="nav-photo-left" />
                         ) : (
-                            <img src={SHORT_URL + this.state.team.team_photo} alt="hey" className="nav-photo-left" />
+                            <img src={this.state.team.team_photo} alt="hey" className="nav-photo-left" />
                         )}
                         <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
                             {this.getTeams(this.props.teams)}

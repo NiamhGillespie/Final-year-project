@@ -4,7 +4,6 @@ import { API_URL_SHORT, SHORT_URL } from '../../constants';
 export const LogOut = () => {
     useEffect(() => {
         (async () => {
-            console.log('logging out...');
             try {
                 const { data } = await axios.post(
                     SHORT_URL + 'logout/',

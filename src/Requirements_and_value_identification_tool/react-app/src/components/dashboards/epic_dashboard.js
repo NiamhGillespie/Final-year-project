@@ -62,7 +62,6 @@ export class EpicsDashboard extends Component {
     }
 
     async getEpics() {
-        console.log('in get epics', this.state);
         if (this.state.filter === 'all') {
             await axios.get(API_URL_SHORT + this.state.team.id + '/epicsDashboard').then((response) => this.setState({ epics: response.data[0] }));
         }
@@ -144,7 +143,6 @@ export class EpicsDashboard extends Component {
                                                     style={{ border: snapshot.draggingOver ? '3px solid #' + epic.epic_colour + '60' : '' }}
                                                     key={epic.id}>
                                                     <div {...provided.dragHandleProps}>
-                                                        {console.log('fucks skae', this.state.team)}
                                                         <EpicDetailsModal
                                                             resetState={this.resetState}
                                                             epic={epic}
@@ -284,6 +282,11 @@ export class EpicsDashboard extends Component {
     }
 
     render() {
+        if (this.state.team !== null && this.state.team.team_photo !== null) {
+            if (this.state.team.team_photo[1] === 'm') {
+                this.state.team.team_photo = SHORT_URL + this.state.team.team_photo;
+            }
+        }
         return (
             <>
                 <div key="epic-dashboard">
@@ -292,7 +295,7 @@ export class EpicsDashboard extends Component {
                             {this.state.team.team_photo === null ? (
                                 <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="nav-photo-left" />
                             ) : (
-                                <img src={SHORT_URL + this.state.team.team_photo} alt="hey" className="nav-photo-left" />
+                                <img src={this.state.team.team_photo} alt="hey" className="nav-photo-left" />
                             )}
                             <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
                                 {this.getTeams(this.props.teams)}

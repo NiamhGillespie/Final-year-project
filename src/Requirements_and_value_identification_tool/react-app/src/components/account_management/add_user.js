@@ -42,11 +42,9 @@ export class AddUser extends Component {
 
     componentDidMount() {
         this.existingUsernames()
-        console.log("getting usernames", this.state.usernames)
     }
 
     onChange = (e) => {
-        console.log("getting usernames", this.state.usernames)
         this.setState({ [e.target.name]: e.target.value });
     };
 
@@ -129,7 +127,6 @@ export class AddUser extends Component {
 
     validateUsername(e) {
         const validate = this.state.validate;
-        console.log(/^([a-zA-Z0-9_]*)$/.test(e.target.value));
 
         if (e.target.value.length < 6) {
             validate.username = 'too_short';

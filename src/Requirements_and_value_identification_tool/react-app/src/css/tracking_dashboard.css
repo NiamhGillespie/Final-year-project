@@ -26,8 +26,15 @@
 }
 
 .column-title {
+    margin-top: 4px !important;
     display:block;
     text-align: center;
+}
+
+.column-title:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--blue-highlight);
+    text-decoration-thickness: 2px;
 }
 
 .wip-limit {

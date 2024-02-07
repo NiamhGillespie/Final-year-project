@@ -74,7 +74,7 @@ class EditColumnForm extends Component {
 
     updateColumn = (e) => {
         e.preventDefault();
-        console.log("updating...")
+        
         this.redefine(this.state.original_stories, 'undefined');
         this.redefine(this.state.stories, this.state.title);
         this.setState({ story_list: this.state.stories.toString() });
@@ -85,8 +85,6 @@ class EditColumnForm extends Component {
         } else if (this.state.mark_as_complete === false) {
             this.markStoriesAsUncomplete(this.state.stories);
         }
-
-
 
         if (this.state.validate.WIP !== 'valid' || (this.state.validate.title !== 'valid' && this.state.validate.title !== 'protected_keyword')) {
             alert('The form is invalid, please try again');
@@ -250,7 +248,7 @@ class EditColumnForm extends Component {
                     <FormFeedback valid> Done is a protected keyword - stories in this column will automatically be marked as completed</FormFeedback>
                 </FormGroup>
 
-                <FormGroup>
+                <FormGroup className='mt-3'>
                     <Label for="WIP">WIP limit:</Label>
                     <Input
                         type="text"
@@ -267,7 +265,8 @@ class EditColumnForm extends Component {
                 </FormGroup>
 
                 <div>
-                    <FormGroup>
+                    <FormGroup className='mt-5'>
+                        <Label for="stories">Add stories to column:</Label>
                         <Multiselect
                             options={this.displayStories()}
                             onSelect={this.onStoryAddition}
@@ -299,11 +298,13 @@ class EditColumnForm extends Component {
                     />
                 </FormGroup>
 
-                <Button className="btn-primary">Update Column</Button>
+                
 
-                <Button className="btn-danger float-end" onClick={() => this.deleteColumn()}>
+                <Button className="btn-danger float-start" onClick={() => this.deleteColumn()}>
                     Delete Column
                 </Button>
+
+                <Button className="btn-primary float-end">Update Column</Button>
             </Form>
         );
     }

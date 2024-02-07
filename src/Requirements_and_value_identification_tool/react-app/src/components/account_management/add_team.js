@@ -39,7 +39,6 @@ export class AddTeam extends Component {
     }
 
     resetState() {
-        console.log(this.props.user);
         this.getPotentialLeads();
         this.getPotentialMembers();
     }

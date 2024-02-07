@@ -54,7 +54,7 @@ export class UserDashboard extends Component {
                 user.profile_photo = SHORT_URL + user.profile_photo;
             }
         }
-        console.log("USER DASH USER IS", this.state.user.profile_photo)
+        
         return (
             <div>
                 <h3 className="add-team-title"> User Profile </h3>

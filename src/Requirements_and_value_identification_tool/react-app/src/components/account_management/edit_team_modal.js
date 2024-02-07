@@ -22,7 +22,6 @@ class EditTeamModal extends Component {
             </p>
         );
 
-        console.log("model props", this.props)
 
         return (
             <Fragment>

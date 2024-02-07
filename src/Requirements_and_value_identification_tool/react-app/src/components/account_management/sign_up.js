@@ -43,11 +43,9 @@ export class SignUp extends Component {
 
     componentDidMount() {
         this.existingUsernames()
-        console.log("getting usernames", this.state.usernames)
     }
 
     onChange = (e) => {
-        console.log("getting usernames", this.state.usernames)
         if (e.target.name === 'name' || e.target.name === 'logo') {
             this.state.organisation[e.target.name] = e.target.value;
         } else {
@@ -56,14 +54,12 @@ export class SignUp extends Component {
     };
 
     onChangeLogo(e) {
-        console.log(e.target.value);
         this.setState({ [e.target.name]: URL.createObjectURL(e.target.value) });
     }
 
     async get_organisation() {
         var organisation = await axios.get(API_URL_ORGANISATIONS).then((response) => response.data);
 
-        console.log(organisation[organisation.length - 1].name);
         if (organisation[organisation.length - 1].name === this.state.organisation.name) {
             this.state.admin.belongs_to = organisation[organisation.length - 1].id;
             await axios.post(API_URL_USERS + organisation[organisation.length - 1].id + '/admin/users', this.state.admin).then(() => {});
@@ -87,10 +83,8 @@ export class SignUp extends Component {
     }
 
     signIn = (e) => {
-        console.log(this.state);
         e.preventDefault();
 
-        console.log(this.state.organisation);
 
         if (
             this.state.validate.organisation_name === 'valid' &&
@@ -123,7 +117,6 @@ export class SignUp extends Component {
 
     validateUsername(e) {
         const validate = this.state.validate;
-        console.log(/^([a-zA-Z0-9_]*)$/.test(e.target.value));
 
         if (e.target.value.length < 6) {
             validate.username = 'too_short';
@@ -240,7 +233,7 @@ export class SignUp extends Component {
                             <Label for="logo">Logo:</Label>
                             <Input type="file" name="logo" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.logo)} />
                         </FormGroup>
-                        {this.state.logo !== '' ? <img src={this.state.logo} alt="logo" /> : <p> no logo yet </p>}
+                        
                     </div>
 
                     <div className="w-50 h-75 ps-3 float-end border-right border-light mb-4">

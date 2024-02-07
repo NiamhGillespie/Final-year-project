@@ -7,17 +7,15 @@ export async function updateStory(story_id, column, non_completed_stories) {
 
     const date = new Date();
     story.last_edited = date.toDateString();
-
-    //UPDATE THIS IN FUTURE
-    story.last_edited_by = "Update me once users exist :)"
+    var user = JSON.parse(localStorage.getItem('user'))
+    story.last_edited_by = user.id
 
     if (column.mark_as_complete === true) {
-        console.log("marking as complete...")
         story.completed = true;
     } else {
-        console.log("marking as incomplete...")
         story.completed = false;
     }
+
     await axios.put(API_URL_STORY_DETAILS + story_id + '/details', story);
 }
 
