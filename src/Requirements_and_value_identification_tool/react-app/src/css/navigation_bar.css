@@ -1,6 +1,13 @@
 :root {
     --blue-highlight: #58c1d6;
 }
+
+navbar-nav {
+    float: right !important;
+    background-color: aqua !important;
+    position: absolute !important;
+    right: 0px !important;
+}
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -43,7 +50,9 @@ a.nav-item:active {
     transition: all 0.75s;
     cursor: pointer;
     margin: 0px;
+    float: right !important;
 }
+
 .nav-item span {
     padding: 10px;
     text-align: center;

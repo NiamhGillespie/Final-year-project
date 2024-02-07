@@ -119,7 +119,7 @@
     margin: auto;
     margin-top: 0vh;
     margin-bottom: 0px;
-    width: 85vw;
+    width: 84vw;
     min-height: 79vh;
     border-radius: 10px;
     padding: 2vh;
@@ -137,7 +137,7 @@
 .team-details-section-two {
     padding: 2vh;
     height: 45vh !important;
-    width: 28vw !important;
+    width: 27vw !important;
     display: inline-block !important;
     overflow: auto;
     margin-bottom: 0px;

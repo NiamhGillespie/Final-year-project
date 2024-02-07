@@ -31,11 +31,11 @@ export function NavigationBar() {
                     <img src={SHORT_URL + 'media/logo.png'} alt="logo" className="logo" />
                 </NavbarBrand>
 
-                <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
-                    <ul className="navbar-nav flex-grow">
+                <Collapse className=" navbar-nav float-right m-0 p-0" navbar>
+                    <ul className="navbar-nav">
                         <NavItem>
                             <NavLink tag={Link} className="text-dark nav-item" to="/">
-                                <span>Home </span>
+                                <span>Homez </span>
                             </NavLink>
                         </NavItem>
 
