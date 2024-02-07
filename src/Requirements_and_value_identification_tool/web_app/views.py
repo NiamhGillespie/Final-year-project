@@ -415,6 +415,14 @@ def UserDetails(request, user_id):
             userToken = User.objects.get(username=user_serializer.data['username'])
             userToken.email=request.data['email'],
             userToken.set_password(request.data['password'])
+
+            for team_id in userToken.data['teams']:
+                team = UserProfile.objects.get(id = int(team_id))
+                if (userToken.data['role'] == 'team_lead'):
+                    team.team_leads.add(userToken.data['id'])
+                else:
+                    team.team_members.add(userToken.data['id'])
+
             userToken.save()
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
         
@@ -472,7 +480,16 @@ def TeamDetails(request, team_id):
 
     if request.method == 'PUT':
         team_serializer = TeamSerializer(team, data=request.data,context={'request': request})
+        
         if team_serializer.is_valid():      
+            for lead_id in team_serializer.data['team_leads']:
+                lead = UserProfile.objects.get(id = int(lead_id))
+                lead.teams.add(team_serializer.data['id'])
+
+            for member_id in team_serializer.data['team_members']:
+                member = UserProfile.objects.get(id = int(member_id))
+                member.teams.add(team_serializer.data['id'])
+
             team_serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         

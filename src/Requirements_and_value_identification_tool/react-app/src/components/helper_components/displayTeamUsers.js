@@ -47,7 +47,7 @@ export class DisplayTeamUsers extends Component {
 
     displayTeamLeads() {
         var leads = this.getTeamLeads();
-
+        console.log(leads)
         var returnList = [];
 
         for (var i = 0; i < leads.length; i++) {
@@ -61,11 +61,11 @@ export class DisplayTeamUsers extends Component {
 
                     {this.props.links === false ? (
                         <div className="small-card-info">
-                            {leads[i].first_name} {leads[i].surname} - {leads[i].role}
+                            {leads[i].first_name} {leads[i].surname} - Team Lead
                         </div>
                     ) : (
                         <Link to="/username/details" state={{ user: leads[i] }} className="link small-card-info">
-                            {leads[i].first_name} {leads[i].surname} - {leads[i].role}
+                            {leads[i].first_name} {leads[i].surname} - Team Lead
                         </Link>
                     )}
                 </div>
@@ -76,6 +76,7 @@ export class DisplayTeamUsers extends Component {
 
     displayTeamMembers() {
         var members = this.getTeamMembers();
+        console.log(members)
         var returnList = [];
 
         for (var i = 0; i < members.length; i++) {
@@ -89,11 +90,11 @@ export class DisplayTeamUsers extends Component {
                     
                     {this.props.links === false ? (
                         <div className="small-card-info">
-                            {members[i].first_name} {members[i].surname} - {members[i].role}
+                            {members[i].first_name} {members[i].surname} - Team Member
                         </div>
                     ) : (
                         <Link to="/username/details" state={{ user: members[i] }} className="link small-card-info">
-                            {members[i].first_name} {members[i].surname} - {members[i].role}
+                            {members[i].first_name} {members[i].surname} - Team Member
                         </Link>
                     )}
                 </div>
