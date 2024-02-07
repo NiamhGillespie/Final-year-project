@@ -389,6 +389,7 @@ def Teams(request, organisation_id):
                 member = UserProfile.objects.get(id = int(member_id))
                 member.teams.add(team_serializer.data['id'])
 
+            
             return Response(team_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(team_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -416,12 +417,14 @@ def UserDetails(request, user_id):
             userToken.email=request.data['email'],
             userToken.set_password(request.data['password'])
 
-            for team_id in userToken.data['teams']:
-                team = UserProfile.objects.get(id = int(team_id))
-                if (userToken.data['role'] == 'team_lead'):
-                    team.team_leads.add(userToken.data['id'])
+            for team_id in user_serializer.data['teams']:
+                team = Team.objects.get(id = int(team_id))
+                if (user_serializer.data['role'] == 'team_lead'):
+                    team.team_leads.add(user_serializer.data['id'])
+                    print(team)
                 else:
-                    team.team_members.add(userToken.data['id'])
+                    team.team_members.add(user_serializer.data['id'])
+                    print(team)
 
             userToken.save()
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
@@ -481,7 +484,9 @@ def TeamDetails(request, team_id):
     if request.method == 'PUT':
         team_serializer = TeamSerializer(team, data=request.data,context={'request': request})
         
-        if team_serializer.is_valid():      
+        if team_serializer.is_valid():   
+            team_serializer.save()
+               
             for lead_id in team_serializer.data['team_leads']:
                 lead = UserProfile.objects.get(id = int(lead_id))
                 lead.teams.add(team_serializer.data['id'])
@@ -490,7 +495,7 @@ def TeamDetails(request, team_id):
                 member = UserProfile.objects.get(id = int(member_id))
                 member.teams.add(team_serializer.data['id'])
 
-            team_serializer.save()
+            
             return Response(status=status.HTTP_201_CREATED)
         
         print(team_serializer.errors)
