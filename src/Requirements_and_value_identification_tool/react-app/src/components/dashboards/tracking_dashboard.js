@@ -326,21 +326,21 @@ export class TrackingDashboard extends Component {
                         onClick={() => this.changeFilter('24_hours')}
                         className={this.state.filter === '24_hours' ? 'active-choice-button' : 'inactive-choice-button'}
                         style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
-                        24
+                        24 hours
                     </p>
 
                     <p
                         onClick={() => this.changeFilter('48_hours')}
                         className={this.state.filter === '48_hours' ? 'active-choice-button' : 'inactive-choice-button'}
                         style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
-                        48
+                        48 hours
                     </p>
 
                     <p
                         onClick={() => this.changeFilter('72_hours')}
                         className={this.state.filter === '72_hours' ? 'active-choice-button' : 'inactive-choice-button'}
                         style={{ borderRight: '2px solid white', marginLeft: '1vh' }}>
-                        72
+                        72 hours
                     </p>
                 </div>
 
