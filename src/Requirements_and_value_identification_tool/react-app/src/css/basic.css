@@ -226,7 +226,7 @@
 
 .coloured-header {
     margin: 1vh !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 20px !important;
     width: 59vw;
     max-height: 16vh;
     color: white;
@@ -683,5 +683,5 @@
 
 .subtitle-section {
     display: block;
-    margin-top: -40px !important;
+    margin-top: -35px !important;
 }
