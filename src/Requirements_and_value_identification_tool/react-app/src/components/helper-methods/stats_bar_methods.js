@@ -13,7 +13,7 @@ export function epicsAddedThisWeek(epics) {
                 {epics.filter((epic) => dateInWeek(epic.time_created)).length}
             </p>
 
-            <p style={{ fontSize: '2vh' }} className="epic-stat">
+            <p style={{ fontSize: '2vh' }} className="epic-stat epic-stat-text">
                 Epics added this week
             </p>
         </div>
@@ -27,7 +27,7 @@ export function storiesAddedThisWeek(stories) {
                 {stories.filter((story) => dateInWeek(story.time_created)).length}
             </p>
 
-            <p style={{ fontSize: '2vh' }} className="epic-stat">
+            <p style={{ fontSize: '2vh' }} className="epic-stat epic-stat-text">
                 Stories added this week
             </p>
         </div>
@@ -40,7 +40,7 @@ export function highPriorityStories(stories) {
             <p style={{ clear: 'both' }} className="epic-stat">
                 {stories.filter((story) => story.priority === 'HIGH').length}
             </p>
-            <p style={{ fontSize: '2vh' }} className="epic-stat">
+            <p style={{ fontSize: '2vh' }} className="epic-stat epic-stat-text">
                 High priority stories
             </p>
         </div>

@@ -381,12 +381,16 @@
     text-align: center;
     font-size: 1vw;
     margin-left: 5vw;
-    margin-top: 0px;
+    margin-top: 0px !important;
     background-color: #58c1d6;
     height: 3vh;
-    padding-top: 0px;
+    padding-top: 0px !important;
     margin-bottom: 1px;
     width: 10vw !important;
+}
+
+.epic-stat-text {
+    height: 6vh !important;
 }
 
 /* Epic details form  */
