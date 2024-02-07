@@ -6,12 +6,14 @@ import axios from 'axios';
 import UpdateEpicForm from './edit_epic_form';
 import { API_URL, API_URL_SHORT } from '../../constants';
 import { displaySmallValues } from '../helper-methods/epic_display_methods';
+import { displaySmallTags } from '../helper-methods/story_display_methods';
 
 class EpicDetailsModal extends Component {
     state = {
         modal: false,
         editing: false,
         teamValues: this.getTeamValues(),
+        teamTags: this.getTeamTags(),
         epic: this.props.epic,
         team: this.props.team
     };
@@ -19,6 +21,11 @@ class EpicDetailsModal extends Component {
     async getTeamValues() {
         var values = await axios.get(API_URL_SHORT + this.props.team.id + '/values');
         this.setState({ teamValues: values.data });
+    }
+
+    async getTeamTags() {
+        var tags = await axios.get(API_URL_SHORT + this.props.team.id + '/tags');
+        this.setState({ teamTags: tags.data });
     }
 
     async updateEpic() {
@@ -55,6 +62,29 @@ class EpicDetailsModal extends Component {
         }
     }
 
+    displaySmallTags(tags, teamTags) {
+        var returnList = [];
+        for (var i = 0; i < tags.length; i++) {
+            var tag = this.getTagTitleFromId(tags[i], teamTags);
+            if (tag !== undefined) {
+                returnList.push(
+                    <p className="details-tag-small story-details-tag mb-0" style={{ backgroundColor: '#' + tag.colour }}>
+                        {tag.title}
+                    </p>
+                );
+            }
+        }
+        return returnList;
+    }
+    
+    getTagTitleFromId(id, teamTags) {
+        for (var i = 0; i < teamTags.length; i++) {
+            if (teamTags[i].id === id) {
+                return teamTags[i];
+            }
+        }
+    }
+
     getStories() {
         var background_colour = this.state.epic.completed ? 'c7c7c7' : this.state.epic.epic_colour;
         var stories = this.props.stories;
@@ -67,9 +97,11 @@ class EpicDetailsModal extends Component {
                 if (stories[i].epic_id === String(epic_id)) {
                     return_list.push(
                         <div className="d-block">
-                            <p className="details-stories" style={{ border: '2px solid #' + background_colour }}>
-                                {stories[i].title}
-                            </p>
+                            <div className="details-stories" style={{ border: '2px solid #' + background_colour }}>
+                                <p className='mb-1'> {stories[i].title} </p>
+                                {this.displaySmallTags(stories[i].tags, this.state.teamTags)}
+                            </div>
+                            
                         </div>
                     );
                 }

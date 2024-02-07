@@ -80,12 +80,11 @@ class StoryDetailsModal extends Component {
                 if (users[i].id === parseInt(assigned_to[j])) {
                     returnList.push(
                         <p className="assigned-to-section" style={{ border: '2px solid #' + this.props.epic_colour }}>
-                           
                             {users[i].profile_photo === null ? (
-                            <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="assigned-to-photo" />
-                        ) : (
-                            <img src={users[i].profile_photo} alt="hey" className="assigned-to-photo" />
-                        )}
+                                <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="assigned-to-photo" />
+                            ) : (
+                                <img src={users[i].profile_photo} alt="hey" className="assigned-to-photo" />
+                            )}
                             {users[i].first_name + ' ' + users[i].surname}
                         </p>
                     );
@@ -94,7 +93,7 @@ class StoryDetailsModal extends Component {
         }
 
         if (returnList.length === 0) {
-            return (<p> No users assigned yet </p>)
+            return <p> No users assigned yet </p>;
         }
         return returnList;
     }
@@ -237,7 +236,12 @@ class StoryDetailsModal extends Component {
                                 <a id={users[i].username} className="story-profile-photo-tooltip" style={{ marginLeft: marginLeft + 'px' }}>
                                     <img id="profile_photo" src={users[i].profile_photo} alt="profile" className="story-profile-photo" />
                                 </a>
-                                <Tooltip anchorSelect={'#' + users[i].username} content={users[i].first_name + ' ' + users[i].surname}  className='delay-tooltip' data-tooltip-delay-show={1}/>
+                                <Tooltip
+                                    anchorSelect={'#' + users[i].username}
+                                    content={users[i].first_name + ' ' + users[i].surname}
+                                    className="delay-tooltip"
+                                    data-tooltip-delay-show={1}
+                                />
                             </div>
                         );
                         marginLeft = marginLeft - 20;
