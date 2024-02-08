@@ -1,4 +1,4 @@
-export const SHORT_URL = ' http://127.0.0.1:8000/' //https://niamhgillespie.pythonanywhere.com/'
+export const SHORT_URL = 'https://niamhgillespie.pythonanywhere.com/'
 export const API_URL_SHORT = SHORT_URL + 'api/';
 
 export const API_URL = API_URL_SHORT +  '/teamName/epicsDashboard';
