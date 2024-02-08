@@ -432,7 +432,7 @@ class UpdateStoryForm extends Component {
                                 </p>
                                 <FormGroup>
                                     <select
-                                        value={this.state.value}
+                                        value={returnDefaultIfFieldEmpty(this.state.priority)}
                                         onChange={this.onChange}
                                         name="priority"
                                         className="ms-2"
