@@ -46,6 +46,8 @@ class UpdateStoryForm extends Component {
         created_by: this.props.story.created_by,
         time_created: this.props.story.time_created,
 
+        state: this.props.story.state,
+
         epics: this.getEpics(),
 
         team: 1,

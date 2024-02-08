@@ -150,9 +150,10 @@ export class TagDashboard extends Component {
                 ) : (
                     <img src={this.state.team.team_photo} alt="hey" className="nav-photo" />
                 )}
-                <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
+                <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice me-2" value={this.state.team.id}>
                     {this.getTeams(this.props.teams)}
                 </select>
+                <p className='team-choice-dashname'> - Tag Dashboard </p>
 
                 <div className="centered" div key="tag-dashboard">
                     <div className="choice-section">

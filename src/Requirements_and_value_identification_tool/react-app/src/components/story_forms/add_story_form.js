@@ -24,6 +24,8 @@ class AddStoryForm extends Component {
         tags: [],
         priority: 'LOW',
 
+        state:'Untracked',
+
         pairable: false,
         assigned_to: [],
 

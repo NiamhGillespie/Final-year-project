@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { API_URL_TRACKING_COLUMN_DETAILS, API_URL_STORY_DETAILS } from '../../constants';
+import { API_URL_TRACKING_COLUMN_DETAILS, API_URL_STORY_DETAILS, API_URL_SHORT } from '../../constants';
 import Multiselect from 'multiselect-react-dropdown';
 import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
@@ -67,7 +67,7 @@ class EditColumnForm extends Component {
         var full_story = await axios.get(API_URL_STORY_DETAILS + story_id + '/details');
         full_story.data.state = new_state;
 
-        await axios.put(API_URL_STORY_DETAILS + full_story.data.story_id + '/details', full_story.data).then(() => {
+        await axios.put(API_URL_SHORT + '/teamName/stories/' + story_id + '/details', full_story.data).then((response) => {
             this.props.resetState();
         });
     }
@@ -75,7 +75,7 @@ class EditColumnForm extends Component {
     updateColumn = (e) => {
         e.preventDefault();
         
-        this.redefine(this.state.original_stories, 'undefined');
+        this.redefine(this.state.original_stories, 'Untracked');
         this.redefine(this.state.stories, this.state.title);
         this.setState({ story_list: this.state.stories.toString() });
         this.setState({ stories: this.state.stories });
@@ -120,7 +120,7 @@ class EditColumnForm extends Component {
 
     deleteColumn = () => {
         //move stories to undefined
-        this.redefine(this.state.stories, 'undefined');
+        this.redefine(this.state.stories, 'Untracked');
 
         if (window.confirm("Delete tracking column:  '" + this.state.title + "'?")) {
             axios.delete(API_URL_TRACKING_COLUMN_DETAILS + this.state.column_id).then(() => {
@@ -161,7 +161,7 @@ class EditColumnForm extends Component {
         var non_completed_stories = this.state.non_completed_stories;
         var returnList = [];
 
-        var available_stories = non_completed_stories.filter((story) => story.state === this.state.title || story.state === 'undefined');
+        var available_stories = non_completed_stories.filter((story) => story.state === this.state.title || story.state === 'Untracked');
         for (var i = 0; i < available_stories.length; i++) {
             returnList.push({
                 title: available_stories[i].title + ' - #' + available_stories[i].id,
@@ -178,7 +178,7 @@ class EditColumnForm extends Component {
         var non_completed_stories = this.state.non_completed_stories;
         var returnList = [];
 
-        var available_stories = non_completed_stories.filter((story) => story.state === 'undefined' || this.state.title);
+        var available_stories = non_completed_stories.filter((story) => story.state === 'Untracked' || this.state.title);
 
         for (var i = 0; i < available_stories.length; i++) {
             for (var j = 0; j < stories.length; j++) {

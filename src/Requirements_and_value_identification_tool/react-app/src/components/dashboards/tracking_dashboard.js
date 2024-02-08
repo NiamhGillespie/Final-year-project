@@ -303,16 +303,16 @@ export class TrackingDashboard extends Component {
         return (
             <>
                 <div className="d-flex mt-0 pt-0 ">
-                    <div className="team-choice choice-section w-50 mt-0 pt-0 mb-2">
+                    <div className=" choice-section w-50 mt-0 pt-0 mb-2">
                         {this.state.team.team_photo === null ? (
                             <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="nav-photo-left" />
                         ) : (
                             <img src={this.state.team.team_photo} alt="hey" className="nav-photo-left" />
                         )}
-                        <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
+                        <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice me-2" value={this.state.team.id}>
                             {this.getTeams(this.props.teams)}
                         </select>
-                         - Tracking Dashboard
+                        <p className='team-choice-dashname'> - Tracking Dashboard </p>
                     </div>
                     <AddColumnModal resetState={this.resetState} team={this.state.team} className="d-inline w-25 bg-primary float-end" />
                 </div>

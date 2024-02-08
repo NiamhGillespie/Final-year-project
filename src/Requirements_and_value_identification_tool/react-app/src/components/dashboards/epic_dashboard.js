@@ -297,9 +297,10 @@ export class EpicsDashboard extends Component {
                             ) : (
                                 <img src={this.state.team.team_photo} alt="hey" className="nav-photo-left" />
                             )}
-                            <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice" value={this.state.team.id}>
+                            <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice me-2" value={this.state.team.id}>
                                 {this.getTeams(this.props.teams)}
                             </select>
+                            <p className='team-choice-dashname'> - Epics Dashboard </p>
                         </div>
                         <p className=" center-stats"> {this.displayStatsBar()} </p>
                         <AddEpicModal create={true} resetState={this.resetState} user={this.props.user} className="align-self-stretch" team={this.state.team} />

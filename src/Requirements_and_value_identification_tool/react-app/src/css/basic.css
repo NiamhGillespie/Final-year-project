@@ -570,16 +570,20 @@
     top: 0px;
     display: inline;
     margin-left: 1vw;
-    width: 8vh;
-    height: 8vh;
+    width: 60px;
+    height: 60px;
     background-color: white;
     float: left;
     display: inline;
 }
 
+.team-choice-dashname{
+    line-height: 60px !important;
+    display: inline;
+}
 .team-choice {
-    font-size: 17px;
-    border: none !important;
+    font-size: 22px;
+    border: 2px solid var(--blue-highlight);
     margin-top: 2.5vh;
     padding-top: 0px !important;
 
