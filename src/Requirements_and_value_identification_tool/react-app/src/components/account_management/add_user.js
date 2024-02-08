@@ -216,7 +216,7 @@ export class AddUser extends Component {
                                 <option value="admin">Admin</option>
                                 <option value="team_lead">Team Lead</option>
                                 <option value="team_member">Team Member</option>
-                                <option value="stakeholder">Stakeholder?</option>
+                                <option value="stakeholder">Stakeholder</option>
                             </select>
                         </FormGroup>
 

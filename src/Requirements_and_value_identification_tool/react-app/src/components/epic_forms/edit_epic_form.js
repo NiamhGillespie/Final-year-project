@@ -94,8 +94,20 @@ class UpdateEpicForm extends Component {
     complete_epic() {
         if (this.state.completed) {
             this.setState({ completed: false });
+            this.state.completed = false;
         } else {
             this.setState({ completed: true });
+            this.state.completed = true;
+        }
+        
+        if (this.state.validate.title !== 'valid') {
+            alert('The form is invalid, please try again');
+        } else {
+            this.setState({ last_edited_by: this.props.user.id });
+            axios.put(API_URL_EPIC_DETAILS + this.state.epic_id + '/details', this.state).then(() => {
+                this.props.resetState(this.state);
+                this.props.toggle();
+            });
         }
     }
 
@@ -159,7 +171,7 @@ class UpdateEpicForm extends Component {
                                 className="details-edit-button"
                                 style={{ border: '2px solid #' + background_colour, color: '#' + background_colour }}
                                 onClick={() => this.complete_epic()}>
-                                {this.state.completed ? <> Mark epic as uncomplete </> : <> Mark epic as complete </>}
+                                {this.state.completed ? <> Mark epic as incomplete </> : <> Mark epic as complete </>}
                             </Button>
 
                             <Button

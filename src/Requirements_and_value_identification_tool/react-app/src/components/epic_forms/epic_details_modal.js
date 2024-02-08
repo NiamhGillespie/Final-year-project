@@ -4,7 +4,7 @@ import '../../css/basic.css';
 import { ColorPicker } from 'primereact/colorpicker';
 import axios from 'axios';
 import UpdateEpicForm from './edit_epic_form';
-import { API_URL, API_URL_SHORT } from '../../constants';
+import { API_URL, API_URL_SHORT, SHORT_URL } from '../../constants';
 import { displaySmallValues } from '../helper-methods/epic_display_methods';
 import { displaySmallTags } from '../helper-methods/story_display_methods';
 import { Tooltip } from 'react-tooltip';
@@ -58,7 +58,7 @@ class EpicDetailsModal extends Component {
 
         for (var i = 0; i < users.length; i++) {
             if (users[i].id === parseInt(user_id)) {
-                return( users[i].first_name + " " + users[i].surname)
+                return users[i].first_name + ' ' + users[i].surname;
             }
         }
     }
@@ -77,7 +77,7 @@ class EpicDetailsModal extends Component {
         }
         return returnList;
     }
-    
+
     getTagTitleFromId(id, teamTags) {
         for (var i = 0; i < teamTags.length; i++) {
             if (teamTags[i].id === id) {
@@ -90,17 +90,26 @@ class EpicDetailsModal extends Component {
         var userImages = [];
         var users = this.props.user_list;
         var assigned_to = story.assigned_to;
-        var marginLeft = 30;
+        var marginLeft = 10;
 
         if (users.length !== undefined && users !== undefined) {
             for (var i = 0; i < users.length; i++) {
                 for (var j = 0; j < assigned_to.length; j++) {
                     if (users[i].id === assigned_to[j]) {
                         userImages.push(
-                            <div className='w-25 h-25 bg-primary'>
+                            <div className=" bg-primary">
                                 <a id={users[i].username} className="story-details-profile-photo-tooltip" style={{ marginLeft: marginLeft + 'px' }}>
-                                    <img id="profile_photo" src={users[i].profile_photo} alt="profile" className="story-details-profile-photo" />
+                                    {users[i].profile_photo === null ? (
+                                        <img
+                                            src={SHORT_URL + 'media/profile_images/default.jpg'}
+                                            alt="user profile"
+                                            className="story-details-profile-photo"
+                                        />
+                                    ) : (
+                                        <img src={users[i].profile_photo} alt="profile" className="story-details-profile-photo" />
+                                    )}
                                 </a>
+
                                 <Tooltip
                                     anchorSelect={'#' + users[i].username}
                                     content={users[i].first_name + ' ' + users[i].surname}
@@ -109,7 +118,7 @@ class EpicDetailsModal extends Component {
                                 />
                             </div>
                         );
-                        marginLeft = marginLeft - 20;
+                        marginLeft = marginLeft - 5;
                     }
                 }
             }
@@ -130,13 +139,10 @@ class EpicDetailsModal extends Component {
                     return_list.push(
                         <div className="d-block">
                             <div className="details-stories" style={{ border: '2px solid #' + background_colour }}>
-                                <div className='story-details-photo-section'> {this.displayUserImages(stories[i])} </div>
-                                <p className='mb-1'> {stories[i].title} </p>
+                                <div className="story-details-photo-section"> {this.displayUserImages(stories[i])} </div>
+                                <p className="mb-1"> {stories[i].title} </p>
                                 {this.displaySmallTags(stories[i].tags, this.state.teamTags)}
-
-
                             </div>
-                            
                         </div>
                     );
                 }
@@ -169,6 +175,15 @@ class EpicDetailsModal extends Component {
                 );
             }
         }
+
+        if (returnList.length === 0) {
+            returnList.push(
+                <div className="details-value" style={{ border: '2px solid #' + this.state.epic.epic_colour }}>
+                    <p className="details-value-title"> No values added yet </p>
+                    <p className="details-value-description"> Create values in the Tag Dashboard </p>
+                </div>
+            );
+        }
         return returnList;
     }
 
@@ -193,7 +208,7 @@ class EpicDetailsModal extends Component {
                     <div className="details-left-col float-left" style={{ borderRight: '2px solid #' + background_colour + '60' }}>
                         <div className="story-details-values-box h-100 mt-0 mb-0">
                             <p className="details-stories-header" style={{ color: '#' + background_colour }}>
-                                Values
+                                Values:
                             </p>
                             <p
                                 className="overflow-auto values-scrollable-epic"
@@ -260,7 +275,7 @@ class EpicDetailsModal extends Component {
                     getStories={this.getStories()}
                     getValues={this.displayValues()}
                     team={this.props.team}
-                    user = {this.props.user}
+                    user={this.props.user}
                     user_list={this.props.user_list}
                 />
             );
@@ -272,7 +287,7 @@ class EpicDetailsModal extends Component {
         var background_colour = this.state.epic.completed ? 'c7c7c7' : this.state.epic.epic_colour;
         var epic_box = (
             <div style={{ background: '#' + background_colour }} className="epic-box" onClick={this.toggleModal}>
-                <div className='epic-title-dashboard'> {this.state.epic.title} </div>
+                <div className="epic-title-dashboard"> {this.state.epic.title} </div>
 
                 {this.state.epic.completed ? (
                     <div className="completed-banner-epic">completed</div>

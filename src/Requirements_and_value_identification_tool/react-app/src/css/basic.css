@@ -76,25 +76,27 @@
     display: inline;
     padding: 0px;
     margin-top: 0px;
-    margin-right: 0px;
     right: 0px;  
+    
 }
 
 .story-details-profile-photo-tooltip {
-    margin-right: -40px !important;
+    margin-right: -20px !important;
     display: inline !important;
     float: right !important;
     margin: auto;
     height: 0px;
     padding: 0px;
     margin: 0px;
-    margin-top: 10px;
+    margin-top: 2%;
 }
 
 .story-details-photo-section {
     float: right;
     width: 90px;
+    height:0px;
     margin: 0px;
+    margin-right: 6%;
 }
 
 .story-profile-photo {
@@ -562,6 +564,9 @@
     float: left;
 }
 
+.priority-text {
+    font-weight: 600;
+}
 
 .nav-photo-left {
     border-radius: 100%;
@@ -570,29 +575,47 @@
     top: 0px;
     display: inline;
     margin-left: 1vw;
-    width: 60px;
-    height: 60px;
+    width: 8vh;
+    height: 8vh;
     background-color: white;
     float: left;
     display: inline;
 }
 
 .team-choice-dashname{
-    line-height: 60px !important;
+    line-height: 8vh;
     display: inline;
+    margin: auto;
+    margin-top:0.5vh;
 }
-.team-choice {
-    font-size: 22px;
-    border: 2px solid var(--blue-highlight);
-    margin-top: 2.5vh;
-    padding-top: 0px !important;
 
+.team-choice {
+    font-size: 3vh;
+    border: 2px solid var(--blue-highlight) !important;
+    margin-top: 1vh;
+    padding-top: 0px !important;
+    color: white;
+    background-color: var(--blue-highlight);
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.25) !important;
+
+}
+
+.team-choice:hover {
+    background-color: white;
+    color: var(--blue-highlight);
 }
 
 .team-choice-team-dashboard {
     border: none !important;
-    background-color: var(--blue-background);
+    border: 2px solid var(--blue-highlight) !important;
+    background-color: var(--blue-highlight);
     font-size: 5vh !important;
+    color: white;
+}
+
+.team-choice-team-dashboard:hover {
+    background-color: white;
+    color: var(--blue-highlight);
 }
 
 .epic-left-bar {

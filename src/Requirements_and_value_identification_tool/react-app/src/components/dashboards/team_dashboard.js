@@ -133,7 +133,7 @@ export class TeamDashboard extends Component {
                         {this.state.team.team_photo === null ? (
                             <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="large-circular-photo" />
                         ) : (
-                            <img src={this.state.team.team_photo} alt="hey" className="large-circular-photo" />
+                            <img src={this.state.team.team_photo} alt="team" className="large-circular-photo" />
                         )}
 
                         <select name="team" onChange={this.changeChosenTeam} className="ms-2 team-choice-team-dashboard team-name-title" value={this.state.team.id}>

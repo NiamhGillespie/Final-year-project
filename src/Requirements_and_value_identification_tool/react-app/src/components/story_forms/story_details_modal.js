@@ -6,7 +6,7 @@ import axios from 'axios';
 import UpdateStoryForm from './edit_story_form';
 import { displayPriority, displaySmallTags, displayTags } from '../helper-methods/story_display_methods';
 import { displayTeamTags } from '../helper-methods/form_helper_methods';
-import { API_URL_SHORT, API_URL_USER_DETAILS } from '../../constants';
+import { API_URL, API_URL_SHORT, API_URL_USER_DETAILS, SHORT_URL } from '../../constants';
 import { Tooltip } from 'react-tooltip';
 
 class StoryDetailsModal extends Component {
@@ -15,8 +15,13 @@ class StoryDetailsModal extends Component {
         editing: false,
         teamTags: this.getTeamTags(),
         teamValues: this.getTeamValues(),
-        story: this.props.story
+        story: this.props.story,
+        epics: this.getEpics()
     };
+
+    async getEpics() {
+        await axios.get(API_URL_SHORT + this.props.team.id + '/epicsDashboard').then((response) => this.setState({ epics: response.data[0] }));
+    }
 
     async getTeamTags() {
         var tags = await axios.get(API_URL_SHORT + this.props.team.id + '/tags');
@@ -45,6 +50,15 @@ class StoryDetailsModal extends Component {
         }));
     };
 
+    getEpicTitle() {
+        var epic_id = this.state.story.epic_id;
+
+        for (var i = 0; i < this.state.epics.length; i++) {
+            if (this.state.epics[i].id === parseInt(epic_id)) {
+                return this.state.epics[i].title;
+            }
+        }
+    }
     displayValues() {
         var returnList = [];
         for (var i = 0; i < this.state.story.values.length; i++) {
@@ -58,6 +72,15 @@ class StoryDetailsModal extends Component {
                     </div>
                 );
             }
+        }
+
+        if (returnList.length === 0) {
+            returnList.push(
+                <div className="details-value" style={{ border: '2px solid #' + this.props.epic_colour }}>
+                    <p className="details-value-title"> No values added yet </p>
+                    <p className="details-value-description"> Create values in the Tag Dashboard </p>
+                </div>
+            );
         }
         return returnList;
     }
@@ -81,9 +104,9 @@ class StoryDetailsModal extends Component {
                     returnList.push(
                         <p className="assigned-to-section" style={{ border: '2px solid #' + this.props.epic_colour }}>
                             {users[i].profile_photo === null ? (
-                                <img src="http://localhost:8000/media/profile_images/default.jpg" alt="user profile" className="assigned-to-photo" />
+                                <img src={SHORT_URL + 'media/profile_images/default.jpg'} alt="user profile" className="assigned-to-photo" />
                             ) : (
-                                <img src={users[i].profile_photo} alt="hey" className="assigned-to-photo" />
+                                <img src={users[i].profile_photo} alt="profile" className="assigned-to-photo" />
                             )}
                             {users[i].first_name + ' ' + users[i].surname}
                         </p>
@@ -111,7 +134,7 @@ class StoryDetailsModal extends Component {
                         <div className="mt-0 mb-0">{displayTags(this.state.story.tags, this.state.teamTags)}</div>
 
                         <Button
-                            className="details-edit-button"
+                            className="details-edit-button mt-3"
                             style={{ border: '2px solid #' + this.props.epic_colour, color: '#' + this.props.epic_colour, marginRight: '42vw' }}
                             onClick={this.toggleEditing}>
                             Edit
@@ -167,7 +190,7 @@ class StoryDetailsModal extends Component {
                             <p style={{ color: '#' + this.props.epic_colour }} className="details-heading mb-2">
                                 Epic:
                             </p>
-                            <p className="p-0 mb-1 mt-1"> #{this.state.story.epic_id} </p>
+                            <p className="p-0 mb-1 mt-1"> {this.getEpicTitle()} </p>
                         </div>
 
                         <div className="mt-3">
@@ -239,7 +262,15 @@ class StoryDetailsModal extends Component {
                         userImages.push(
                             <div>
                                 <a id={users[i].username} className="story-profile-photo-tooltip" style={{ marginLeft: marginLeft + 'px' }}>
-                                    <img id="profile_photo" src={users[i].profile_photo} alt="profile" className="story-profile-photo" />
+                                    {users[i].profile_photo === null ? (
+                                        <img
+                                            src={SHORT_URL + 'media/profile_images/default.jpg'}
+                                            alt="user profile"
+                                            className="small-team-member-photo"
+                                        />
+                                    ) : (
+                                        <img src={users[i].profile_photo} alt="profile" className="small-team-member-photo" />
+                                    )}
                                 </a>
                                 <Tooltip
                                     anchorSelect={'#' + users[i].username}

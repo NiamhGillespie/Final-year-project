@@ -171,10 +171,10 @@
     font-size: 6vh;
     height: 10vh !important;
     margin-top: 3vh;
-    padding-top: 2vh;
+    padding: 2vh;
     margin-bottom: auto;
     margin-left: 22vh !important;
-    width: 70%;
+    
 }
 
 .team-subtitle {

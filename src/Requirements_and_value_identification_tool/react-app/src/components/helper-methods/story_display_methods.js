@@ -4,22 +4,22 @@ export function displayPriority(priority) {
     var priorityColour;
 
     if (priority === 'LOW') {
-        priorityText = 'low';
-        priorityIcon = '!';
+        priorityText = 'LOW';
+        priorityIcon = '';
         priorityColour = 'green';
     } else if (priority === 'MEDIUM') {
-        priorityText = 'medium';
-        priorityIcon = '!!';
+        priorityText = 'MEDIUM';
+        priorityIcon = '';
         priorityColour = 'orange';
     } else {
-        priorityText = 'high';
+        priorityText = 'HIGH';
         priorityIcon = '!!!';
         priorityColour = 'red';
     }
 
     return (
         <div>
-            <p style={{ color: priorityColour }}>
+            <p style={{ color: priorityColour }} className="priority-text">
                 {priorityText} {priorityIcon}
             </p>
         </div>
