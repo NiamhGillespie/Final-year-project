@@ -221,18 +221,6 @@ export class AddUser extends Component {
                         </FormGroup>
 
                         <FormGroup>
-                            <Label for="profile_photo">Profile Photo:</Label>
-                            <input type="file" name="profile_photo" onChange={this.handleFileChange} />
-                        </FormGroup>
-
-                        <div className="w-100 d-block">
-                            <p className="w-20  h-30 float-start team-profile-photo-title">Profile Photo Preview:</p>
-                            <div className="w-75 float-start">
-                                <img src={this.state.preview_photo} alt="profile profile" className="team-profile-photo" />
-                            </div>
-                        </div>
-
-                        <FormGroup>
                             <Label for="first_name" className="spacing">
                                 First Name:
                             </Label>
@@ -273,6 +261,18 @@ export class AddUser extends Component {
                                 {this.state.validate.surname === 'letters_only' && <p> Last name can contain letters only </p>}
                             </FormFeedback>
                         </FormGroup>
+
+                        <FormGroup>
+                            <Label for="profile_photo">Profile Photo:</Label>
+                            <input type="file" name="profile_photo" onChange={this.handleFileChange} />
+                        </FormGroup>
+
+                        <div className="w-100 d-block">
+                            <p className="w-20  h-30 float-start team-profile-photo-title">Profile Photo Preview:</p>
+                            <div className="w-75 float-start">
+                                <img src={this.state.preview_photo} alt="profile profile" className="team-profile-photo" />
+                            </div>
+                        </div>
 
                     </div>
 
