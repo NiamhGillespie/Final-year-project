@@ -445,14 +445,6 @@ def UserDetails(request, user_id):
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        user_serializer = UserSerializer(user, data=request.data,context={'request': request})
-        if user_serializer.is_valid():      
-            user_serializer.save()
-            print(user_serializer.data['username'])
-            user_details = User.objects.get(username = str(user_serializer.data['username']))
-            print(user_details)
-        #     user_details.delete()
-
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
