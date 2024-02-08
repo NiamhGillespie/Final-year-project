@@ -209,6 +209,17 @@ export class AddUser extends Component {
                 <h3 className="add-team-title"> Add User </h3>
                 <div className="add-team-box">
                     <div className="left-add-team-box">
+
+                    <FormGroup>
+                            <Label for="role">Role:</Label>
+                            <select value={this.state.role} onChange={this.onChange} name="role" className="ms-2 role-dropdown">
+                                <option value="admin">Admin</option>
+                                <option value="team_lead">Team Lead</option>
+                                <option value="team_member">Team Member</option>
+                                <option value="stakeholder">Stakeholder?</option>
+                            </select>
+                        </FormGroup>
+
                         <FormGroup>
                             <Label for="profile_photo">Profile Photo:</Label>
                             <input type="file" name="profile_photo" onChange={this.handleFileChange} />
@@ -263,15 +274,6 @@ export class AddUser extends Component {
                             </FormFeedback>
                         </FormGroup>
 
-                        <FormGroup>
-                            <Label for="role">Role:</Label>
-                            <select value={this.state.role} onChange={this.onChange} name="role" className="ms-2 role-dropdown">
-                                <option value="admin">Admin</option>
-                                <option value="team_lead">Team Lead</option>
-                                <option value="team_member">Team Member</option>
-                                <option value="stakeholder">Stakeholder?</option>
-                            </select>
-                        </FormGroup>
                     </div>
 
                     <div className="right-add-team-box">

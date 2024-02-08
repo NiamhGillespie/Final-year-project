@@ -109,7 +109,7 @@ export class UserDashboard extends Component {
                         </div>
 
                         <Button className="btn-primary float-end me-5 mt-0" onClick={this.updateForm}>
-                            Update Details
+                            Edit Details
                         </Button>
                     </div>
 
