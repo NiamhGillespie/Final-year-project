@@ -53,7 +53,7 @@ export class DisplayTeamUsers extends Component {
             returnList.push(
                 <div className="small-team-member-card">
                     {leads[i].profile_photo === null ? (
-                        <img src={SHORT_URL + 'media/profile_images/default.jpg'} alt="user profile" className="small-team-member-photo" />
+                        <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="small-team-member-photo" />
                     ) : (
                         <img src={leads[i].profile_photo} alt="hey" className="small-team-member-photo" />
                     )}
@@ -67,8 +67,6 @@ export class DisplayTeamUsers extends Component {
                             {leads[i].first_name} {leads[i].surname} - Team Lead
                         </Link>
                     )}
-
-                    {leads[i].username}
                 </div>
             );
         }
@@ -83,22 +81,20 @@ export class DisplayTeamUsers extends Component {
             returnList.push(
                 <div className="small-team-member-card">
                     {members[i].profile_photo === null ? (
-                        <img src={SHORT_URL + '/media/profile_images/default.jpg'} alt="user profile" className="small-team-member-photo" />
+                        <img src={SHORT_URL + "/media/profile_images/default.jpg"} alt="user profile" className="small-team-member-photo" />
                     ) : (
                         <img src={members[i].profile_photo} alt="hey" className="small-team-member-photo" />
                     )}
-
+                    
                     {this.props.links === false ? (
                         <div className="small-card-info">
                             {members[i].first_name} {members[i].surname} - Team Member
                         </div>
                     ) : (
                         <Link to="/username/details" state={{ user: members[i] }} className="link small-card-info">
-                            {members[i].first_name} {members[i].surname} - {members[i].username} - Team Member
+                            {members[i].first_name} {members[i].surname} - Team Member
                         </Link>
                     )}
-
-<p className='mt-0 pt-0'><small> {members[i].username} </small></p>
                 </div>
             );
         }
