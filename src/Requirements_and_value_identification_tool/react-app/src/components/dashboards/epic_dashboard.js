@@ -317,7 +317,7 @@ export class EpicsDashboard extends Component {
                             onClick={() => this.changeFilter('uncomplete_only')}
                             className={this.state.filter === 'uncomplete_only' ? 'active-choice-button' : 'inactive-choice-button'}
                             style={{ borderRight: '2px solid white' }}>
-                            Display uncomplete only
+                            Display incomplete only
                         </p>
                         <p
                             onClick={() => this.changeFilter('complete_only')}
