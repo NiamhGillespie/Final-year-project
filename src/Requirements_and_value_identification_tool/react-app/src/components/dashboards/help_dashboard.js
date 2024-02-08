@@ -120,8 +120,8 @@ export class HelpDashboard extends Component {
                         <p className="mt-0">
                             The tracking dashboard is a customisable kanban board, designed to allow users to visualise workflow. Users can define
                             tracking columns with optional WIP (Work In Progress) limits, add stories to these columns and move these stories both
-                            horizontally and vertically through the columns. Time based filters also allow users to filter the stories based on they
-                            last changed tracking column.
+                            horizontally and vertically through the columns. Time based filters also allow users to filter the stories based on the
+                            last time the story was edited.
                         </p>
 
                         <p className="text-decoration-underline mb-0 pb-0"> Epics dashboard </p>
@@ -149,7 +149,7 @@ export class HelpDashboard extends Component {
                     <div class="home-blurb" style={getCollapsed(this.state.collapsible_four)}>
                         <p>This feature set is coming soon. </p>
                         <p>
-                            In the future a stakeholder will provided with seamless access to multiple team's dashboards with custom metrics reports
+                            In the future a stakeholder will be provided with seamless access to multiple team's dashboards with custom metrics reports
                             and team productivity views.
                         </p>
                     </div>

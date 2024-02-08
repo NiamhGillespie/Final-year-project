@@ -410,6 +410,8 @@ def UserDetails(request, user_id):
 
     if request.method == 'PUT':
         user_serializer = UserSerializer(user, data=request.data,context={'request': request})
+        old_user_serializer = UserSerializer(user)
+        old_team_members = old_user_serializer.data['teams']
         if user_serializer.is_valid():      
             user_serializer.save()
 
@@ -426,6 +428,16 @@ def UserDetails(request, user_id):
                     team.team_members.add(user_serializer.data['id'])
                     print(team)
 
+            for team_id in old_team_members:
+                if (user_serializer.data['role'] == 'team_lead'):
+                    if team_id not in user_serializer.data['teams']:
+                        team = Team.objects.get(id = int(team_id))
+                        team.team_leads.remove(user_serializer.data['id'])
+                else:
+                    if team_id not in user_serializer.data['teams']:
+                        team = Team.objects.get(id = int(team_id))
+                        team.team_members.remove(user_serializer.data['id'])
+
             userToken.save()
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
         
@@ -433,6 +445,14 @@ def UserDetails(request, user_id):
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
+        user_serializer = UserSerializer(user, data=request.data,context={'request': request})
+        if user_serializer.is_valid():      
+            user_serializer.save()
+            print(user_serializer.data['username'])
+            user_details = User.objects.get(username = str(user_serializer.data['username']))
+            print(user_details)
+        #     user_details.delete()
+
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -483,13 +503,26 @@ def TeamDetails(request, team_id):
 
     if request.method == 'PUT':
         team_serializer = TeamSerializer(team, data=request.data,context={'request': request})
-        
+        old_team_serializer = TeamSerializer(team)
+        old_team_leads = old_team_serializer.data['team_leads']
+        old_team_members = old_team_serializer.data['team_members']
         if team_serializer.is_valid():   
             team_serializer.save()
-               
+
             for lead_id in team_serializer.data['team_leads']:
                 lead = UserProfile.objects.get(id = int(lead_id))
                 lead.teams.add(team_serializer.data['id'])
+
+            for lead_id in old_team_leads:
+                if lead_id not in team_serializer.data['team_leads']:
+                    lead = UserProfile.objects.get(id = int(lead_id))
+                    lead.teams.remove(team_serializer.data['id'])
+
+            for member_id in old_team_members:
+                if member_id not in team_serializer.data['team_members']:
+                    member = UserProfile.objects.get(id = int(member_id))
+                    member.teams.remove(team_serializer.data['id'])
+                
 
             for member_id in team_serializer.data['team_members']:
                 member = UserProfile.objects.get(id = int(member_id))
@@ -527,7 +560,7 @@ class Logout(APIView):
 @api_view(['GET'])
 def GetAllUsernames(request):
 
-    users = UserProfile.objects
+    users = User.objects
 
     if request.method == 'GET':
         return_users = []

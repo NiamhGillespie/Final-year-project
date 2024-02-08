@@ -12,7 +12,6 @@ export class SignUp extends Component {
     state = {
         organisation: {
             name: '',
-            logo: ''
         },
 
         admin: {
@@ -53,9 +52,6 @@ export class SignUp extends Component {
         }
     };
 
-    onChangeLogo(e) {
-        this.setState({ [e.target.name]: URL.createObjectURL(e.target.value) });
-    }
 
     async get_organisation() {
         var organisation = await axios.get(API_URL_ORGANISATIONS).then((response) => response.data);
@@ -228,10 +224,6 @@ export class SignUp extends Component {
                                     <p> An organisation name can't be longer than 50 characters </p>
                                 )}
                             </FormFeedback>
-                        </FormGroup>
-                        <FormGroup controlId="formFile">
-                            <Label for="logo">Logo:</Label>
-                            <Input type="file" name="logo" onChange={this.onChange} value={returnDefaultIfFieldEmpty(this.state.logo)} />
                         </FormGroup>
                         
                     </div>

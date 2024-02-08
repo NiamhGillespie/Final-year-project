@@ -87,13 +87,13 @@ export function NavigationBar() {
                                 <>
                                     <NavItem>
                                         <NavLink tag={Link} className="text-dark nav-item" to="admin/add-team" state={{ user: user }}>
-                                            <span>Add team </span>
+                                            <span>Add Team </span>
                                         </NavLink>
                                     </NavItem>
 
                                     <NavItem>
                                         <NavLink tag={Link} className="text-dark nav-item" to="admin/add-user" state={{ user: user }}>
-                                            <span> Add user </span>
+                                            <span> Add User </span>
                                         </NavLink>
                                     </NavItem>
 
