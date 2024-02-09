@@ -385,3 +385,6 @@
 ### 7 Feb 2024
 * *0.5 hours* Supervisor meeting with Peggy
 * *5.5 hours* Fixing css display issues on larger screen and conducting pilot user study - discovered small bug during this and updated some css to highlight what text opens modals more clearly. Also removed all logging messages from react app.
+
+### 8 Feb 2024
+* *6.5 hours* Conducted further pilot user studies. From this I recieved feedback about unclear design decisions and discovered a more few bugs I had not noticed during previous testing. Corrected these bugs and updated some other css sections to improve overall design. Also updated the description and order of some tasks in my survey from pilot study feedback. Also wrote up meeting notes.
