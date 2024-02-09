@@ -13,7 +13,7 @@ export function displayPriority(priority) {
         priorityColour = 'orange';
     } else {
         priorityText = 'HIGH';
-        priorityIcon = '!!!';
+        priorityIcon = '';
         priorityColour = 'red';
     }
 
