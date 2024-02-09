@@ -20,8 +20,28 @@ export class UserDashboard extends Component {
     updateForm = (e) => {
         if (this.state.not_updating === false) {
             this.setState({ not_updating: true });
+
+            e.preventDefault();
+
+            console.log(this.state);
+            let form_data = new FormData();
+            form_data.append('email', this.state.email);
+            form_data.append('password', this.state.password);
+            if (this.props.user.teams.length !== 0) {
+                this.props.user.teams.forEach((team) => {
+                    form_data.append('teams', team);
+                });
+            }
+
+            axios.put(API_URL_USER_DETAILS + this.props.user.id, form_data).then((response) => {
+                localStorage.setItem('user', JSON.stringify(response.data));
+                this.updateForm();
+                this.setState({ user: response.data });
+                alert("user updated")
+            });
         } else {
             this.setState({ not_updating: false });
+    
         }
     };
 
@@ -54,7 +74,7 @@ export class UserDashboard extends Component {
                 user.profile_photo = SHORT_URL + user.profile_photo;
             }
         }
-        
+
         return (
             <div>
                 <h3 className="add-team-title"> User Profile </h3>
@@ -62,7 +82,7 @@ export class UserDashboard extends Component {
                 <div className="teams-details-box">
                     <div className="user-details-section-one">
                         {user.profile_photo === SHORT_URL + 'null' || user.profile_photo === null ? (
-                            <img src={SHORT_URL + "media/profile_images/default.jpg"} alt="user profile" className="large-circular-photo" />
+                            <img src={SHORT_URL + 'media/profile_images/default.jpg'} alt="user profile" className="large-circular-photo" />
                         ) : (
                             <img src={user.profile_photo} alt="user profile" className="large-circular-photo" />
                         )}
@@ -77,9 +97,9 @@ export class UserDashboard extends Component {
                                 <u> User Details </u>
                             </p>
                             <Form onSubmit={this.updateUser}>
-                            <Button className="btn-primary float-end" disabled={this.state.not_updating}>
-                                Update
-                            </Button>
+                                {/* <Button className="btn-primary float-end" disabled={this.state.not_updating}>
+                                    Update
+                                </Button> */}
                                 <FormGroup>
                                     <Label for="email">Email:</Label>
                                     <Input
@@ -105,18 +125,17 @@ export class UserDashboard extends Component {
                                         }}
                                     />
                                 </FormGroup>
+                                <Button className="btn-primary float-end mt-5" onClick={this.updateForm}>
+                                    Edit Details
+                                </Button>
                             </Form>
                         </div>
-
-                        <Button className="btn-primary float-end me-5 mt-0" onClick={this.updateForm}>
-                            Edit Details
-                        </Button>
                     </div>
 
                     {user.role !== 'admin' ? (
                         <div className="user-details-section-two">
                             <p className="team-members-heading"> Teams </p>
-                            <DisplayUserTeams teams={user.teams} belongs_to={user.belongs_to} links={true} user={this.props.user}/>
+                            <DisplayUserTeams teams={user.teams} belongs_to={user.belongs_to} links={true} user={this.props.user} />
                         </div>
                     ) : (
                         <div className=""></div>
