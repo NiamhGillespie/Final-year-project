@@ -318,7 +318,7 @@ export class AddUser extends Component {
                         <FormGroup>
                             <Label for="password">Initial password:</Label>
                             <Input
-                                type="text"
+                                type="password"
                                 name="password"
                                 value={returnDefaultIfFieldEmpty(this.state.password)}
                                 onChange={(e) => {

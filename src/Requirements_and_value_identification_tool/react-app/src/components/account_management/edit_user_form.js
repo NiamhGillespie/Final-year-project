@@ -337,7 +337,7 @@ class EditUserForm extends Component {
                             <FormGroup>
                                 <Label for="password">Password:</Label>
                                 <Input
-                                    type="text"
+                                    type="password"
                                     name="password"
                                     value={returnDefaultIfFieldEmpty(this.state.password)}
                                     onChange={(e) => {
