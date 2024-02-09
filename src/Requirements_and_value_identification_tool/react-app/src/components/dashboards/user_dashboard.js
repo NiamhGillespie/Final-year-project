@@ -93,11 +93,12 @@ export class UserDashboard extends Component {
                         </p>
                         <p className="team-subtitle"> {user.role}</p>
 
-                        <div className="user-details-form-block">
+                        
+                            <Form onSubmit={this.updateUser}>
+                            <div className="user-details-form-block">
                             <p>
                                 <u> User Details </u>
                             </p>
-                            <Form onSubmit={this.updateUser}>
                                 {/* <Button className="btn-primary float-end" disabled={this.state.not_updating}>
                                     Update
                                 </Button> */}
@@ -126,11 +127,13 @@ export class UserDashboard extends Component {
                                         }}
                                     />
                                 </FormGroup>
-                                <Button className="btn-primary float-end user-details-btn" onClick={this.updateForm}>
+                                </div>
+
+                                <Button className="btn-primary float-end me-5" onClick={this.updateForm}>
                                     {this.state.not_updating ? 'Edit Details' : 'Update Details'}
                                 </Button>
                             </Form>
-                        </div>
+                       
                     </div>
 
                     {user.role !== 'admin' ? (

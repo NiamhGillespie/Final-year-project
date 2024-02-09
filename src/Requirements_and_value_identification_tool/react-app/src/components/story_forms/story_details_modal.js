@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Input, FormGroup } from 'reactstrap';
 import '../../css/basic.css';
 import axios from 'axios';
 import UpdateStoryForm from './edit_story_form';
@@ -149,28 +149,43 @@ class StoryDetailsModal extends Component {
                             <p className="details-box-header" style={{ backgroundColor: '#' + this.props.epic_colour }}>
                                 User story
                             </p>
-                            <p
-                                className="details-box-large"
-                                style={{
-                                    backgroundColor: '#' + this.props.epic_colour + '40',
-                                    scrollbarColor: '#' + this.props.epic_colour + '90  #' + this.props.epic_colour + '30'
-                                }}>
-                                {this.state.story.user_story}
-                            </p>
+
+                            <FormGroup>
+                                <Input
+                                    type="textarea"
+                                    rows={5}
+                                    name="user_story"
+                                    onTouched={this.validateTitle}
+                                    value={this.state.story.user_story}
+                                    disabled
+                                    className="details-box-large"
+                                    style={{
+                                        backgroundColor: '#' + this.props.epic_colour + '40',
+                                        scrollbarColor: '#' + this.props.epic_colour + '90  #' + this.props.epic_colour + '30'
+                                    }}
+                                />
+                            </FormGroup>
                         </div>
 
-                        <div className="story-details-dod-box h-100 mt-0 mb-0">
+                        <div className="story-details-dod-box h-100 mb-0">
                             <p className="details-box-header" style={{ backgroundColor: '#' + this.props.epic_colour }}>
                                 Definition of done
                             </p>
-                            <p
-                                className="details-box-small"
-                                style={{
-                                    backgroundColor: '#' + this.props.epic_colour + '40',
-                                    scrollbarColor: '#' + this.props.epic_colour + '90  #' + this.props.epic_colour + '30'
-                                }}>
-                                {this.state.story.definition_of_done}
-                            </p>
+
+                            <FormGroup>
+                                <Input
+                                    type="textarea"
+                                    rows={5}
+                                    name="dod"
+                                    value={this.state.story.definition_of_done}
+                                    disabled
+                                    className="details-box-small"
+                                    style={{
+                                        backgroundColor: '#' + this.props.epic_colour + '40',
+                                        scrollbarColor: '#' + this.props.epic_colour + '90  #' + this.props.epic_colour + '30'
+                                    }}
+                                />
+                            </FormGroup>
                         </div>
 
                         <div className="story-details-values-box h-100 mt-0 mb-0">
