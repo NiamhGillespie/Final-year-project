@@ -37,7 +37,7 @@ export class UserDashboard extends Component {
                 localStorage.setItem('user', JSON.stringify(response.data));
                 this.updateForm();
                 this.setState({ user: response.data });
-                alert("user updated")
+                this.setState({not_updating: true})
             });
         } else {
             this.setState({ not_updating: false });
@@ -64,6 +64,7 @@ export class UserDashboard extends Component {
             localStorage.setItem('user', JSON.stringify(response.data));
             this.updateForm();
             this.setState({ user: response.data });
+            this.setState({not_updating: true})
         });
     };
 
@@ -125,8 +126,8 @@ export class UserDashboard extends Component {
                                         }}
                                     />
                                 </FormGroup>
-                                <Button className="btn-primary float-end mt-5" onClick={this.updateForm}>
-                                    Update Details
+                                <Button className="btn-primary float-end user-details-btn" onClick={this.updateForm}>
+                                    {this.state.not_updating ? 'Edit Details' : 'Update Details'}
                                 </Button>
                             </Form>
                         </div>

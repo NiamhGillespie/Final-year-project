@@ -264,12 +264,17 @@
 .user-details-form-block {
     width: 50vw;
     border-radius: 10px;
-    height: 40vh;
+    min-height: 40vh;
     background-color: white;
     padding: 4vh;
     margin: 4vh;
     margin-top: 4vh !important;
     font-size: 3vh;
+}
+
+.user-details-btn {
+    margin-top: 7vh;
+    margin-right: 0px;
 }
 
 .role-dropdown {
