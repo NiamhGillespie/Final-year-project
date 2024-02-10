@@ -388,3 +388,6 @@
 
 ### 8 Feb 2024
 * *6.5 hours* Conducted further pilot user studies. From this I recieved feedback about unclear design decisions and discovered a more few bugs I had not noticed during previous testing. Corrected these bugs and updated some other css sections to improve overall design. Also updated the description and order of some tasks in my survey from pilot study feedback. Also wrote up meeting notes.
+
+### 9 Feb 2024
+* *4 hours* Updated some final areas of design and drafted up an email for my dad to distribute to his work collegues on my behalf. Will be sending out similar emails to other industry contacts on Monday morning.
