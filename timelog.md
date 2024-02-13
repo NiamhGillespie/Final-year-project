@@ -399,3 +399,5 @@
 
 ### 13 Feb 2024
 * *0.5 hours* Haven't received any responses from the user evaluation survey yet so fixed small lag where users could accidentally add objects 2 or 3 times.
+* *2.5 hours* Wrote introduction section for dissertation
+* *4.5 hours* Started react frontend testing - very steep learning curve. Began testing the add epic form and modal. Added the react testing to github actions for continous integration.
