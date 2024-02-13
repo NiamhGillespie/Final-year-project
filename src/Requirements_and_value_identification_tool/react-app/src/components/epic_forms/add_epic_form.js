@@ -45,9 +45,10 @@ class AddEpicForm extends Component {
         if (this.state.validate.title !== 'valid') {
             alert('The form is invalid, please try again');
         } else {
+            this.props.toggle();
             axios.post(API_URL_SHORT + this.props.team.id + '/epicsDashboard', this.state).then(() => {
                 this.props.resetState();
-                this.props.toggle();
+                
             });
         }
     };

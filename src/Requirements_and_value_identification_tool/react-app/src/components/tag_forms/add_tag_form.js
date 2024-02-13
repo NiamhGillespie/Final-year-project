@@ -36,9 +36,10 @@ class AddTagForm extends Component {
         if (this.state.validate.title !== 'valid' || this.state.validate.description !== 'valid') {
             alert('The form is invalid, please try again');
         } else {
+            this.props.toggle();
             axios.post(API_URL_SHORT + this.props.belongs_to + '/tags', this.state).then(() => {
                 this.props.resetState();
-                this.props.toggle();
+                
             });
         }
     };

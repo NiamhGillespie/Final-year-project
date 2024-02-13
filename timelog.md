@@ -391,3 +391,8 @@
 
 ### 9 Feb 2024
 * *4 hours* Updated some final areas of design and drafted up an email for my dad to distribute to his work collegues on my behalf. Will be sending out similar emails to other industry contacts on Monday morning.
+
+## Week 18
+
+### 12 Feb 2024
+* *2 hours* Recruiting more industry expert participants for the user evaluation survey.

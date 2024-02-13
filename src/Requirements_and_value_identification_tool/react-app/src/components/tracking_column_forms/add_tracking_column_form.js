@@ -42,9 +42,10 @@ class AddColumnForm extends Component {
         if (this.state.validate.WIP !== 'valid' || (this.state.validate.title !== 'valid' && this.state.validate.title !== 'protected_keyword')) {
             alert('The form is invalid, please try again');
         } else {
+            this.props.toggle();
             axios.post(API_URL_SHORT + this.state.team_id + '/tracking-columns', this.state).then(() => {
                 this.props.resetState();
-                this.props.toggle();
+                
             });
         }
     };
