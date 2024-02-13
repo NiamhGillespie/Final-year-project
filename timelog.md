@@ -396,3 +396,6 @@
 
 ### 12 Feb 2024
 * *2 hours* Recruiting more industry expert participants for the user evaluation survey.
+
+### 13 Feb 2024
+* *0.5 hours* Haven't received any responses from the user evaluation survey yet so fixed small lag where users could accidentally add objects 2 or 3 times.
