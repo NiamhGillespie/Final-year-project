@@ -26,7 +26,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-
+    - name: Intall Dependencies
+      run: |
+        cd ./src/Requirements_and_value_identification_tool/react-app
+        npm install
     - name: Build
       run: |
         cd ./src/Requirements_and_value_identification_tool/react-app
