@@ -26,6 +26,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: cd into correct folder 
+      run: |
+        cd ./src/Requirements_and_value_identification_tool/react-app
+    - run: npm install
     - run: npm ci
     - run: npm run build --if-present
+    
     - run: npm test
