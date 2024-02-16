@@ -281,7 +281,7 @@ class StoryDetailsModal extends Component {
                                         <img
                                             src={SHORT_URL + 'media/profile_images/default.jpg'}
                                             alt="user profile"
-                                            className="small-team-member-photo"
+                                            className="small-photo"
                                         />
                                     ) : (
                                         <img src={users[i].profile_photo} alt="profile" className="small-photo" />
