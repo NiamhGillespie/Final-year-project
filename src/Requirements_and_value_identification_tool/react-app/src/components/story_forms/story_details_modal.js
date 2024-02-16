@@ -284,7 +284,7 @@ class StoryDetailsModal extends Component {
                                             className="small-team-member-photo"
                                         />
                                     ) : (
-                                        <img src={users[i].profile_photo} alt="profile" className="small-team-member-photo" />
+                                        <img src={users[i].profile_photo} alt="profile" className="small-photo" />
                                     )}
                                 </a>
                                 <Tooltip
