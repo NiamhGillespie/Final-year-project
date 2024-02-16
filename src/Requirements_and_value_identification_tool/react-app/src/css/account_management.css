@@ -228,8 +228,8 @@
     border-radius: 100%;
     margin: 0.5vh;
     margin-right: 10px;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     background-color: var(--blue-strong);
     float: left;
 }
