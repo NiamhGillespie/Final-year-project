@@ -413,5 +413,8 @@
 ### 21 Feb 2024
 * *0.5 hours* Writing up meeting minute notes from last weeks meeting.
 
-### 21 Feb 2024
+### 22 Feb 2024
 * *2 hours* Researching competing tools and narrowing down which ones to talk about in background section of dissertation.
+
+### 23 Feb 2024
+* *6 hours* Sending out emails to recruit more survey participants, analysed current survey responses. Started bullet pointing background, requirements and design section of dissertation.
