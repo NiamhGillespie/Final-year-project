@@ -418,3 +418,8 @@
 
 ### 23 Feb 2024
 * *6 hours* Sending out emails to recruit more survey participants, analysed current survey responses. Started bullet pointing background, requirements and design section of dissertation.
+
+## Week 20
+
+### 21 Feb 2024
+* *5 hours* Reading requirements sections from exemplar dissertations, creating user scenarios and refining these. Wrote up majority of user stories - some still need refining. Used the MoSCoW method to organise the functional requirements of RViT. Finally wrote down a short list of the non functional requirements I could think of.
