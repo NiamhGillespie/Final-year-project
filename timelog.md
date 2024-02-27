@@ -427,3 +427,6 @@
 
 ### 25 Feb 2024
 * *4 hours* Finished writing non-functional requirements section and began working on design section. Also create a high level system architecture diagram.
+
+### 26 Feb 2024
+* *3.5 hours* More work on design section - researched differences between REST and SOAP APIs and more about system architecture.
