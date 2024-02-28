@@ -424,9 +424,11 @@
 ### 24 Feb 2024
 * *5 hours* Reading requirements sections from exemplar dissertations, creating user scenarios and refining these. Wrote up majority of user stories - some still need refining. Used the MoSCoW method to organise the functional requirements of RViT. Finally wrote down a short list of the non functional requirements I could think of.
 
-
 ### 25 Feb 2024
 * *4 hours* Finished writing non-functional requirements section and began working on design section. Also create a high level system architecture diagram.
 
 ### 26 Feb 2024
 * *3.5 hours* More work on design section - researched differences between REST and SOAP APIs and more about system architecture.
+
+### 27 and 28 Feb 2024
+* *7 hours* Finished first draft of design section. Also looked further into the three different agile project management tools I decided to talk about in the background section.  
