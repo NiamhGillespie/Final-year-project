@@ -432,3 +432,12 @@
 
 ### 27 and 28 Feb 2024
 * *7 hours* Finished first draft of design section. Also looked further into the three different agile project management tools I decided to talk about in the background section.  
+
+### 28 Feb 2024
+* *0.5 hours* Meeting with Peggy
+
+## Week 22
+
+### 3 March 2024
+* *0.5 hours* Wrote up meeting minute notes
+* *4 hours* Proof reading and making changes to requirements section of dissertation, also looked into tools to analyse performance and accessibility of my web application - decided to use Lighthouse for this as it covers both of these elements.
