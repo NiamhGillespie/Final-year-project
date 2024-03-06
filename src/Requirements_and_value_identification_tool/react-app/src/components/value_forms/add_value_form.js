@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import axios from 'axios';
 import { API_URL_SHORT, API_URL_TEAMVALUES } from '../../constants';
+import '../../css/basic.css';
 import { ColorPicker } from 'primereact/colorpicker';
 import { returnDefaultIfFieldEmpty } from '../helper-methods/form_helper_methods';
 
@@ -101,6 +102,7 @@ class AddValueForm extends Component {
                     <Label for="description">Value description:</Label>
                     <Input
                         type="text"
+                        title="description"
                         onChange={(e) => {
                             this.onDescriptionChange(e);
                             this.validateDescription(e);

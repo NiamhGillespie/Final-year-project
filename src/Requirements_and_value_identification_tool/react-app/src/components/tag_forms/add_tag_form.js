@@ -99,6 +99,7 @@ class AddTagForm extends Component {
                     <Label for="description">Tag description:</Label>
                     <Input
                         type="text"
+                        title="description"
                         onChange={(e) => {
                             this.onDescriptionChange(e);
                             this.validateDescription(e);

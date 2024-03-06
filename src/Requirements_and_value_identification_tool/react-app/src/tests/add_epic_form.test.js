@@ -85,9 +85,16 @@ test('Create epic should trigger an alert if the form is invalid', async () => {
 test('Create epic not should trigger an alert if the form is invalid', async () => {
     render(<AddEpicForm team={team} user={user} toggle={toggleModal} />);
 
-    userEvent.type(screen.getByTitle('title'), 'Test epic title');
+    userEvent.type(screen.getByTitle('title'), 'Test Epic Title');
 
     global.alert = jest.fn();
     fireEvent.click(screen.getByText('Create Epic'));
     expect(global.alert).toHaveBeenCalledTimes(0);
 });
+
+//removes could not parse stylesheet prime react error - JSDOM issue with PrimeReact colour picker component
+const jsDomCssError = "Error: Could not parse CSS stylesheet";
+console.error = (...params) => {
+  if (params.find((p) => p.toString().includes(jsDomCssError))) {
+  }
+};
