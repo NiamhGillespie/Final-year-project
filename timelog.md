@@ -472,3 +472,4 @@
 
 ### 15 March 2024
 * *0.5 hours* Wrote up meeting minute notes
+* *6 hours* Writing react tests
