@@ -29,4 +29,4 @@ jobs:
     - name: Run Tests
       run: |
         cd ./src/Requirements_and_value_identification_tool
-        tests failing python manage.py test
+        coverage run manage.py test web_app
