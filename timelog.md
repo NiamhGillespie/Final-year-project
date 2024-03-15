@@ -443,7 +443,32 @@
 * *4 hours* Proof reading and making changes to requirements section of dissertation, also looked into tools to analyse performance and accessibility of my web application - decided to use Lighthouse for this as it covers both of these elements.
 
 ### 3 March 2024
-* *2 hours* Started on proof reading and making changes to the introduction section. Felt this was lacking so brainstormed ideas of how to expand sections.
+* *2 hours* Started on proof reading and making changes to the introduction section. Felt this was lacking so brainstormed ideas of how to expand sections. Began coding evaluation responses.
 
 ### 5 and 6 March 2024
-* *12 hours* Finished revamping the introduction. Carried out the proofing and rewriting process on the design section and added in all relevant sources. Wrote a rought draft of the background section.
+* *13 hours* Finished revamping the introduction. Carried out the proofing and rewriting process on the design section and added in all relevant sources. Wrote a rought draft of the background section and worked on react testing.
+* *0.5 hours* Meeting with Peggy
+
+### 8 March 2024
+* *0.5 hours* Wrote up meeting minute notes
+
+## Week 23
+
+### 9 March 2024
+* *1 hours* Worked on React testing
+
+### 11 March 2024
+* *1.5 hours* Started on implementation and evaluation part of dissertation
+
+### 12 March 2024
+* *4 hours* Wrote more of implementation and evaluation sections
+
+### 13 March 2024
+* *1.5 hours* Wrote more of implementation and evaluation sections
+* *0.5 hours* Meeting with Peggy
+
+### 14 March 2024
+* *1.5 hours* Fixed Django unit tests
+
+### 15 March 2024
+* *0.5 hours* Wrote up meeting minute notes
