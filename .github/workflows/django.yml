@@ -30,3 +30,4 @@ jobs:
       run: |
         cd ./src/Requirements_and_value_identification_tool
         coverage run manage.py test web_app
+        coverage report 
