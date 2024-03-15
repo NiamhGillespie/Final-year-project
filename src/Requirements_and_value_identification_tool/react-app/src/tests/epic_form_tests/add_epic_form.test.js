@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/prefer-screen-queries */
-import AddEpicForm from '../components/epic_forms/add_epic_form.js';
+import AddEpicForm from '../../components/epic_forms/add_epic_form.js';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

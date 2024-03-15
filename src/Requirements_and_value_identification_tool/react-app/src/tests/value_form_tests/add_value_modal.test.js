@@ -2,7 +2,7 @@
 import { render, screen, fireEvent, waitFor  } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import AddEpicModal from '../components/epic_forms/add_epic_modal';
+import AddValueModal from '../../components/value_forms/add_value_modal';
 
 //mocked data:
 const team = { id: 1 };
@@ -20,18 +20,18 @@ const user = {
 const toggleModal = jest.fn();
 
 test('Loads modal button', async () => {
-    const { getByText } = render(<AddEpicModal team={team} user={user} toggle={toggleModal} />);
-    const column_exists = getByText('Add Epic');
+    const { getByText } = render(<AddValueModal team={team} user={user} toggle={toggleModal} />);
+    const column_exists = getByText('Add Value');
 
     expect(column_exists).toBeTruthy();
 });
 
 test('Loads modal', async () => {
-    const { getByText } = render(<AddEpicModal team={team} user={user} toggle={toggleModal} />);
+    const { getByText } = render(<AddValueModal team={team} user={user} toggle={toggleModal} />);
     jest.fn()
-    fireEvent.click(screen.getByText('Add Epic'));
+    fireEvent.click(screen.getByText('Add Value'));
 
-    const modal_submit_exists = getByText('Create Epic');
+    const modal_submit_exists = getByText('Create Value');
     expect(modal_submit_exists).toBeTruthy();
 });
 

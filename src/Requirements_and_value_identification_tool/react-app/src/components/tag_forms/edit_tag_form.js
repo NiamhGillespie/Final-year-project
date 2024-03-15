@@ -98,6 +98,7 @@ class EditTagForm extends Component {
                         <Label for="description">Tag description:</Label>
                         <Input
                             type="text"
+                            title="description"
                             onChange={(e) => {
                                 this.onDescriptionChange(e);
                                 this.validateDescription(e);
@@ -114,6 +115,7 @@ class EditTagForm extends Component {
                         value={this.state.colour}
                         onChange={(e) => this.setColour(e.value)}
                         inline
+                        title="colour_picker"
                     />
                     <br />
                     <p style={{ background: '#' + this.state.colour, color: 'white' }} className="d-inline-block float-right colour-example w-1 h-1">

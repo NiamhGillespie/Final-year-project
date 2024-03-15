@@ -2,7 +2,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import UpdateEpicForm from '../components/epic_forms/edit_epic_form.js';
+import UpdateEpicForm from '../../components/epic_forms/edit_epic_form.js';
 
 //mocked data:
 const team = { id: 1 };

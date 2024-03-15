@@ -80,6 +80,7 @@ class EditValueForm extends Component {
                     <Input
                         type="text"
                         name="title"
+                        title="title"
                         onChange={(e) => {
                             this.onTitleChange(e);
                             this.validateTitle(e);
@@ -99,6 +100,7 @@ class EditValueForm extends Component {
                     <Input
                         type="text"
                         name="description"
+                        title="description"
                         onChange={(e) => {
                             this.onDescriptionChange(e);
                             this.validateDescription(e);
@@ -117,6 +119,7 @@ class EditValueForm extends Component {
                     value={this.state.colour}
                     onChange={(e) => this.setColour(e.value)}
                     inline
+                    title="colour_picker"
                 />
                 <br />
                 <p style={{ background: '#' + this.state.colour, color: 'white' }} className="d-inline-block float-right colour-example w-1 h-1">

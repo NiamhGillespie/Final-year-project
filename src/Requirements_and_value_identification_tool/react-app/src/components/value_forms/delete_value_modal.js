@@ -42,7 +42,7 @@ class DeleteValueModal extends Component {
                     <ModalBody>Are you sure you want to permenantly delete this value?</ModalBody>
 
                     <ModalFooter>
-                        <Button type="button" className="btn-danger" onClick={this.deleteValue}>
+                        <Button type="button" className="btn-danger" title="delete_button" onClick={this.deleteValue}>
                             Delete Value
                         </Button>
                     </ModalFooter>

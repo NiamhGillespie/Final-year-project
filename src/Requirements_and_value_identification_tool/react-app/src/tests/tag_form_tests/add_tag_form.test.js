@@ -2,7 +2,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import AddTagForm from '../components/tag_forms/add_tag_form.js';
+import AddTagForm from '../../components/tag_forms/add_tag_form';
+
 
 //mocked data:
 const team = { id: 1 };

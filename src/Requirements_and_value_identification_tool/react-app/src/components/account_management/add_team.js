@@ -141,6 +141,7 @@ export class AddTeam extends Component {
                             <Input
                                 type="text"
                                 name="team_name"
+                                title="team_name"
                                 value={returnDefaultIfFieldEmpty(this.state.team_name)}
                                 onChange={(e) => {
                                     this.onChange(e);
@@ -157,7 +158,7 @@ export class AddTeam extends Component {
 
                         <FormGroup>
                             <Label for="team_photo">Team Photo:</Label>
-                            <input type="file" name="team_photo" onChange={this.handleFileChange} />
+                            <input type="file" name="team_photo"  title="team_photo" onChange={this.handleFileChange} />
                         </FormGroup>
 
                         <div className="w-100">
@@ -177,6 +178,7 @@ export class AddTeam extends Component {
                                 options={displayTeamLeads(this.state.team_leads_list)}
                                 onSelect={this.onLeadAddition}
                                 onRemove={this.onLeadDeletion}
+                                title="team_leads"
                                 name="team_leads"
                                 style={{
                                     chips: { background: 'green' },
@@ -201,6 +203,7 @@ export class AddTeam extends Component {
                                 }}
                                 placeholder="Add Team Members"
                                 displayValue="title"
+                                title="team_members"
                             />
                         </FormGroup>
                     </div>

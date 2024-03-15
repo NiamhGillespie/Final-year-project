@@ -5,7 +5,7 @@ import EditTagForm from './edit_tag_form';
 class EditTagModal extends Component {
     state = {
         modal: false
-    };
+    }; 
 
     toggleModal = () => {
         this.setState((previous) => ({

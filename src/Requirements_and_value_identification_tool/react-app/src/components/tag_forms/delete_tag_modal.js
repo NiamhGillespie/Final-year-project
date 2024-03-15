@@ -42,7 +42,7 @@ class DeleteTagModal extends Component {
                     <ModalBody>Are you sure you want to permenantly delete this tag?</ModalBody>
 
                     <ModalFooter>
-                        <Button type="button" className="btn-danger" onClick={this.deleteTag}>
+                        <Button type="button" className="btn-danger" title="delete_button" onClick={this.deleteTag}>
                             Delete Tag
                         </Button>
                     </ModalFooter>

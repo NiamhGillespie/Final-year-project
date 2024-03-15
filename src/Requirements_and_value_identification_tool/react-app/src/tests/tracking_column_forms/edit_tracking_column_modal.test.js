@@ -2,7 +2,7 @@
 import { render, screen, fireEvent, waitFor  } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import EditColumnModal from '../components/tracking_column_forms/edit_tracking_column_modal.js';
+import EditColumnModal from '../../components/tracking_column_forms/edit_tracking_column_modal';
 
 //mocked data:
 const team = { id: 1 };
