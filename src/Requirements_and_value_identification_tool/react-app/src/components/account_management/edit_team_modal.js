@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import '../../css/basic.css';
-import EditUserForm from './edit_user_form';
 import EditTeamForm from './edit_team_form';
 
 class EditTeamModal extends Component {

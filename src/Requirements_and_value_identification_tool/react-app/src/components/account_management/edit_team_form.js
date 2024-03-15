@@ -13,7 +13,6 @@ import {
 } from '../helper-methods/form_helper_methods';
 import Multiselect from 'multiselect-react-dropdown';
 
-//need to add error handeling to this :)
 class EditTeamForm extends Component {
     state = {
         team_name: this.props.team.team_name,
@@ -158,6 +157,7 @@ class EditTeamForm extends Component {
                                 <Input
                                     type="text"
                                     name="team_name"
+                                    title="team_name"
                                     value={returnDefaultIfFieldEmpty(this.state.team_name)}
                                     onChange={(e) => {
                                         this.onChange(e);
@@ -174,11 +174,11 @@ class EditTeamForm extends Component {
 
                             <FormGroup>
                                 <Label for="team_photo">Team Photo:</Label>
-                                <input type="file" name="team_photo" onChange={this.handleFileChange} />
+                                <input type="file" name="team_photo" title="team_photo" onChange={this.handleFileChange} />
                             </FormGroup>
 
                             <div className="w-100 photo-section">
-                                <p className="float-start edit-title team-profile-photo-title">Team Photo Preview:</p>
+                                <p className="float-start edit-title team-profile-photo-title" title="team_pp_photo">Team Photo Preview:</p>
                                 <div className="edit-photo float-start">
                                     {this.state.preview_photo === SHORT_URL + 'null' || this.state.preview_photo === null ? (
                                         <img
@@ -199,6 +199,7 @@ class EditTeamForm extends Component {
                                     onSelect={this.onLeadAddition}
                                     onRemove={this.onLeadDeletion}
                                     name="team_leads"
+                                    title="team_leads"
                                     style={{
                                         chips: { background: 'green' },
                                         searchBox: { border: 'none', 'border-bottom': '1px solid blue', borderRadius: '0px' }
@@ -218,6 +219,7 @@ class EditTeamForm extends Component {
                                     onSelect={this.onMemberAddition}
                                     onRemove={this.onMemberDeletion}
                                     name="team_members"
+                                    title="team_members"
                                     style={{
                                         chips: { background: 'green' },
                                         searchBox: { border: 'none', 'border-bottom': '1px solid blue', borderRadius: '0px' }
@@ -230,7 +232,7 @@ class EditTeamForm extends Component {
                         </div>
 
                         <div className="float-start">
-                            <Button className="btn-delete login-button mt-3 float-start" onClick={() => this.deleteTeam()}>
+                            <Button className="btn-delete login-button mt-3 float-start" title="delete_button" onClick={() => this.deleteTeam()}>
                                 Delete Team
                             </Button>
                         </div>

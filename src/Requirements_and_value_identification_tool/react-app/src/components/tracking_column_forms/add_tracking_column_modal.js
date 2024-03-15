@@ -5,7 +5,7 @@ import AddColumnForm from './add_tracking_column_form';
 class AddColumnModal extends Component {
     state = {
         modal: false
-    };
+    }; 
 
     toggleModal = () => {
         this.setState((previous) => ({

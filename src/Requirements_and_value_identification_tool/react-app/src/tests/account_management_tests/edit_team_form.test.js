@@ -2,10 +2,19 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import AddTeam from '../../components/account_management/add_team.js';
+import EditTeamForm from '../../components/account_management/edit_team_form.js';
 
 //mocked data:
-const team = { id: 34 };
+const team = {
+    "id": 31,
+    "belongs_to": 24,
+    "team_name": "The A Team",
+    "team_photo": "https://niamhgillespie.pythonanywhere.com/media/team_images/istockphoto-153703469-1024x1024.jpg",
+    "team_leads": [],
+    "team_members": [
+        71
+    ]
+};
 const user = {
     id: 1,
     username: 'NiamhG',
@@ -20,8 +29,8 @@ const user = {
 const toggleModal = jest.fn();
 
 test('Loads form fields properly', async () => {
-    const { getByText } = render(<AddTeam user={user} toggle={toggleModal} />);
-    const title_exist = getByText('Add Team');
+    const { getByText } = render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
+    const title_exist = getByText('Update Team');
     const team_name_exist = getByText('Team Name:');
     const team_photo_exists = getByText('Team Photo:');
     const team_pp_exists = getByText('Team Photo Preview:');
@@ -37,14 +46,16 @@ test('Loads form fields properly', async () => {
 });
 
 test('Team name on change works', async () => {
-    render(<AddTeam user={user} toggle={toggleModal} />);
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
+
+    userEvent.clear(screen.getByTitle('team_name'));
     userEvent.type(screen.getByTitle('team_name'), 'Team 1');
 
     expect(screen.getByTitle('team_name')).toHaveValue('Team 1');
 });
 
 test('Title validation works for too short titles', async () => {
-    render(<AddTeam user={user} toggle={toggleModal} />);
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
 
     userEvent.type(screen.getByTitle('team_name'), 'a');
     userEvent.clear(screen.getByTitle('team_name'));
@@ -53,7 +64,7 @@ test('Title validation works for too short titles', async () => {
 });
 
 test('Title validation works for too long titles', async () => {
-    render(<AddTeam user={user} toggle={toggleModal} />);
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
 
     userEvent.type(
         screen.getByTitle('team_name'),
@@ -64,7 +75,7 @@ test('Title validation works for too long titles', async () => {
 });
 
 test('Title validation works for valid titles', async () => {
-    render(<AddTeam user={user} toggle={toggleModal} />);
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
 
     userEvent.type(screen.getByTitle('team_name'), 'Valid team name');
     expect(screen.queryByText('Please enter a team name')).not.toBeInTheDocument();
@@ -72,20 +83,20 @@ test('Title validation works for valid titles', async () => {
 });
 
 test('Add team lead works as expected', async () => {
-    render(<AddTeam user={user} toggle={toggleModal} />);
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
 
     expect(screen.getByPlaceholderText('Add Team Leads')).toHaveValue('');
 });
 
 
 test('Add team member works as expected', async () => {
-    render(<AddTeam user={user} toggle={toggleModal} />);
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
 
     expect(screen.getByPlaceholderText('Add Team Members')).toHaveValue('');
 });
 
 test('Add profile photo works as expected', async () => {
-    render(<AddTeam user={user} toggle={toggleModal} />);
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
     const testFile = new File(['hello'], 'hello.png', {type: 'image/png'})
 
     global.URL.createObjectURL = jest.fn();
@@ -96,26 +107,29 @@ test('Add profile photo works as expected', async () => {
 });
 
 test('Create team should trigger an alert if the form is invalid', async () => {
-    render(<AddTeam user={user} toggle={toggleModal} />);
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
+
+    userEvent.clear(screen.getByTitle('team_name'));
 
     global.alert = jest.fn();
-    fireEvent.click(screen.getByText('Create Team'));
+    fireEvent.click(screen.getByText('Update Team'));
     expect(global.alert).toHaveBeenCalledTimes(1);
 });
 
 test('Create epic not should trigger an alert if the form is invalid', async () => {
-    render(<AddTeam user={user} toggle={toggleModal} />);
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
 
     userEvent.type(screen.getByTitle('team_name'), 'Team 1');
 
     global.alert = jest.fn();
-    fireEvent.click(screen.getByText('Create Team'));
+    fireEvent.click(screen.getByText('Update Team'));
     expect(global.alert).toHaveBeenCalledTimes(0);
 });
 
-//removes could not parse stylesheet prime react error - JSDOM issue with PrimeReact colour picker component
-const jsDomCssError = "Error: Could not parse CSS stylesheet";
-console.error = (...params) => {
-  if (params.find((p) => p.toString().includes(jsDomCssError))) {
-  }
-};
+test('Loads delete modal', async () => {
+    render(<EditTeamForm user={user} team={team} toggle={toggleModal} />);
+
+    var spyOnWindow = jest.spyOn(window, 'confirm');
+    fireEvent.click(screen.getByTitle('delete_button'));
+    expect(spyOnWindow).toHaveBeenCalledTimes(1);
+});

@@ -9,7 +9,7 @@ import { API_URL_SHORT, API_URL_TEAMS, API_URL_USERS } from '../../constants';
 
 export class AddUser extends Component {
     state = {
-        username: '',
+        username: '', 
         first_name: '',
         surname: '',
         role: 'admin',
@@ -212,7 +212,7 @@ export class AddUser extends Component {
 
                     <FormGroup>
                             <Label for="role">Role:</Label>
-                            <select value={this.state.role} onChange={this.onChange} name="role" className="ms-2 role-dropdown">
+                            <select value={this.state.role} onChange={this.onChange} name="role" className="ms-2 role-dropdown" title="role">
                                 <option value="admin">Admin</option>
                                 <option value="team_lead">Team Lead</option>
                                 <option value="team_member">Team Member</option>
@@ -227,6 +227,7 @@ export class AddUser extends Component {
                             <Input
                                 type="text"
                                 name="first_name"
+                                title="first_name"
                                 value={returnDefaultIfFieldEmpty(this.state.first_name)}
                                 onChange={(e) => {
                                     this.onChange(e);
@@ -247,6 +248,7 @@ export class AddUser extends Component {
                             <Input
                                 type="text"
                                 name="surname"
+                                title="surname"
                                 value={returnDefaultIfFieldEmpty(this.state.surname)}
                                 onChange={(e) => {
                                     this.onChange(e);
@@ -264,7 +266,7 @@ export class AddUser extends Component {
 
                         <FormGroup>
                             <Label for="profile_photo">Profile Photo:</Label>
-                            <input type="file" name="profile_photo" onChange={this.handleFileChange} />
+                            <input type="file" name="profile_photo" title="profile_photo" onChange={this.handleFileChange} />
                         </FormGroup>
 
                         <div className="w-100 d-block">
@@ -282,6 +284,7 @@ export class AddUser extends Component {
                             <Input
                                 type="text"
                                 name="username"
+                                title="username"
                                 onChange={(e) => {
                                     this.onChange(e);
                                     this.validateUsername(e);
@@ -304,6 +307,7 @@ export class AddUser extends Component {
                             <Input
                                 type="text"
                                 name="email"
+                                title="email"
                                 value={returnDefaultIfFieldEmpty(this.state.email)}
                                 onChange={(e) => {
                                     this.onChange(e);
@@ -320,6 +324,7 @@ export class AddUser extends Component {
                             <Input
                                 type="password"
                                 name="password"
+                                title="password"
                                 value={returnDefaultIfFieldEmpty(this.state.password)}
                                 onChange={(e) => {
                                     this.onChange(e);
@@ -343,6 +348,7 @@ export class AddUser extends Component {
                                     options={displayTeams(this.state.list_of_teams)}
                                     onSelect={this.onTeamAddition}
                                     onRemove={this.onTeamDeletion}
+                                    title="teams"
                                     name="teams"
                                     style={{
                                         chips: { background: 'light blue' },

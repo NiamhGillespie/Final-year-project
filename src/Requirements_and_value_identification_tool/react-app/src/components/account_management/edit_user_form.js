@@ -226,7 +226,7 @@ class EditUserForm extends Component {
                         <div className="left-add-team-box">
                             <FormGroup>
                                 <Label for="profile_photo">Profile Photo:</Label>
-                                <input type="file" name="profile_photo" onChange={this.handleFileChange} />
+                                <input type="file" name="profile_photo " title="profile_photo" onChange={this.handleFileChange} />
                             </FormGroup>
 
                             <div className="w-100 photo-section">
@@ -249,6 +249,7 @@ class EditUserForm extends Component {
                                 <Input
                                     type="text"
                                     name="first_name"
+                                    title="first_name"
                                     value={returnDefaultIfFieldEmpty(this.state.first_name)}
                                     onChange={(e) => {
                                         this.onChange(e);
@@ -269,6 +270,7 @@ class EditUserForm extends Component {
                                 <Input
                                     type="text"
                                     name="surname"
+                                    title="surname"
                                     value={returnDefaultIfFieldEmpty(this.state.surname)}
                                     onChange={(e) => {
                                         this.onChange(e);
@@ -286,7 +288,7 @@ class EditUserForm extends Component {
 
                             <FormGroup>
                                 <Label for="role">Role:</Label>
-                                <select value={this.state.role} onChange={this.onChange} name="role" className="ms-2 role-dropdown-disabled" disabled>
+                                <select value={this.state.role} onChange={this.onChange} name="role" title="role" className="ms-2 role-dropdown-disabled" disabled>
                                     <option value="admin">Admin</option>
                                     <option value="team_lead">Team Lead</option>
                                     <option value="team_member">Team Member</option>
@@ -301,6 +303,7 @@ class EditUserForm extends Component {
                                 <Input
                                     type="text"
                                     name="username"
+                                    title="username"
                                     onChange={(e) => {
                                         this.onChange(e);
                                         this.validateUsername(e);
@@ -323,6 +326,7 @@ class EditUserForm extends Component {
                                 <Input
                                     type="text"
                                     name="email"
+                                    title="email"
                                     value={returnDefaultIfFieldEmpty(this.state.email)}
                                     onChange={(e) => {
                                         this.onChange(e);
@@ -339,6 +343,7 @@ class EditUserForm extends Component {
                                 <Input
                                     type="password"
                                     name="password"
+                                    title="password"
                                     value={returnDefaultIfFieldEmpty(this.state.password)}
                                     onChange={(e) => {
                                         this.onChange(e);
@@ -362,6 +367,7 @@ class EditUserForm extends Component {
                                         options={displayTeams(this.state.list_of_teams)}
                                         onSelect={this.onTeamAddition}
                                         onRemove={this.onTeamDeletion}
+                                        title="teams"
                                         name="teams"
                                         style={{
                                             chips: { background: 'light blue' },
@@ -378,7 +384,7 @@ class EditUserForm extends Component {
                         </div>
 
                         <div className="float-start">
-                            <Button className="btn-delete login-button mt-3 float-start" onClick={() => this.deleteUser()}>
+                            <Button className="btn-delete login-button mt-3 float-start" title="delete_button" onClick={() => this.deleteUser()}>
                                 Delete User
                             </Button>
                         </div>

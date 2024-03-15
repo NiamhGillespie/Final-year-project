@@ -2,7 +2,7 @@
 import { render, screen, fireEvent, waitFor  } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import EditColumnModal from '../../components/tracking_column_forms/edit_tracking_column_modal';
+import AddColumnModal from '../../components/tracking_column_forms/add_tracking_column_modal';
 
 //mocked data:
 const team = { id: 1 };
@@ -33,20 +33,20 @@ const column={
 const toggleModal = jest.fn();
 
 test('Loads modal button', async () => {
-    const { getByText } = render(<EditColumnModal team={team} user={user} non_completed_stories={non_completed_stories}
+    const { getByText } = render(<AddColumnModal team={team} user={user} non_completed_stories={non_completed_stories}
         epics={epics} column={column} toggle={toggleModal} />);
-    const column_exists = getByText('Backlog');
+    const column_exists = getByText('Add Column');
 
     expect(column_exists).toBeTruthy();
 });
 
 test('Loads modal', async () => {
-    const { getByText } = render(<EditColumnModal team={team} user={user} non_completed_stories={non_completed_stories}
+    const { getByText } = render(<AddColumnModal team={team} user={user} non_completed_stories={non_completed_stories}
         epics={epics} column={column} toggle={toggleModal} />);
     jest.fn()
-    fireEvent.click(screen.getByText('Backlog'));
+    fireEvent.click(screen.getByText('Add Column'));
 
-    const modal_title_exists = getByText('Edit Tracking Column');
+    const modal_title_exists = getByText('Add Tracking Column');
     expect(modal_title_exists).toBeTruthy();
 });
 

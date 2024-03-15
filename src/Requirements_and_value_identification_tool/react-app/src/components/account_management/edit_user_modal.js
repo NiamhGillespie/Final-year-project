@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import '../../css/basic.css';
-import EditUserForm from './edit_user_form';
+import EditUserForm from './edit_user_form'; 
 
 class EditUserModal extends Component {
     state = {
