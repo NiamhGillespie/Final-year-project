@@ -234,6 +234,7 @@ class UpdateEpicForm extends Component {
                                     Epic colour:
                                 </p>
                                 <ColorPicker
+                                    title="colour_picker"
                                     className="colour-picker d-inline h-100 w-100"
                                     value={background_colour}
                                     onChange={(e) => this.setColour(e.value)}

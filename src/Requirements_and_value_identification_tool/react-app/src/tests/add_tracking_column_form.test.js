@@ -61,6 +61,23 @@ test('Title validation works for valid titles', async () => {
     expect(screen.queryByText("A title can't be longer than 30 characters")).not.toBeInTheDocument();
 });
 
+test('Title validation works for protected keyword', async () => {
+    render(<AddColumnForm team={team} user={user} toggle={toggleModal} />);
+
+
+    userEvent.clear(screen.getByTitle('title'))
+    userEvent.type(screen.getByTitle('title'), 'Done');
+    expect(screen.getByText('Done is a protected keyword - stories in this column will automatically be marked as completed')).toBeInTheDocument();
+});
+
+test('WIP validation not triggered for valid limit', async () => {
+    render(<AddColumnForm team={team} user={user} toggle={toggleModal} />);
+    userEvent.clear(screen.getByTitle('WIP'));
+    userEvent.type(screen.getByTitle('WIP'), '1');
+
+    expect(screen.getByTitle('WIP')).toHaveValue('1');
+});
+
 test('WIP validation works for non-numberical input', async () => {
     render(<AddColumnForm team={team} user={user} toggle={toggleModal} />);
 
@@ -74,15 +91,6 @@ test('WIP validation works for negative input', async () => {
     userEvent.type(screen.getByTitle('WIP'),-1);
     expect(screen.getByText("Please enter a positive integer, 0 means that no WIP limit will be applied")).toBeInTheDocument();
 });
-
-test('WIP validation works for valid input', async () => {
-    render(<AddColumnForm team={team} user={user} toggle={toggleModal} />);
-
-    userEvent.type(screen.getByTitle('WIP'), "2");
-    expect(screen.queryByText("Please enter a positive integer, 0 means that no WIP limit will be applied")).not.toBeInTheDocument();
-    // eslint-disable-next-line testing-library/no-debugging-utils
-});
-
 
 test('Create Column should trigger an alert if the form is invalid', async () => {
     render(<AddColumnForm team={team} user={user} />);

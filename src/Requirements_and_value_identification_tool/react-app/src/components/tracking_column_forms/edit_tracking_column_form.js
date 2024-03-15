@@ -232,6 +232,7 @@ class EditColumnForm extends Component {
                     <Input
                         type="text"
                         name="title"
+                        title="title"
                         onChange={(e) => {
                             this.onChange(e);
                             this.validateTitle(e);
@@ -252,6 +253,7 @@ class EditColumnForm extends Component {
                     <Label for="WIP">WIP limit:</Label>
                     <Input
                         type="text"
+                        title="WIP"
                         name="WIP"
                         onChange={(e) => {
                             this.onChange(e);
@@ -265,13 +267,14 @@ class EditColumnForm extends Component {
                 </FormGroup>
 
                 <div>
-                    <FormGroup className='mt-5'>
+                    <FormGroup className='mt-5' title='add_stories'>
                         <Label for="stories">Add stories to column:</Label>
                         <Multiselect
                             options={this.displayStories()}
                             onSelect={this.onStoryAddition}
                             onRemove={this.onStoryDeletion}
                             name="stories"
+                            title="add_stories"
                             className="column-story-selection"
                             style={{
                                 chips: { background: '#58c1d6' },
@@ -289,6 +292,7 @@ class EditColumnForm extends Component {
                     <Label for="mark_as_complete">Mark stories that are in this column as complete: </Label>
                     <Input
                         type="checkbox"
+                        title="mark_as_complete"
                         name="mark_as_complete"
                         onChange={this.onChangeCheckbox}
                         value={returnDefaultIfFieldEmpty(this.state.mark_as_complete)}
