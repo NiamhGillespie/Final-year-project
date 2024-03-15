@@ -5,29 +5,51 @@ import django
 from datetime import datetime
 django.setup()
 from web_app.models import *
+from django.contrib.auth.models import User
 
 def populate():
 
-    sprints = [
+    organisations = [
         {
-            'sprint_id': '0',
-            'dashboard_id': '0000',
-            'start_date': date.today(),
-            'end_date': date.today(),
-            'stories': [],
-            'story_list': ''
+            "name": "Niamh Inc"
         }
     ]
 
-    for sprint in sprints:
-        add_sprint(sprint['sprint_id'], sprint['dashboard_id'], sprint['start_date'], sprint['end_date'], sprint['stories'], sprint['story_list'])
+    for org in organisations:
+        add_org(org['name'])
 
-        
+    users = [
+        {
+            
+            "username": "naimhgilndsl",
+            "password": "passwrod123!",
+            "email": "fake@email.com",
+            "first_name": "Niamh",
+            "surname": "Gillespie",
+            "role": "team_lead",
+            "teams": [],
+        }
+    ]
+
+    for user in users:
+        add_user( user['username'], user['password'], user['email'], user['first_name'], user['surname'], user['teams'])
+        add_django_user( user['username'], user['password'], user['email'])
+
+    teams = [
+        {
+            'team_id': '0',
+            'team_name': 'Niamhs team',
+
+        }
+    ]
+
+    for team in teams:
+        add_team(team['team_id'], team['team_name'])
+
     tracking_columns = [
         {
             'column_id': '0',
-            'dashboard_id': '0000',
-            'team_id': '0000',
+            'team_id': '0',
             'title': 'Backlog',
             'mark_as_complete': False,
             'stories': [],
@@ -36,12 +58,12 @@ def populate():
     ]
 
     for column in tracking_columns:
-        add_tracking_column(column['column_id'], column['dashboard_id'], column['team_id'], column['title'], column['mark_as_complete'], column['stories'], column['WIP'])
+        add_tracking_column(column['column_id'], column['team_id'], column['title'], column['mark_as_complete'], column['stories'], column['WIP'])
 
     tags = [
         {
             'tag_id': '0',
-            'team_id': '0000',
+            'team_id': '0',
             'title': 'Test tag',
             'description': "A tag used for testing",
             'colour': 'ffffff'
@@ -55,7 +77,7 @@ def populate():
     value_tags = [
         {
             'tag_id': '0',
-            'team_id': '0000',
+            'team_id': '0',
             'title': 'Test value tag',
             'description': "A value tag used for testing",
             'sub_values': [],
@@ -63,7 +85,7 @@ def populate():
         },
         {
             'tag_id': '1',
-            'team_id': '0000',
+            'team_id': '0',
             'title': 'Test value tag #2',
             'description': "A tag used for testing",
             'sub_values': [],
@@ -79,7 +101,7 @@ def populate():
         {
             'epic_id': '1',
             'epic_colour': 'c93434',
-            'dashboard_id': '0',
+            'team_id': '0',
             'title': 'Epic for testing',
             'order': 1,
             'values': [0,1],
@@ -91,7 +113,7 @@ def populate():
     ]
 
     for epic in epics:
-        add_epic(epic['epic_id'], epic['epic_colour'], epic['dashboard_id'], epic['title'], epic['order'], epic['values'], epic['last_edited_by'], 
+        add_epic(epic['epic_id'], epic['epic_colour'], epic['team_id'], epic['title'], epic['order'], epic['values'], epic['last_edited_by'], 
                  epic['last_edited'], epic['created_by'], epic['time_created'])
         
     stories = [
@@ -120,21 +142,45 @@ def populate():
         add_story(story['story_id'], story['epic_id'], story['title'], story['order'], story['tags'], story['user_story'], 
                 story['definition_of_done'], story['values'], story['story_points'], story['priority'], 
                 story['pairable'], story['assigned_to'], story['state'], story['last_edited_by'],
-                story['last_edited'], story['created_by'], story['time_created'])
+                story['last_edited'], story['created_by'], story['time_created'])  
 
-def add_sprint(sprint_id, dashboard_id, start_date, end_date, stories, story_list):
-    sprint = Sprint.objects.get_or_create(id=sprint_id)[0]
-    sprint.dashboard_id = dashboard_id
-    sprint.start_date = start_date
-    sprint.end_date = end_date
-    sprint.stories.set(stories)
-    sprint.story_list = story_list 
-    sprint.save()
-    return sprint      
+def add_org(name):
+    org = Organisation.objects.get_or_create(name=name)[0]
+    return org
 
-def add_tracking_column(column_id, dashboard_id, team_id, title, mark_as_complete, stories, WIP):
+def add_user(username, password, email, first_name, surname, teams):
+    org = add_org("Test org")
+
+    user = UserProfile.objects.get_or_create(username=username)[0]
+
+    user.password = password
+    user.belongs_to = org
+    user.email = email
+    user.first_name = first_name
+    user.surname = surname
+    user.teams.set(teams)
+    user.save()
+    return user
+
+def add_django_user(username, password, email):
+    django_user = User.objects.get_or_create(username=username)[0]
+    django_user.password = password
+    django_user.email = email
+    django_user.save()
+    return django_user
+
+def add_team(team_id, team_name,):
+    org = add_org("Test org")
+    
+    team = Team.objects.get_or_create(id=team_id)[0]
+    team.title = team_name
+    team.belongs_to = org
+    team.save()
+    return team
+
+
+def add_tracking_column(column_id, team_id, title, mark_as_complete, stories, WIP):
     column = TrackingColumn.objects.get_or_create(id=column_id)[0]
-    column.dashboard_id = dashboard_id
     column.team_id = team_id
     column.title = title
     column.mark_as_complete = mark_as_complete
@@ -163,8 +209,8 @@ def add_value_tag(title, description, colour, tag_id, team_id, sub_values):
     tag.save()
     return tag
     
-def add_epic(epic_id, epic_colour, dashboard_id, title, order, values, last_edited_by, last_edited, created_by, time_created):
-    epic = Epic.objects.get_or_create(epic_id = epic_id, dashboard_id=dashboard_id, epic_colour = epic_colour, order=order)[0]
+def add_epic(epic_id, epic_colour, team_id, title, order, values, last_edited_by, last_edited, created_by, time_created):
+    epic = Epic.objects.get_or_create(epic_id = epic_id, team_id=team_id, epic_colour = epic_colour, order=order)[0]
     epic.title = title
     epic.last_edited_by = last_edited_by
     epic.last_edited = last_edited

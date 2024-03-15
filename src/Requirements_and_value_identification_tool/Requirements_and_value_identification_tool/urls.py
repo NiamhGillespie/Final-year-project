@@ -32,19 +32,15 @@ urlpatterns = [
     re_path(r'^api/([0-9]*)/tags', views.TeamTags, name='teamTags'),
     re_path(r'^api/([0-9]*)/values', views.TeamValues, name='teamValues'),
     re_path(r'^api/([0-9]*)/tracking-columns', views.TeamTrackingColumns, name='teamTrackingColumns'),
-    re_path(r'^api/teamName/sprints', views.TeamSprints, name='teamSprints'),
-    
+
     re_path(r'^api/teamName/epics/([0-9]*)/details$', views.EpicDetails, name='epicDetails'),
     re_path(r'^api/teamName/stories/([0-9]*)/details$', views.StoryDetails, name='storyDetails'),
     re_path(r'^api/teamName/tag-details/([0-9]*)$', views.TagDetail, name='tagDetails'),
     re_path(r'^api/teamName/value-details/([0-9]*)$', views.ValueDetail, name='valueDetails'),
     re_path(r'^api/teamName/column-details/([0-9]*)$', views.ColumnDetail, name='columnDetails'),
-    re_path(r'^api/teamName/sprint-details/([0-9]*)$', views.SprintDetails, name='sprintDetails'),
     re_path(r'^api/user-details/([0-9]*)$', views.UserDetails, name='userDetails'),
     re_path(r'^api/team-details/([0-9]*)$', views.TeamDetails, name='teamDetails'),
     re_path(r'^api/user-details-by-username/(.*)$', views.UserDetailsByUsername, name='userDetailsByUsername'),
-
-    re_path(r'^api/teamName/current-sprint', views.getCurrentTeamSprint, name='getCurrentTeamSprint'),
 
     re_path(r'^api/organisations', views.Organisations, name='createOrganisation'),
 

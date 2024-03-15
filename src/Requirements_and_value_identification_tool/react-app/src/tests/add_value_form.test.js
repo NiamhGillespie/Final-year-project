@@ -80,6 +80,13 @@ test('Description validation works for valid titles', async () => {
     expect(screen.queryByText("A description can't be longer than 200 characters")).not.toBeInTheDocument();
 });
 
+test('Interact with colour picker', async () => {
+    render(<AddValueForm team={team} user={user} toggle={toggleModal} />);
+
+    userEvent.type(screen.getByTitle('colour picker'), '#000000');
+    expect(screen.getByText("Colour example")).toHaveStyle(`background-color: #FF0000`)
+});
+
 test('Create Value should trigger an alert if the form is invalid', async () => {
     render(<AddValueForm team={team} user={user} />);
 
@@ -88,7 +95,8 @@ test('Create Value should trigger an alert if the form is invalid', async () => 
     expect(global.alert).toHaveBeenCalledTimes(1);
 });
 
-test('Create Value not should trigger an alert if the form is invalid', async () => {
+
+test('Create Value not should trigger an alert if the form is valid', async () => {
     render(<AddValueForm team={team} user={user} toggle={toggleModal} />);
 
     userEvent.type(screen.getByTitle('title'), 'Test value title');
@@ -96,6 +104,7 @@ test('Create Value not should trigger an alert if the form is invalid', async ()
     global.alert = jest.fn();
     fireEvent.click(screen.getByText('Create Value'));
     expect(global.alert).toHaveBeenCalledTimes(0);
+    expect(toggleModal).toHaveBeenCalledTimes(1);
 });
 
 //removes could not parse stylesheet prime react error - JSDOM issue with PrimeReact colour picker component

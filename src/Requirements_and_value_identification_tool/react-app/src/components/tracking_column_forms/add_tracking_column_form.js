@@ -92,6 +92,7 @@ class AddColumnForm extends Component {
                     <Input
                         type="text"
                         name="title"
+                        title="title"
                         onChange={(e) => {
                             this.onChange(e);
                             this.validateTitle(e);
@@ -113,6 +114,7 @@ class AddColumnForm extends Component {
                     <Input
                         type="text"
                         name="WIP"
+                        title="WIP"
                         onChange={(e) => {
                             this.onChange(e);
                             this.validateWIP(e);
@@ -127,6 +129,7 @@ class AddColumnForm extends Component {
                     <Label for="mark_as_complete">Mark stories that are in this column as complete: </Label>
                     <Input
                         type="checkbox"
+                        title="mark_as_complete"
                         name="mark_as_complete"
                         onChange={this.onChangeCheckbox}
                         value={returnDefaultIfFieldEmpty(this.state.mark_as_complete)}

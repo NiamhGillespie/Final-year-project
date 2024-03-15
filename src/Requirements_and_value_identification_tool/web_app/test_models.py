@@ -9,7 +9,7 @@ class EpicCreationTests(TestCase):
         """
         epic = Epic(
                 epic_id = '0',
-                dashboard_id = '0',
+                team_id = '0',
                 title = 'Test Epic Title',
                 order = 1,
                 last_edited_by = 'Niamh Gillespie',
@@ -26,7 +26,7 @@ class EpicCreationTests(TestCase):
         """
         epic = Epic(
                 epic_id = '0',
-                dashboard_id = '0',
+                team_id = '0',
                 title = 'Test Epic Title',
                 order = 1,
                 last_edited_by = 'Niamh Gillespie',
@@ -35,7 +35,7 @@ class EpicCreationTests(TestCase):
                 time_created = date.today()
             )
         epic.save()
-        self.assertEqual(epic.dashboard_id, '0')
+        self.assertEqual(epic.team_id, '0')
 
     def test_title_created(self):
         """
@@ -43,7 +43,7 @@ class EpicCreationTests(TestCase):
         """
         epic = Epic(
                 epic_id = '0',
-                dashboard_id = '0',
+                team_id = '0',
                 title = 'Test Epic Title',
                 order = 1,
                 last_edited_by = 'Niamh Gillespie',
@@ -62,7 +62,7 @@ class EpicCreationTests(TestCase):
         """
         epic = Epic(
                 epic_id = '0',
-                dashboard_id = '0',
+                team_id = '0',
                 title = 'Test Epic Title',
                 order = 1,
                 last_edited_by = 'Niamh Gillespie',
@@ -79,7 +79,7 @@ class EpicCreationTests(TestCase):
         """
         epic = Epic(
                 epic_id = '0',
-                dashboard_id = '0',
+                team_id = '0',
                 title = 'Test Epic Title',
                 order = 1,
                 last_edited_by = 'Niamh Gillespie',
@@ -96,7 +96,7 @@ class EpicCreationTests(TestCase):
         """
         epic = Epic(
                 epic_id = '0',
-                dashboard_id = '0',
+                team_id = '0',
                 title = 'Test Epic Title',
                 order = 1,
                 last_edited_by = 'Niamh Gillespie',
@@ -113,7 +113,7 @@ class EpicCreationTests(TestCase):
         """
         epic = Epic(
                 epic_id = '0',
-                dashboard_id = '0',
+                team_id = '0',
                 title = 'Test Epic Title',
                 order = 1,
                 last_edited_by = 'Niamh Gillespie',
@@ -130,7 +130,7 @@ class EpicCreationTests(TestCase):
         """
         epic = Epic(
                 epic_id = '0',
-                dashboard_id = '0',
+                team_id = '0',
                 title = 'Test Epic Title',
                 order = 1,
                 last_edited_by = 'Niamh Gillespie',
@@ -349,7 +349,7 @@ class StoryCreationTests(TestCase):
         story.save()
         story.assigned_to.set([])
         story.save()
-        self.assertEqual(str(story.assigned_to), 'web_app.User.None')
+        self.assertEqual(str(story.assigned_to), 'web_app.UserProfile.None')
 
     def test_last_edited_by_created(self):
         """
@@ -496,8 +496,7 @@ class TrackingColumnCreationTests(TestCase):
         column = TrackingColumn(
                 id = 0,
                 column_id = '0',
-                dashboard_id = '0000',
-                team_id = '0001',
+                team_id = '0',
                 title = 'Test Tracking Column',
                 mark_as_complete = False,
                 story_list = '',
@@ -508,70 +507,12 @@ class TrackingColumnCreationTests(TestCase):
         self.assertEqual(str(column), 'Test Tracking Column')
 
         self.assertEqual(column.column_id, '0')
-        self.assertEqual(column.dashboard_id, '0000')
-        self.assertEqual(column.team_id, '0001')
+        self.assertEqual(column.team_id, '0')
         self.assertEqual(column.title, 'Test Tracking Column')
         self.assertEqual(column.mark_as_complete, False)
         self.assertEqual(str(column.stories), 'web_app.Story.None')
         self.assertEqual(column.story_list, '')
         self.assertEqual(column.WIP, 5)
-
-class SprintCreationTests(TestCase):
-    def test__sprint_created(self):
-        """
-        Checks to make sure that when a Sprint is created, the correct information is added.
-        """
-        sprint = Sprint(
-            id = 0,
-            sprint_id = '0',
-            dashboard_id = '0000',
-            start_date = date.today(),
-            end_date = date.today(),
-            story_list = ''
-            )
-        sprint.stories.set([])
-        sprint.save()
-        self.assertEqual(str(sprint), '0')
-
-        self.assertEqual(sprint.id, 0)
-        self.assertEqual(sprint.sprint_id, '0')
-        self.assertEqual(sprint.dashboard_id, '0000')
-        self.assertEqual(sprint.start_date, date.today())
-        self.assertEqual(sprint.end_date, date.today())
-        self.assertEqual(str(sprint.stories), 'web_app.Story.None')
-        self.assertEqual(sprint.story_list, '')
-
-    def test__sprint_current(self):
-        """
-        Checks to make sure that a current sprint is correctly defined as current.
-        """
-        sprint = Sprint(
-            id = 0,
-            sprint_id = '0',
-            dashboard_id = '0000',
-            start_date = str(date.today()),
-            end_date = str(date.today() + timedelta(2)),
-            story_list = ''
-            )
-        sprint.stories.set([])
-        sprint.save()
-        self.assertEqual(sprint.is_current(), True)
-
-    def test__sprint_not_current(self):
-        """
-        Checks to make sure that a non current sprint is correctly defined as not being current.
-        """
-        sprint = Sprint(
-            id = 0,
-            sprint_id = '0',
-            dashboard_id = '0000',
-            start_date = str(date.today() - timedelta(10)),
-            end_date = str(date.today() - timedelta(2)),
-            story_list = ''
-            )
-        sprint.stories.set([])
-        sprint.save()
-        self.assertEqual(sprint.is_current(), False)
 
 class OrganisationCreationTests(TestCase):
     def test_organisation_created(self):
@@ -591,7 +532,7 @@ class OrganisationCreationTests(TestCase):
         self.assertEqual(org.id, 0)
         self.assertEqual(org.name, 'University of Glasgow')
         self.assertEqual(str(org.teams), 'web_app.Team.None')
-        self.assertEqual(str(org.users), 'web_app.User.None')
+        self.assertEqual(str(org.users), 'web_app.UserProfile.None')
 
 class TeamCreationTests(TestCase):
     def test_team_created(self):
@@ -620,8 +561,8 @@ class TeamCreationTests(TestCase):
 
         self.assertEqual(team.id, 0)
         self.assertEqual(team.team_name, 'Team Name')
-        self.assertEqual(str(team.team_leads), 'web_app.User.None')
-        self.assertEqual(str(team.team_members), 'web_app.User.None')
+        self.assertEqual(str(team.team_leads), 'web_app.UserProfile.None')
+        self.assertEqual(str(team.team_members), 'web_app.UserProfile.None')
         
 class UserCreationTests(TestCase):
     def test_user_created(self):
@@ -637,7 +578,7 @@ class UserCreationTests(TestCase):
         org.users.set([])
         org.save()
 
-        user = User(
+        user = UserProfile(
             id = 0,
             username = 'NiamhG',
             password ="pass123",

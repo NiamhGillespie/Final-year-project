@@ -24,7 +24,6 @@ def EpicDashboardInfo(request, team_id):
         story_serializer = StorySerializer(story_data, context={'request': request}, many=True)
 
         epic_and_story_data = [epic_serializer.data, story_serializer.data]
-
         return Response(epic_and_story_data)
     
     if request.method == 'POST':
@@ -48,7 +47,6 @@ def EpicDashboardInfo(request, team_id):
                 Epic.objects.filter(id=epic_id).update(epic_id = epic_id)
                 Epic.objects.filter(id=epic_id).update(order = order)
             
-
                 return Response(status=status.HTTP_201_CREATED)
             else:
                 return Response(epic_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -74,7 +72,6 @@ def EpicDashboardInfo(request, team_id):
 
                 return Response(status=status.HTTP_201_CREATED)
             else: 
-                print(story_serializer.errors)
                 return Response(story_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -261,66 +258,6 @@ def ColumnDetail(request, column_id):
         finally:
                 db.connections.close_all()
 
-@api_view(['GET', 'POST'])
-def TeamSprints(request):
-    if request.method == 'GET':
-
-        sprints = Sprint.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
-        sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
-        return Response(sprint_serializer.data, status=status.HTTP_200_OK)
-    
-    if request.method == 'POST':
-        sprint_serializer = SprintSerializer(data=request.data)
-        
-        if sprint_serializer.is_valid():
-            sprint_serializer.save()
-            sprint_id = sprint_serializer.data['id']
-                
-            Sprint.objects.filter(id=sprint_id).update(sprint_id = sprint_id)
-            
-            return Response(status=status.HTTP_201_CREATED)
-        else:
-            return Response(sprint_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-@api_view(['PUT', 'DELETE', 'GET'])
-def SprintDetails(request, sprint_id):
-    try:
-        sprint = Sprint.objects.get(id = sprint_id)
-    
-    except Sprint.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'PUT':
-        sprint_serializer = SprintSerializer(sprint, data=request.data,context={'request': request})
-        if sprint_serializer.is_valid():      
-            sprint_serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-        
-        return Response(sprint_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        sprint.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    elif request.method == 'GET':
-        sprint_serializer = SprintSerializer(sprint)
-        return Response(sprint_serializer.data, status=status.HTTP_200_OK)
-
-@api_view(['GET'])
-def getCurrentTeamSprint(request):
-    if request.method == 'GET':
-        sprints = Sprint.objects.filter(dashboard_id='0000') #could be teams or dashboard - decide later
-
-        current_found = False
-        for sprint in sprints:
-            if sprint.is_current():
-                sprint_serializer = SprintSerializer(sprints, context={'request': request}, many=True)
-                current_found = True
-                return Response(sprint_serializer.data, status=status.HTTP_200_OK)
-        
-        if current_found == False:
-            return Response({}, status=status.HTTP_200_OK)
-
 @api_view(['POST', 'GET'])
 def Organisations(request):
     if request.method == 'POST':
@@ -423,10 +360,8 @@ def UserDetails(request, user_id):
                 team = Team.objects.get(id = int(team_id))
                 if (user_serializer.data['role'] == 'team_lead'):
                     team.team_leads.add(user_serializer.data['id'])
-                    print(team)
                 else:
                     team.team_members.add(user_serializer.data['id'])
-                    print(team)
 
             for team_id in old_team_members:
                 if (user_serializer.data['role'] == 'team_lead'):
@@ -456,7 +391,6 @@ def UserDetails(request, user_id):
 def UserDetailsByUsername(request, username):
     try:
         user = UserProfile.objects.get(username = username)
-        print("user", user)
     
     except UserProfile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -472,7 +406,6 @@ def UserDetailsByUsername(request, username):
             userToken.save()
             return Response(status=status.HTTP_201_CREATED)
         
-        print(user_serializer.errors)
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -481,14 +414,12 @@ def UserDetailsByUsername(request, username):
 
     elif request.method == 'GET':
         user_serializer = UserSerializer(user)
-        print(user_serializer.data)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
     
 @api_view(['PUT', 'DELETE', 'GET'])
 def TeamDetails(request, team_id):
     try:
         team = Team.objects.get(id = int(team_id))
-        print("teams", team)
     
     except Team.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -523,7 +454,6 @@ def TeamDetails(request, team_id):
             
             return Response(status=status.HTTP_201_CREATED)
         
-        print(team_serializer.errors)
         return Response(team_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -532,9 +462,7 @@ def TeamDetails(request, team_id):
 
     elif request.method == 'GET':
         team_serializer = TeamSerializer(team)
-        print(team_serializer.data)
-        return Response(team_serializer.data, status=status.HTTP_200_OK)
-    
+        return Response(team_serializer.data, status=status.HTTP_200_OK)  
     
 class Logout(APIView):
     permission_classes = (IsAuthenticated,)
@@ -546,7 +474,6 @@ class Logout(APIView):
             token.blacklist()
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
-            print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
           
 @api_view(['GET'])

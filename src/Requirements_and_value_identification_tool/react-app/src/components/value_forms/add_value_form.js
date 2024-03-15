@@ -40,8 +40,7 @@ class AddValueForm extends Component {
         } else {
             this.props.toggle();
             axios.post(API_URL_SHORT + this.state.team_id + '/values', this.state).then(() => {
-                this.props.resetState();
-                
+                this.props.resetState(); 
             });
         }
     };
@@ -116,7 +115,7 @@ class AddValueForm extends Component {
                     </FormFeedback>
                 </FormGroup>
 
-                <ColorPicker className="colour-picker d-inline h-100 w-100" value={this.colour} onChange={(e) => this.setColour(e.value)} inline />
+                <ColorPicker  title="colour picker" className="colour-picker d-inline h-100 w-100" value={this.colour} onChange={(e) => this.setColour(e.value)} inline />
                 <br />
                 <p style={{ background: '#' + this.state.colour, color: 'white' }} className="d-inline-block float-right colour-example w-1 h-1">
                     Colour example
