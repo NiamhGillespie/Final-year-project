@@ -42,7 +42,7 @@ test('Loads modal', async () => {
 
     const modal_check_exists = getByText('Are you sure you want to permenantly delete this value?');
     expect(modal_check_exists).toBeTruthy();
-});
+}); 
 
 test('Check delete runs', async () => {
     const { getByText } = render(<DeleteValueModal team={team} user={user} value={value} toggle={toggleModal} />);

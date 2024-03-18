@@ -142,3 +142,4 @@ test('Delete epic as complete works as expected', async () => {
 
     expect(spyOnWindow).toHaveBeenCalledTimes(1);
 });
+ 

@@ -43,7 +43,7 @@ test('fn name on change works', async () => {
 
     expect(screen.getByTitle('first_name')).toHaveValue('Name 1');
 });
-
+ 
 test('fn validation works for too short titles', async () => {
     render(<EditUserForm user={user} toggle={toggleModal} />);
 

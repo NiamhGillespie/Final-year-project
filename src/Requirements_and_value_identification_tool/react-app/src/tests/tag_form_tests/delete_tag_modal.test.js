@@ -26,7 +26,7 @@ const tag = {
     "description": "",
     "colour": "1e00ff"
 }
-
+ 
 test('Loads modal button', async () => {
     const { getByText } = render(<DeleteTagModal team={team} user={user} tag={tag} toggle={toggleModal} />);
     const column_exists = getByText('Delete');

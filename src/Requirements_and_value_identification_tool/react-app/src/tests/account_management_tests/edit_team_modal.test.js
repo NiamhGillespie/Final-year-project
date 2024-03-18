@@ -33,6 +33,6 @@ test('Loads modal', async () => {
 
     const modal_submit_exists = getByText('Edit Team');
     expect(modal_submit_exists).toBeTruthy();
-});
+}); 
 
 

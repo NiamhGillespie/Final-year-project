@@ -25,7 +25,7 @@ test('Loads modal button', async () => {
 
     expect(column_exists).toBeTruthy();
 });
-
+ 
 test('Loads modal', async () => {
     const { getByText } = render(<AddTagModal team={team} user={user} toggle={toggleModal} />);
     jest.fn()

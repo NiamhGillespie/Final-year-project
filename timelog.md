@@ -473,3 +473,12 @@
 ### 15 March 2024
 * *0.5 hours* Wrote up meeting minute notes
 * *6 hours* Writing react tests
+
+
+## Week 24
+
+### 16 March 2024
+* *4.5 hours* Carried out Lighthouse performance evaluation, then wrote up testing and performance evaluation sections of the evaluation section of the dissertation and began writing up user evaluation section.
+
+### 17 March 2024
+* *9.5 hours* Coded user evaluation responses and edited the previously written evaluation sections. Then completed writing the evaluation section

@@ -57,7 +57,7 @@ test('Title validation works for too short titles', async () => {
     expect(screen.getByText('Please enter a title')).toBeInTheDocument();
     expect(screen.queryByText("The title can't be longer than 30 characters")).not.toBeInTheDocument();
 });
-
+ 
 test('Title validation works for too long titles', async () => {
     render(<EditTagForm team={team} user={user} tag={tag} toggle={toggleModal} />);
 

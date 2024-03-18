@@ -26,7 +26,7 @@ const tag = {
     "description": "",
     "colour": "1e00ff"
 }
-
+ 
 test('Loads modal button', async () => {
     const { getByText } = render(<EditValueModal team={team} user={user} value={tag} toggle={toggleModal} />);
     const tag_exists = getByText('Test value');

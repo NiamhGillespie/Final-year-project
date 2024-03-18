@@ -29,7 +29,7 @@ test('Loads form fields properly', async () => {
     expect(wip_limit_exists).toBeTruthy();
     expect(checkbox_exists).toBeTruthy();
 });
-
+ 
 test('Title on change works', async () => {
     render(<AddColumnForm team={team} user={user} toggle={toggleModal} />);
     userEvent.type(screen.getByTitle('title'), 'Test value title');

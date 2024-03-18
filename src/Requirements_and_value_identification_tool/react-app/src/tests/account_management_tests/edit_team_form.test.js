@@ -132,4 +132,4 @@ test('Loads delete modal', async () => {
     var spyOnWindow = jest.spyOn(window, 'confirm');
     fireEvent.click(screen.getByTitle('delete_button'));
     expect(spyOnWindow).toHaveBeenCalledTimes(1);
-});
+}); 

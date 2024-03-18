@@ -17,7 +17,7 @@ const user = {
     role: 'team_member',
     belongs_to: '2',
     teams: [0]
-};
+}; 
 const toggleModal = jest.fn();
 
 test('Loads form fields properly', async () => {

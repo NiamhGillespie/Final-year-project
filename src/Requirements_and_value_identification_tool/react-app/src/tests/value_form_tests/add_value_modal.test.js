@@ -24,7 +24,7 @@ test('Loads modal button', async () => {
     const column_exists = getByText('Add Value');
 
     expect(column_exists).toBeTruthy();
-});
+}); 
 
 test('Loads modal', async () => {
     const { getByText } = render(<AddValueModal team={team} user={user} toggle={toggleModal} />);

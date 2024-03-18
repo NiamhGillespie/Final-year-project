@@ -74,7 +74,7 @@ test('Loads form fields properly', async () => {
     expect(checkbox_exists).toBeTruthy();
     expect(delete_exists).toBeTruthy();
 });
-
+ 
 test('Title on change works', async () => {
     render(
         <EditColumnForm team={team} user={user} non_completed_stories={non_completed_stories} epics={epics} column={column} resetState={resetState} toggle={toggleModal} />
