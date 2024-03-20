@@ -357,6 +357,7 @@ class UserDetailsTests(TestCase):
         populate()
         response = client.get('/api/user-details/1')
     
+        #jfrog-ignore
         expected_data = {'id': 1, 'belongs_to': 2, 'username': 'naimhgilndsl', 'password': 'passwrod123!', 'email': 'fake@email.com', 'first_name': 'Niamh', 'surname': 'Gillespie', 'role': 'error', 'teams': [], 'profile_photo': None}
         self.assertEqual(response.data, expected_data)
 
@@ -472,7 +473,7 @@ class UserDetailsByUsernameTests(TestCase):
     def test_GET_request_expected_data(self):
         populate()
         response = client.get('/api/user-details-by-username/naimhgilndsl')
-
+        #jfrog-ignore
         expected_data = {'id': 1, 'belongs_to': 2, 'username': 'naimhgilndsl', 'password': 'passwrod123!', 'email': 'fake@email.com', 'first_name': 'Niamh', 'surname': 'Gillespie', 'role': 'error', 'teams': [], 'profile_photo': None}
         self.assertEqual(response.data, expected_data)
 

@@ -22,6 +22,7 @@ def populate():
         {
             
             "username": "naimhgilndsl",
+            #jfrog-ignore
             "password": "passwrod123!",
             "email": "fake@email.com",
             "first_name": "Niamh",
