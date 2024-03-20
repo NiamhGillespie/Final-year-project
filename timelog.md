@@ -482,3 +482,12 @@
 
 ### 17 March 2024
 * *9.5 hours* Coded user evaluation responses and edited the previously written evaluation sections. Then completed writing the evaluation section
+
+### 18 March 2024
+* *4.5 hours* Worked on the implementation section of the dissertation, and went through Peggy's feedback on what I had written so far. 
+
+### 19 to 20 March 2024
+* *8 hours* Finished first draft of conclusion, background and implementation 
+
+### 20 March 2024
+* *7.5 hours* Proofing dissertation, began working on powerpoint
