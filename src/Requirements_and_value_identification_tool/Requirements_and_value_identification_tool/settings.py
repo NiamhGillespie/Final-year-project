@@ -35,7 +35,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 #jfrog-ignore
-with open("Requirements_and_value_identification_tool\django_key.txt") as f:
+with open(".\Requirements_and_value_identification_tool\django_key.txt") as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
