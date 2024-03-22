@@ -1,4 +1,5 @@
 # Presentation
 
-Include your presentation slides here. You should include the slides in the original format you authored them in (e.g. PowerPoint, Keynote), *and*
-a `pdf` version of the slides. Any necessary videos, audio, images, figures, etc. should be present.
+This folder includes the project presentation slides both in the orignal format they were authored in (PowerPoint) and as a PDF.
+
+The presentation video is also included here.

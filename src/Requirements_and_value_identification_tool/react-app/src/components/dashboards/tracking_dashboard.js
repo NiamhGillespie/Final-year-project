@@ -260,9 +260,6 @@ export class TrackingDashboard extends Component {
                                     {(provided, snapshot) => (
                                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                             <div {...provided.dragHandleProps}>
-                                                {/* <p className="story-title"> {story.title} </p>
-                                                {this.displayUserImages(story)}
-                                                <p className="story-priority"> {displayPriority(story.priority)} </p> */}
 
                                                 <StoryDetailsModal
                                                     resetState={this.resetState}

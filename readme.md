@@ -1,27 +1,61 @@
-# Guidance
-This is a suggested template for a project. You can modify it as you please, but
-but remember to keep:
+# RViT - A Requirements and Value Identification Tool for Prioritisation
 
-* a timelog, updated regularly in the `timelog.md` format;
-* all source under version control;
-* data well organised and with appropriate ethical approval (for human subject data);
+A hosted version of RViT can be accessed at: https://rvit.netlify.app/
 
-Here's an overview of the structure as it stands:
+## Project structure 
+* `timelog.md` The timelog for my project.
+* `data/` data from user evaluation.
+* `src/` source code for RViT.
+* `status_report/` the status report submitted in December.
+* `dissertation/` source for my project dissertation.
+* `presentation/` my presentation slides and video.
 
-* `timelog.md` The time log for your project.
-* `plan.md` A skeleton week-by-week plan for the project. 
-* `data/` data you acquire during the project
-* `src/` source code for your project
-* `status_report/` the status report submitted in December
-* `meetings/` Records of the meetings you have during the project.
-* `dissertation/` source and for your project dissertation
-* `presentation/` your presentation
+### Requirements
 
-* Make sure you add a `.gitignore` or similar for your VCS for the tools you are using!
-* Add any appropriate continuous integration (e.g. Travis CI) in this directory.
+For the Django API:
+* Python 3.11.0
+* Packages listed in `requirements.txt` 
+* Tested on Windows 11
 
-* Remove this `readme.md` file from any repository and replace it with something more appropriate!
+For the React Web Aplication:
+* Node Js v18.12.1
+* Packages listed in `package.json`
+* Tested on Windows 11
 
-## Important
-* It should be easy to rebuild and run your project and your dissertation
-        * Include clear instructions in the relevant directories to make this possible
+
+
+### Build steps
+For the Django API: \
+Open a command prompt and navigate to the project folder. \
+Navigate to the `src` folder \
+Run the following command to access the virtual environment `django\Scripts\activate` \
+Alternatively you can create your own python virtual environment and install the project requirements with the following command `pip install -r requirements.txt`\
+Now navigate to the `src\Requirements_and_value_identification_tool` folder and run `python manage.py runserver`. This should locally host the API. \
+A list of the endpoints can be found in the `C:\Users\niamh\Final-year-project\src\Requirements_and_value_identification_tool\Requirements_and_value_identification_tool\urls.py` folder.
+
+For the React JS Web application:
+Open a second command prompt and navigate to the project folder. \
+Navigate to the `src\Requirements_and_value_identification_tool\react-app` folder \
+Run the following command to install project dependencies `npm install` \
+After these have installed, run the project with the following command `npm start`. \
+
+Note that the web app is currently configured to use the hosted Django API. To change this to use the locally hosted API, navigate to the `src\Requirements_and_value_identification_tool\react-app\src\constants\index.js` file and change the short URL from the hosted API to the locally hosted one. 
+
+
+
+### Testing
+To get a code coverage report of the Django code run the following code in the `src\Requirements_and_value_identification_tool` folder.\
+Make sure the virtual environment is running and the relevant requirements have been installed.\
+`coverage run manage.py test web_app`\
+`coverage report`
+
+
+To get a code coverage report of the React JS code, run the following command in the `src\Requirements_and_value_identification_tool\react_app` folder.\
+Before running this, make sure that dependancies have been installed using npm.\
+`npm test -- --coverage --watchAll`\
+
+
+
+
+
+
