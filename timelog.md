@@ -494,3 +494,6 @@
 
 ### 21 March 2024
 * *12 hours* Finished powerpoint, had supervisor meeting with Peggy. Re-vamped introduction, requirements, background and implementation sections based on Peggy's feedback
+
+### 22 March 2024
+* *14 hours* Finishing off project
